@@ -11,9 +11,11 @@ namespace Tagplaner
 {
     //Author: Stefan, Arnold
 
-    // Bei Fehlern -> http://www.microsoft.com/en-us/download/details.aspx?id=3508 
+
     class WorksheetGenerator : IWorksheetGenerator
     {
+
+        public WorksheetGenerator() { }
         static void dostuff()
         {
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -55,10 +57,10 @@ namespace Tagplaner
 
             aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
             aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-            // Change the cells in the C1 to C7 range of the worksheet to the number 8.
             aRange.Value2 = "C# SEMINAR";
         }
-        public bool WriteFile(object[][] days)
+       
+        public bool WriteFile(string[,] days)
         {
             throw new NotImplementedException();
         }
