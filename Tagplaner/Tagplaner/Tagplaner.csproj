@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\CHoliday.cs" />
+    <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +53,7 @@
       <DependentUpon>FormInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\IHoliday.cs" />
+    <Compile Include="Interface\ISerialize.cs" />
     <Compile Include="Model\MHoliday.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
