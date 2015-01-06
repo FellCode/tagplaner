@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
-    <Compile Include="Excel\Class1.cs" />
+    <Compile Include="Excel\WorksheetGenerator.cs" />
     <Compile Include="Excel\IWorksheetGenerator.cs" />
     <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
