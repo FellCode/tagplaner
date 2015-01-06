@@ -12,7 +12,7 @@ namespace Tagplaner
     {
 
         //days muss Kalendertag sowie Seminar/Urlaub/Schultag und Bemerkung/Raum usw. enthalten
-        bool WriteFile(Object[][] days);
+        bool WriteFile(string[,] days);
 
 
     }
