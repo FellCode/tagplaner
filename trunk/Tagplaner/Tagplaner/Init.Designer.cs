@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "Init";
+            this.Load += new System.EventHandler(this.Init_Load);
             this.ResumeLayout(false);
 
         }

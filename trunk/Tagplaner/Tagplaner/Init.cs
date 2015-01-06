@@ -16,5 +16,10 @@ namespace Tagplaner
         {
             InitializeComponent();
         }
+
+        private void Init_Load(object sender, EventArgs e)
+        {
+            //comment
+        }
     }
 }
