@@ -9,7 +9,7 @@ namespace Tagplaner
     static class Program
     {
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// Der Haupteinstiegspunkt für die Anwendung. Krass!
         /// </summary>
         [STAThread]
         static void Main()
