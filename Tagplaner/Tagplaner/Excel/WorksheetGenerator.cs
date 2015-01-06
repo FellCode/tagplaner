@@ -10,6 +10,8 @@ using System.Reflection;
 namespace Tagplaner
 {
     //Author: Stefan, Arnold
+
+    // Bei Fehlern -> http://www.microsoft.com/en-us/download/details.aspx?id=3508 
     class WorksheetGenerator : IWorksheetGenerator
     {
         static void dostuff()
