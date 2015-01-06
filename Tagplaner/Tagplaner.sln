@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testCommit", "testCommit", 
 		Holler.txt = Holler.txt
 		Matthias.txt = Matthias.txt
 		Smuda.txt = Smuda.txt
-		Wazal.txt = Wazal.txt
 	EndProjectSection
 EndProject
 Global
