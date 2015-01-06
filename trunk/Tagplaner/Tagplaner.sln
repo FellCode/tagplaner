@@ -13,6 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testCommit", "testCommit", 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektdokumente", "Projektdokumente", "{BBEAC95B-C2DC-4069-AA22-CA158EF1C146}"
+	ProjectSection(SolutionItems) = preProject
+		StarUML.pdf = StarUML.pdf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
