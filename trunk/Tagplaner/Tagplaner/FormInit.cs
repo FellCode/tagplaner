@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    public partial class Init : Form
+    public partial class FormInit : Form
     {
-        public Init()
+        public FormInit()
         {
             InitializeComponent();
         }
