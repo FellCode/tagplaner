@@ -1,6 +1,6 @@
 ﻿namespace Tagplaner
 {
-    partial class Init
+    partial class FormInit
     {
         /// <summary>
         /// Erforderliche Designervariable.
