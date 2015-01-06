@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagplaner", "Tagplaner\Tagplaner.csproj", "{B179D87C-61A6-42DF-80CF-845282615205}"
 EndProject
@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testCommit", "testCommit", 
 		Holler.txt = Holler.txt
 		Matthias.txt = Matthias.txt
 		Smuda.txt = Smuda.txt
+		Wazal.txt = Wazal.txt
 	EndProjectSection
 EndProject
 Global
