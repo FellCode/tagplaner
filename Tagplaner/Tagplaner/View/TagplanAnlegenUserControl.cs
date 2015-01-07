@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tagplaner.View
+namespace Tagplaner
 {
     public partial class TagplanAnlegenUserControl : UserControl
     {
@@ -23,6 +23,11 @@ namespace Tagplaner.View
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void TagplanAnlegenUserControl_Load(object sender, EventArgs e)
         {
 
         }
