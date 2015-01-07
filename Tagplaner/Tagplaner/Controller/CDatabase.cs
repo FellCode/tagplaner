@@ -122,7 +122,7 @@ namespace Tagplaner
                                 +"seminartag_id integer,"
                                 +"fk_trainer_id integer null,"
                                 +"fk_cotrainer_id integer null,"
-                                +"fk_seminar_id integer,"
+                                +"fk_seminar_id integer null,"
                                 +"primary key(seminartag_id),"
                                 +"foreign key(fk_trainer_id) references trainer(trainer_id),"
                                 +"foreign key(fk_cotrainer_id) references trainer(trainer_id))";
