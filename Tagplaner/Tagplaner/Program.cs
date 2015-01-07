@@ -16,7 +16,7 @@ namespace Tagplaner
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SaveLoad());
+            Application.Run(new FormInit());
         }
     }
 }
