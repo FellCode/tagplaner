@@ -31,5 +31,16 @@ namespace Tagplaner
         {
 
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox1.Visible = true;
+            groupBox2.Visible = false;
+        }
+
+        private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
+        {
+            groupBox2.Visible = true;
+        }
     }
 }
