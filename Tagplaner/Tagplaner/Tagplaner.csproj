@@ -46,6 +46,10 @@
   <ItemGroup>
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
+    <Compile Include="Model\MPlace.cs" />
+    <Compile Include="Model\MRoom.cs" />
+    <Compile Include="Model\MTrainer.cs" />
+    <Compile Include="Model\MSeminar.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
