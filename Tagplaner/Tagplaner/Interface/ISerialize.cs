@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class ISerialize
+    interface ISerialize
     {
         void SerializeObject(Object obj);
         Object DeserializeObject(Object obj);
