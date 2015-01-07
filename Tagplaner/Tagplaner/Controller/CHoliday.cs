@@ -38,20 +38,23 @@ namespace Tagplaner
                     String[] values = file.ReadLine().Split(';');
                     if (Convert.ToDateTime(values[0]) >= startDate)
                     {
+                        Console.WriteLine(values[0]);
                         MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
                         holidayList.Add(mHoliday);
                     }
                 }
-
-
-            file = new StreamReader("CSV\\" + region + endDate.Year +".csv");
-                while (!file.EndOfStream)
+                file = new StreamReader("CSV\\" + region + endDate.Year + ".csv");
+                if (file.ReadLine() != null)
                 {
-                    String[] values = file.ReadLine().Split(';');
-                    if (Convert.ToDateTime(values[0]) <= endDate)
+                    while (!file.EndOfStream)
                     {
-                        MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
-                        holidayList.Add(mHoliday);
+                        String[] values = file.ReadLine().Split(';');
+                        if (Convert.ToDateTime(values[0]) <= endDate)
+                        {
+                            Console.WriteLine(values[0]);
+                            MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
+                            holidayList.Add(mHoliday);
+                        }
                     }
                 }
             }
