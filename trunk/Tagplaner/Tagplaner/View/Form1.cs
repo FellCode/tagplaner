@@ -33,7 +33,7 @@ namespace Tagplaner
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = @"C:\Tagplan";
             openFileDialog1.Title = "Tagplan öffnen";
-            //openFileDialog1.Filter = "Tagplan|*.tp";
+            openFileDialog1.Filter = "Tagplan|*.tp";
             openFileDialog1.Multiselect = true;
                 openFileDialog1.ShowDialog();
                 string[] result = openFileDialog1.FileNames;
