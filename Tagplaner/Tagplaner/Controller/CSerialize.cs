@@ -13,13 +13,13 @@ namespace Tagplaner
         private static BinaryFormatter formatter;
         private static FileStream stream;
 
-        public static void SerializeObject(Object obj)
+        public void SerializeObject(Object obj)
         {
             stream = new FileStream(@"C:\MyObjects.dat", FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
-        public static Object DeserializeObjetct(Object obj)
+        public Object DeserializeObject(Object obj)
         {
             FileStream stream = new FileStream(@"C:\MyObject.dat", FileMode.Open);
             return formatter.Deserialize(stream);

@@ -8,7 +8,7 @@ namespace Tagplaner
 {
     class ISerialize
     {
-        static void SerializeObject(Object obj);
-        static void DeserializeObject(Object obj);
+        void SerializeObject(Object obj);
+        Object DeserializeObject(Object obj);
     }
 }
