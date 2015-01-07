@@ -24,13 +24,14 @@ namespace Tagplaner
         }
 
         private void initTabPages() {
-            UserControl userControl = new UserControl();
-            userControl.Dock = DockStyle.Fill;
-            userControl.BackColor = Color.White;
+
+            TagplanAnlegenUserControl tagplanAnlegenUserControl = new TagplanAnlegenUserControl();
+            tagplanAnlegenUserControl.Dock = DockStyle.Fill;
+            tagplanAnlegenUserControl.BackColor = Color.White;
 
             TabPage daySchedule = new TabPage();
             daySchedule.Text = "Tagplan erstellen";
-            daySchedule.Controls.Add(userControl);
+            daySchedule.Controls.Add(tagplanAnlegenUserControl);
             tabControl1.TabPages.Add(daySchedule);
         }
     }
