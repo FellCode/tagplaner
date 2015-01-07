@@ -9,6 +9,6 @@ namespace Tagplaner
 {
     interface IHoliday    
     {
-        List<MHoliday> GetHolidayDummy(String region);
+        List<MHoliday> GetHoliday(String region);
     }
 }
