@@ -10,6 +10,7 @@ namespace Tagplaner
 {
     class CHoliday : IHoliday
     {
+
        /* public List<MHoliday> GetHoliday(String region)
         {
             List<MHoliday> holidayArray = new List<MHoliday>();
@@ -28,26 +29,21 @@ namespace Tagplaner
         public List<MHoliday> GetHoliday(String region)
         {
             List<MHoliday> holidayList = new List<MHoliday>();
+            Console.WriteLine("CSV\\" + region + "2015.csv");
             StreamReader file =
-                new StreamReader("\\CSV\\"+ region +"2015.csv");
-
+                new StreamReader("CSV\\" + region + "2015.csv");
             if (file.ReadLine() != null)
             {
-                file.ReadLine().Split(';');
-                while (file.ReadLine() != null)
+                while (!file.EndOfStream)
                 {
                     String[] values = file.ReadLine().Split(';');
-                    MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
-                    Console.WriteLine(mHoliday.holidayDate);
+                    MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), Convert.ToDateTime(values[0]), values[1]);
                     holidayList.Add(mHoliday);
                 }
             }
-               file.Close();
+            file.Close();
 
-               return holidayList;
-
+            return holidayList;
         }
-
     }
-   
 }
