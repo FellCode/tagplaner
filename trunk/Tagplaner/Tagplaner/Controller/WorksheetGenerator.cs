@@ -16,7 +16,7 @@ namespace Tagplaner
     {
 
         public WorksheetGenerator() { }
-        static void dostuff()
+        static void DoStuff()
         {
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -36,7 +36,7 @@ namespace Tagplaner
             }
 
 
-            Range aRange = ws.get_Range("C3", "C7");
+            Range aRange = ws.get_Range("C3", "D7");
 
             if (aRange == null)
             {
@@ -54,6 +54,7 @@ namespace Tagplaner
             aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
             aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.PeachPuff);
             aRange.Merge(Missing.Value);
+            aRange.EntireColumn.ColumnWidth = 20;
 
             aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
             aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
