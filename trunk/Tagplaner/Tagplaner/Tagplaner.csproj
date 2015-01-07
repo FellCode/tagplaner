@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
-    <Compile Include="Controller\TestClassCSV.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
