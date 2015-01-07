@@ -37,7 +37,7 @@ namespace Tagplaner
                 while (!file.EndOfStream)
                 {
                     String[] values = file.ReadLine().Split(';');
-                    MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), Convert.ToDateTime(values[0]), values[1]);
+                    MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
                     holidayList.Add(mHoliday);
                 }
             }
