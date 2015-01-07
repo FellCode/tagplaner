@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MHoliday
+    public class MHoliday
     {
         public DateTime startHolidayDate { get; set; }
         public DateTime endHolidayDate { get; set; }
