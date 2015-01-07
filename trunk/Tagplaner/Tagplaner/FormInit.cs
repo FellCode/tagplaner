@@ -19,7 +19,19 @@ namespace Tagplaner
 
         private void Init_Load(object sender, EventArgs e)
         {
+            // Initialize tabpages
+            initTabPages();
+        }
 
+        private void initTabPages() {
+            UserControl userControl = new UserControl();
+            userControl.Dock = DockStyle.Fill;
+            userControl.BackColor = Color.White;
+
+            TabPage daySchedule = new TabPage();
+            daySchedule.Text = "Tagplan erstellen";
+            daySchedule.Controls.Add(userControl);
+            tabControl1.TabPages.Add(daySchedule);
         }
     }
 }
