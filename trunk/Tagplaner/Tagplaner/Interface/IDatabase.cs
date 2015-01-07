@@ -15,6 +15,5 @@ namespace Tagplaner
         //Könnte man in Select, Update und delete aufteilen
         SQLiteDataReader Executequery(string query);
 
-
     }
 }
