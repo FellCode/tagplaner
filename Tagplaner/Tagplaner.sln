@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagplaner", "Tagplaner\Tagp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektdokumente", "Projektdokumente", "{BBEAC95B-C2DC-4069-AA22-CA158EF1C146}"
 	ProjectSection(SolutionItems) = preProject
+		F:\mock1.PNG = F:\mock1.PNG
+		F:\mock2.PNG = F:\mock2.PNG
 		..\..\..\..\..\Desktop\Neues Textdokument.txt = ..\..\..\..\..\Desktop\Neues Textdokument.txt
 		StarUML.pdf = StarUML.pdf
 	EndProjectSection
