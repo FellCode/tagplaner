@@ -69,6 +69,7 @@
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Interface\IDatabase.cs" />
+    <Compile Include="Model\MCalender.cs" />
     <Compile Include="Model\MPlace.cs" />
     <Compile Include="Model\MRoom.cs" />
     <Compile Include="Model\MTrainer.cs" />
