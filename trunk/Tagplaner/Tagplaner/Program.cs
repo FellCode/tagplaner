@@ -9,14 +9,15 @@ namespace Tagplaner
     static class Program
     {
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung. Krass!
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormInit());
+            Application.Run(new SaveLoad());
         }
     }
 }
+
