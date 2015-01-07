@@ -26,17 +26,17 @@ namespace Tagplaner
         /// </summary>
         /// <param name="region"></param>
         /// <returns></returns>
-        public List<MHoliday> GetHoliday(String region, DateTime startYear)
+        public List<MHoliday> GetHoliday(String region, DateTime startDate, DateTime endDate)
         {
             List<MHoliday> holidayList = new List<MHoliday>();
             StreamReader file =
-                new StreamReader"CSV\\" + region + startYear.Year +.csv");
+                new StreamReader("CSV\\" + region + startDate.Year +".csv");
             if (file.ReadLine() != null)
             {
                 while (!file.EndOfStream)
                 {
                     String[] values = file.ReadLine().Split(';');
-                    if (Convert.ToDateTime(values[0]) >= startYear)
+                    if (Convert.ToDateTime(values[0]) >= startDate)
                     {
                         MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
                         holidayList.Add(mHoliday);
@@ -44,12 +44,11 @@ namespace Tagplaner
                 }
 
 
-            StreamReader file =
-                new StreamReader"CSV\\" + region + endYear.Year +.csv");
+            file = new StreamReader("CSV\\" + region + endDate.Year +".csv");
                 while (!file.EndOfStream)
                 {
                     String[] values = file.ReadLine().Split(';');
-                    if (Convert.ToDateTime(values[0]) >= startYear)
+                    if (Convert.ToDateTime(values[0]) <= endDate)
                     {
                         MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
                         holidayList.Add(mHoliday);
