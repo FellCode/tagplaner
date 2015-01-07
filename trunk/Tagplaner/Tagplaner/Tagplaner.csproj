@@ -47,9 +47,9 @@
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\TestClassCSV.cs" />
-    <Compile Include="Excel\ExcelDummy.cs" />
-    <Compile Include="Excel\WorksheetGenerator.cs" />
-    <Compile Include="Excel\IWorksheetGenerator.cs" />
+    <Compile Include="Model\ExcelDummy.cs" />
+    <Compile Include="Controller\WorksheetGenerator.cs" />
+    <Compile Include="Interface\IWorksheetGenerator.cs" />
     <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
     </Compile>
