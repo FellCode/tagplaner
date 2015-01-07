@@ -60,21 +60,99 @@ namespace Tagplaner
 
 
         //Für die erst Instalation der Datenbank
-        //noch in arbeit
         public void createdb()
         {
-            SQLiteConnection.CreateFile("TagplanerDatabase.sqlite");
+            SQLiteConnection.CreateFile(url);
 
-            SQLiteConnection m_dbConnection;
-            m_dbConnection = new SQLiteConnection("Data Source=TagplanerDatabase.sqlite;Version=3;");
-            m_dbConnection.Open();
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source="+url+"Version=3;");
+            connect.Open();
 
-            string sql = "create table";
+            string sql = "CREATE TABLE trainer("
+                        +"trainer_id integer,"
+                        +"vorname varchar(100),"
+                        +"nachname varchar(100),"
+                        +"kuerzel varchar(5),"
+                        +"primary key(trainer_id))";
 
-            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand(sql, connect);
             command.ExecuteNonQuery();
 
-            m_dbConnection.Close();
+            command.CommandText = "CREATE TABLE seminarort("
+                                    + "seminarort_id integer,"
+                                    + "ort varchar(100),"
+                                    + "ansprechpartner varchar(100),"
+                                    + "primary key(seminarort_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE raum("
+                                +"raum_id integer,"
+                                +"raumnummer varchar(50),"
+                                +"fk_seminarort_id integer,"
+                                +"primary key(raum_id),"
+                                +"foreign key(fk_seminarort_id) references seminarort(seminarort_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE Kalendertag ("
+                                +"kalendertag_id integer,"
+                                +"datum date,"
+                                +"ferien_name varchar(100),"
+                                +"kalenderwoche integer,"
+                                +"primary key (kalendertag_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE fachrichtung("
+                                +"fachrichtung_id integer,"
+                                +"bezeichnung varchar(100),"
+                                +"ausbildungsjahr varchar(15),"
+                                +"bundesland varchar(50),"
+                                +"primary key(fachrichtung_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE seminar("
+                                +"seminar_id integer,"
+                                +"titel varchar(50),"
+                                +"untertitel varchar(100),"
+                                +"kuerzel varchar(20),"
+                                +"technik varchar(200),"
+                                +"primary key(seminar_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE seminartag("
+                                +"seminartag_id integer,"
+                                +"fk_trainer_id integer null,"
+                                +"fk_cotrainer_id integer null,"
+                                +"fk_seminar_id integer,"
+                                +"primary key(seminartag_id),"
+                                +"foreign key(fk_trainer_id) references trainer(trainer_id),"
+                                +"foreign key(fk_cotrainer_id) references trainer(trainer_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE se_2_ra("
+                                +"fk_seminar_id integer,"
+                                +"fk_raum_id integer,"
+                                +"gruppenraum integer,"
+                                +"primary key(fk_seminar_id, fk_raum_id),"
+                                +"foreign key(fk_seminar_id) references seminar(seminar_id),"
+                                +"foreign key(fk_raum_id) references raum(raum_id))";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE ka_2_se_2_fa("
+                                +"fk_kalendertag_id integer,"
+                                +"fk_fachrichtung_id integer,"
+                                +"fk_seminartag_id integer null,"
+                                +"typ varchar(50),"
+                                +"bemerkung varchar(200),"
+                                +"primary key(fk_kalendertag_id,fk_fachrichtung_id),"
+                                +"foreign key(fk_kalendertag_id) references kalendertag(kalendertag_id),"
+                                +"foreign key(fk_fachrichtung_id) references fachrichtung(fachrichtung_id),"
+                                +"foreign key(fk_seminartag_id) references seminartag(seminartag_id))";
+            command.ExecuteNonQuery();
+            connect.Close();
+     
+            
+
+
 
         }
 
