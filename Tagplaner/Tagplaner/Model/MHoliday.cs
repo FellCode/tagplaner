@@ -8,13 +8,15 @@ namespace Tagplaner
 {
     class MHoliday
     {
-        public DateTime holidayDate { get; set; }
+        public DateTime startHolidayDate { get; set; }
+        public DateTime endHolidayDate { get; set; }
         public String holidayName { get; set; }
 
-        public MHoliday(DateTime hD, String hN)
+        public MHoliday(DateTime startHolidayDate, DateTime endHolidayDate, String holidayName)
         {
-            this.holidayDate = hD;
-            this.holidayName = hN;
+            this.startHolidayDate = startHolidayDate;
+            this.endHolidayDate = endHolidayDate;
+            this.holidayName = holidayName;
         }
     }
 }
