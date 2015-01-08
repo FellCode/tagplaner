@@ -56,6 +56,9 @@
     <Reference Include="DDay.iCal">
       <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -73,10 +76,10 @@
   <ItemGroup>
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
+    <Compile Include="Controller\CPdfExporter.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\CalendarUtilitys.cs" />
     <Compile Include="Controller\ICalCSVConverter.cs" />
-    <Compile Include="Controller\PdfExporter.cs" />
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Interface\ICalendarUtilitys.cs" />
     <Compile Include="Interface\IICalCSVConverter.cs" />
