@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Tagplaner
 {
     public class CDatabase : IDatabase
     {
-        private SQLiteDataReader result;
         private string url="TagplanerDatabase.sqlite";
         private SQLiteConnection m_dbConnection;
-        private SQLiteCommand m_command;
+        private SQLiteCommand m_dbCommand;
 
         public bool ConnectDatabase()
         {
 
-            SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=" + url);
+            m_dbConnection = new SQLiteConnection("Data Source=" + url);
             try
             {
                 m_dbConnection.Open();
-                m_command = new SQLiteCommand("PRAGMA foreign_keys=on", m_dbConnection);
+                m_dbCommand = new SQLiteCommand("PRAGMA foreign_keys=on", m_dbConnection);
                 return true;
             }
             catch(SQLiteException)
@@ -48,8 +49,8 @@ namespace Tagplaner
 
         public SQLiteDataReader ExecuteQuery(string query)
         {
-            m_command.CommandText = query;
-            SQLiteDataReader reader = m_command.ExecuteReader();
+            m_dbCommand.CommandText = query;
+            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
             return reader;
         }
         
@@ -296,6 +297,81 @@ namespace Tagplaner
             command.ExecuteNonQuery();
 
             connect.Close();
+        }
+
+        public void FillTrainerCombobox(ComboBox combobox)
+        {
+            Dictionary<string, string> trainer;
+
+            trainer = new Dictionary<string, string>();
+
+            ConnectDatabase();
+
+            SQLiteDataReader reader = ExecuteQuery("select trainer_id, vorname, nachname from trainer");
+
+            while(reader.Read())
+            {
+                trainer.Add(reader["trainer_id"].ToString(), reader["vorname"].ToString() + reader["nachname"].ToString());
+            }
+
+            BindingSource trainersource = new BindingSource();
+
+            trainersource.DataSource = trainer;
+            combobox.DataSource = trainersource;
+            combobox.DisplayMember = "Value";
+            combobox.ValueMember = "Key";
+
+            CloseDatabase();
+        }
+
+        public void FillSeminarCombobox(ComboBox combobox)
+        {
+            Dictionary<string, string> seminar;
+
+            seminar = new Dictionary<string, string>();
+
+            ConnectDatabase();
+
+            SQLiteDataReader reader = ExecuteQuery("select seminar_id, titel from seminar");
+
+            while (reader.Read())
+            {
+                seminar.Add(reader["seminar_id"].ToString(), reader["titel"].ToString());
+            }
+
+            BindingSource seminarsource = new BindingSource();
+
+            seminarsource.DataSource = seminar;
+            combobox.DataSource = seminarsource;
+            combobox.DisplayMember = "Value";
+            combobox.ValueMember = "Key";
+
+            CloseDatabase();
+        }
+
+        public void FilFederalStateCombobox(ComboBox combobox)
+        {
+            Dictionary<string, string> federalstate;
+
+            federalstate = new Dictionary<string, string>();
+
+            ConnectDatabase();
+
+            SQLiteDataReader reader = ExecuteQuery("select federalstate_id, titel from federalstate");
+
+            while (reader.Read())
+            {
+                federalstate.Add(reader["federalstate_id"].ToString(), reader["titel"].ToString());
+            }
+
+            BindingSource federalstatesource = new BindingSource();
+
+            federalstatesource.DataSource = federalstate;
+            combobox.DataSource = federalstatesource;
+            combobox.DisplayMember = "Value";
+            combobox.ValueMember = "Key";
+
+            CloseDatabase();
         }
 
     }
