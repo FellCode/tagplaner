@@ -28,14 +28,11 @@ namespace Tagplaner
         public string HolidayName
         {
             get { return holidayName; }
+            set { holidayName = value; }
         }
         public string CalendarWeek
         {
             get { return calendarWeek; }
-        }
-        public List<MCalendarEntry> CalendarEntry
-        {
-            get { return calendarEntry; }
         }
         #endregion
 
