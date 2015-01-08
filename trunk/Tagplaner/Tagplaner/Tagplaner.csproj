@@ -50,8 +50,11 @@
     <StartupObject>Tagplaner.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>E:\Projekte\dependency_net\itextsharp\itextsharp-dll-core\itextsharp.dll</HintPath>
+    <Reference Include="DDay.Collections">
+      <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="DDay.iCal">
+      <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,13 +71,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\CalendarUtilitys.cs" />
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
-    <Compile Include="Controller\CPdfExporter.cs" />
-    <Compile Include="Interface\ICalendarUtilitys.cs" />
+    <Compile Include="Controller\CalendarUtilitys.cs" />
+    <Compile Include="Controller\ICalCSVConverter.cs" />
+    <Compile Include="Controller\PdfExporter.cs" />
     <Compile Include="Interface\IDatabase.cs" />
+    <Compile Include="Interface\ICalendarUtilitys.cs" />
+    <Compile Include="Interface\IICalCSVConverter.cs" />
     <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
     <Compile Include="Model\MCalendar.cs" />
@@ -85,6 +90,7 @@
     <Compile Include="Model\MSpeciality.cs" />
     <Compile Include="Model\MTrainer.cs" />
     <Compile Include="Model\MSeminar.cs" />
+    <Compile Include="Model\MVacation.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
