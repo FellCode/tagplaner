@@ -474,5 +474,55 @@ namespace Tagplaner
             CloseDatabase();
         }
 
+        public void FillLocationCombobox(ComboBox combobox)
+        {
+            Dictionary<string, string> location;
+
+            location = new Dictionary<string, string>();
+
+            ConnectDatabase();
+
+            SQLiteDataReader reader = ExecuteQuery("select seminarort_id, ort from seminarort");
+
+            while (reader.Read())
+            {
+                location.Add(reader["seminarort_id"].ToString(), reader["ort"].ToString());
+            }
+
+            BindingSource locationsource = new BindingSource();
+
+            locationsource.DataSource = location;
+            combobox.DataSource = locationsource;
+            combobox.DisplayMember = "Value";
+            combobox.ValueMember = "Key";
+
+            CloseDatabase();
+        }
+
+        public void FillRoomCombobox(ComboBox combobox)
+        {
+            Dictionary<string, string> room;
+
+            room = new Dictionary<string, string>();
+
+            ConnectDatabase();
+
+            SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum");
+
+            while (reader.Read())
+            {
+                room.Add(reader["raum_id"].ToString(), reader["raumnummer"].ToString());
+            }
+
+            BindingSource roomsource = new BindingSource();
+
+            roomsource.DataSource = room;
+            combobox.DataSource = roomsource;
+            combobox.DisplayMember = "Value";
+            combobox.ValueMember = "Key";
+
+            CloseDatabase();
+        }
+
     }
 }
