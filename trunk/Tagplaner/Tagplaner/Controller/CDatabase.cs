@@ -54,18 +54,15 @@ namespace Tagplaner
         }
         
         
-        
-        
-        
-
+  
 
         //Für die erst Installation der Datenbank
         public void CreateDB()
         {
             SQLiteConnection.CreateFile(url);
 
-            SQLiteConnection connect;
-            connect = new SQLiteConnection("Data Source="+url);
+            SQLiteConnection connect = new SQLiteConnection("Data Source="+url);
+            
             connect.Open();
 
             string sql = "CREATE TABLE trainer("
@@ -161,6 +158,7 @@ namespace Tagplaner
         public void FillDB ()
         {
             FillSeminar();
+            FillTrainer();
         }
 
         private void FillSeminar()
@@ -239,8 +237,43 @@ namespace Tagplaner
             SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
             command.ExecuteNonQuery();
 
-            command.CommandText = "";
+            command.CommandText = "insert into trainer values(1,\"Thomas\",\"Bender\",\"TBE\")";
             command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(2,\"Nico\",\"Carlsen\",null)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(3,\"Bernd\",\"Reimann\",null)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(4,\"Carsten\",\"Lenz\",\"\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(5,\"Thomas\",\"Adameit\",\"\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(6,\"Katrin\",\"Klein\",null)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(7,\"Joerg\",\"Martin\",\"JMA\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(8,\"Rolf\",\"Schmidt\",\"RSC\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(10,\"Christina\",\"von Ziegsar\",\"\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into trainer values(11,\"Bernie\",\"Cornwell\",\"\")";
+            command.ExecuteNonQuery();
+
+            connect.Close();
         }
 
     }
