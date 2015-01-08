@@ -18,8 +18,8 @@ namespace Tagplaner
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormInit());
 
-            #region EXCEL DUMMY
-            List<MRoom> rooms = new List<MRoom>();
+            #region TESTDATEN
+            /*List<MRoom> rooms = new List<MRoom>();
             rooms.Add(new MRoom(109));
             MCalendar calendar = MCalendar.getInstance();
 
@@ -29,7 +29,7 @@ namespace Tagplaner
                 , new MPlace("Akademie Köln", "S. Gehm", rooms), new MRoom(109));
 
             WorksheetGenerator ws = new WorksheetGenerator();
-            ws.WriteFile(calendar);
+            ws.WriteFile(calendar);*/
             #endregion
 
         }
