@@ -349,7 +349,7 @@ namespace Tagplaner
             CloseDatabase();
         }
 
-        public void FilFederalStateCombobox(ComboBox combobox)
+        public void FillFederalStateCombobox(ComboBox combobox)
         {
             Dictionary<string, string> federalstate;
 
