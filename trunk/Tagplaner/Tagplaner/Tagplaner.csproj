@@ -68,10 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CalendarUtilitys.cs" />
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\CPdfExporter.cs" />
+    <Compile Include="Interface\ICalendarUtilitys.cs" />
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
