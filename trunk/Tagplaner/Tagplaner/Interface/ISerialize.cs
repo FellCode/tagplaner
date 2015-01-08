@@ -8,7 +8,7 @@ namespace Tagplaner
 {
     interface ISerialize
     {
-        void SerializeObject(Object obj);
+        void SerializeObject(MCalendar obj);
         MCalendar DeserializeObject();
     }
 }
