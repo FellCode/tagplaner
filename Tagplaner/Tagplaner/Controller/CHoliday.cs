@@ -24,7 +24,17 @@ namespace Tagplaner
         /// <returns></returns>
         public List<MHoliday> GetHoliday(String region, DateTime startDate, DateTime endDate)
         {
-            
+          /*  string remoteUri = "http://www.feiertage.net/csvfile.php?state=NW&year=2017&type=csv";
+            string fileName = "Nordrhein-Westfalen2017.csv", myStringWebResource = null;
+
+            // Create a new WebClient instance.
+            using (WebClient myWebClient = new WebClient())
+            {
+                myStringWebResource = remoteUri + fileName;
+                // Download the Web resource and save it into the current filesystem folder.
+                myWebClient.DownloadFile(myStringWebResource, fileName);
+            } */
+         
             StreamReader file =
                 new StreamReader("CSV\\" + region + startDate.Year +".csv");
             if (file.ReadLine() != null)
