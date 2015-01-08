@@ -18,17 +18,19 @@ namespace Tagplaner
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormInit());
 
-            //EXCEL DUMMY
-            /*List<MRoom> rooms = new List<MRoom>();
+            #region EXCEL DUMMY
+            List<MRoom> rooms = new List<MRoom>();
             rooms.Add(new MRoom(109));
-            MCalendar calendar = new MCalendar();
+            MCalendar calendar = MCalendar.getInstance();
+
             calendar.AddSeminarDay(new MTrainer("Max", "Mustermann", "MM", true, false), 
                 null,new MCalendarDay(new DateTime().AddYears(2014).AddMonths(10).AddDays(20), "Feiertag1", "KW01")
                 ,new MSpeciality("AE","Jahr 1", "NRW"), new MSeminar("dotNet & C#","macht Spaß","C#", true, "bestes Seminar")
                 , new MPlace("Akademie Köln", "S. Gehm", rooms), new MRoom(109));
 
             WorksheetGenerator ws = new WorksheetGenerator();
-            ws.WriteFile(MCalendar);*/
+            ws.WriteFile(calendar);
+            #endregion
 
         }
     }
