@@ -84,8 +84,8 @@ namespace Tagplaner
                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
 
 
-                    cell1 = "C" + 10;
-                    cell2 = "Q" + 10;
+                    cell1 = "C" + i + 1;
+                    cell2 = "Q" + i + 1;
                     aRange = ws.get_Range(cell1, cell2);
                     aRange.Merge(Missing.Value);
                     aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
