@@ -13,7 +13,7 @@ namespace Tagplaner
         bool CloseDatabase();
 
         //Könnte man in Select, Update und delete aufteilen
-        SQLiteDataReader Executequery(string query);
+        SQLiteDataReader ExecuteQuery(string query);
 
     }
 }
