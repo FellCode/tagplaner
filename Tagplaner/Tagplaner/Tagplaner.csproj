@@ -106,6 +106,12 @@
     <Compile Include="View\TagplanAnlegenUserControl.Designer.cs">
       <DependentUpon>TagplanAnlegenUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\TagplanBearbeitenUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\TagplanBearbeitenUserControl.Designer.cs">
+      <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="View\TagplanAnlegenUserControl.resx">
       <DependentUpon>TagplanAnlegenUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\TagplanBearbeitenUserControl.resx">
+      <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
