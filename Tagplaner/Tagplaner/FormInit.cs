@@ -20,22 +20,25 @@ namespace Tagplaner
         private void Init_Load(object sender, EventArgs e)
         {
             // Init tabpages
-            initTabPages();
+            addTabPage(new TagplanAnlegenUserControl(), "Tagplan anlegen");
         }
 
-        private void initTabPages() {
-            // Init usercontrol 'TagplanAnlegenUserControl'
-            TagplanAnlegenUserControl tagplanAnlegenUserControl = new TagplanAnlegenUserControl();
-            tagplanAnlegenUserControl.Dock = DockStyle.Fill;
-            tagplanAnlegenUserControl.BackColor = Color.White;
+        /// <summary>
+        /// Adds an userControl to tabControl1
+        /// </summary>
+        /// <param name="userControl"></param>
+        /// <param name="pageName"></param>
+        private void addTabPage(UserControl userControl, string pageName) {
+            userControl.Dock = DockStyle.Fill;
+            userControl.BackColor = Color.White;
 
-            // Init tabpage 'daySchedule'
-            TabPage daySchedule = new TabPage();
-            daySchedule.Text = "Tagplan erstellen";
-            daySchedule.Controls.Add(tagplanAnlegenUserControl);
+            // Init tabPage
+            TabPage tabPage = new TabPage();
+            tabPage.Text = pageName;
+            tabPage.Controls.Add(userControl);
 
-            // Add tabpage 'daySchedule' to tabControl1
-            tabControl1.TabPages.Add(daySchedule);
+            // Add tabpage to tabControl1
+            tabControl1.TabPages.Add(tabPage);
         }
     }
 }
