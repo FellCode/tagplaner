@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    [Serializable()]
     class MCalendarEntry
         {
             private MTrainer trainer;

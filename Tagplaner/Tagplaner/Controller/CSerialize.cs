@@ -14,19 +14,19 @@ namespace Tagplaner
     /// </summary>
     class CSerialize : ISerialize
     {
-        private static BinaryFormatter formatter;
+        private static BinaryFormatter formatter = new BinaryFormatter();
         private static FileStream stream;
 
         public void SerializeObject(Object obj)
         {
-            stream = new FileStream(@"C:\Tagplan.tp", FileMode.Create);
+            stream = new FileStream(@"C:\Tagplan\Tagplan.tp", FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
-        public Object DeserializeObject(Object obj)
+        public MCalendar DeserializeObject()
         {
-            FileStream stream = new FileStream(@"C:\Tagplan.tp", FileMode.Open);
-            return formatter.Deserialize(stream);
+            FileStream stream = new FileStream(@"C:\Tagplan\Tagplan.tp", FileMode.Open);
+            return (MCalendar)formatter.Deserialize(stream);
         }
     }
 }
