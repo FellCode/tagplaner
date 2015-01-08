@@ -50,6 +50,9 @@
     <StartupObject>Tagplaner.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>E:\Projekte\dependency_net\itextsharp\itextsharp-dll-core\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -68,7 +71,7 @@
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CSerialize.cs" />
-    <Compile Include="Controller\PdfExporter.cs" />
+    <Compile Include="Controller\CPdfExporter.cs" />
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
