@@ -35,31 +35,31 @@ namespace Tagplaner
         #region AddDay-Methods
         public void AddSeminarDay(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room)
         {
-            CalendarEntry cal = new CalendarEntry(trainer, cotrainer, calendarDay, speciality, seminar, place, room);
+            MCalendarEntry cal = new MCalendarEntry(trainer, cotrainer, calendarDay, speciality, seminar, place, room);
             calendarList.Add(cal);
         }
 
         public void AddPracticeDay(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
         {
-            CalendarEntry cal = new CalendarEntry(calendarDay, speciality, practice);
+            MCalendarEntry cal = new MCalendarEntry(calendarDay, speciality, practice);
             calendarList.Add(cal);
         }
 
         public void AddSchoolDay(MCalendarDay calendarDay, MSpeciality speciality, MSchool school)
         {
-            CalendarEntry cal = new CalendarEntry(calendarDay, speciality, school);
+            MCalendarEntry cal = new MCalendarEntry(calendarDay, speciality, school);
             calendarList.Add(cal);
         }
 
         public void AddHoliday(MCalendarDay calendarDay, MSpeciality speciality, MHoliday holiday)
         {
-            CalendarEntry cal = new CalendarEntry(calendarDay, speciality, holiday);
+            MCalendarEntry cal = new MCalendarEntry(calendarDay, speciality, holiday);
             calendarList.Add(cal);
         }
 
         public void AddPracticeSeminarDay(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room, MPractice practice)
         {
-            CalendarEntry cal = new CalendarEntry(trainer, cotrainer, calendarDay, speciality, seminar, place, room, practice);
+            MCalendarEntry cal = new MCalendarEntry(trainer, cotrainer, calendarDay, speciality, seminar, place, room, practice);
             calendarList.Add(cal);
         }
 
