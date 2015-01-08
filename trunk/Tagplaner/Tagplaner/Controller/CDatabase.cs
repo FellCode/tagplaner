@@ -162,26 +162,8 @@ namespace Tagplaner
             FillSeminar();
             FillTrainer();
             FillBundesland();
-        }
-
-        private void FillBundesland()
-        {
-            SQLiteConnection connect;
-            connect = new SQLiteConnection("Data Source=" + url);
-            connect.Open();
-            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into bundesland values(1,\"Nordrehin-Westfalen\",\"NRW\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into bundesland values(2,\"Hessen\",\"HE\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into bundesland values(3,\"Bayern\",\"BY\")";
-            command.ExecuteNonQuery();
-
-            connect.Close();
+            FillSeminarort();
+            FillRaum();
         }
 
         private void FillSeminar()
@@ -297,6 +279,124 @@ namespace Tagplaner
             command.ExecuteNonQuery();
 
             connect.Close();
+        }
+
+        private void FillBundesland()
+        {
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(1,\"Nordrehin-Westfalen\",\"NRW\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(2,\"Hessen\",\"HE\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(3,\"Bayern\",\"BY\")";
+            command.ExecuteNonQuery();
+
+            connect.Close();
+        }
+
+        private void FillSeminarort()
+        {
+
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminarort values(1,\"Wiesbaden Berufsschule\",\"Gerhand Ganz, Abdreas Kirschner\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminarort values(2,\"Wiesbaden BCRM\",\"Markus Rossberg\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminarort values(3,\"Köln Geschäftsstelle\",\"Susanne Wegener\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminarort values(4,\"Köln Berufsschule\",\"GSO Herr Faller\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminarort values(5,\"München Geschäftsstelle\",\"Christina\")";
+            command.ExecuteNonQuery();
+
+            connect.Close();
+        }
+
+        private void FillRaum()
+        {
+
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(1,\"207\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(2,\"208\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(3,\"209\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(4,\"210\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(5,\"211\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(6,\"213\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(7,\"306\",3)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(8,\"26\",1)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(9,\"28\",1)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(10,\"C01.06\",2)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(11,\"AKON.1\",2)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(12,\"AKON.2\",2)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(13,\"AKON.3\",2)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(14,\"C021\",4)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(15,\"C001\",4)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(16,\"C005\",4)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(17,\"C017\",4)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(18,\"C002\",4)";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into raum values(19,\"in München\",5)";
+            command.ExecuteNonQuery();
+
+            connect.Close();
+
+
         }
 
         public void FillTrainerCombobox(ComboBox combobox)
