@@ -15,13 +15,13 @@ namespace Tagplaner
 
         public void SerializeObject(Object obj)
         {
-            stream = new FileStream(@"C:\MyObjects.dat", FileMode.Create);
+            stream = new FileStream(@"C:\Tagplan.tp", FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
         public Object DeserializeObject(Object obj)
         {
-            FileStream stream = new FileStream(@"C:\MyObject.dat", FileMode.Open);
+            FileStream stream = new FileStream(@"C:\Tagplan.tp", FileMode.Open);
             return formatter.Deserialize(stream);
         }
     }
