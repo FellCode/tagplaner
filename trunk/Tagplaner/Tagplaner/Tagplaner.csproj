@@ -72,7 +72,7 @@
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
-    <Compile Include="Model\MCalender.cs" />
+    <Compile Include="Model\MCalendar.cs" />
     <Compile Include="Model\MPlace.cs" />
     <Compile Include="Model\MPractice.cs" />
     <Compile Include="Model\MRoom.cs" />
