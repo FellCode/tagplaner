@@ -20,7 +20,8 @@ namespace Tagplaner
         private void Init_Load(object sender, EventArgs e)
         {
             // Init tabpages
-            addTabPage(new TagplanAnlegenUserControl(), "Tagplan anlegen");
+            addTabPage(new TagplanAnlegenUserControl(this), "Tagplan anlegen");
+            addTabPage(new TagplanBearbeitenUserControl(), "Tagplan bearbeiten");
         }
 
         /// <summary>
@@ -39,6 +40,11 @@ namespace Tagplaner
 
             // Add tabpage to tabControl1
             tabControl1.TabPages.Add(tabPage);
+        }
+
+        public void tabPageChange(int pageIndex)
+        {
+            tabControl1.SelectedIndex = pageIndex;
         }
     }
 }
