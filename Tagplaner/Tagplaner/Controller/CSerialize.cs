@@ -8,6 +8,10 @@ using System.IO;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Author: Isabella Pfeuster, Christopher Holler
+    /// Date: 07.01.2015
+    /// </summary>
     class CSerialize : ISerialize
     {
         private static BinaryFormatter formatter;
