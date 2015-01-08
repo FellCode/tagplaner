@@ -17,7 +17,11 @@ namespace Tagplaner
         private static BinaryFormatter formatter = new BinaryFormatter();
         private static FileStream stream;
 
-        public void SerializeObject(Object obj)
+        /// <summary>
+        /// Methode zur Serialisierung eines MCalendar-Objektes
+        /// </summary>
+        /// <param name="obj"></param>
+        public void SerializeObject(MCalendar obj)
         {
             stream = new FileStream(@"C:\Tagplan\Tagplan.tp", FileMode.Create);
             formatter.Serialize(stream,obj);
