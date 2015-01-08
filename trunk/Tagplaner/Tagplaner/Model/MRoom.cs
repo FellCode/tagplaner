@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MRoom
+    public class MRoom
     {
         private int number;
 

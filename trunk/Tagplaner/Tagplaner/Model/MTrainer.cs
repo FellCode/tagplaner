@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MTrainer
+    public class MTrainer
     {
         private string name;
         private string surname;
