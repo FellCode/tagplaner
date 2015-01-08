@@ -27,6 +27,11 @@ namespace Tagplaner
         }
         #endregion
 
+        #region setter
+        public void SetComment(string comment){
+            this.comment = comment;
+        }
+        #endregion
         #region constructor
         public MHoliday(DateTime holidayDate, string holidayName, string comment)
         {
