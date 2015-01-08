@@ -42,5 +42,10 @@ namespace Tagplaner
         {
             groupBox2.Visible = true;
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
