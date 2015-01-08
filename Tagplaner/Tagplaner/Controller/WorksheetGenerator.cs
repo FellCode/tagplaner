@@ -40,7 +40,8 @@ namespace Tagplaner
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             string cell1 = "A10";
             string cell2 = "B10";
-            int i = 0;
+            int i_day = 0;
+            int i_entry = 0;
             Object[] data = new Object[1];
             string calendarWeek = "KW00";
             
@@ -70,22 +71,23 @@ namespace Tagplaner
             }
             #endregion
             
-            foreach (MCalendarEntry calendarEntry in calendar.CalendarList)
+            foreach (MCalendarDay calendarDay in calendar.CalendarList)
             {
+
                 #region calendarWeek
-                if (calendarWeek != calendarEntry.CalendarDay.CalendarWeek)
+                if (calendarWeek != calendarDay.CalendarWeek)
                 {
                     aRange.Merge(Missing.Value);
                     aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
                     aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
                     aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
                     aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                    data[0] = calendarEntry.CalendarDay.CalendarWeek;
+                    data[0] = calendarDay.CalendarWeek;
                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
 
 
-                    cell1 = "C" + i + 1;
-                    cell2 = "Q" + i + 1;
+                    cell1 = "C" + i_day +1;
+                    cell2 = "Q" + i_day + 1;
                     aRange = ws.get_Range(cell1, cell2);
                     aRange.Merge(Missing.Value);
                     aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
@@ -94,7 +96,9 @@ namespace Tagplaner
                 }
                 #endregion
 
-                if (calendarEntry.Holiday != null)
+
+                foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
+                if (calendarDay.CalendarEntry[i_entry].Holiday != null)
                 {
                     #region Holiday
                     /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
@@ -107,15 +111,15 @@ namespace Tagplaner
                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
                     #endregion
                 }
-                           else if (calendarEntry.School != null)
+                else if (calendarDay.CalendarEntry[i_entry].School != null)
                            {
                                #region School
                                #endregion
                            }
-                           else if (calendarEntry.Practice != null)
+                else if (calendarDay.CalendarEntry[i_entry].Practice != null)
                            {
 
-                               if (calendarEntry.Seminar != null)
+                               if (calendarDay.CalendarEntry[i_entry].Seminar != null)
                                {
                                    #region Practice/Seminar
                                    #endregion
@@ -146,7 +150,7 @@ namespace Tagplaner
                                #endregion
                            }
                 
-                i++;
+                i_day++;
             }
             return true;
         }
