@@ -35,7 +35,7 @@ namespace Tagplaner
         }
         public List<MCalendarEntry> CalendarEntry
         {
-            get { return calendarEntry}
+            get { return calendarEntry; }
         }
         #endregion
 

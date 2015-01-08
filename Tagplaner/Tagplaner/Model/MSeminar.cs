@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MSeminar
+    public class MSeminar
     {
         private string title;
         private string subtitle;

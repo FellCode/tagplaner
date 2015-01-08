@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Tagplaner
 {
     [Serializable()]
-    class MCalendar
+    public class MCalendar
     {
         private List<MCalendarDay> calendarList = new List<MCalendarDay>();
         private static MCalendar instance;

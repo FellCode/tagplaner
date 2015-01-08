@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MPlace
+    public class MPlace
     {
         private string place;
         private string contact;
