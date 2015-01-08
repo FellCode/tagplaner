@@ -52,10 +52,6 @@ namespace Tagplaner
             {
                 get { return holiday; }
             }
-            public MHoliday Holiday
-            {
-                get { return holiday; }
-            }
             public MPlace Place
             {
                 get { return place; }
