@@ -145,25 +145,25 @@ namespace Tagplaner
             calendarList.Add(cal);
         }
 
-        public void FillCalenderPraxis(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
+        public void AddPracticeDay(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
         {
             Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, practice);
             calendarList.Add(cal);
         }
 
-        public void FillCalenderBerufsschule(MCalendarDay calendarDay, MSpeciality speciality, MSchool school)
+        public void AddSchoolDay(MCalendarDay calendarDay, MSpeciality speciality, MSchool school)
         {
             Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, school);
             calendarList.Add(cal);
         }
 
-        public void FillCalenderFeiertag(MCalendarDay calendarDay, MSpeciality speciality, MHoliday holiday)
+        public void AddHoliday(MCalendarDay calendarDay, MSpeciality speciality, MHoliday holiday)
         {
             Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, holiday);
             calendarList.Add(cal);
         }
 
-        public void fillCalenderSeminarPraxis(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room, MPractice practice)
+        public void AddPracticeSeminarDay(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room, MPractice practice)
         {
             Kalendereintrag cal = new Kalendereintrag(trainer, cotrainer, calendarDay, speciality, seminar, place, room, practice);
             calendarList.Add(cal);
