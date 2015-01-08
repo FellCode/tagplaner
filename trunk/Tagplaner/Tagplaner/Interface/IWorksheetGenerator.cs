@@ -12,7 +12,7 @@ namespace Tagplaner
     {
 
         //days muss Kalendertag sowie Seminar/Urlaub/Schultag und Bemerkung/Raum usw. enthalten
-        bool WriteFile(string[,] days);
+        bool WriteFile(List<MCalendarEntry> calendar);
 
 
     }

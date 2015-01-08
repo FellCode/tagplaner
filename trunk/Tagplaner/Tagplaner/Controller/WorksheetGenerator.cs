@@ -20,6 +20,7 @@ namespace Tagplaner
         {
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
+            #region error
             if (xlApp == null)
             {
                 Console.WriteLine("EXCEL konnte nicht gestartet werden :(");
@@ -42,9 +43,10 @@ namespace Tagplaner
             {
                 Console.WriteLine("Zellen konnten nicht markiert werden");
             }
+            #endregion
 
-
-            aRange.Merge(Missing.Value);
+            #region example
+            /*aRange.Merge(Missing.Value);
             Object[] args = new Object[1];
 
             args[0] = 6;
@@ -58,10 +60,12 @@ namespace Tagplaner
 
             aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
             aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-            aRange.Value2 = "C# SEMINAR";
+            aRange.Value2 = "C# SEMINAR";*/
+
+            #endregion
         }
-       
-        public bool WriteFile(string[,] days)
+
+        public bool WriteFile(List<MCalendarEntry> calendar)
         {
             throw new NotImplementedException();
         }

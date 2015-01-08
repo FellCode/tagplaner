@@ -70,6 +70,7 @@
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\PdfExporter.cs" />
     <Compile Include="Interface\IDatabase.cs" />
+    <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
     <Compile Include="Model\MCalender.cs" />
     <Compile Include="Model\MPlace.cs" />
