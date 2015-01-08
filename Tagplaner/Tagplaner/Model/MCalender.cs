@@ -14,14 +14,16 @@ namespace Tagplaner
         private static MCalender instance;
         public List<Kalendereintrag> CalendarList
         {
-            get { return calendarList;}
+            get { return calendarList; }
         }
 
-        private MCalender(){
+        private MCalender()
+        {
 
         }
-       
-        public static MCalender getInstance(){
+
+        public static MCalender getInstance()
+        {
             if (instance == null)
             {
                 instance = new MCalender();
@@ -29,96 +31,144 @@ namespace Tagplaner
         }
         public class Kalendereintrag
         {
-            private Trainer trainer { get;  }
-            private Trainer cotrainer { get;  }
-            private Kalendertag kalendertag{ get;  }
-            private Fachrichtung fachrichtung { get;  }
-            private Seminar seminar { get;  }
-            private Praxis praxis { get;  }
-            private Berufsschule berufsschule { get; }
-            private Feiertag feiertag { get; set; }
-            private Seminarort seminarort { get; }
-            private Raum raum { get;  }
+            private MTrainer trainer;
+            private MTrainer cotrainer;
+            private MCalendarDay calendarDay;
+            private MSpeciality speciality;
+            private MSeminar seminar;
+            private MPractice practice;
+            private MSchool school;
+            private MHoliday holiday;
+            private MPlace place;
+            private MRoom room;
 
-            private Kalendereintrag(Trainer trainer,Trainer cotrainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum)
+            public MTrainer Trainer
+            {
+                get { return trainer; }
+            }
+            public MTrainer Cotrainer
+            {
+                get { return cotrainer; }
+            }
+            public MCalendarDay CalendarDay
+            {
+                get { return calendarDay; }
+            }
+            public MSpeciality Speciality
+            {
+                get { return speciality; }
+            }
+            public MSeminar Seminar
+            {
+                get { return seminar; }
+            }
+            public MPractice Practice
+            {
+                get { return practice; }
+            }
+            public MSchool School
+            {
+                get { return school; }
+            }
+            public MHoliday Holiday
+            {
+                get { return holiday; }
+            }
+            public MHoliday Holiday
+            {
+                get { return holiday; }
+            }
+            public MPlace Place
+            {
+                get { return place; }
+            }
+            public MRoom Room
+            {
+                get { return room; }
+            }
+
+            public Kalendereintrag(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality,
+                MSeminar seminar, MPlace place, MRoom room)
             {
                 this.trainer = trainer;
                 this.cotrainer = cotrainer;
-                this.kalendertag = kalendertag;
-                this.fachrichtung = fachrichtung;
+                this.calendarDay = calendarDay;
+                this.speciality = speciality;
                 this.seminar = seminar;
-                this.seminarort = seminarort;
-                this.raum = raum;
+                this.place = place;
+                this.room = room;
             }
 
-            private Kalendereintrag(Kalendertag kalendertag, Fachrichtung fachrichtung, Praxis praxis){
-                this.kalendertag = kalendertag;
-                this.fachrichtung = fachrichtung;
-                this.praxis = praxis;
-            }
-
-            private Kalendereintrag(Kalendertag kalendertag, Fachrichtung fachrichtung, Berufsschule berufsschule)
+            public Kalendereintrag(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
             {
-        
-                this.kalendertag = kalendertag;
-                this.fachrichtung = fachrichtung;
-                this.berufsschule = berufsschule;
+                this.calendarDay = calendarDay;
+                this.speciality = speciality;
+                this.practice = practice;
             }
 
-            private Kalendereintrag( Kalendertag kalendertag, Fachrichtung fachrichtung, Feiertag feiertag)
+            public Kalendereintrag(MCalendarDay calendarDay, MSpeciality speciality, MSchool school)
             {
-             
-                this.kalendertag = kalendertag;
-                this.fachrichtung = fachrichtung;
-                this.feiertag = feiertag;
+
+                this.calendarDay = calendarDay;
+                this.speciality = speciality;
+                this.school = school;
             }
 
-            private Kalendereintrag(Trainer trainer, Trainer cotrainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum, Praxis praxis)
+            public Kalendereintrag(MCalendarDay calendarDay, MSpeciality speciality, MHoliday holiday)
+            {
+
+                this.calendarDay = calendarDay;
+                this.speciality = speciality;
+                this.holiday = holiday;
+            }
+
+            public Kalendereintrag(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality,
+                MSeminar seminar, MPlace place, MRoom room, MPractice practice)
             {
                 this.trainer = trainer;
                 this.cotrainer = cotrainer;
-                this.kalendertag = kalendertag;
-                this.fachrichtung = fachrichtung;
+                this.calendarDay = calendarDay;
+                this.speciality = speciality;
                 this.seminar = seminar;
-                this.praxis = praxis;
-                this.seminarort = seminarort;
-                this.raum = raum;
+                this.practice = practice;
+                this.place = place;
+                this.room = room;
             }
 
-            
+
 
         }
 
-        public void FillCalenderSeminar(Trainer trainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum)
-            {
-                Kalendereintrag cal = new Kalendereintrag(Trainer trainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum);
-                calendarList.Add(cal);
-            }
+        public void AddSeminarDay(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room)
+        {
+            Kalendereintrag cal = new Kalendereintrag(trainer, cotrainer, calendarDay, speciality, seminar, place, room);
+            calendarList.Add(cal);
+        }
 
-        public void FillCalenderPraxis(Kalendertag kalendertag, Fachrichtung fachrichtung, Praxis praxis)
-            {
-                Kalendereintrag cal = new Kalendereintrag(Kalendertag kalendertag, Fachrichtung fachrichtung, Praxis praxis);
-                calendarList.Add(cal);
-            }
+        public void FillCalenderPraxis(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
+        {
+            Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, practice);
+            calendarList.Add(cal);
+        }
 
-        public void FillCalenderBerufsschule(Kalendertag kalendertag, Fachrichtung fachrichtung, Berufsschule berufsschule)
-            {
-                Kalendereintrag cal = new Kalendereintrag(Kalendertag kalendertag, Fachrichtung fachrichtung, Berufsschule berufsschule);
-                calendarList.Add(cal);
-            }
+        public void FillCalenderBerufsschule(MCalendarDay calendarDay, MSpeciality speciality, MSchool school)
+        {
+            Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, school);
+            calendarList.Add(cal);
+        }
 
-        public void FillCalenderFeiertag(Kalendertag kalendertag, Fachrichtung fachrichtung, Feiertag feiertag)
-            {
-                Kalendereintrag cal = new Kalendereintrag(Kalendertag kalendertag, Fachrichtung fachrichtung, Feiertag feiertag);
-                calendarList.Add(cal);
-            }
+        public void FillCalenderFeiertag(MCalendarDay calendarDay, MSpeciality speciality, MHoliday holiday)
+        {
+            Kalendereintrag cal = new Kalendereintrag(calendarDay, speciality, holiday);
+            calendarList.Add(cal);
+        }
 
-        public void fillCalenderSeminarPraxis(Trainer trainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum, Praxis praxis)
-            {
-                Kalendereintrag cal = new Kalendereintrag(Trainer trainer, Kalendertag kalendertag, Fachrichtung fachrichtung, Seminar seminar, Seminarort seminarort, Raum raum, Praxis praxis);
-                calendarList.Add(cal);
-            }
+        public void fillCalenderSeminarPraxis(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room, MPractice practice)
+        {
+            Kalendereintrag cal = new Kalendereintrag(trainer, cotrainer, calendarDay, speciality, seminar, place, room, practice);
+            calendarList.Add(cal);
+        }
 
-        
+
     }
 }
