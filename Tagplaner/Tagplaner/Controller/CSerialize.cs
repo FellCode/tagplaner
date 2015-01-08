@@ -18,15 +18,19 @@ namespace Tagplaner
         private static FileStream stream;
 
         /// <summary>
-        /// Methode zur Serialisierung eines MCalendar-Objektes
+        /// Methode zur Serialisierung eines Kalenderobjektes
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">Kalendarobjekt</param>
         public void SerializeObject(MCalendar obj)
         {
             stream = new FileStream(@"C:\Tagplan\Tagplan.tp", FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
+        /// <summary>
+        /// Methode zum Deserialisierung eines Kalenderobjektes
+        /// </summary>
+        /// <returns>Gibt ein MCalendarobjekt zurück</returns>
         public MCalendar DeserializeObject()
         {
             FileStream stream = new FileStream(@"C:\Tagplan\Tagplan.tp", FileMode.Open);
