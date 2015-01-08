@@ -357,11 +357,11 @@ namespace Tagplaner
 
             ConnectDatabase();
 
-            SQLiteDataReader reader = ExecuteQuery("select federalstate_id, titel from federalstate");
+            SQLiteDataReader reader = ExecuteQuery("select bundesland_id, name from bundesland");
 
             while (reader.Read())
             {
-                federalstate.Add(reader["federalstate_id"].ToString(), reader["titel"].ToString());
+                federalstate.Add(reader["bundesland_id"].ToString(), reader["name"].ToString());
             }
 
             BindingSource federalstatesource = new BindingSource();
