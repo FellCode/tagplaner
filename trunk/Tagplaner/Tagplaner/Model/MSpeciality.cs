@@ -8,15 +8,32 @@ namespace Tagplaner
 {
     public class MSpeciality
     {
-        private String specialityName {get ; set;}
-        private String year { get; set; }
-        private String region { get; set; }
+        private string specialityName;
+        private string year;
+        private string region;
 
-        public MSpeciality(String specialityName, String year, String region)
+        #region getter
+        public string SpecialityName
+        {
+            get { return specialityName; }
+        }
+        public string Year
+        {
+            get { return year; }
+        }
+        public string Region
+        {
+            get { return region; }
+        }
+        #endregion
+
+        #region constructor
+        public MSpeciality(string specialityName, string year, string region)
         {
             this.specialityName = specialityName;
             this.year = year;
             this.region = region;
         }
+        #endregion
     }
 }

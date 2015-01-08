@@ -8,11 +8,20 @@ namespace Tagplaner
 {
     public class MPractice
     {
-        private String comment { get; set; }
+        private string comment;
 
-        public MPractice(String comment)
+        #region getter
+        public string Comment
+        {
+            get { return comment; }
+        }
+        #endregion
+
+        #region constructor
+        public MPractice(string comment)
         {
             this.comment = comment;
         }
+        #endregion
     }
 }

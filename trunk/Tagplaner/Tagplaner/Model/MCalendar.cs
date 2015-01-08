@@ -9,18 +9,22 @@ namespace Tagplaner
     class MCalendar
     {
         private List<MCalendarEntry> calendarList = new List<MCalendarEntry>();
-        private DateTime firstday { get; set; }
-        private DateTime endday { get; set; }
+        private DateTime firstDay;
+        private DateTime endDay;
         private static MCalendar instance;
+
+        #region getter
         public List<MCalendarEntry> CalendarList
         {
             get { return calendarList; }
         }
-
-
-        private MCalendar()
+        public DateTime FirstDay
         {
-
+            get { return firstDay; }
+        }
+        public DateTime EndDay
+        {
+            get { return endDay; }
         }
 
         public static MCalendar getInstance()
@@ -30,7 +34,7 @@ namespace Tagplaner
                 instance = new MCalendar();
             } return instance;
         }
-        
+        #endregion
 
         #region AddDay-Methods
         public void AddSeminarDay(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality, MSeminar seminar, MPlace place, MRoom room)

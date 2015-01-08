@@ -8,11 +8,20 @@ namespace Tagplaner
 {
     public class MSchool
     {
-        private String comment { get; set; }
+        private string comment;
 
-        public MSchool(String comment)
+        #region getter
+        public string Comment
+        {
+            get { return comment; }
+        }
+        #endregion
+
+        #region constructor
+        public MSchool(string comment)
         {
             this.comment = comment;
         }
+        #endregion
     }
 }
