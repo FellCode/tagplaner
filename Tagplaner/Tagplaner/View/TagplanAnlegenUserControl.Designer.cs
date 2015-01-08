@@ -107,6 +107,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "1 Jahrgang";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.Checked = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // dateTimePicker1
@@ -171,7 +172,8 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Jahrgang 1";
-            this.groupBox1.Visible = false;
+            //this.groupBox1.Visible = true;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
