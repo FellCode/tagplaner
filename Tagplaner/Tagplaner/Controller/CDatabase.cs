@@ -46,7 +46,7 @@ namespace Tagplaner
             
         }
 
-        public SQLiteDataReader Executequery(string query)
+        public SQLiteDataReader ExecuteQuery(string query)
         {
             m_command.CommandText = query;
             SQLiteDataReader reader = m_command.ExecuteReader();
@@ -146,11 +146,12 @@ namespace Tagplaner
                                 +"foreign key(fk_seminartag_id) references seminartag(seminartag_id))";
             command.ExecuteNonQuery();
 
-            command.CommandText = "CREATE TABLE bundeslad("
+            command.CommandText = "CREATE TABLE bundesland("
                                 + "bundesland_id integer,"
                                 + "name varchar(50),"
                                 + "kuerzel varchar(10),"
-                                + "primary key(bundesland_id)";
+                                + "primary key(bundesland_id))";
+            command.ExecuteNonQuery();
 
             connect.Close();
         }
@@ -159,6 +160,27 @@ namespace Tagplaner
         {
             FillSeminar();
             FillTrainer();
+            FillBundesland();
+        }
+
+        private void FillBundesland()
+        {
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(1,\"Nordrehin-Westfalen\",\"NRW\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(2,\"Hessen\",\"HE\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into bundesland values(3,\"Bayern\",\"BY\")";
+            command.ExecuteNonQuery();
+
+            connect.Close();
         }
 
         private void FillSeminar()
