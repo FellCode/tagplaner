@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    [Serializable()]
     class MCalendar
     {
         private List<MCalendarEntry> calendarList = new List<MCalendarEntry>();
-        private DateTime firstDay;
-        private DateTime endDay;
         private static MCalendar instance;
 
         #region getter
+        public DateTime firstDay { get; set; }
+        public DateTime endDay { get; set; }
         public List<MCalendarEntry> CalendarList
         {
             get { return calendarList; }
         }
-        public DateTime FirstDay
+
+        private MCalendar()
         {
-            get { return firstDay; }
-        }
-        public DateTime EndDay
-        {
-            get { return endDay; }
+
         }
 
         public static MCalendar getInstance()
