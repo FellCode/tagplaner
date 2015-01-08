@@ -12,7 +12,7 @@ namespace Tagplaner
         private SQLiteDataReader result;
         private string url="TagplanerDatabase.sqlite";
         private SQLiteConnection m_dbConnection;
-        private SQLiteCommand command;
+        private SQLiteCommand m_command;
 
         public bool ConnectDatabase()
         {
@@ -21,7 +21,7 @@ namespace Tagplaner
             try
             {
                 m_dbConnection.Open();
-                command = new SQLiteCommand("PRAGMA foreign_keys=on", m_dbConnection);
+                m_command = new SQLiteCommand("PRAGMA foreign_keys=on", m_dbConnection);
                 return true;
             }
             catch(SQLiteException)
@@ -48,8 +48,8 @@ namespace Tagplaner
 
         public SQLiteDataReader Executequery(string query)
         {
-            command.CommandText = query;
-            SQLiteDataReader reader = command.ExecuteReader();
+            m_command.CommandText = query;
+            SQLiteDataReader reader = m_command.ExecuteReader();
             return reader;
         }
         
@@ -59,13 +59,13 @@ namespace Tagplaner
         
 
 
-        //Für die erst Instalation der Datenbank
-        public void createdb()
+        //Für die erst Installation der Datenbank
+        public void CreateDB()
         {
             SQLiteConnection.CreateFile(url);
 
             SQLiteConnection connect;
-            connect = new SQLiteConnection("Data Source="+url+"Version=3;");
+            connect = new SQLiteConnection("Data Source="+url);
             connect.Open();
 
             string sql = "CREATE TABLE trainer("
@@ -148,12 +148,99 @@ namespace Tagplaner
                                 +"foreign key(fk_fachrichtung_id) references fachrichtung(fachrichtung_id),"
                                 +"foreign key(fk_seminartag_id) references seminartag(seminartag_id))";
             command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE bundeslad("
+                                + "bundesland_id integer,"
+                                + "name varchar(50),"
+                                + "kuerzel varchar(10),"
+                                + "primary key(bundesland_id)";
+
             connect.Close();
-     
-            
+        }
+        //zum ersten befuellen der DB
+        public void FillDB ()
+        {
+            FillSeminar();
+        }
 
+        private void FillSeminar()
+        {
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
 
+            command.CommandText = "insert into seminar values(1,\"JavaScript\",\"Webseiten mit Programmfunktionalität steuern\",\"DAJSCRI\",\"Laptop\")";
+            command.ExecuteNonQuery();
 
+            command.CommandText = "insert into seminar values(2,\"Objektorientierte Anforderungsanalyse\",\"Statiische und dynamische Klassenmodellierung\",\"DAOOANW\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(3,\"IT-Sicherheitskonzepte\",null,\"DASIKON\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(4,\"C# Grundlagen\",null,\"DACSHGL\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(5,\"Grundlagen der Informationstechnologie\",null,\"DAGLITE\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(6,\"Grundlagen Netze\",null,\"DAGLNET\",\"Laptop, Switch, Hub\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(7,\"Java Grundlagen\",\"Grundlagen\",\"DAJAVAG\",\"Laptop, Eclipse\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(8,\"Grundlagen der Programmierung\",null,\"DAGLPRO\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(9,\"C# Vertiefung\",null,\"DACSHVT\",\"Laptop, SharpDevelop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(10,\"Betriebssysteme (Linux und Windows)\",null,\"DABESYS\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(11,\"XML Einführung\",\"Die Auszeichnungssprache zur strukturellen Beschreibung von Web-Dokumenten\",\"DAXMLWD\",\"Laptop, XMLEditor\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(12,\"Der Business Analyst  in der Anforderungsanalyse\",null,\"BUSAO-R (3)\",\"Laptop, Visio\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(13,\"Netzwerkintegration\",null,\"DANWINT\",\"Laptop, Server, VMWare\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(14,\"Systemüberwachung\",null,\"DASYSUB\",\"Laptop, Server, VMWare\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(15,\"HTML Grundlagen\",null,\"DAIHTML\",\"Laptop, HTML-Kit\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(16,\"MySQL Grundlagen\",null,\"DAMYSQLGL-ALT\",\"Laptop, MySQL-Community Edition\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(17,\"Projektaufgabe Java Vertiefung\",\"Anhängervermietung\",\" PROJVT\",\"Laptop, Eclipse\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(18,\"Projektaufgabe C# Vertiefung\",null,\"DAPROCSV\",\"Laptop, SharpDevelop\")";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "insert into seminar values(19,\"Vertiefung objektorientierte Anforderungsanalyse für Business Analysten\",null,\"DAVOOBA\",\"Laptop\")";
+            command.ExecuteNonQuery();
+
+            connect.Close();
+        }
+
+        private void FillTrainer()
+        {
+            SQLiteConnection connect;
+            connect = new SQLiteConnection("Data Source=" + url);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "";
+            command.ExecuteNonQuery();
         }
 
     }
