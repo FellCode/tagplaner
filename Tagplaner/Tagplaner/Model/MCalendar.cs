@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MCalender
+    class MCalendar
     {
         private List<MCalendarEntry> calendarList = new List<MCalendarEntry>();
         private DateTime firstday { get; set; }
         private DateTime endday { get; set; }
-        private static MCalender instance;
+        private static MCalendar instance;
         public List<MCalendarEntry> CalendarList
         {
             get { return calendarList; }
         }
 
 
-        private MCalender()
+        private MCalendar()
         {
 
         }
 
-        public static MCalender getInstance()
+        public static MCalendar getInstance()
         {
             if (instance == null)
             {
-                instance = new MCalender();
+                instance = new MCalendar();
             } return instance;
         }
         
