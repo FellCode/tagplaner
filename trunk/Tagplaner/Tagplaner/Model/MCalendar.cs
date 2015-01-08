@@ -27,8 +27,32 @@ namespace Tagplaner
             startdate = start;
             enddate = end;
 
+            //Befüllen der CalendarList von startdatum bis enddatum
             CalendarUtilitys calendarUtilitys = new CalendarUtilitys(this.startdate, this.enddate, this.CalendarList);
             calendarUtilitys.generateCalenderDayEntrys();
+
+            ICalCSVConverter iCalCSVConverter = new ICalCSVConverter("C:\\Users\\choller\\Documents\\Visual Studio 2013\\Projects\\Tagplaner\\Tagplaner\\Tagplaner\\Ferien_Hessen_2015.ics", "C:\\Users\\choller\\Documents\\Visual Studio 2013\\Projects\\Tagplaner\\Tagplaner\\Tagplaner\\Ferien_Hessen_2016.ics");
+            foreach(MVacation vacation in iCalCSVConverter.GetICalEntrys(this.startdate, this.enddate))
+            {
+                foreach(MCalendarDay day in this.CalendarList)
+                {
+                    if (vacation.VacationDate.Equals(day.CalendarDate))
+                    {
+                        day.VacationName = vacation.VacationName;
+                    }
+                }
+            }
+            CHoliday holiday = new CHoliday();
+            foreach (MHoliday tempHoliday in holiday.GetHoliday("Nordrhein-Westfalen", this.startdate, this.enddate))
+            {
+                foreach (MCalendarDay day in this.CalendarList)
+                {
+                    if (tempHoliday.HolidayDate.Equals(day.CalendarDate))
+                    {
+                        day.HolidayName = tempHoliday.HolidayName;
+                    }
+                }
+            }
         }
 
         public static MCalendar getInstance(DateTime start, DateTime end)
