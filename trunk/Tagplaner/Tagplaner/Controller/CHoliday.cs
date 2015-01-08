@@ -8,17 +8,13 @@ using System.IO;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Author: Felix Smuda, Niklas Wazal
+    /// Date: 07.01.2015
+    /// </summary>
     class CHoliday : IHoliday
     {
-
-       /* public List<MHoliday> GetHoliday(String region)
-        {
-            List<MHoliday> holidayArray = new List<MHoliday>();
-            MHoliday mHoliday = new MHoliday(new DateTime(2012, 12, 25), "1. Weihnachtstag");
-            holidayArray.Add(mHoliday);
-            return holidayArray;
-        } */
-
+        private List<MHoliday> holidayList = new List<MHoliday>();
         /// <summary>
         /// Die Funktion liest die CSV mit dem übergebenen Namen von Typ String ein und speichert das Datum 
         /// und den Namen des Feiertags in einem MHoliday Objekt.
@@ -28,7 +24,7 @@ namespace Tagplaner
         /// <returns></returns>
         public List<MHoliday> GetHoliday(String region, DateTime startDate, DateTime endDate)
         {
-            List<MHoliday> holidayList = new List<MHoliday>();
+            
             StreamReader file =
                 new StreamReader("CSV\\" + region + startDate.Year +".csv");
             if (file.ReadLine() != null)
@@ -37,11 +33,7 @@ namespace Tagplaner
                 {
                     String[] values = file.ReadLine().Split(';');
                     if (Convert.ToDateTime(values[0]) >= startDate)
-                    {
-                        Console.WriteLine(values[0]);
-                        MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
-                        holidayList.Add(mHoliday);
-                    }
+                        AddHoliday(values);
                 }
                 file = new StreamReader("CSV\\" + region + endDate.Year + ".csv");
                 if (file.ReadLine() != null)
@@ -49,18 +41,21 @@ namespace Tagplaner
                     while (!file.EndOfStream)
                     {
                         String[] values = file.ReadLine().Split(';');
-                        if (Convert.ToDateTime(values[0]) <= endDate)
-                        {
-                            Console.WriteLine(values[0]);
-                            MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
-                            holidayList.Add(mHoliday);
-                        }
+                        if (Convert.ToDateTime(values[0]) >= startDate)
+                            AddHoliday(values);
+                        
                     }
                 }
             }
             file.Close();
              
             return holidayList;
+        }
+        public void AddHoliday(String[] values)
+        {
+            MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
+            holidayList.Add(mHoliday);
+            Console.WriteLine(values[0]);
         }
     }
 }
