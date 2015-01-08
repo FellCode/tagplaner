@@ -34,6 +34,11 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.comment = comment;
         }
+        public MHoliday(DateTime holidayDate, string holidayName)
+        {
+            this.holidayDate = holidayDate;
+            this.holidayName = holidayName;
+        }
         #endregion
     }
 }
