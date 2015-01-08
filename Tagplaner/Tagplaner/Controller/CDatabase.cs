@@ -264,13 +264,13 @@ namespace Tagplaner
             command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\")";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\")";
+            command.CommandText = "insert into trainer values(10,\"Markus\",\"Ruecker\",\"MRK\")";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(10,\"Christina\",\"von Ziegsar\",\"\")";
+            command.CommandText = "insert into trainer values(11,\"Christina\",\"von Ziegsar\",\"\")";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(11,\"Bernie\",\"Cornwell\",\"\")";
+            command.CommandText = "insert into trainer values(12,\"Bernie\",\"Cornwell\",\"\")";
             command.ExecuteNonQuery();
 
             connect.Close();
