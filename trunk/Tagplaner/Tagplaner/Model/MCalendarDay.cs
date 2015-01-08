@@ -34,6 +34,10 @@ namespace Tagplaner
         {
             get { return calendarWeek; }
         }
+        public List<MCalendarEntry> CalendarEntry
+        {
+            get { return calendarEntry; }
+        }
         #endregion
 
         #region constructor
