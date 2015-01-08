@@ -8,6 +8,20 @@ namespace Tagplaner
 {
     class MRoom
     {
-        private int number { get; set; }
+        private int number;
+
+        #region getter
+        public int Number
+        {
+            get { return number; }
+        }
+        #endregion
+
+        #region constructor
+        public MRoom(int number)
+        {
+            this.number = number;
+        }
+        #endregion
     }
 }

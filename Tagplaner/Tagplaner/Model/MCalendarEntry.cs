@@ -19,7 +19,7 @@ namespace Tagplaner
             private MPlace place;
             private MRoom room;
 
-            #region getter/setter
+            #region getter
             public MTrainer Trainer
             {
                 get { return trainer; }
