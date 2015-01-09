@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 namespace Tagplaner
 {
@@ -71,16 +70,26 @@ namespace Tagplaner
                         +"vorname varchar(100),"
                         +"nachname varchar(100),"
                         +"kuerzel varchar(5),"
+                        +"intern integer,"
                         +"primary key(trainer_id))";
 
             SQLiteCommand command = new SQLiteCommand(sql, connect);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "CREATE TABLE bundesland("
+                                + "bundesland_id integer,"
+                                + "name varchar(50),"
+                                + "kuerzel varchar(10),"
+                                + "primary key(bundesland_id))";
             command.ExecuteNonQuery();
 
             command.CommandText = "CREATE TABLE seminarort("
                                     + "seminarort_id integer,"
                                     + "ort varchar(100),"
                                     + "ansprechpartner varchar(100),"
-                                    + "primary key(seminarort_id))";
+                                    +"fk_bundesland_id integer,"
+                                    + "primary key(seminarort_id),"
+                                    +"foreign key(fk_bundesland_id) references bundesland(bundesland_id))";
             command.ExecuteNonQuery();
 
             command.CommandText = "CREATE TABLE raum("
@@ -147,12 +156,7 @@ namespace Tagplaner
                                 +"foreign key(fk_seminartag_id) references seminartag(seminartag_id))";
             command.ExecuteNonQuery();
 
-            command.CommandText = "CREATE TABLE bundesland("
-                                + "bundesland_id integer,"
-                                + "name varchar(50),"
-                                + "kuerzel varchar(10),"
-                                + "primary key(bundesland_id))";
-            command.ExecuteNonQuery();
+            
 
             connect.Close();
         }
@@ -242,40 +246,37 @@ namespace Tagplaner
             SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(1,\"Thomas\",\"Bender\",\"TBE\")";
+            command.CommandText = "insert into trainer values(1,\"Thomas\",\"Bender\",\"TBE\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(2,\"Nico\",\"Carlsen\",null)";
+            command.CommandText = "insert into trainer values(2,\"Nico\",\"Carlsen\",\"\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(3,\"Bernd\",\"Reimann\",null)";
+            command.CommandText = "insert into trainer values(3,\"Bernd\",\"Reimann\",\"\",0)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(4,\"Carsten\",\"Lenz\",\"\")";
+            command.CommandText = "insert into trainer values(4,\"Carsten\",\"Lenz\",\"\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(5,\"Thomas\",\"Adameit\",\"\")";
+            command.CommandText = "insert into trainer values(5,\"Thomas\",\"Adameit\",\"\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(6,\"Katrin\",\"Klein\",null)";
+            command.CommandText = "insert into trainer values(6,\"Katrin\",\"Klein\",\"\",0)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(7,\"Joerg\",\"Martin\",\"JMA\")";
+            command.CommandText = "insert into trainer values(7,\"Joerg\",\"Martin\",\"JMA\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(8,\"Rolf\",\"Schmidt\",\"RSC\")";
+            command.CommandText = "insert into trainer values(8,\"Rolf\",\"Schmidt\",\"RSC\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\")";
+            command.CommandText = "insert into trainer values(9,\"Markus\",\"Ruecker\",\"MRK\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(10,\"Markus\",\"Ruecker\",\"MRK\")";
+            command.CommandText = "insert into trainer values(11,\"Christina\",\"von Ziegsar\",\"\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into trainer values(11,\"Christina\",\"von Ziegsar\",\"\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into trainer values(12,\"Bernie\",\"Cornwell\",\"\")";
+            command.CommandText = "insert into trainer values(12,\"Bernie\",\"Cornwell\",\"\",1)";
             command.ExecuteNonQuery();
 
             connect.Close();
@@ -310,19 +311,19 @@ namespace Tagplaner
             SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort values(1,\"Wiesbaden Berufsschule\",\"Gerhand Ganz, Abdreas Kirschner\")";
+            command.CommandText = "insert into seminarort values(1,\"Wiesbaden Berufsschule\",\"Gerhand Ganz, Abdreas Kirschner\",2)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort values(2,\"Wiesbaden BCRM\",\"Markus Rossberg\")";
+            command.CommandText = "insert into seminarort values(2,\"Wiesbaden BCRM\",\"Markus Rossberg\",2)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort values(3,\"Köln Geschäftsstelle\",\"Susanne Wegener\")";
+            command.CommandText = "insert into seminarort values(3,\"Köln Geschäftsstelle\",\"Susanne Wegener\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort values(4,\"Köln Berufsschule\",\"GSO Herr Faller\")";
+            command.CommandText = "insert into seminarort values(4,\"Köln Berufsschule\",\"GSO Herr Faller\",1)";
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort values(5,\"München Geschäftsstelle\",\"Christina\")";
+            command.CommandText = "insert into seminarort values(5,\"München Geschäftsstelle\",\"Christina\",3)";
             command.ExecuteNonQuery();
 
             connect.Close();
