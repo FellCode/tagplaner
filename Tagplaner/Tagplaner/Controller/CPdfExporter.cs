@@ -169,7 +169,7 @@ namespace Tagplaner
             topRowTable.AddCell(new PdfPCell(new Phrase("Tag", FONT_SMALL_BOLD)) { Colspan = 1 });
             topRowTable.AddCell(new PdfPCell(new Phrase("Datum", FONT_SMALL_BOLD)) { Colspan = 2 });
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = 1 });
+            topRowTable.AddCell(new PdfPCell(new Phrase("Ferien", FONT_SMALL_BOLD)) { Colspan = 1 });
 
             topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
             topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
@@ -201,16 +201,19 @@ namespace Tagplaner
         {
             for (int i = 0; i < calendar.CalendarList.Count; i++)
             {
-                if (i % 6 == 0)
-                {
-                    CreateBodyTableRowWeekend(((i + 1) / 6) + 1);
+                MCalendarDay calendarDay = calendar.CalendarList.ElementAt(i);
 
-                }
-                else
+                switch (dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()])
                 {
-                    CreateBodyTableRow(calendar.CalendarList.ElementAt(i));
+                    case "Sa":
+                        break;
+                    case "So":
+                        CreateBodyTableRowWeekend(calendarDay.CalendarWeek);
+                        break;
+                    default:
+                        CreateBodyTableRow(calendarDay);
+                        break;
                 }
-                
             }
         }
 
@@ -279,16 +282,31 @@ namespace Tagplaner
             // Meta informations
             pdfTable.AddCell(this.CreateBodyTableCell(dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()], 1));
             pdfTable.AddCell(this.CreateBodyTableCell(calendarDay.CalendarDate.Date.ToShortDateString(), 2));
-            pdfTable.AddCell(this.CreateBodyTableCellHoliday());
+            
+            
+            // Ferien
+            if (!String.IsNullOrEmpty(calendarDay.VacationName))
+            {
+                pdfTable.AddCell(this.CreateBodyTableCellHoliday());
+            }
+            else
+            {
+                pdfTable.AddCell(this.CreateBodyTableCell());
+            }
 
-            // Kein Feiertag
-            if (String.IsNullOrEmpty(calendarDay.VacationName))
+            // Feiertag
+            if (!String.IsNullOrEmpty(calendarDay.HolidayName))
+            {
+                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.HolidayName, 14));
+                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.HolidayName, 14));
+            }
+            else
             {
                 // Year two
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell("210"));
-                pdfTable.AddCell(this.CreateBodyTableCellSeminar("C# .net"));
+                pdfTable.AddCell(this.CreateBodyTableCellPratice());
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
@@ -298,17 +316,11 @@ namespace Tagplaner
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarDay.VacationName));
+                pdfTable.AddCell(this.CreateBodyTableCellSchool());
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarDay.HolidayName));
-            }
-            // Feiertag
-            else
-            {
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.VacationName, 14));
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.VacationName, 14));
+                pdfTable.AddCell(this.CreateBodyTableCellSchool());
             }
 
 
@@ -413,7 +425,7 @@ namespace Tagplaner
         /// Erzeugt eine Tabellenreihe für Wochenenden mit der aktuellen Kalenderwoche
         /// </summary>
         /// <param name="calenderWeek"></param>
-        private void CreateBodyTableRowWeekend(int calenderWeek)
+        private void CreateBodyTableRowWeekend(string calenderWeek)
         {
             PdfPCell pdfCell = new PdfPCell();
             PdfPTable pdfTable = new PdfPTable(32);
