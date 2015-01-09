@@ -134,7 +134,7 @@ namespace Tagplaner
                         //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
                         //1-4 Durchläufe
 
-                        /*
+                        
                         foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
                             if (calendarDay.CalendarEntry[i_entry].Holiday != null)
@@ -145,6 +145,31 @@ namespace Tagplaner
                             else if (calendarDay.CalendarEntry[i_entry].School != null)
                             {
                                 #region School
+                                string comment = calendarDay.CalendarEntry[i_entry].School.Comment;
+                                switch (i_entry)
+                                {
+
+                                    case 1: cell1 = "D" + i_day;
+                                        break;
+
+                                    case 2: cell1 = "K" + i_day;
+                                        break;
+
+                                    case 3: cell1 = "R" + i_day;
+                                        break;
+
+                                    case 4: cell1 = "Y" + i_day;
+                                        break;
+
+                                }
+                                aRange.Merge(Missing.Value);
+                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue);
+                                if (comment != null)
+                                {
+                                    data[0] = comment;
+                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                    /*aRange.Borders[XlBordersIndex.xlEdgeLeft].LineStyle = XlLineStyle.xlContinuous;*/
+                                }
                                 #endregion
                             }
                             else if (calendarDay.CalendarEntry[i_entry].Practice != null)
@@ -159,6 +184,30 @@ namespace Tagplaner
                                 else
                                 {
                                     #region Practice
+                                    string comment = calendarDay.CalendarEntry[i_entry].Practice.Comment;
+                                    switch (i_entry)
+                                    {
+                                        case 1: cell1 = "D" + i_day;
+                                            break;
+
+                                        case 2: cell1 = "K" + i_day;
+                                            break;
+
+                                        case 3: cell1 = "R" + i_day;
+                                            break;
+
+                                        case 4: cell1 = "Y" + i_day;
+                                            break;
+
+                                    }
+
+                                    aRange.Merge(Missing.Value);
+                                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+                                    if (comment != null)
+                                    {
+                                        data[0] = comment;
+                                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                    }
                                     #endregion
 
                                 }
@@ -167,9 +216,41 @@ namespace Tagplaner
                             else
                             {
                                 #region Seminar
-                                #endregion
+                                                        string comment = calendarDay.CalendarEntry[i_entry].Seminar.Comment;
+                        string title = calendarDay.CalendarEntry[i_entry].Seminar.Title;
+                        string abbrevaiation = calendarDay.CalendarEntry[i_entry].Seminar.Abbreviation;
+                        string subtitle = calendarDay.CalendarEntry[i_entry].Seminar.Subtitle;
+                        bool tech = calendarDay.CalendarEntry[i_entry].Seminar.HasTechnology;
+
+                        switch (i_entry)
+                        {
+                            case 1: cell1 = "D" + i_day;
+                                break;
+
+                            case 2: cell1 = "K" + i_day;
+                                break;
+
+                            case 3: cell1 = "R" + i_day;
+                                break;
+
+                            case 4: cell1 = "Y" + i_day;
+                                break;
+                        }
+                        if (abbrevaiation != null)
+                        {
+                            data[0] = abbrevaiation;
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        }
+                        if (title != null)
+                        {
+                            data[0] = title;
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        }
+                        aRange.Merge(Missing.Value);
+                        aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);                        
+                        #endregion
                             }
-                        }*/
+                        }
                         #endregion
                         i_day++;
                     }
