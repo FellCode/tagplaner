@@ -83,7 +83,7 @@
     <Compile Include="Controller\CPdfExporter.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\CalendarUtilitys.cs" />
-    <Compile Include="Controller\ICalCSVConverter.cs" />
+    <Compile Include="Interface\ICalCSVConverter.cs" />
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Interface\ICalendarUtilitys.cs" />
     <Compile Include="Interface\IICalCSVConverter.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="View\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\WorksheetGenerator.cs" />
+    <Compile Include="Controller\CWorksheetGenerator.cs" />
     <Compile Include="Interface\IWorksheetGenerator.cs" />
     <Compile Include="FormInit.cs">
       <SubType>Form</SubType>
