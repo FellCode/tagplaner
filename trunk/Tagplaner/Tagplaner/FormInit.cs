@@ -12,16 +12,21 @@ namespace Tagplaner
 {
     public partial class FormInit : Form
     {
+        TagplanAnlegenUserControl tagplanAnlegenUC;
+        TagplanBearbeitenUserControl tagplanBearbeitenUC;
+
         public FormInit()
         {
             InitializeComponent();
+            tagplanBearbeitenUC = new TagplanBearbeitenUserControl();
+            tagplanAnlegenUC = new TagplanAnlegenUserControl(this, tagplanBearbeitenUC);
         }
 
         private void Init_Load(object sender, EventArgs e)
         {
             // Init tabpages
-            addTabPage(new TagplanAnlegenUserControl(this), "Tagplan anlegen");
-            addTabPage(new TagplanBearbeitenUserControl(), "Tagplan bearbeiten");
+            addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
+            addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
         }
 
         /// <summary>
