@@ -58,7 +58,71 @@ namespace Tagplaner
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
             return reader;
         }
-        
+
+        private int nextId(string tabelle)
+        {
+            int i = 0;
+            m_dbCommand.CommandText = "select max(" + tabelle + "_id) from "+ tabelle;
+            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                i = Convert.ToInt32(reader[tabelle + "_id"].ToString());
+            }
+
+            return i + 1;
+
+        }
+
+        public bool InsertRoom(string raumnummer, string fk_seminarort_id)
+        {
+            int raum_id = nextId("raum");
+            try
+            {
+                m_dbCommand.CommandText = "insert into raum values(" + raum_id
+                    + ",\"" + raumnummer
+                    + "\"," + fk_seminarort_id + ")";
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
+
+        public bool InsertLocation(string ort, string ansprechpartner, string fk_bundesland_id)
+        {
+            int seminarort_id = nextId("seminarort");
+            try
+            {
+                m_dbCommand.CommandText = "insert into seminarort values("
+                                            + seminarort_id + ",\"" + ort + "\",\""
+                                            + ansprechpartner + "\"," 
+                                            + fk_bundesland_id + ")";
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
+
+        public bool InsertFederelState(string name, string kuerzel)
+        {
+            int bundesland_id = nextId("bundesland");
+            try
+            {
+                m_dbCommand.CommandText = "insert into bundesland values("
+                                        + bundesland_id + ",\""
+                                        + name + "\",\""
+                                        + kuerzel + "\")";
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
         
         //Für die erst Installation der Datenbank
         public void CreateDB()
