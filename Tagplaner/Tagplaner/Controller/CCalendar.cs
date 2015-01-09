@@ -21,15 +21,19 @@ namespace Tagplaner
             calendarUtilitys.generateCalenderDayEntrys();
 
             CICalCSVConverter iCalCSVConverter = new CICalCSVConverter("CSV\\Ferien_Hessen_2015.ics", "CSV\\Ferien_Hessen_2016.ics");
-            foreach (MVacation vacation in iCalCSVConverter.GetICalEntrys(startdate, enddate))
+            List<MVacation> vacations =iCalCSVConverter.GetICalEntrys(startdate, enddate);
+            if (vacations != null)
             {
-                foreach (MCalendarDay day in listDays)
+                foreach (MVacation vacation in vacations)
                 {
-                    if ((vacation.VacationDate.Year == day.CalendarDate.Year) &&
-                        (vacation.VacationDate.Month == day.CalendarDate.Month) &&
-                        (vacation.VacationDate.Day == day.CalendarDate.Day))
+                    foreach (MCalendarDay day in listDays)
                     {
-                        day.VacationName = vacation.VacationName;
+                        if ((vacation.VacationDate.Year == day.CalendarDate.Year) &&
+                            (vacation.VacationDate.Month == day.CalendarDate.Month) &&
+                            (vacation.VacationDate.Day == day.CalendarDate.Day))
+                        {
+                            day.VacationName = vacation.VacationName;
+                        }
                     }
                 }
             }
