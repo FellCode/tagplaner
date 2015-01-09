@@ -40,9 +40,11 @@ namespace Tagplaner
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             string cell1 = "A10";
             string cell2 = "B10";
-            int i_day = 0;
+            int i_day = 1;
             Object[] data = new Object[1];
-            string calendarWeek = "KW00";
+            string calendarWeek = "";
+            string vacation = "";
+            var german = new System.Globalization.CultureInfo("de-DE");
             
             #region errormessages
             if (xlApp == null)
@@ -69,7 +71,16 @@ namespace Tagplaner
                 return false;
             }
             #endregion
-            
+
+            aRange = ws.get_Range(cell1, cell1);
+            aRange.EntireColumn.ColumnWidth = 3;
+            cell1 = "B1";
+            aRange = ws.get_Range(cell1, cell1);
+            aRange.EntireColumn.ColumnWidth = 10;
+            aRange = ws.get_Range("A1", "Z1");
+            aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+
             //Schleife fuer jeden Tag in der calendarList
             foreach (MCalendarDay calendarDay in calendar.CalendarList)
             {
@@ -78,85 +89,91 @@ namespace Tagplaner
                 #region calendarWeek
                 if (calendarWeek != calendarDay.CalendarWeek)
                 {
+                    cell1 = "A" + i_day;
+                    cell2 = "B" + i_day;
+                    aRange = ws.get_Range(cell1, cell2);
                     aRange.Merge(Missing.Value);
                     aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                    aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                    aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
                     aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                    data[0] = calendarDay.CalendarWeek;
+                    data[0] = "KW" + calendarDay.CalendarWeek;
                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
 
 
-                    cell1 = "C" + i_day +1;
-                    cell2 = "Q" + i_day + 1;
+                    cell1 = "C" + i_day;
+                    cell2 = "Q" + i_day;
                     aRange = ws.get_Range(cell1, cell2);
                     aRange.Merge(Missing.Value);
                     aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
                     aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                    break;
+                    i_day++;
+                    calendarWeek = calendarDay.CalendarWeek;
+
                 }
                 #endregion
 
+                    //Erstellt das Datum-Feld
+                    cell1 = "A" + i_day;
+                    aRange = ws.get_Range(cell1, cell1);
+                    data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+
+                    if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
+                    {
+                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+
+
+                        cell1 = "B" + i_day;
+                        aRange = ws.get_Range(cell1, cell1);
+                        data[0] = calendarDay.CalendarDate;
+                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                        
+                        int i_entry = 1;
+
+                        #region CalendarEntry
+                        //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
+                        //1-4 Durchläufe
+
+                        /*
+                        foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
+                        {
+                            if (calendarDay.CalendarEntry[i_entry].Holiday != null)
+                            {
+                                #region Holiday
+                                #endregion
+                            }
+                            else if (calendarDay.CalendarEntry[i_entry].School != null)
+                            {
+                                #region School
+                                #endregion
+                            }
+                            else if (calendarDay.CalendarEntry[i_entry].Practice != null)
+                            {
+
+                                if (calendarDay.CalendarEntry[i_entry].Seminar != null)
+                                {
+                                    #region Practice/Seminar
+                                    #endregion
+
+                                }
+                                else
+                                {
+                                    #region Practice
+                                    #endregion
+
+                                }
+
+                            }
+                            else
+                            {
+                                #region Seminar
+                                #endregion
+                            }
+                        }*/
+                        #endregion
+                        i_day++;
+                    }
                 
-
-                int i_entry = 0;
-                //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
-                //1-4 Durchläufe
-                foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
-                {
-                    if (calendarDay.CalendarEntry[i_entry].Holiday != null)
-                    {
-                        #region Holiday
-                        /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
-                    string holidayName = calendarEntry.CalendarDay.HolidayName;
-                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
-                    
-
-                    data[0] = calendarDate;
-                    aRange.set_Value("C1", "C1");
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
-                        #endregion
-                    }
-                    else if (calendarDay.CalendarEntry[i_entry].School != null)
-                    {
-                        #region School
-                        #endregion
-                    }
-                    else if (calendarDay.CalendarEntry[i_entry].Practice != null)
-                    {
-
-                        if (calendarDay.CalendarEntry[i_entry].Seminar != null)
-                        {
-                            #region Practice/Seminar
-                            #endregion
-
-                        }
-                        else
-                        {
-                            #region Practice
-                            #endregion
-
-                        }
-
-                    }
-                    else
-                    {
-                        #region Seminar
-                        /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
-                    string holidayName = calendarEntry.CalendarDay.HolidayName;
-                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
-                    
-
-                    data[0] = calendarDate;
-                    aRange.set_Value("C1", "C1");
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
-
-
-
-                        #endregion
-                    }
-                }
-                i_day++;
             }
             return true;
         }
