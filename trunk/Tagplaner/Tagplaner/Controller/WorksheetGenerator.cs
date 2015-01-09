@@ -41,7 +41,6 @@ namespace Tagplaner
             string cell1 = "A10";
             string cell2 = "B10";
             int i_day = 0;
-            int i_entry = 0;
             Object[] data = new Object[1];
             string calendarWeek = "KW00";
             
@@ -71,9 +70,11 @@ namespace Tagplaner
             }
             #endregion
             
+            //Schleife fuer jeden Tag in der calendarList
             foreach (MCalendarDay calendarDay in calendar.CalendarList)
             {
 
+                //Findet heraus, ob eine neue Kalenderwoche startet
                 #region calendarWeek
                 if (calendarWeek != calendarDay.CalendarWeek)
                 {
@@ -96,60 +97,65 @@ namespace Tagplaner
                 }
                 #endregion
 
-
-                foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
-                if (calendarDay.CalendarEntry[i_entry].Holiday != null)
-                {
-                    #region Holiday
-                    /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
-                    string holidayName = calendarEntry.CalendarDay.HolidayName;
-                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
-                    
-
-                    data[0] = calendarDate;
-                    aRange.set_Value("C1", "C1");
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
-                    #endregion
-                }
-                else if (calendarDay.CalendarEntry[i_entry].School != null)
-                           {
-                               #region School
-                               #endregion
-                           }
-                else if (calendarDay.CalendarEntry[i_entry].Practice != null)
-                           {
-
-                               if (calendarDay.CalendarEntry[i_entry].Seminar != null)
-                               {
-                                   #region Practice/Seminar
-                                   #endregion
-
-                               }
-                               else
-                               {
-                                   #region Practice
-                                   #endregion
-                   
-                               }
-
-                           }
-                           else
-                           {
-                               #region Seminar
-                               /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
-                    string holidayName = calendarEntry.CalendarDay.HolidayName;
-                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
-                    
-
-                    data[0] = calendarDate;
-                    aRange.set_Value("C1", "C1");
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
-
-
-
-                               #endregion
-                           }
                 
+
+                int i_entry = 0;
+                //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
+                //1-4 Durchläufe
+                foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
+                {
+                    if (calendarDay.CalendarEntry[i_entry].Holiday != null)
+                    {
+                        #region Holiday
+                        /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
+                    string holidayName = calendarEntry.CalendarDay.HolidayName;
+                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
+                    
+
+                    data[0] = calendarDate;
+                    aRange.set_Value("C1", "C1");
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
+                        #endregion
+                    }
+                    else if (calendarDay.CalendarEntry[i_entry].School != null)
+                    {
+                        #region School
+                        #endregion
+                    }
+                    else if (calendarDay.CalendarEntry[i_entry].Practice != null)
+                    {
+
+                        if (calendarDay.CalendarEntry[i_entry].Seminar != null)
+                        {
+                            #region Practice/Seminar
+                            #endregion
+
+                        }
+                        else
+                        {
+                            #region Practice
+                            #endregion
+
+                        }
+
+                    }
+                    else
+                    {
+                        #region Seminar
+                        /*DateTime calendarDate = calendarEntry.CalendarDay.CalendarDate;
+                    string holidayName = calendarEntry.CalendarDay.HolidayName;
+                    string calendarWeek = calendarEntry.CalendarDay.CalendarWeek;
+                    
+
+                    data[0] = calendarDate;
+                    aRange.set_Value("C1", "C1");
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);*/
+
+
+
+                        #endregion
+                    }
+                }
                 i_day++;
             }
             return true;
