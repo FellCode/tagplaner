@@ -24,6 +24,9 @@ namespace Tagplaner
 
         private void Init_Load(object sender, EventArgs e)
         {
+            // Show date and time
+            showDateTimeAsTitle();
+
             // Init tabpages
             addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
             addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
@@ -50,6 +53,18 @@ namespace Tagplaner
         public void tabPageChange(int pageIndex)
         {
             tabControl1.SelectedIndex = pageIndex;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            showDateTimeAsTitle();
+        }
+
+        private void showDateTimeAsTitle() {
+            string time = DateTime.Now.ToShortTimeString();
+            string date = DateTime.Now.ToShortDateString();
+
+            this.Text = date + " - " + time;
         }
     }
 }
