@@ -99,8 +99,8 @@ namespace Tagplaner
 
         public void getCalendarWithDates()
         {
-
-            calendarWithDays = MCalendar.getInstance(this.dateTimePicker1.Value, this.dateTimePicker2.Value);
+            MCalendar.getInstance().fillCalendarInitial(this.dateTimePicker1.Value, this.dateTimePicker2.Value);
+            calendarWithDays = MCalendar.getInstance();
         }
 
         public void fillListViewWithDays(List<MCalendarDay> calendarDayList, ListView listView)
