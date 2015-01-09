@@ -308,21 +308,25 @@ namespace Tagplaner
             }
             else
             {
-                // Year two
+                // Year two - FIAE
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell("210"));
                 pdfTable.AddCell(this.CreateBodyTableCellPratice());
+
+                // Year two  - FISI
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCellPratice());
 
-                // Year one
+                // Year one  - FIAE
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCellSchool());
+
+                // Year one  - FISI
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
