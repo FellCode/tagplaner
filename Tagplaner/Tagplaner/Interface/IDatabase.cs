@@ -25,7 +25,7 @@ namespace Tagplaner
         void FillFederalStateCombobox(ComboBox combobox);
         void FillLocationCombobox(ComboBox combobox);
         //id des Seminarorts mitgeben
-        void FillRoomCombobox(ComboBox combobox, string location);
+        void FillRoomCombobox(ComboBox combobox, int location);
 
         //Könnte man in Select, Update und delete aufteilen
         SQLiteDataReader ExecuteQuery(string query);
