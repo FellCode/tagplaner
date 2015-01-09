@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CCalendar.cs" />
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CPdfExporter.cs" />

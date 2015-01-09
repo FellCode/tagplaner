@@ -11,58 +11,66 @@ namespace Tagplaner
     {
         private List<MCalendarDay> calendarList = new List<MCalendarDay>();
         private static MCalendar instance;
-        public string firstDayString { get; set; }
-        public string endDayString { get; set; }
+        private DateTime startdate;
+        private DateTime enddate;
+        private string startdateString;
+        private string enddateString;
 
         #region getter
-        public DateTime startdate { get; set; }
-        public DateTime enddate { get; set; }
+        public DateTime Startdate
+        {
+            get { return startdate; }
+            set { startdate = value; }
+        }
+        public DateTime Enddate
+        {
+            get { return enddate; }
+            set { enddate = value; }
+        }
+        public string StartdateString
+        {
+            get { return startdateString; }
+            set { startdateString = value; }
+        }
+        public string EnddateString
+        {
+            get { return enddateString; }
+            set { enddateString = value; }
+        }
         public List<MCalendarDay> CalendarList
         {
             get { return calendarList; }
+            set { calendarList = value; }
         }
 
-        private MCalendar(DateTime start,DateTime end)
+        private MCalendar()
         {
-            startdate = start;
-            enddate = end;
 
-            //Befüllen der CalendarList von startdatum bis enddatum
-            CalendarUtilitys calendarUtilitys = new CalendarUtilitys(this.startdate, this.enddate, this.CalendarList);
-            calendarUtilitys.generateCalenderDayEntrys();
-
-            ICalCSVConverter iCalCSVConverter = new ICalCSVConverter("C:\\Users\\choller\\Documents\\Visual Studio 2013\\Projects\\Tagplaner\\Tagplaner\\Tagplaner\\Ferien_Hessen_2015.ics", "C:\\Users\\choller\\Documents\\Visual Studio 2013\\Projects\\Tagplaner\\Tagplaner\\Tagplaner\\Ferien_Hessen_2016.ics");
-            foreach(MVacation vacation in iCalCSVConverter.GetICalEntrys(this.startdate, this.enddate))
-            {
-                foreach(MCalendarDay day in this.CalendarList)
-                {
-                    if (vacation.VacationDate.Equals(day.CalendarDate))
-                    {
-                        day.VacationName = vacation.VacationName;
-                    }
-                }
-            }
-            CHoliday holiday = new CHoliday();
-            foreach (MHoliday tempHoliday in holiday.GetHoliday("Nordrhein-Westfalen", this.startdate, this.enddate))
-            {
-                foreach (MCalendarDay day in this.CalendarList)
-                {
-                    if (tempHoliday.HolidayDate.Equals(day.CalendarDate))
-                    {
-                        day.HolidayName = tempHoliday.HolidayName;
-                    }
-                }
-            }
         }
 
-        public static MCalendar getInstance(DateTime start, DateTime end)
+        public static MCalendar getInstance()
         {
             if (instance == null)
             {
-                instance = new MCalendar(start,end);
+                instance = new MCalendar();
             } return instance;
         }
         #endregion
+
+        public void fillCalendarInitial(DateTime start, DateTime end)
+        {
+
+            startdate = start;
+            enddate = end;
+
+            StartdateString = String.Format("{0:D}", start);
+            EnddateString = String.Format("{0:D}", end);
+
+            //Befüllen der CalendarList von startdatum bis enddatum
+            CCalendar ccalendar = new CCalendar();
+            CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList);
+            CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList);
+        }
 
         #region AddDay-Methods
      
