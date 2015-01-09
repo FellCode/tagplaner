@@ -59,6 +59,7 @@ namespace Tagplaner
             return reader;
         }
 
+        // Methode zum ermitteln der nächsten ID einer Tabelle
         private int nextId(string tabelle)
         {
             int i = 0;
@@ -72,6 +73,39 @@ namespace Tagplaner
 
             return i + 1;
 
+        }
+
+        //Insertmehtoden für die Datenbankmethoden
+
+        public bool InsertSeminar(string titel, string untertitel, string kuerzel, string technick)
+        {
+            int seminarId = nextId("seminar");
+            try
+            {
+                m_dbCommand.CommandText = "insert into Seminar values(" + seminarId + "," + titel + ",\"" + untertitel + ",\"" + kuerzel + "," + technick + "";
+                m_dbCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
+
+
+        public bool InsertTrainer(string vorname, string nachname, string kuerzel, string intern)
+        {
+            int trainerId = nextId("trainer");
+            try
+            {
+                m_dbCommand.CommandText = "insert into Seminar values(" + trainerId + "," + vorname + ",\"" + nachname + ",\"" + kuerzel + "," + intern + "";
+                m_dbCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
         }
 
         public bool InsertRoom(string raumnummer, string fk_seminarort_id)
@@ -570,7 +604,7 @@ namespace Tagplaner
             CloseDatabase();
         }
 
-        public void FillRoomCombobox(ComboBox combobox, int location)
+        public void FillRoomCombobox(ComboBox combobox, string location)
         {
             Dictionary<string, string> room;
 
