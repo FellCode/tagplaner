@@ -23,7 +23,7 @@ namespace Tagplaner
         /// <param name="obj">Kalendarobjekt</param>
         public void SerializeObject(MCalendar obj, string name)
         {
-            stream = new FileStream(@"CSV\\" + name + ".tp", FileMode.Create);
+            stream = new FileStream(@""+ name, FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
@@ -33,7 +33,7 @@ namespace Tagplaner
         /// <returns>Gibt ein MCalendarobjekt zurück</returns>
         public MCalendar DeserializeObject(string name)
         {
-            FileStream stream = new FileStream(@"CSV\\" + name + ".tp", FileMode.Open);
+            FileStream stream = new FileStream(@""+ name, FileMode.Open);
             return (MCalendar)formatter.Deserialize(stream);
         }
     }
