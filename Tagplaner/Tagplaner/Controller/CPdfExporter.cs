@@ -33,7 +33,7 @@ namespace Tagplaner
 
         readonly Font FONT_UNIQUE = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.NORMAL, BaseColor.WHITE);
 
-        public bool exportPdf(object[] objects, string filename)
+        public bool exportPdf(string filename)
         {
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
