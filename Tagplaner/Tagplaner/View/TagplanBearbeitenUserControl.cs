@@ -19,17 +19,13 @@ namespace Tagplaner
 
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
-            
+                //ListViewItem listViewItem = new ListViewItem();
+                //listViewItem.Text = "Noch kein Tagplan vorhanden";
+                //listView1.Items.Add(listViewItem);
+        }
 
-            for (int i = 1; i < 10; i++)
-            {
-                ListViewItem lv = new ListViewItem();
-                lv.Text = "0" + i + ".04.2015";
-                lv.SubItems.Add("");
-                lv.SubItems.Add("Osterferien");
-
-                listView1.Items.Add(lv);                 
-            }
+        public ListView getListView(){
+            return this.listView1;
         }
     }
 }

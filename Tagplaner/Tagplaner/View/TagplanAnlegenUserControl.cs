@@ -13,10 +13,13 @@ namespace Tagplaner
     public partial class TagplanAnlegenUserControl : UserControl
     {
         private FormInit formInit;
+        MCalendar calendarWithDays;
+        TagplanBearbeitenUserControl tagplanBearbeitenUC;
 
-        public TagplanAnlegenUserControl(FormInit formInit)
+        public TagplanAnlegenUserControl(FormInit formInit, TagplanBearbeitenUserControl tagplanBearbeitenUC)
         {
-            this.formInit = formInit;    
+            this.formInit = formInit;
+            this.tagplanBearbeitenUC = tagplanBearbeitenUC;
             InitializeComponent();
         }
 
@@ -74,8 +77,7 @@ namespace Tagplaner
 
             foreach (string y in result)
             {
-                System.IO.StreamReader sr = new
-               System.IO.StreamReader(y);
+                System.IO.StreamReader sr = new System.IO.StreamReader(y);
                 MessageBox.Show(sr.ReadToEnd());
                 sr.Close();
             }
@@ -83,12 +85,73 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
-            nextTabPage();   
+            nextTabPage();
+            //Werte aus Datepicker werden an Kalenderobjekt übergeben
+            getCalendarWithDates();
+            //ListView wird mit Tagen gefüllt
+            fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.getListView());
         }
 
         public void nextTabPage()
         {
             formInit.tabPageChange(1);
+        }
+
+        public void getCalendarWithDates()
+        {
+
+            calendarWithDays = MCalendar.getInstance(this.dateTimePicker1.Value, this.dateTimePicker2.Value);
+        }
+
+        public void fillListViewWithDays(List<MCalendarDay> calendarDayList, ListView listView)
+        {
+            foreach (MCalendarDay calendarDay in calendarDayList)
+            {
+                ListViewItem listViewItem = new ListViewItem();
+
+                if (int.Parse(calendarDay.CalendarWeek) % 2 == 0)
+                {
+                    listViewItem.Text = calendarDay.CalendarWeek;
+                    listViewItem.SubItems.Add(calendarDay.CalendarDate.ToString());
+
+                    listViewItem.SubItems[0].BackColor = Color.LightSkyBlue;
+                    listViewItem.SubItems[1].BackColor = Color.LightSkyBlue;
+                    listViewItem.UseItemStyleForSubItems = false;
+                }
+
+                else
+                {
+                    listViewItem.Text = calendarDay.CalendarWeek;
+                    listViewItem.SubItems.Add(calendarDay.CalendarDate.ToString());
+                }
+
+                if (calendarDay.VacationName != null)
+                {
+                    listViewItem.SubItems.Add(calendarDay.VacationName);
+
+                    listViewItem.SubItems[2].BackColor = Color.LightGreen;
+                    listViewItem.UseItemStyleForSubItems = false;
+                }
+
+                if (calendarDay.HolidayName != null && calendarDay.VacationName != null)
+                {
+                    listViewItem.SubItems.Add(calendarDay.HolidayName);
+
+                    listViewItem.SubItems[3].BackColor = Color.LightGreen;
+                    listViewItem.UseItemStyleForSubItems = false;
+                }
+                
+                if (calendarDay.HolidayName != null)
+                {
+                    listViewItem.SubItems.Add("");
+                    listViewItem.SubItems.Add(calendarDay.HolidayName);
+
+                    listViewItem.SubItems[3].BackColor = Color.LightGreen;
+                    listViewItem.UseItemStyleForSubItems = false;
+                }
+
+                listView.Items.Add(listViewItem);
+            }
         }
     }
 }
