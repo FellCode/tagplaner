@@ -13,7 +13,7 @@ namespace Tagplaner
         private string holidayName;
         private string vacationName;
         private string calendarWeek;
-        private List<MCalendarEntry> calendarEntry;
+        private List<MCalendarEntry> calendarEntry = new List<MCalendarEntry>();
 
         #region getter
         public string VacationName
@@ -47,6 +47,7 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.vacationName = vacationName; 
             this.calendarWeek = calenderWeek;
+
         }
         #endregion
     }
