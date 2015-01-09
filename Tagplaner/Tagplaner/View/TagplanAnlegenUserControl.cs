@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Tagplaner
 {
@@ -15,6 +16,7 @@ namespace Tagplaner
         private FormInit formInit;
         MCalendar calendarWithDays;
         TagplanBearbeitenUserControl tagplanBearbeitenUC;
+        CSerialize serializer;
 
         public TagplanAnlegenUserControl(FormInit formInit, TagplanBearbeitenUserControl tagplanBearbeitenUC)
         {
@@ -54,17 +56,31 @@ namespace Tagplaner
 
         }
 
+        //Speichern eines Tagplans
         private void button3_Click(object sender, EventArgs e)
         {
+         
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            /*
+            calendarWithDays = MCalendar.getInstance();
+            serializer.SerializeObject(calendarWithDays);
+
+             */
             System.IO.Directory.CreateDirectory(@"C:\Tagplan");
 
             saveFileDialog1.InitialDirectory = @"C:\Tagplan";
             saveFileDialog1.Filter = "Tagplan|*.tp";
             saveFileDialog1.Title = "Tagplan abspeichern";
+            
             saveFileDialog1.ShowDialog();
+         
+            calendarWithDays = MCalendar.getInstance();
+            serializer = new CSerialize();
+            serializer.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
         }
 
+        //Öffnen eines Tagplans
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -75,12 +91,19 @@ namespace Tagplaner
             openFileDialog1.ShowDialog();
             string[] result = openFileDialog1.FileNames;
 
+            StringBuilder stringBuilder = new StringBuilder();
+
             foreach (string y in result)
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(y);
-                MessageBox.Show(sr.ReadToEnd());
-                sr.Close();
+                stringBuilder.Append(y);
             }
+            MessageBox.Show(stringBuilder.ToString(), "Tagplan geöffnet");
+
+            serializer = new CSerialize();
+            calendarWithDays = serializer.DeserializeObject(openFileDialog1.FileName);
+
+            fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.getListView());
+            nextTabPage();
         }
 
         private void button1_Click(object sender, EventArgs e)
