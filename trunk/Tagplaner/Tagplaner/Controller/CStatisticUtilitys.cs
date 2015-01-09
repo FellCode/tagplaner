@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tagplaner.Controller
 {
-    class CStatistikUtilitys
+    class CStatisticUtilitys
     {
+
     }
 }
