@@ -14,6 +14,8 @@ namespace Tagplaner
         private SQLiteConnection m_dbConnection;
         private SQLiteCommand m_dbCommand;
 
+        // Die Verbindungsmethode zur Datenbank
+
         public bool ConnectDatabase()
         {
 
@@ -31,6 +33,8 @@ namespace Tagplaner
             
         }
 
+        //Die Methode zum schließen der verbindung zu Datenbank
+
         public bool CloseDatabase()
         {
 
@@ -46,6 +50,8 @@ namespace Tagplaner
             
         }
 
+        //Die Methode zum ausführen einer SQL Query
+
         public SQLiteDataReader ExecuteQuery(string query)
         {
             m_dbCommand.CommandText = query;
@@ -54,8 +60,6 @@ namespace Tagplaner
         }
         
         
-  
-
         //Für die erst Installation der Datenbank
         public void CreateDB()
         {
@@ -169,7 +173,7 @@ namespace Tagplaner
             FillSeminarort();
             FillRaum();
         }
-
+        // Hier kommen die inserts für die DB
         private void FillSeminar()
         {
             SQLiteConnection connect;
@@ -399,6 +403,8 @@ namespace Tagplaner
 
 
         }
+
+        // Hier kommen die ComboBox Methoden
 
         public void FillTrainerCombobox(ComboBox combobox)
         {
