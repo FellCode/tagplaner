@@ -137,16 +137,16 @@ namespace Tagplaner
                         
                         foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
-                            if (calendarDay.CalendarEntry[i_entry].Holiday != null)
+                            if (calendarDay.CalendarEntry[i_entry-1].Holiday != null)
                             {
                                 #region Holiday
                                 #endregion
                             }
-                            else if (calendarDay.CalendarEntry[i_entry].School != null)
+                            else if (calendarDay.CalendarEntry[i_entry-1].School != null)
                             {
                                 #region School
-                                string comment = calendarDay.CalendarEntry[i_entry].School.Comment;
-                                switch (i_entry)
+                                string comment = calendarDay.CalendarEntry[i_entry-1].School.Comment;
+                                switch (i_entry-1)
                                 {
 
                                     case 1: cell1 = "D" + i_day;
@@ -172,20 +172,21 @@ namespace Tagplaner
                                 }
                                 #endregion
                             }
-                            else if (calendarDay.CalendarEntry[i_entry].Practice != null)
+                            else if (calendarDay.CalendarEntry[i_entry-1].Practice != null)
                             {
 
-                                if (calendarDay.CalendarEntry[i_entry].Seminar != null)
+                                if (calendarDay.CalendarEntry[i_entry-1].Seminar != null)
                                 {
                                     #region Practice/Seminar
+                                    string comment_p = calendarDay.CalendarEntry[i_entry-1].Practice.Comment;
                                     #endregion
 
                                 }
                                 else
                                 {
                                     #region Practice
-                                    string comment = calendarDay.CalendarEntry[i_entry].Practice.Comment;
-                                    switch (i_entry)
+                                    string comment = calendarDay.CalendarEntry[i_entry-1].Practice.Comment;
+                                    switch (i_entry-1)
                                     {
                                         case 1: cell1 = "D" + i_day;
                                             break;
@@ -216,13 +217,13 @@ namespace Tagplaner
                             else
                             {
                                 #region Seminar
-                                                        string comment = calendarDay.CalendarEntry[i_entry].Seminar.Comment;
-                        string title = calendarDay.CalendarEntry[i_entry].Seminar.Title;
-                        string abbrevaiation = calendarDay.CalendarEntry[i_entry].Seminar.Abbreviation;
-                        string subtitle = calendarDay.CalendarEntry[i_entry].Seminar.Subtitle;
-                        bool tech = calendarDay.CalendarEntry[i_entry].Seminar.HasTechnology;
+                                                        string comment = calendarDay.CalendarEntry[i_entry-1].Seminar.Comment;
+                        string title = calendarDay.CalendarEntry[i_entry-1].Seminar.Title;
+                        string abbrevaiation = calendarDay.CalendarEntry[i_entry-1].Seminar.Abbreviation;
+                        string subtitle = calendarDay.CalendarEntry[i_entry-1].Seminar.Subtitle;
+                        bool tech = calendarDay.CalendarEntry[i_entry-1].Seminar.HasTechnology;
 
-                        switch (i_entry)
+                        switch (i_entry-1)
                         {
                             case 1: cell1 = "D" + i_day;
                                 break;
