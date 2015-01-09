@@ -50,6 +50,9 @@
     <StartupObject>Tagplaner.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="antlr.runtime">
+      <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\antlr.runtime.dll</HintPath>
+    </Reference>
     <Reference Include="DDay.Collections">
       <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.Collections.dll</HintPath>
     </Reference>
@@ -57,7 +60,7 @@
       <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\..\itextsharp.dll</HintPath>
+      <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
