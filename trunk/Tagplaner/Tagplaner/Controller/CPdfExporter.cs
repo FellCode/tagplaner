@@ -131,7 +131,13 @@ namespace Tagplaner
             pdfLegendPracticalCell.BackgroundColor = BaseColor.CYAN;
             pdfLegendHolidayCell.BackgroundColor = BaseColor.GREEN;
 
-            legendTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = 4, Rowspan = 4 });
+            legendTable.AddCell(new PdfPCell(new Phrase("Legende", FONT_SMALL_BOLD)) 
+            { 
+                Colspan = 4, 
+                Rowspan = 4,
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE
+            });
             legendTable.AddCell(pdfLegendSchoolCell);
             legendTable.AddCell(new PdfPCell(new Phrase("Phase in Berufsschule", FONT_NORMAL)) { Colspan = 13 });
             legendTable.AddCell(pdfLegendSchoolCell);
@@ -166,10 +172,10 @@ namespace Tagplaner
             PdfPTable topRowTable = new PdfPTable(32);
             topRowTable.WidthPercentage = 100;
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("Tag", FONT_SMALL_BOLD)) { Colspan = 1 });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Datum", FONT_SMALL_BOLD)) { Colspan = 2 });
+            topRowTable.AddCell(new PdfPCell(new Phrase("Tag", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+            topRowTable.AddCell(new PdfPCell(new Phrase("Datum", FONT_SMALL_BOLD)) { Colspan = 2, HorizontalAlignment = Element.ALIGN_CENTER });
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ferien", FONT_SMALL_BOLD)) { Colspan = 1 });
+            topRowTable.AddCell(new PdfPCell(new Phrase("Ferien", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
 
             topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
             topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
@@ -355,6 +361,7 @@ namespace Tagplaner
             pdfcell.BackgroundColor = BaseColor.CYAN;
             pdfcell.Phrase = new Phrase(seminarName, FONT_NORMAL);
             pdfcell.Colspan = colspan;
+            pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
 
             return pdfcell;
         }
@@ -369,6 +376,7 @@ namespace Tagplaner
             pdfcell.BackgroundColor = BaseColor.YELLOW;
             pdfcell.Phrase = new Phrase(comment);
             pdfcell.Colspan = colspan;
+            pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
 
             return pdfcell;
         }
@@ -417,6 +425,7 @@ namespace Tagplaner
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.Phrase = new Phrase(value, FONT_NORMAL);
             pdfcell.Colspan = colspan;
+            pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
 
             return pdfcell;
         }
