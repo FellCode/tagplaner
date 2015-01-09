@@ -36,18 +36,19 @@ namespace Tagplaner
 		}
 		
 		public List<MVacation> GetICalEntrys(DateTime startdate, DateTime enddate){
-			ReadICalEntrysCurrentYear(new DateTime(startdate.Year,startdate.Month,startdate.Day),new DateTime(startdate.Year,12,31));
-			ReadICalEntrysNextYear(new DateTime(enddate.Year,01,01),new DateTime(enddate.Year,enddate.Month,enddate.Day));
-			return VacationList;
+            bool iCalFilesReady = ReadICalEntrysCurrentYear(new DateTime(startdate.Year, startdate.Month, startdate.Day), new DateTime(startdate.Year, 12, 31));
+            iCalFilesReady = ReadICalEntrysNextYear(new DateTime(enddate.Year, 01, 01), new DateTime(enddate.Year, enddate.Month, enddate.Day));
+			if(iCalFilesReady) return VacationList;
+            return null;
 		}
 		
-		public void ReadICalEntrysCurrentYear(DateTime startdate, DateTime enddate){
+		public bool ReadICalEntrysCurrentYear(DateTime startdate, DateTime enddate){
 			try {
 				ICalendar= iCalendar.LoadFromFile(currentYearURL);
 			}
 			catch(Exception exception){
 				ExceptionMessage = exception.Message;
-				return;
+				return false;
 			}
 			
 			Startdate = startdate;
@@ -68,16 +69,17 @@ namespace Tagplaner
 				
 			}
 			//return VacationList;
+            return true;
 		}
 		
-		public void ReadICalEntrysNextYear(DateTime startdate, DateTime enddate){
+		public bool ReadICalEntrysNextYear(DateTime startdate, DateTime enddate){
 			
 			try {
 				ICalendar= iCalendar.LoadFromFile(nextYearURL);
 			}
 			catch(Exception exception){
 				ExceptionMessage = exception.Message;
-				return;
+				return false;
 			}
 			
 			Enddate = enddate;
@@ -98,6 +100,7 @@ namespace Tagplaner
 				
 			}
 			//return VacationList;
+            return true;
 		}
 		
 		private void GenerateMVacationCurrentYear(DateTime start, DateTime end, string vacationName){
