@@ -59,7 +59,7 @@ namespace Tagplaner
         #endregion
 
 
-        public MCalendarEntry(MTrainer trainer, MTrainer cotrainer, MCalendarDay calendarDay, MSpeciality speciality,
+        public MCalendarEntry(MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
             MSeminar seminar, MPlace place, MRoom room)
         {
             this.trainer = trainer;
