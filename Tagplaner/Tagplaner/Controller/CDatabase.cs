@@ -92,7 +92,6 @@ namespace Tagplaner
             }
         }
 
-
         public bool InsertTrainer(string vorname, string nachname, string kuerzel, string intern)
         {
             int trainerId = nextId("trainer");
@@ -158,6 +157,24 @@ namespace Tagplaner
             }
         }
         
+        public bool InsertFachrichtung(string bezeichnung, string ausbildungsjahr, string bundesland)
+        {
+            int fachrichtung_id = nextId("fachrichtung");
+            try
+            {
+                m_dbCommand.CommandText = "insert into fachrichtung values("
+                                        + fachrichtung_id + ",\""
+                                        + bezeichnung + "\",\""
+                                        + ausbildungsjahr + "\",\""
+                                        + bundesland +"\")";
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                return false;
+            }
+        }
+
         //Für die erst Installation der Datenbank
         public void CreateDB()
         {
@@ -262,6 +279,7 @@ namespace Tagplaner
 
             connect.Close();
         }
+
         //zum ersten befuellen der DB
         public void FillDB ()
         {
@@ -271,6 +289,7 @@ namespace Tagplaner
             FillSeminarort();
             FillRaum();
         }
+
         // Hier kommen die inserts für die DB
         private void FillSeminar()
         {
