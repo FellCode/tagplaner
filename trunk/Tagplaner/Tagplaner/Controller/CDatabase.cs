@@ -514,6 +514,8 @@ namespace Tagplaner
 
             SQLiteDataReader reader = ExecuteQuery("select trainer_id, vorname, nachname from trainer");
 
+            trainer.Add("","");
+
             while(reader.Read())
             {
                 trainer.Add(reader["trainer_id"].ToString(), reader["vorname"].ToString() + reader["nachname"].ToString());
@@ -538,6 +540,8 @@ namespace Tagplaner
             ConnectDatabase();
 
             SQLiteDataReader reader = ExecuteQuery("select seminar_id, titel from seminar");
+
+            seminar.Add("","");
 
             while (reader.Read())
             {
@@ -564,6 +568,8 @@ namespace Tagplaner
 
             SQLiteDataReader reader = ExecuteQuery("select bundesland_id, name from bundesland");
 
+            federalstate.Add("","");
+
             while (reader.Read())
             {
                 federalstate.Add(reader["bundesland_id"].ToString(), reader["name"].ToString());
@@ -589,6 +595,8 @@ namespace Tagplaner
 
             SQLiteDataReader reader = ExecuteQuery("select seminarort_id, ort from seminarort");
 
+            location.Add("","");
+
             while (reader.Read())
             {
                 location.Add(reader["seminarort_id"].ToString(), reader["ort"].ToString());
@@ -604,7 +612,7 @@ namespace Tagplaner
             CloseDatabase();
         }
 
-        public void FillRoomCombobox(ComboBox combobox, string location)
+        public void FillRoomCombobox(ComboBox combobox, int location)
         {
             Dictionary<string, string> room;
 
@@ -613,6 +621,8 @@ namespace Tagplaner
             ConnectDatabase();
 
             SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum where fk_seminarort_id =" + location);
+
+            room.Add("","");
 
             while (reader.Read())
             {
