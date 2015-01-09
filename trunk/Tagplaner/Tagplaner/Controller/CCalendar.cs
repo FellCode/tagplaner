@@ -25,7 +25,9 @@ namespace Tagplaner
             {
                 foreach (MCalendarDay day in listDays)
                 {
-                    if (vacation.VacationDate.Equals(day.CalendarDate))
+                    if ((vacation.VacationDate.Year == day.CalendarDate.Year) &&
+                        (vacation.VacationDate.Month == day.CalendarDate.Month) &&
+                        (vacation.VacationDate.Day == day.CalendarDate.Day))
                     {
                         day.VacationName = vacation.VacationName;
                     }
@@ -48,7 +50,9 @@ namespace Tagplaner
             {
                 foreach (MCalendarDay day in listDays)
                 {
-                    if (tempHoliday.HolidayDate.Equals(day.CalendarDate))
+                    if ((tempHoliday.HolidayDate.Year == day.CalendarDate.Year) &&
+                        (tempHoliday.HolidayDate.Month == day.CalendarDate.Month) &&
+                        (tempHoliday.HolidayDate.Day == day.CalendarDate.Day))
                     {
                         day.HolidayName = tempHoliday.HolidayName;
                     }
