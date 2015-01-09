@@ -17,10 +17,10 @@ namespace Tagplaner
         /// <returns></returns>
         public List<MCalendarDay> fillDaysInitial(DateTime startdate,DateTime enddate,List<MCalendarDay> listDays)
         {
-            CalendarUtilitys calendarUtilitys = new CalendarUtilitys(startdate, enddate, listDays);
+            CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
             calendarUtilitys.generateCalenderDayEntrys();
 
-            ICalCSVConverter iCalCSVConverter = new ICalCSVConverter("CSV\\Ferien_Hessen_2015.ics", "CSV\\Ferien_Hessen_2016.ics");
+            CICalCSVConverter iCalCSVConverter = new CICalCSVConverter("CSV\\Ferien_Hessen_2015.ics", "CSV\\Ferien_Hessen_2016.ics");
             foreach (MVacation vacation in iCalCSVConverter.GetICalEntrys(startdate, enddate))
             {
                 foreach (MCalendarDay day in listDays)
