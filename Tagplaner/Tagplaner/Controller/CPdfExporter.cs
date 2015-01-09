@@ -76,6 +76,9 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Füllt das Dictionary dayDictionary mit Schlüsselwertpaaren
+        /// </summary>
         private void fillDayDictionary()
         {
             dayDictionary.Add("Monday", "Mo");
@@ -87,6 +90,9 @@ namespace Tagplaner
             dayDictionary.Add("Sunday", "So");
         }
 
+        /// <summary>
+        /// Erzeugt den oberen Teil des PDF-Dokuments mit der Legende
+        /// </summary>
         private void CreatePdfHeader()
         {
             PdfPTable headerTable = new PdfPTable(32);
@@ -105,6 +111,10 @@ namespace Tagplaner
             doc.Add(CreateTopRow());
         }
 
+        /// <summary>
+        ///  Erzeugt die Legende für die verschiedenen Arten von Tagplan 
+        /// </summary>
+        /// <returns></returns>
         private PdfPTable CreateLegend()
         {
             PdfPTable legendTable = new PdfPTable(32);
@@ -147,6 +157,10 @@ namespace Tagplaner
             return legendTable;
         }
 
+        /// <summary>
+        /// Erzeugt den Tabellenkopf für die Tagplan-Tabelle
+        /// </summary>
+        /// <returns></returns>
         public PdfPTable CreateTopRow()
         {
             PdfPTable topRowTable = new PdfPTable(32);
@@ -181,7 +195,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erzeugt den Hauptteil des Tagplans
         /// </summary>
         private void CreatePdfBody()
         {
@@ -201,7 +215,8 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erzeugt eine Tabelle am Ende des PDF-Dokuments mit den Namen und
+        /// Kürzel der Seminarleiter
         /// </summary>
         private void CreatePdfFooter()
         {
@@ -215,39 +230,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private void CreateTableRow()
-        {
-        }
-
-        private PdfPCell CreateCellSchool()
-        {
-            PdfPCell pdfcell = new PdfPCell();
-            pdfcell.BackgroundColor = BaseColor.BLUE;
-            pdfcell.Phrase = new Phrase(
-                "",
-                new Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD)
-            );
-            pdfcell.Colspan = 5;
-
-            return pdfcell;
-        }
-
-        private PdfPCell CreateCellSeminar(string seminarName, int colspan = 4)
-        {
-            PdfPCell pdfcell = new PdfPCell();
-            pdfcell.BackgroundColor = BaseColor.YELLOW;
-            pdfcell.Phrase = new Phrase(
-                seminarName,
-                new Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.BOLD)
-            );
-
-            return pdfcell;
-        }
-
-        /// <summary>
-        /// 
+        /// Erzeugt eine Tabellenreihe zwei Zellen
         /// </summary>
         /// <param name="leftValue"></param>
         /// <param name="rightValue"></param>
@@ -271,7 +254,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// create an single table cell
+        /// Erstellt eine neue Zelle für FooterTableRow
         /// </summary>
         /// <param name="value"></param>
         /// <param name="font"></param>
@@ -285,7 +268,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// create a table row with seventeen cells
+        /// Erstellt eine Tabellenreihe mit den eigentlichen Tagplan Informationen
         /// </summary>
         private void CreateBodyTableRow(MCalendarDay calendarDay)
         {
@@ -336,7 +319,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle für einen Schultag
         /// </summary>
         /// <returns></returns>
         private PdfPCell CreateBodyTableCellSchool()
@@ -350,7 +333,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle für einen Seminartag
         /// </summary>
         /// <param name="seminarName"></param>
         /// <returns></returns>
@@ -365,7 +348,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle für einen Praxistag
         /// </summary>
         /// <returns></returns>
         private PdfPCell CreateBodyTableCellPratice(string comment = "", int colspan = 4)
@@ -379,7 +362,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle für einen Ferien- / Feiertag
         /// </summary>
         /// <returns></returns>
         private PdfPCell CreateBodyTableCellHoliday(string holidayName = "", int colspan = 1)
@@ -394,7 +377,8 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle für einen besonderen Tag wie zum Beispiel 
+        /// IHK-Prüfungen
         /// </summary>
         /// <param name="name"></param>
         /// <param name="colspan"></param>
@@ -411,7 +395,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erstellt eine Zelle
         /// </summary>
         /// <param name="value"></param>
         /// <param name="colspan"></param>
@@ -426,7 +410,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Erzeugt eine Tabellenreihe für Wochenenden mit der aktuellen Kalenderwoche
         /// </summary>
         /// <param name="calenderWeek"></param>
         private void CreateBodyTableRowWeekend(int calenderWeek)
