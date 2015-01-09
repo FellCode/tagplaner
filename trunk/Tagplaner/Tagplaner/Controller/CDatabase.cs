@@ -499,7 +499,7 @@ namespace Tagplaner
             CloseDatabase();
         }
 
-        public void FillRoomCombobox(ComboBox combobox)
+        public void FillRoomCombobox(ComboBox combobox, int location)
         {
             Dictionary<string, string> room;
 
@@ -507,7 +507,7 @@ namespace Tagplaner
 
             ConnectDatabase();
 
-            SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum");
+            SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum where fk_seminarort_id =" + location);
 
             while (reader.Read())
             {
