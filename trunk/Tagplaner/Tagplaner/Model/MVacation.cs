@@ -17,8 +17,16 @@ namespace Tagplaner
 	
 	public class MVacation
     {
-        public String vacationName;
-        public DateTime vacationDate;
+        private int id;
+        private String vacationName;
+        private DateTime vacationDate;
+
+
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
 
         public MVacation(String vacationName, DateTime vacationDate)
         {

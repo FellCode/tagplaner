@@ -8,9 +8,16 @@ namespace Tagplaner
 {
     public class MSchool
     {
+        private int id;
         private string comment;
 
         #region getter
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
+
         public string Comment
         {
             get { return comment; }
@@ -18,8 +25,14 @@ namespace Tagplaner
         #endregion
 
         #region constructor
-        public MSchool(string comment)
+        public MSchool( string comment)
         {
+            
+            this.comment = comment;
+        }
+        public MSchool(int id, string comment)
+        {
+            this.id = id;
             this.comment = comment;
         }
         #endregion

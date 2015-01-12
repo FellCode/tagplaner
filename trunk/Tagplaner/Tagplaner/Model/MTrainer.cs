@@ -8,6 +8,7 @@ namespace Tagplaner
 {
     public class MTrainer
     {
+        private int id;
         private string name;
         private string surname;
         private string abbreviation;
@@ -15,6 +16,13 @@ namespace Tagplaner
         private bool isCotrainer;
 
         #region getter
+
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
+
         public string Name
         {
             get { return name; }
@@ -38,8 +46,18 @@ namespace Tagplaner
         #endregion
 
         #region constructor
-        public MTrainer(string name, string surname, string abbreviation, bool isInternal, bool isCotrainer)
+        public MTrainer( string name, string surname, string abbreviation, bool isInternal, bool isCotrainer)
         {
+            this.name = name;
+            this.surname = surname;
+            this.abbreviation = abbreviation;
+            this.isInternal = isInternal;
+            this.isCotrainer = isCotrainer;
+        }
+
+        public MTrainer(int id, string name, string surname, string abbreviation, bool isInternal, bool isCotrainer)
+        {
+            this.id = id;
             this.name = name;
             this.surname = surname;
             this.abbreviation = abbreviation;

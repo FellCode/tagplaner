@@ -9,6 +9,7 @@ namespace Tagplaner
     [Serializable()]
     public class MCalendar
     {
+        private int id;
         private List<MCalendarDay> calendarList = new List<MCalendarDay>();
         private static MCalendar instance;
         private DateTime startdate;
@@ -17,6 +18,11 @@ namespace Tagplaner
         private string enddateString;
 
         #region getter
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
         public DateTime Startdate
         {
             get { return startdate; }

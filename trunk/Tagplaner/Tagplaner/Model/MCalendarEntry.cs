@@ -9,6 +9,7 @@ namespace Tagplaner
     [Serializable()]
     public class MCalendarEntry
     {
+        private int id;
         private MTrainer trainer;
         private MTrainer cotrainer;
         private MSpeciality speciality;
@@ -20,6 +21,11 @@ namespace Tagplaner
         private MRoom room;
 
         #region getter
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
         public MTrainer Trainer
         {
             get { return trainer; }
@@ -59,7 +65,7 @@ namespace Tagplaner
         #endregion
 
 
-        public MCalendarEntry(MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
+        public MCalendarEntry( MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
             MSeminar seminar, MPlace place, MRoom room)
         {
             this.trainer = trainer;
@@ -69,6 +75,25 @@ namespace Tagplaner
             this.seminar = seminar;
             this.place = place;
             this.room = room;
+        }
+        public MCalendarEntry(int id, MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
+    MSeminar seminar, MPlace place, MRoom room)
+        {
+            this.id = id;
+            this.trainer = trainer;
+            this.cotrainer = cotrainer;
+
+            this.speciality = speciality;
+            this.seminar = seminar;
+            this.place = place;
+            this.room = room;
+        }
+
+        public MCalendarEntry(int id, MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
+        {
+            this.id = id;
+            this.speciality = speciality;
+            this.practice = practice;
         }
 
         public MCalendarEntry(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
