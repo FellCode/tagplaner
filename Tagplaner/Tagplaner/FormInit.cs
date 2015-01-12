@@ -67,7 +67,7 @@ namespace Tagplaner
             string time = DateTime.Now.ToShortTimeString();
             string date = DateTime.Now.ToShortDateString();
 
-            this.Text = "Tagplaner | " date + " - " + time;
+            this.Text = "Tagplaner | " + date + " - " + time;
         }
     }
 }
