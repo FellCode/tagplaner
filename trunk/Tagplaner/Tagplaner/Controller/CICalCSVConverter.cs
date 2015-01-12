@@ -87,7 +87,7 @@ namespace Tagplaner
 			IList<Occurrence> occurrences = icalendar.GetOccurrences
 				(startdate,enddate);
 
-			Console.WriteLine("Entrys until " + enddate.ToString() + " >");
+			//Console.WriteLine("Entrys until " + enddate.ToString() + " >");
 
 			foreach (Occurrence occurrence in occurrences)
 			{
@@ -109,10 +109,7 @@ namespace Tagplaner
 				if(day.Date >= Startdate.Date) {
 					mVacation= new MVacation(vacationName, day);
 					VacationList.Add(mVacation);
-					Console.Write("*");
 				}
-				Console.WriteLine(vacationName);
-				Console.WriteLine(day);
 			}
 		}
 		
@@ -122,10 +119,7 @@ namespace Tagplaner
 				if(day.Date <= Enddate.Date) {
 					mVacation= new MVacation(vacationName, day);
 					VacationList.Add(mVacation);
-					Console.Write("*");
 				}
-				Console.WriteLine(vacationName);
-				Console.WriteLine(day);
 			}
 		}
 		

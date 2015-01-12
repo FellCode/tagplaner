@@ -54,7 +54,6 @@ namespace Tagplaner
         {
             MHoliday mHoliday = new MHoliday(Convert.ToDateTime(values[0]), values[1]);
             holidayList.Add(mHoliday);
-            Console.WriteLine(values[0]);
         }
         /// <summary>
         /// Validiert die eingelesenen Feiertage auf den angegebenen Tagplan Zeitraum
