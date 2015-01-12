@@ -599,7 +599,7 @@ namespace Tagplaner
 
             ConnectDatabase();
 
-            SQLiteDataReader reader = ExecuteQuery("select seminar_id, titel from seminar");
+            SQLiteDataReader reader = ExecuteQuery("select * from seminar");
 
             seminar.Add("", "");
 
