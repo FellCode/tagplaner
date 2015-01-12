@@ -94,6 +94,7 @@
     <Compile Include="Model\MCalendarEntry.cs" />
     <Compile Include="Model\MCalendarDay.cs" />
     <Compile Include="Model\MCalendar.cs" />
+    <Compile Include="Model\MFederalState.cs" />
     <Compile Include="Model\MPlace.cs" />
     <Compile Include="Model\MPractice.cs" />
     <Compile Include="Model\MRoom.cs" />
@@ -146,6 +147,12 @@
     <Compile Include="View\TagplanBearbeitenUserControl.Designer.cs">
       <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\TagplanBearbeitenUserControl.resx">
       <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
