@@ -9,6 +9,7 @@ namespace Tagplaner
     [Serializable()]
     public class MCalendarDay
     {
+        private int id;
         private DateTime calendarDate;
         private string holidayName;
         private string vacationName;
@@ -16,6 +17,11 @@ namespace Tagplaner
         private List<MCalendarEntry> calendarEntry = new List<MCalendarEntry>();
 
         #region getter
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
         public string VacationName
         {
             get { return vacationName; }
@@ -46,6 +52,16 @@ namespace Tagplaner
             this.calendarDate = calenderDate;
             this.holidayName = holidayName;
             this.vacationName = vacationName; 
+            this.calendarWeek = calenderWeek;
+
+        }
+
+        public MCalendarDay(int id, DateTime calenderDate, String holidayName, String vacationName, String calenderWeek)
+        {
+            this.id = id;
+            this.calendarDate = calenderDate;
+            this.holidayName = holidayName;
+            this.vacationName = vacationName;
             this.calendarWeek = calenderWeek;
 
         }

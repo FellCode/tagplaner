@@ -8,6 +8,7 @@ namespace Tagplaner
 {
     public class MSeminar
     {
+        private int id;
         private string title;
         private string subtitle;
         private string abbreviation;
@@ -15,6 +16,13 @@ namespace Tagplaner
         private string comment;
 
         #region getter
+
+        public int Id
+        {
+            get { return id;  }
+            set { this.id = value;  }
+        }
+
         public string Title
         {
             get { return title; }
@@ -43,8 +51,17 @@ namespace Tagplaner
         #endregion
 
         #region constructor
-        public MSeminar(string title, string subtitle, string abbreviation, string hasTechnology, string comment)
+        public MSeminar( string title, string subtitle, string abbreviation, string hasTechnology, string comment)
         {
+            this.title = title;
+            this.subtitle = subtitle;
+            this.abbreviation = abbreviation;
+            this.hasTechnology = hasTechnology;
+            this.comment = comment;
+        }
+        public MSeminar(int id, string title, string subtitle, string abbreviation, string hasTechnology, string comment)
+        {
+            this.id = id;
             this.title = title;
             this.subtitle = subtitle;
             this.abbreviation = abbreviation;

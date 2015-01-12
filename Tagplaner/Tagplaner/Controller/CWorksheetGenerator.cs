@@ -221,7 +221,7 @@ namespace Tagplaner
                         string title = calendarDay.CalendarEntry[i_entry-1].Seminar.Title;
                         string abbrevaiation = calendarDay.CalendarEntry[i_entry-1].Seminar.Abbreviation;
                         string subtitle = calendarDay.CalendarEntry[i_entry-1].Seminar.Subtitle;
-                        bool tech = calendarDay.CalendarEntry[i_entry-1].Seminar.HasTechnology;
+                        string tech = calendarDay.CalendarEntry[i_entry-1].Seminar.HasTechnology;
 
                         switch (i_entry-1)
                         {

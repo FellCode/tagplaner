@@ -8,11 +8,17 @@ namespace Tagplaner
 {
     public class MHoliday
     {
+        private int id;
         private DateTime holidayDate;
         private string holidayName;
         private string comment;
 
         #region getter
+        public int Id
+        {
+            get { return id; }
+            set { this.id = value; }
+        }
         public DateTime HolidayDate
         {
             get { return holidayDate; }
@@ -33,14 +39,29 @@ namespace Tagplaner
         }
         #endregion
         #region constructor
-        public MHoliday(DateTime holidayDate, string holidayName, string comment)
+        public MHoliday( DateTime holidayDate, string holidayName, string comment)
         {
+          
             this.holidayDate = holidayDate;
             this.holidayName = holidayName;
             this.comment = comment;
         }
-        public MHoliday(DateTime holidayDate, string holidayName)
+        public MHoliday(int id, DateTime holidayDate, string holidayName, string comment)
         {
+            this.id = id;
+            this.holidayDate = holidayDate;
+            this.holidayName = holidayName;
+            this.comment = comment;
+        }
+        public MHoliday( DateTime holidayDate, string holidayName)
+        {
+         
+            this.holidayDate = holidayDate;
+            this.holidayName = holidayName;
+        }
+        public MHoliday(int id, DateTime holidayDate, string holidayName)
+        {
+            this.id = id;
             this.holidayDate = holidayDate;
             this.holidayName = holidayName;
         }
