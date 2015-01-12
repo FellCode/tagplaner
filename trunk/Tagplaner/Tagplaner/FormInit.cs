@@ -15,6 +15,7 @@ namespace Tagplaner
         TagplanAnlegenUserControl tagplanAnlegenUC;
         TagplanBearbeitenUserControl tagplanBearbeitenUC;
         SeminarVerwaltenUserControl seminarVerwaltenUC;
+        StatistikUserControl statistikUC;
 
         public FormInit()
         {
@@ -22,6 +23,7 @@ namespace Tagplaner
             tagplanBearbeitenUC = new TagplanBearbeitenUserControl();
             tagplanAnlegenUC = new TagplanAnlegenUserControl(this, tagplanBearbeitenUC);
             seminarVerwaltenUC = new SeminarVerwaltenUserControl();
+            statistikUC = new StatistikUserControl();
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -33,7 +35,7 @@ namespace Tagplaner
             addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
             addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
             addTabPage(seminarVerwaltenUC, "Seminar verwalten");
-            addTabPage(new StatistikUserControl(), "Statistiken");
+            addTabPage(statistikUC, "Statistiken");
         }
 
         /// <summary>
@@ -69,6 +71,17 @@ namespace Tagplaner
             string date = DateTime.Now.ToShortDateString();
 
             this.Text = "Tagplaner | " + date + " - " + time;
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int pageIndex = tabControl1.SelectedIndex;
+
+            // Statistik ListView aktualisieren wenn die entsprechende TabPage ausgewählt wird
+            if (tabControl1.TabPages[pageIndex].Text.Equals("Statistiken"))
+            {
+                statistikUC.RefreshListView();
+            }
         }
     }
 }
