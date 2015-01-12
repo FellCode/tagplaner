@@ -584,27 +584,28 @@ namespace Tagplaner
 
         public void FillTrainerCombobox(ComboBox combobox)
         {
-            Dictionary<string, string> trainer;
-
-            trainer = new Dictionary<string, string>();
-
             ConnectDatabase();
-
-            SQLiteDataReader reader = ExecuteQuery("select trainer_id, vorname, nachname from trainer");
-
-            trainer.Add("", "");
+            bool intern;
+            SQLiteDataReader reader = ExecuteQuery("select * from trainer");
 
             while (reader.Read())
             {
-                trainer.Add(reader["trainer_id"].ToString(), reader["vorname"].ToString() + reader["nachname"].ToString());
+                if (Convert.ToInt32(reader["intern"].ToString()) == 1)
+                {
+                    intern = true;
+                }
+                else
+                {
+                    intern = false;
+                }
+                combobox.Items.Add(new MTrainer(Convert.ToInt32(reader["trainer_id"].ToString()),
+                                                reader["vorname"].ToString(),
+                                                reader["nachname"].ToString(),
+                                                reader["kuerzel"].ToString(),
+                                                intern));
             }
 
-            BindingSource trainersource = new BindingSource();
-
-            trainersource.DataSource = trainer;
-            combobox.DataSource = trainersource;
-            combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key";
+            reader.Close();
 
             CloseDatabase();
         }
@@ -641,61 +642,39 @@ namespace Tagplaner
             {
                 combobox.Items.Add(new MFederalState(Convert.ToInt32(reader["bundesland_id"].ToString()), reader["name"].ToString(), reader["kuerzel"].ToString()));
             }
-
+            reader.Close();
             CloseDatabase();
         }
 
         public void FillLocationCombobox(ComboBox combobox)
         {
-            Dictionary<string, string> location;
-
-            location = new Dictionary<string, string>();
-
             ConnectDatabase();
 
-            SQLiteDataReader reader = ExecuteQuery("select seminarort_id, ort from seminarort");
-
-            location.Add("", "");
+            SQLiteDataReader reader = ExecuteQuery("select seminarort_id, ort,ansprechpartner  from seminarort");
 
             while (reader.Read())
             {
-                location.Add(reader["seminarort_id"].ToString(), reader["ort"].ToString());
+                combobox.Items.Add(new MPlace(Convert.ToInt32(reader["seminarort_id"].ToString()),
+                                                reader["ort"].ToString(),
+                                                reader["ansprechpartner"].ToString()));
             }
 
-            BindingSource locationsource = new BindingSource();
-
-            locationsource.DataSource = location;
-            combobox.DataSource = locationsource;
-            combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key";
-
+            reader.Close();
             CloseDatabase();
         }
 
         public void FillRoomCombobox(ComboBox combobox, int location)
         {
-            Dictionary<string, string> room;
-
-            room = new Dictionary<string, string>();
-
             ConnectDatabase();
 
             SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum where fk_seminarort_id =" + location);
 
-            room.Add("", "");
-
             while (reader.Read())
             {
-                room.Add(reader["raum_id"].ToString(), reader["raumnummer"].ToString());
+               combobox.Items.Add(new MRoom(Convert.ToInt32(reader["raum_id"].ToString()), reader["raumnummer"].ToString()));
             }
 
-            BindingSource roomsource = new BindingSource();
-
-            roomsource.DataSource = room;
-            combobox.DataSource = roomsource;
-            combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key";
-
+            reader.Close();
             CloseDatabase();
         }
 
