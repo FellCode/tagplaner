@@ -38,10 +38,10 @@ namespace Tagplaner
             this.calendar = calendar;
             this.trainerList = trainerList;
 
-            fillDayDictionary();
+            FillDayDictionary();
         }
 
-        public bool exportPdf(string filename)
+        public bool ExportPdf(string filename)
         {
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
@@ -79,7 +79,7 @@ namespace Tagplaner
         /// <summary>
         /// Füllt das Dictionary dayDictionary mit Schlüsselwertpaaren
         /// </summary>
-        private void fillDayDictionary()
+        private void FillDayDictionary()
         {
             dayDictionary.Add("Monday", "Mo");
             dayDictionary.Add("Tuesday", "Di");
