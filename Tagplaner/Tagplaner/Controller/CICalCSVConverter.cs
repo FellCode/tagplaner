@@ -56,7 +56,6 @@ namespace Tagplaner
 			IList<Occurrence> occurrences = icalendar.GetOccurrences
 				(startdate,enddate);
 
-			Console.WriteLine("Entrys from " + Startdate.ToString() + " >");
 
 			foreach (Occurrence occurrence in occurrences)
 			{
