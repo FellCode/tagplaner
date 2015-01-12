@@ -613,6 +613,8 @@ namespace Tagplaner
                                             "")); //comment, wird nicht von der DB befuellt
             }
 
+           
+
            /* BindingSource seminarsource = new BindingSource();
 
             seminarsource.DataSource = seminar;

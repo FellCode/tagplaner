@@ -40,7 +40,15 @@ namespace Tagplaner
 
         private void seminarBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-              
+
+
+
+            MSeminar seminar = (MSeminar)seminarBox.SelectedItem; 
+           
+            textBox1.Text = seminar.Title;
+            textBox2.Text = seminar.Subtitle;
+            textBox3.Text = seminar.Abbreviation;
+            textBox4.Text = seminar.HasTechnology;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -50,7 +58,7 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            db.InsertSeminar(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
         }
 
       

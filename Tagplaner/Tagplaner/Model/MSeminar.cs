@@ -15,6 +15,12 @@ namespace Tagplaner
         private string hasTechnology;
         private string comment;
 
+        
+        public override String ToString()
+        {
+            return title;
+        }
+
         #region getter
 
         public int Id
