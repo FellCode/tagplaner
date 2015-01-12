@@ -9,7 +9,7 @@ namespace Tagplaner
     public class MRoom
     {
         private int id;
-        private int number;
+        private string number;
 
         #region getter
         public int Id
@@ -17,7 +17,7 @@ namespace Tagplaner
             get { return id; }
             set { this.id = value; }
         }
-        public int Number
+        public String Number
         {
             get { return number; }
         }
@@ -25,17 +25,22 @@ namespace Tagplaner
 
         #region constructor
 
-        public MRoom( int number)
+        public MRoom( string number)
         {
          
             this.number = number;
         }
 
-        public MRoom(int id, int number)
+        public MRoom(int id, string number)
         {
             this.id = id;
             this.number = number;
         }
         #endregion
+
+        public override string ToString()
+        {
+            return number;
+        }
     }
 }
