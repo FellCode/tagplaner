@@ -605,12 +605,11 @@ namespace Tagplaner
 
             while (reader.Read())
             {
-                //seminar.Add(reader["seminar_id"].ToString(), reader["titel"].ToString());
                 combobox.Items.Add(new MSeminar(  Convert.ToInt32(reader["seminar_id"].ToString()),
                                             reader["titel"].ToString(),
                                             reader["untertitel"].ToString(),
                                             reader["kuerzel"].ToString(),
-                                            reader["technilk"].ToString(),
+                                            reader["technik"].ToString(),
                                             "")); //comment, wird nicht von der DB befuellt
             }
 
