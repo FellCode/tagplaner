@@ -55,16 +55,21 @@ namespace Tagplaner
             this.isCotrainer = isCotrainer;
         }
 
-        public MTrainer(int id, string name, string surname, string abbreviation, bool isInternal, bool isCotrainer)
+        public MTrainer(int id, string name, string surname, string abbreviation, bool isInternal)
         {
             this.id = id;
             this.name = name;
             this.surname = surname;
             this.abbreviation = abbreviation;
             this.isInternal = isInternal;
-            this.isCotrainer = isCotrainer;
+            
         }
         #endregion
+
+        public override string ToString()
+        {
+            return name + " " + surname;
+        }
 
     }
 }
