@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tagplaner;
+
 
 namespace Tagplaner
 {
     public partial class TagplanBearbeitenUserControl : UserControl
     {
+        
         public TagplanBearbeitenUserControl()
         {
             InitializeComponent();
@@ -19,12 +22,10 @@ namespace Tagplaner
 
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
-                //ListViewItem listViewItem = new ListViewItem();
-                //listViewItem.Text = "Noch kein Tagplan vorhanden";
-                //listView1.Items.Add(listViewItem);
+
         }
 
-        public ListView getListView(){
+        public ListView GetListView(){
             return this.listView1;
         }
     }

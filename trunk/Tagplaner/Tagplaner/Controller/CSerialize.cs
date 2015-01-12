@@ -21,20 +21,36 @@ namespace Tagplaner
         /// Methode zur Serialisierung eines Kalenderobjektes
         /// </summary>
         /// <param name="obj">Kalendarobjekt</param>
+        /*
         public void SerializeObject(MCalendar obj, string name)
         {
             stream = new FileStream(@""+ name, FileMode.Create);
             formatter.Serialize(stream,obj);
             stream.Close();
         }
+        */
+        public void SerializeObject(Object obj, string name)
+        {
+            stream = new FileStream(@"" + name, FileMode.Create);
+            formatter.Serialize(stream, obj);
+            stream.Close();
+        }
         /// <summary>
         /// Methode zum Deserialisierung eines Kalenderobjektes
         /// </summary>
         /// <returns>Gibt ein MCalendarobjekt zurück</returns>
+        /*
         public MCalendar DeserializeObject(string name)
         {
             FileStream stream = new FileStream(@""+ name, FileMode.Open);
             return (MCalendar)formatter.Deserialize(stream);
+        }
+        */
+
+        public Object DeserializeObject(string name)
+        {
+            FileStream stream = new FileStream(@"" + name, FileMode.Open);
+            return formatter.Deserialize(stream);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Tagplaner
         private string vacationName;
         private string calendarWeek;
         private List<MCalendarEntry> calendarEntry = new List<MCalendarEntry>();
-
+        
         #region getter
         public int Id
         {
@@ -43,6 +43,12 @@ namespace Tagplaner
         public List<MCalendarEntry> CalendarEntry
         {
             get { return calendarEntry; }
+        }
+
+        //Printversion des CalendarDate
+        public String GetCalendarDatePrintDate()
+        {
+            return String.Format("{0:dd.MM.yyyy}", calendarDate);
         }
         #endregion
 
