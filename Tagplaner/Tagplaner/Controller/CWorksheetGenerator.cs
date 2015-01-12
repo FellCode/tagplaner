@@ -43,9 +43,9 @@ namespace Tagplaner
             int i_day = 1;
             Object[] data = new Object[1];
             string calendarWeek = "";
-            string vacation = "";
+            string vacation = null;
             var german = new System.Globalization.CultureInfo("de-DE");
-            
+
             #region errormessages
             if (xlApp == null)
             {
@@ -78,8 +78,8 @@ namespace Tagplaner
             aRange = ws.get_Range(cell1, cell1);
             aRange.EntireColumn.ColumnWidth = 10;
             aRange = ws.get_Range("A1", "Z1");
-            aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+            aRange.EntireColumn.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            aRange.EntireColumn.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
 
             //Schleife fuer jeden Tag in der calendarList
             foreach (MCalendarDay calendarDay in calendar.CalendarList)
@@ -111,30 +111,45 @@ namespace Tagplaner
                 }
                 #endregion
 
-                    //Erstellt das Datum-Feld
-                    cell1 = "A" + i_day;
+                //Erstellt das Datum-Feld
+                cell1 = "A" + i_day;
+                aRange = ws.get_Range(cell1, cell1);
+                //Wochentag
+                data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+
+                if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
+                {
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+
+
+                    cell1 = "B" + i_day;
                     aRange = ws.get_Range(cell1, cell1);
-                    data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+                    data[0] = calendarDay.CalendarDate;
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
 
-                    if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
+                    //if (calendar.CalendarList[i_day-1].VacationName != vacation)
                     {
-                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                        //vacation = calendar.CalendarList[i_day - 1].VacationName;
+                        string vacationname;
+                        vacationname = calendar.CalendarList[i_day - 1].VacationName;
+                        if (vacationname != null)
+                        {
+                            cell1 = "C" + i_day;
+                            aRange = ws.get_Range(cell1, cell1);
+                            //s.Substring(s.IndexOf(' '))
+                            
+                            data[0] = vacationname.Substring(0,vacationname.IndexOf(" "));
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
 
+                        }
+                    }
 
-                        cell1 = "B" + i_day;
-                        aRange = ws.get_Range(cell1, cell1);
-                        data[0] = calendarDay.CalendarDate;
-                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                        
-                        int i_entry = 1;
-
+                    int i_entry = 1;
                         #region CalendarEntry
                         //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
-                        //1-4 Durchläufe
-
-                        
+                        //1-4 Durchläufe                        
                         foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
                             if (calendarDay.CalendarEntry[i_entry-1].Holiday != null)
@@ -251,10 +266,15 @@ namespace Tagplaner
                         aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);                        
                         #endregion
                             }
+                            i_entry++;
                         }
                         #endregion
                         i_day++;
                     }
+                else
+                {
+                    //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
+                }
                 
             }
             return true;
