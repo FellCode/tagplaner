@@ -33,10 +33,11 @@ namespace Tagplaner
             addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
             addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
             addTabPage(seminarVerwaltenUC, "Seminar verwalten");
+            addTabPage(new StatistikUserControl(), "Statistiken");
         }
 
         /// <summary>
-        /// Adds an userControl to tabControl1
+        /// Fügt ein UserControl mit einer neuen Tabpage zu tabControl1 zu
         /// </summary>
         /// <param name="userControl"></param>
         /// <param name="pageName"></param>
