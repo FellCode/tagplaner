@@ -11,40 +11,50 @@ namespace Tagplaner
         private string title;
         private string subtitle;
         private string abbreviation;
-        private bool hasTechnology;
+        private string hasTechnology;
         private string comment;
 
         #region getter
         public string Title
         {
             get { return title; }
+            set { this.title = value; }
         }
         public string Subtitle
         {
             get { return subtitle; }
+            set { this.Subtitle = value; }
         }
         public string Abbreviation
         {
             get { return abbreviation; }
+            set { this.abbreviation = value; }
         }
-        public bool HasTechnology
+        public string HasTechnology
         {
             get { return hasTechnology; }
+            set { this.hasTechnology = value; }
         }
         public string Comment
         {
             get { return comment; }
+            set { this.comment = value; }
         }
         #endregion
 
         #region constructor
-        public MSeminar(string title, string subtitle, string abbreviation, bool hasTechnology, string comment)
+        public MSeminar(string title, string subtitle, string abbreviation, string hasTechnology, string comment)
         {
             this.title = title;
             this.subtitle = subtitle;
             this.abbreviation = abbreviation;
             this.hasTechnology = hasTechnology;
             this.comment = comment;
+        }
+
+        public MSeminar()
+        {
+
         }
         #endregion
     }
