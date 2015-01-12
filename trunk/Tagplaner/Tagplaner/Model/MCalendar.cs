@@ -63,6 +63,12 @@ namespace Tagplaner
         }
         #endregion
 
+        /// <summary>
+        /// Methode zum befüllen des Kalendars mit den Tagen von Anfang- bis Enddatum sowie den 
+        /// dazugehörigen Feier- und Ferientagen.
+        /// </summary>
+        /// <param name="start">Beginn des Kalenders</param>
+        /// <param name="end">Ende des Kalenders</param>
         public void fillCalendarInitial(DateTime start, DateTime end)
         {
 
