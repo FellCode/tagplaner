@@ -59,32 +59,43 @@ namespace Tagplaner
             return reader;
         }
 
+        public void ExecuteNonQuery(string query)
+        {
+            m_dbCommand.CommandText = query;
+            m_dbCommand.ExecuteNonQuery();
+        }
+
         // Methode zum ermitteln der nächsten ID einer Tabelle
         private int nextId(string tabelle)
         {
             int i = 0;
-            m_dbCommand.CommandText = "select max(" + tabelle + "_id) from " + tabelle;
+            m_dbCommand.CommandText = "select max(" + tabelle + "_id) as id from " + tabelle;
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
 
             while (reader.Read())
             {
-                i = Convert.ToInt32(reader[tabelle + "_id"].ToString());
+                i = Convert.ToInt32(reader["id"].ToString());
             }
-
+            reader.Close();
             return i + 1;
 
         }
 
         //Insertmehtoden für die Datenbankmethoden
 
-        public bool InsertSeminar(string titel, string untertitel, string kuerzel, string technick)
+        public bool InsertSeminar(string titel, string untertitel, string kuerzel, string technik)
         {
             ConnectDatabase();
             int seminarId = nextId("seminar");
             try
             {
-                m_dbCommand.CommandText = "insert into Seminar values(" + seminarId + "," + titel + ",\"" + untertitel + ",\"" + kuerzel + "," + technick + "";
-                m_dbCommand.ExecuteNonQuery();
+                ExecuteNonQuery("insert into seminar values("
+                    + seminarId
+                    + ",\"" + titel + "\""
+                    + ",\"" + untertitel + "\""
+                    + ",\"" + kuerzel + "\""
+                    + ",\"" + technik + "\""
+                    + ")");
                 CloseDatabase();
                 return true;
             }
@@ -101,7 +112,12 @@ namespace Tagplaner
             int trainerId = nextId("trainer");
             try
             {
-                m_dbCommand.CommandText = "insert into Seminar values(" + trainerId + "," + vorname + ",\"" + nachname + ",\"" + kuerzel + "," + intern + "";
+                m_dbCommand.CommandText = "insert into Seminar values(" + trainerId
+                                        + ",\"" + vorname + "\""
+                                        + ",\"" + nachname + "\""
+                                        + ",\"" + kuerzel + "\""
+                                        + ",\"" + intern + "\""
+                                        + ")";
                 m_dbCommand.ExecuteNonQuery();
                 CloseDatabase();
                 return true;
@@ -120,8 +136,9 @@ namespace Tagplaner
             try
             {
                 m_dbCommand.CommandText = "insert into raum values(" + raum_id
-                    + ",\"" + raumnummer
-                    + "\"," + fk_seminarort_id + ")";
+                                        + ",\"" + raumnummer + "\""
+                                        + "," + fk_seminarort_id
+                                        + ")";
                 CloseDatabase();
                 return true;
             }
@@ -139,9 +156,10 @@ namespace Tagplaner
             try
             {
                 m_dbCommand.CommandText = "insert into seminarort values("
-                                            + seminarort_id + ",\"" + ort + "\",\""
-                                            + ansprechpartner + "\","
-                                            + fk_bundesland_id + ")";
+                                            + seminarort_id
+                                            + ",\"" + ort + "\""
+                                            + ",\"" + ansprechpartner + "\""
+                                            + "," + fk_bundesland_id + ")";
                 CloseDatabase();
                 return true;
             }
@@ -593,19 +611,14 @@ namespace Tagplaner
 
         public void FillSeminarCombobox(ComboBox combobox)
         {
-            Dictionary<string, string> seminar;
-
-            seminar = new Dictionary<string, string>();
 
             ConnectDatabase();
 
             SQLiteDataReader reader = ExecuteQuery("select * from seminar");
 
-            seminar.Add("", "");
-
             while (reader.Read())
             {
-                combobox.Items.Add(new MSeminar(  Convert.ToInt32(reader["seminar_id"].ToString()),
+                combobox.Items.Add(new MSeminar(Convert.ToInt32(reader["seminar_id"].ToString()),
                                             reader["titel"].ToString(),
                                             reader["untertitel"].ToString(),
                                             reader["kuerzel"].ToString(),
@@ -613,41 +626,21 @@ namespace Tagplaner
                                             "")); //comment, wird nicht von der DB befuellt
             }
 
-           
-
-           /* BindingSource seminarsource = new BindingSource();
-
-            seminarsource.DataSource = seminar;
-            combobox.DataSource = seminarsource;
-            combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key"; */
-
+            reader.Close();
             CloseDatabase();
         }
 
         public void FillFederalStateCombobox(ComboBox combobox)
         {
-            Dictionary<string, string> federalstate;
-
-            federalstate = new Dictionary<string, string>();
 
             ConnectDatabase();
 
-            SQLiteDataReader reader = ExecuteQuery("select bundesland_id, name from bundesland");
-
-            federalstate.Add("", "");
+            SQLiteDataReader reader = ExecuteQuery("select bundesland_id, name, kuerzel from bundesland");
 
             while (reader.Read())
             {
-                federalstate.Add(reader["bundesland_id"].ToString(), reader["name"].ToString());
+                combobox.Items.Add(new MFederalState(Convert.ToInt32(reader["bundesland_id"].ToString()), reader["name"].ToString(), reader["kuerzel"].ToString()));
             }
-
-            BindingSource federalstatesource = new BindingSource();
-
-            federalstatesource.DataSource = federalstate;
-            combobox.DataSource = federalstatesource;
-            combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key";
 
             CloseDatabase();
         }
