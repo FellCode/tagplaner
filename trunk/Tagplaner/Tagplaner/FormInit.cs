@@ -14,12 +14,14 @@ namespace Tagplaner
     {
         TagplanAnlegenUserControl tagplanAnlegenUC;
         TagplanBearbeitenUserControl tagplanBearbeitenUC;
+        SeminarVerwaltenUserControl seminarVerwaltenUC;
 
         public FormInit()
         {
             InitializeComponent();
             tagplanBearbeitenUC = new TagplanBearbeitenUserControl();
             tagplanAnlegenUC = new TagplanAnlegenUserControl(this, tagplanBearbeitenUC);
+            seminarVerwaltenUC = new SeminarVerwaltenUserControl();
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -30,6 +32,7 @@ namespace Tagplaner
             // Init tabpages
             addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
             addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
+            addTabPage(seminarVerwaltenUC, "Seminar verwalten");
         }
 
         /// <summary>

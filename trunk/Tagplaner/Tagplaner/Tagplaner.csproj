@@ -122,6 +122,12 @@
     <Compile Include="Model\MHoliday.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\SeminarVerwaltenUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\SeminarVerwaltenUserControl.designer.cs">
+      <DependentUpon>SeminarVerwaltenUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\StatistikUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,6 +161,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\SeminarVerwaltenUserControl.resx">
+      <DependentUpon>SeminarVerwaltenUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\StatistikUserControl.resx">
       <DependentUpon>StatistikUserControl.cs</DependentUpon>
     </EmbeddedResource>
