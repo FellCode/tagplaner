@@ -41,13 +41,17 @@ namespace Tagplaner
             this.contact = contact;
             this.rooms = rooms;
         }
-        public MPlace(int id, string place, string contact, List<MRoom> rooms)
+        public MPlace(int id, string place, string contact)
         {
             this.id = id;
             this.place = place;
             this.contact = contact;
-            this.rooms = rooms;
         }
         #endregion
+
+        public override string ToString()
+        {
+            return place;
+        }
     }
 }
