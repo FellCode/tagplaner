@@ -66,6 +66,8 @@ namespace Tagplaner
             StartdateString = String.Format("{0:D}", start);
             EnddateString = String.Format("{0:D}", end);
 
+            CalendarList.Clear();
+
             //Befüllen der CalendarList von startdatum bis enddatum
             CCalendar ccalendar = new CCalendar();
             CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList);
