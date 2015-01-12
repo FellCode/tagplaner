@@ -17,7 +17,18 @@ namespace Tagplaner
             InitializeComponent();
         }
 
+        private void StatistikUserControl_Load(object sender, EventArgs e)
+        {
+            RefreshListView();
+        }
+
         private void button1_Click(object sender, EventArgs e)
+        {
+            RefreshListView();
+
+        }
+
+        private void RefreshListView()
         {
             int allDays = CStatisticUtilitys.CountAllApprenticeshipDays();
             int weekendDays = CStatisticUtilitys.CountWeekendDays();
@@ -46,7 +57,6 @@ namespace Tagplaner
             listView1.Items.Add(lvApprenticeshipDays);
             listView1.Items.Add(lvWeekendDays);
             listView1.Items.Add(lvHolidayDays);
-
         }
     }
 }

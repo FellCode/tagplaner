@@ -88,6 +88,7 @@
             this.Controls.Add(this.listView1);
             this.Name = "StatistikUserControl";
             this.Size = new System.Drawing.Size(490, 311);
+            this.Load += new System.EventHandler(this.StatistikUserControl_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
