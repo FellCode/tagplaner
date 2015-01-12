@@ -79,52 +79,62 @@ namespace Tagplaner
 
         public bool InsertSeminar(string titel, string untertitel, string kuerzel, string technick)
         {
+            ConnectDatabase();
             int seminarId = nextId("seminar");
             try
             {
                 m_dbCommand.CommandText = "insert into Seminar values(" + seminarId + "," + titel + ",\"" + untertitel + ",\"" + kuerzel + "," + technick + "";
                 m_dbCommand.ExecuteNonQuery();
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
 
         public bool InsertTrainer(string vorname, string nachname, string kuerzel, string intern)
         {
+            ConnectDatabase();
             int trainerId = nextId("trainer");
             try
             {
                 m_dbCommand.CommandText = "insert into Seminar values(" + trainerId + "," + vorname + ",\"" + nachname + ",\"" + kuerzel + "," + intern + "";
                 m_dbCommand.ExecuteNonQuery();
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
 
         public bool InsertRoom(string raumnummer, string fk_seminarort_id)
         {
+            ConnectDatabase();
             int raum_id = nextId("raum");
             try
             {
                 m_dbCommand.CommandText = "insert into raum values(" + raum_id
                     + ",\"" + raumnummer
                     + "\"," + fk_seminarort_id + ")";
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
 
         public bool InsertLocation(string ort, string ansprechpartner, string fk_bundesland_id)
         {
+            ConnectDatabase();
             int seminarort_id = nextId("seminarort");
             try
             {
@@ -132,16 +142,19 @@ namespace Tagplaner
                                             + seminarort_id + ",\"" + ort + "\",\""
                                             + ansprechpartner + "\","
                                             + fk_bundesland_id + ")";
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
 
         public bool InsertFederelState(string name, string kuerzel)
         {
+            ConnectDatabase();
             int bundesland_id = nextId("bundesland");
             try
             {
@@ -149,16 +162,19 @@ namespace Tagplaner
                                         + bundesland_id + ",\""
                                         + name + "\",\""
                                         + kuerzel + "\")";
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
 
         public bool InsertFachrichtung(string bezeichnung, string ausbildungsjahr, string bundesland)
         {
+            ConnectDatabase();
             int fachrichtung_id = nextId("fachrichtung");
             try
             {
@@ -167,10 +183,12 @@ namespace Tagplaner
                                         + bezeichnung + "\",\""
                                         + ausbildungsjahr + "\",\""
                                         + bundesland + "\")";
+                CloseDatabase();
                 return true;
             }
             catch (SQLiteException)
             {
+                CloseDatabase();
                 return false;
             }
         }
@@ -587,15 +605,21 @@ namespace Tagplaner
 
             while (reader.Read())
             {
-                seminar.Add(reader["seminar_id"].ToString(), reader["titel"].ToString());
+                //seminar.Add(reader["seminar_id"].ToString(), reader["titel"].ToString());
+                combobox.Items.Add(new MSeminar(  Convert.ToInt32(reader["seminar_id"].ToString()),
+                                            reader["titel"].ToString(),
+                                            reader["untertitel"].ToString(),
+                                            reader["kuerzel"].ToString(),
+                                            reader["technilk"].ToString(),
+                                            "")); //comment, wird nicht von der DB befuellt
             }
 
-            BindingSource seminarsource = new BindingSource();
+           /* BindingSource seminarsource = new BindingSource();
 
             seminarsource.DataSource = seminar;
             combobox.DataSource = seminarsource;
             combobox.DisplayMember = "Value";
-            combobox.ValueMember = "Key";
+            combobox.ValueMember = "Key"; */
 
             CloseDatabase();
         }
