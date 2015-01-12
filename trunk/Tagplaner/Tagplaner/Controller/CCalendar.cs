@@ -15,25 +15,23 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
-        public List<MCalendarDay> fillDaysInitial(DateTime startdate,DateTime enddate,List<MCalendarDay> listDays)
+        //public List<MCalendarDay> fillDaysInitial(DateTime startdate,DateTime enddate,List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
+        public List<MCalendarDay> fillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
             calendarUtilitys.generateCalenderDayEntrys();
 
+            //ICalCSVConverter iCalCSVConverter = new ICalCSVConverter(vacationCurrentYearUrl, vacationNextYearUrl);
             CICalCSVConverter iCalCSVConverter = new CICalCSVConverter("CSV\\Ferien_Hessen_2015.ics", "CSV\\Ferien_Hessen_2016.ics");
-            List<MVacation> vacations =iCalCSVConverter.GetICalEntrys(startdate, enddate);
-            if (vacations != null)
+            foreach (MVacation vacation in iCalCSVConverter.GetICalEntrys(startdate, enddate))
             {
-                foreach (MVacation vacation in vacations)
+                foreach (MCalendarDay day in listDays)
                 {
-                    foreach (MCalendarDay day in listDays)
+                    if ((vacation.VacationDate.Year == day.CalendarDate.Year) &&
+                        (vacation.VacationDate.Month == day.CalendarDate.Month) &&
+                        (vacation.VacationDate.Day == day.CalendarDate.Day))
                     {
-                        if ((vacation.VacationDate.Year == day.CalendarDate.Year) &&
-                            (vacation.VacationDate.Month == day.CalendarDate.Month) &&
-                            (vacation.VacationDate.Day == day.CalendarDate.Day))
-                        {
-                            day.VacationName = vacation.VacationName;
-                        }
+                        day.VacationName = vacation.VacationName;
                     }
                 }
             }
@@ -47,6 +45,7 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
+        //public List<MCalendarDay> fillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
         public List<MCalendarDay> fillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays)
         {
             CHoliday holiday = new CHoliday();

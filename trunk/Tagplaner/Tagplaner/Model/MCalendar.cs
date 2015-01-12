@@ -14,6 +14,8 @@ namespace Tagplaner
         private static MCalendar instance;
         private DateTime startdate;
         private DateTime enddate;
+        private String currentYear;
+        private String nextYear;
         private string startdateString;
         private string enddateString;
 
@@ -63,17 +65,15 @@ namespace Tagplaner
         }
         #endregion
 
-        /// <summary>
-        /// Methode zum befüllen des Kalendars mit den Tagen von Anfang- bis Enddatum sowie den 
-        /// dazugehörigen Feier- und Ferientagen.
-        /// </summary>
-        /// <param name="start">Beginn des Kalenders</param>
-        /// <param name="end">Ende des Kalenders</param>
-        public void fillCalendarInitial(DateTime start, DateTime end)
+        //public void fillCalendarInitial(DateTime start, DateTime end, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
+        public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses)
         {
 
             startdate = start;
             enddate = end;
+
+            //this.currentYear = currentYearParameter;
+            //this.nextYear = nextYearParameter;
 
             StartdateString = String.Format("{0:D}", start);
             EnddateString = String.Format("{0:D}", end);
@@ -82,13 +82,16 @@ namespace Tagplaner
 
             //Befüllen der CalendarList von startdatum bis enddatum
             CCalendar ccalendar = new CCalendar();
+            //CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
             CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList);
+
+            //CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList);
         }
 
         #region AddDay-Methods
-     
-#endregion
-        
+
+        #endregion
+
     }
 }
