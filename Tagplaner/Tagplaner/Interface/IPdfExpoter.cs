@@ -9,6 +9,6 @@ namespace Tagplaner
     interface IPdfExporter
     {
         // erster Parameter muss noch definiert werden
-        bool exportPdf(string filename);
+        bool ExportPdf(string filename);
     }
 }
