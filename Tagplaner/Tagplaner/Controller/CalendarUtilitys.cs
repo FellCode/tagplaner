@@ -35,9 +35,9 @@ namespace Tagplaner
 
 			for(var day = Startdate; day.Date <= Enddate; day = day.AddDays(1)){
 				//Console.WriteLine(day.Date);
-                Console.WriteLine("{0:d}: Week {1}", day.Date,
+                /*Console.WriteLine("{0:d}: Week {1}", day.Date,
 				                  calendar.GetWeekOfYear(day.Date, dfi.CalendarWeekRule,
-				                                    dfi.FirstDayOfWeek));
+				                                    dfi.FirstDayOfWeek));*/
 				//CalendarDays.Add(day);
                 MCalendarDay mCalendarDay = new MCalendarDay(day, null, null, calendar.GetWeekOfYear(day.Date, dfi.CalendarWeekRule,
                                                     dfi.FirstDayOfWeek).ToString());
