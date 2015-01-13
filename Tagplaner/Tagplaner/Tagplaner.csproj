@@ -98,6 +98,7 @@
     <Compile Include="Model\MCalendarDay.cs" />
     <Compile Include="Model\MCalendar.cs" />
     <Compile Include="Model\MFederalState.cs" />
+    <Compile Include="Model\MMessage.cs" />
     <Compile Include="Model\MPlace.cs" />
     <Compile Include="Model\MPractice.cs" />
     <Compile Include="Model\MRoom.cs" />
