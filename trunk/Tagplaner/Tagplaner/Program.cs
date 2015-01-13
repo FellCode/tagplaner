@@ -27,7 +27,11 @@ namespace Tagplaner
             List<String> liste = new List<String>();
             liste.Add("blala");
             liste.Add("blala2");
-            calendar.fillCalendarInitial(new DateTime().AddYears(2014).AddMonths(0).AddDays(0), new DateTime().AddYears(2014).AddMonths(11).AddDays(30), 1, liste);
+            calendar.fillCalendarInitial(new DateTime().AddYears(2014).AddMonths(0).AddDays(0),new DateTime().AddYears(2014).AddMonths(11).AddDays(30), 1, liste,
+                @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Ferien_Hessen_2015.ics",
+                @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Ferien_Hessen_2016.ics",
+                @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Nordrhein-Westfalen2015.csv",
+                @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Nordrhein-Westfalen2015.csv");
 
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("", "", "", false, true);
