@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    class MFederalState
+    public class MFederalState
     {   
         private int id;
         private string name;
