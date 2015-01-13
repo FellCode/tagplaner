@@ -107,7 +107,7 @@ namespace Tagplaner
             // Durchläuft jeden Kalendertag
             for (int rowCounter = 0; rowCounter < listView.Items.Count - 1; rowCounter++)
             {
-                if (!(mCalendar.CalendarList[rowCounter].CalendarDate == Convert.ToDateTime(listView.Items[rowCounter].SubItems["Datum"])));
+                if (!(mCalendar.CalendarList[rowCounter].CalendarDate == Convert.ToDateTime(listView.Items[rowCounter].SubItems["Datum"])))
                 {
                     if (mCalendar.CalendarList[rowCounter].HolidayName != "")
                     {
