@@ -19,6 +19,7 @@ namespace Tagplaner
         private string startdateString;
         private string enddateString;
         private List<MSpeciality> speciality;
+        private bool saved;
 
         #region getter
         public int Id
@@ -56,6 +57,11 @@ namespace Tagplaner
             get { return speciality; }
             set { speciality = value; }
         }
+        public bool Saved
+        {
+            get { return saved; }
+            set { saved = value; }
+        }
         #endregion
         private MCalendar()
         {
@@ -71,28 +77,25 @@ namespace Tagplaner
         }
 
 
-        //public void fillCalendarInitial(DateTime start, DateTime end, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses)
         {
 
             startdate = start;
             enddate = end;
 
-            //this.currentYear = currentYearParameter;
-            //this.nextYear = nextYearParameter;
-
             StartdateString = String.Format("{0:D}", start);
             EnddateString = String.Format("{0:D}", end);
 
+            Saved = false;
+
             CalendarList.Clear();
 
-            //Befüllen der CalendarList von startdatum bis enddatum
+            //Befüllen der CalendarList von startdatum bis enddatum mit Feier- und Ferientagen
             CCalendar ccalendar = new CCalendar();
-            //CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
             CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList);
-
-            //CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList);
+
+            //Befüllen der Speciality
             Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
 
