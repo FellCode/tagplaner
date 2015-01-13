@@ -24,23 +24,24 @@ namespace Tagplaner
             rooms.Add(new MRoom("109"));
 
             MCalendar calendar = MCalendar.getInstance();
-            calendar.fillCalendarInitial(new DateTime().AddYears(2014).AddMonths(0).AddDays(0), new DateTime().AddYears(2014).AddMonths(11).AddDays(30), 2, null);
+            List<String> liste = new List<String>();
+            liste.Add("blala");
+            liste.Add("blala2");
+            calendar.fillCalendarInitial(new DateTime().AddYears(2014).AddMonths(0).AddDays(0), new DateTime().AddYears(2014).AddMonths(11).AddDays(30), 1, liste);
 
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("", "", "", false, true);
-            MSpeciality mspec = new MSpeciality("AE", "2104", "Koeln");
+            MSpeciality mspec = new MSpeciality(1, "AE14", "2014");
             MSeminar seminar = new MSeminar("Titel", "Subtitel", "SAP", "bla", "commment");
             MPlace ort = new MPlace("Koeln", "Arnold", rooms);
             MRoom roomm = new MRoom("109");
 
-            // calendar.CalendarList[0].CalendarEntry = new List<MCalendarEntry>;
 
             calendar.CalendarList[0].CalendarEntry.Add(new MCalendarEntry(1, trainer, trainer_co, seminar, ort, roomm));
             WorksheetGenerator ws = new WorksheetGenerator();
+            
             ws.WriteFile(calendar);
-
             */
-
             #endregion
 
         }
