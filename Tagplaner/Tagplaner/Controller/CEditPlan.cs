@@ -38,7 +38,7 @@ namespace Tagplaner
             int columnCount = 6 * countGrid;
             int space = 10;
             int drawingSizeX = 700;
-            int drawingSizeY = 700;
+            int drawingSizeY = 400;
             int drawingPointY = 0;
             int drawingPointX = listView.Size.Width + space;
 
@@ -77,8 +77,8 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void TagplanBearbeitenUserControl_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            x_Coord = e.ColumnIndex;
-            y_Coord = e.RowIndex;
+            x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(x_Coord) / 6));
+            y_Coord = e.RowIndex ;
             getSelectedEntryModel();
         }
 
@@ -105,7 +105,7 @@ namespace Tagplaner
             
 
             // Durchläuft jeden Kalendertag
-            for (int rowCounter = 0; rowCounter < listView.Items.Count - 1; rowCounter++)
+            for (int rowCounter = 0; rowCounter < listView.Items.Count ; rowCounter++)
             {
             
                     if (mCalendar.CalendarList[rowCounter].HolidayName != "")
@@ -169,6 +169,9 @@ namespace Tagplaner
         /// <returns></returns>
         public MCalendarEntry getSelectedEntryModel()
         {
+            Console.WriteLine(" ");
+            Console.WriteLine("y-Coord " + y_Coord);
+            Console.WriteLine("x-Coord " + x_Coord);
             MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
             return calendarEntry;
