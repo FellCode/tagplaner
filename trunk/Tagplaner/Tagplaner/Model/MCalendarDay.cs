@@ -60,6 +60,7 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.vacationName = vacationName; 
             this.calendarWeek = calenderWeek;
+            calendarEntry = new List<MCalendarEntry>();
 
         }
 
@@ -70,7 +71,7 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.vacationName = vacationName;
             this.calendarWeek = calenderWeek;
-
+            calendarEntry = new List<MCalendarEntry>();
         }
         #endregion
     }
