@@ -10,6 +10,12 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Autor: Niklas Wazal, Felix Smuda
+    /// Datum: 13.01.15
+    /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen
+    /// innerhalb der Tabelle
+    /// </summary>
     class CEditPlan : TagplanBearbeitenUserControl
     {
 
@@ -18,6 +24,12 @@ namespace Tagplaner
 
         private DataGridView dGV = new DataGridView();
 
+        /// <summary>
+        /// Diese Methode erstellt die Tabelle entsprechend der Menge an Blöcken die benötigt werden.
+        /// Dazu erwartet sie einen Int-Wert als Parameter.
+        /// </summary>
+        /// <param name="countGrid"></param>
+        /// <returns></returns>
         public DataGridView createDataGridViews(int countGrid)
         {
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
@@ -40,19 +52,42 @@ namespace Tagplaner
             this.dGV.Size = new System.Drawing.Size(drawingSizeX, drawingSizeY);
             this.dGV.TabIndex = 0;
             this.dGV.ColumnCount = columnCount;
+            
+            for(int columnCounter=0;columnCounter<=countGrid;columnCounter++)
+            {
+                this.dGV.Columns[0 + 6 * columnCounter].Name = "Ort";
+                this.dGV.Columns[1 + 6 * columnCounter].Name = "Raum";
+                this.dGV.Columns[2 + 6 * columnCounter].Name = "Trainer";
+                this.dGV.Columns[3 + 6 * columnCounter].Name = "Co-Trainer";
+                this.dGV.Columns[4 + 6 * columnCounter].Name = "Aktivität";
+                this.dGV.Columns[5 + 6 * columnCounter].Name = "Aktivität";
+
+            }
+
             this.dGV.CellClick += new DataGridViewCellEventHandler(TagplanBearbeitenUserControl_CellClick);
 
 
             return dGV;
         }
 
-
+        /// <summary>
+        /// Wird in eine Zelle der Tabelle geklickt, started es die Methodedie ermittelt welches Model zu dem angeklickten Element gehört
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TagplanBearbeitenUserControl_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             x_Coord = e.ColumnIndex;
             y_Coord = e.RowIndex;
             getSelectedEntryModel();
         }
+
+        /// <summary>
+        /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
+        /// </summary>
+        /// <param name="dGV"></param>
+        /// <param name="columnCount"></param>
+        /// <param name="listView"></param>
         public void fillGrids(DataGridView dGV, int columnCount, ListView listView)
         {
             MCalendar mCalendar = MCalendar.getInstance();
@@ -69,47 +104,50 @@ namespace Tagplaner
 
 
 
-
-            for (int i = 0; i < listView.Items.Count - 1; i++)
+            // Durchläuft jeden Kalendertag
+            for (int rowCounter = 0; rowCounter < listView.Items.Count - 1; rowCounter++)
             {
-                if (!(mCalendar.CalendarList[i].CalendarDate == Convert.ToDateTime(listView.Items[i].SubItems["Datum"])))
+                if (!(mCalendar.CalendarList[rowCounter].CalendarDate == Convert.ToDateTime(listView.Items[rowCounter].SubItems["Datum"])))
                 {
-                    if (mCalendar.CalendarList[i].HolidayName != "")
+                    if (mCalendar.CalendarList[rowCounter].HolidayName != "")
                     {
                         dGV.Rows.Add();
-                        for (int j = 0; j < columnCount / 6; j++)
+                        //Durchläuft jede Spalte der Tabelle
+                        for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
-                            mCalendar.CalendarList[i].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
+                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
 
-                            dGV[0 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Room.Number.ToString();
-                            dGV[1 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Trainer.Name.ToString();
-                            dGV[2 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Place.Place.ToString();
-                            dGV[3 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Practice.Comment.ToString();
-
-                            if (mCalendar.CalendarList[i].CalendarEntry[j].School.Id != 0)
+                            dGV[0 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
+                            dGV[1 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
+                            dGV[2 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
+                            dGV[3 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
+                            
+                           
+                            //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Id != 0)
                             {
-                                dGV[4 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].School.Comment.ToString();
-                                dGV[5 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].School.Comment.ToString();
+                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
+                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                                 Console.WriteLine("IF-School");
                             }
-                            if (mCalendar.CalendarList[i].CalendarEntry[j].Seminar.Title.ToString() != "")
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString() != "")
                             {
-                                dGV[4 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Seminar;
-                                dGV[5 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Seminar;
+                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
+                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
                                 Console.WriteLine("IF-Seminar");
                             }
-                            if (mCalendar.CalendarList[i].CalendarEntry[j].Practice.Id != 0)
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id != 0)
                             {
-                                dGV[4 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Practice.Comment.ToString();
-                                dGV[5 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Practice.Comment.ToString();
-                                Console.WriteLine("IF-Practice: " + mCalendar.CalendarList[i].CalendarEntry[j].Practice.Id.ToString());
+                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                                Console.WriteLine("IF-Practice: " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id.ToString());
                             }
-                            if (mCalendar.CalendarList[i].CalendarEntry[j].Seminar.Title.ToString() != "" && mCalendar.CalendarList[i].CalendarEntry[j].Practice.Id != 0)
+                            //Case: Sowohl Seminar als auch Praxis Objekt existieren
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString() != "" && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id != 0)
                             {
-                                //    dGV[4 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Seminar;
-                                //   dGV[5 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Practice.;
-                                Console.WriteLine(mCalendar.CalendarList[i].CalendarEntry[j].Seminar.Title.ToString());
-                                Console.WriteLine(mCalendar.CalendarList[i].CalendarEntry[j].Practice.Comment.ToString());
+                                 dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                 dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                        
                             }
                         }
 
@@ -118,7 +156,7 @@ namespace Tagplaner
                     {
                         for (int k = 0; k <= columnCount; k++)
                         {
-                            dGV[k, i].Value = mCalendar.CalendarList[i].HolidayName;
+                            dGV[k, rowCounter].Value = mCalendar.CalendarList[rowCounter].HolidayName;
                         }
 
                     }
@@ -126,6 +164,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
+        /// </summary>
+        /// <returns></returns>
         public MCalendarEntry getSelectedEntryModel()
         {
 
@@ -134,6 +176,11 @@ namespace Tagplaner
 
             return calendarEntry;
         }
+
+        /// <summary>
+        /// Hier werden die Änderungen übergeben und wieder in das DataGrid geschrieben
+        /// </summary>
+        /// <param name="entry"></param>
         public void ApplyChangesToGrid(MCalendarEntry entry)
         {
 
@@ -141,12 +188,13 @@ namespace Tagplaner
             double bereich = 0;
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
 
-
-
-            dGV[6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Trainer.Name.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 1, y_Coord].Value = entry.Cotrainer.Name.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 2, y_Coord].Value = entry.Place.Place.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 3, y_Coord].Value = entry.Room.Number.ToString();
+            //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
+            dGV[6 * Convert.ToInt32(bereich) + 0, y_Coord].Value = entry.Place.Place.ToString();
+            dGV[6 * Convert.ToInt32(bereich) + 1, y_Coord].Value = entry.Room.Number.ToString();
+            dGV[6 * Convert.ToInt32(bereich) + 2, y_Coord].Value = entry.Trainer.Name.ToString();
+            dGV[6 * Convert.ToInt32(bereich) + 3, y_Coord].Value = entry.Cotrainer.Name.ToString();
+       
+           
             if (entry.School.Id != 0)
             {
                 dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.School.Comment.ToString();
