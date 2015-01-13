@@ -14,12 +14,8 @@ namespace Tagplaner
         private static MCalendar instance;
         private DateTime startdate;
         private DateTime enddate;
-        private String currentYear;
-        private String nextYear;
         private string startdateString;
         private string enddateString;
-        private List<MSpeciality> speciality = new List<MSpeciality>();
-        private bool saved;
 
         #region getter
         public int Id
@@ -52,17 +48,7 @@ namespace Tagplaner
             get { return calendarList; }
             set { calendarList = value; }
         }
-        public List<MSpeciality> Speciality
-        {
-            get { return speciality; }
-            set { speciality = value; }
-        }
-        public bool Saved
-        {
-            get { return saved; }
-            set { saved = value; }
-        }
-        #endregion
+
         private MCalendar()
         {
 
@@ -75,28 +61,24 @@ namespace Tagplaner
                 instance = new MCalendar();
             } return instance;
         }
+        #endregion
 
-
-        public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses)
+        public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
-
             startdate = start;
             enddate = end;
 
             StartdateString = String.Format("{0:D}", start);
             EnddateString = String.Format("{0:D}", end);
 
-            Saved = false;
-
             CalendarList.Clear();
 
-            //Befüllen der CalendarList von startdatum bis enddatum mit Feier- und Ferientagen
+            //Befüllen der CalendarList mit Ferientagen von startdatum bis enddatum
             CCalendar ccalendar = new CCalendar();
-            CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList);
-            CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList);
+            CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
 
-            //Befüllen der Speciality
-            Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
+            //Befüllen der CalendarList mit Ferientagen von startdatum bis enddatum
+            CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
         }
 
         #region AddDay-Methods
