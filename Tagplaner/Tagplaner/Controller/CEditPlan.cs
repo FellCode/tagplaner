@@ -21,7 +21,7 @@ namespace Tagplaner
         public DataGridView createDataGridViews(int countGrid)
         {
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
-            ListView listView = userControl.getListView();
+            ListView listView = userControl.GetListView();
 
             int columnCount = 6 * countGrid;
             int space = 10;
@@ -61,10 +61,10 @@ namespace Tagplaner
 
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
-            MSpeciality mspec = new MSpeciality("AE", "2104", "Koeln");
+            MSpeciality mspec = new MSpeciality(1, "2014", "Koeln");
             MSeminar seminar = new MSeminar("", "Subtitel", "SAP", "false", "commment");
             List<MRoom> room = new List<MRoom>();
-            room.Add(new MRoom(209));
+            room.Add(new MRoom("209"));
             MPlace ort = new MPlace("Koeln", "Arnold", room);
 
 
@@ -79,9 +79,7 @@ namespace Tagplaner
                         dGV.Rows.Add();
                         for (int j = 0; j < columnCount / 6; j++)
                         {
-                            mCalendar.CalendarList[i].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, mspec, seminar, ort, room[0], new MSchool("Schule"), new MPractice("")));
-
-                            Console.WriteLine("Bla");
+                            mCalendar.CalendarList[i].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
 
                             dGV[0 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Room.Number.ToString();
                             dGV[1 + 6 * j, i].Value = mCalendar.CalendarList[i].CalendarEntry[j].Trainer.Name.ToString();
