@@ -83,9 +83,7 @@
     <Compile Include="Controller\CCalendar.cs" />
     <Compile Include="Controller\CCalendarUtilitys.cs" />
     <Compile Include="Controller\CDatabase.cs" />
-    <Compile Include="Controller\CEditPlan.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Controller\CEditPlan.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CICalCSVConverter.cs" />
     <Compile Include="Controller\CPdfExporter.cs" />
