@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,43 @@ namespace Tagplaner
             if (tabControl1.TabPages[pageIndex].Text.Equals("Statistiken"))
             {
                 statistikUC.RefreshListView();
+            }
+        }
+
+        private void FormInit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Prüfen, ob der Tagplan bereits gespeichert wurde
+            if (!MCalendar.getInstance().Saved) {
+                e.Cancel = true;
+
+                // Messagebox mit Speicher-Hinweis anzeigen
+                DialogResult dialogSaveResult = MessageBox.Show(
+                MMessage.REQUEST_FILE_SAVE, "Tagplaner", MessageBoxButtons.YesNo);
+
+                // Wenn Ja gedrückt wurde SaveDialog anzeigen
+                if (dialogSaveResult == DialogResult.Yes)
+                {
+                    SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                    System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
+
+                    saveFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
+                    saveFileDialog1.Filter = "Tagplan|*.tp";
+                    saveFileDialog1.Title = "Tagplan abspeichern";
+
+                    DialogResult fileSaveResult = saveFileDialog1.ShowDialog();
+                    if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
+                    {
+                        CSerialize serialize = new CSerialize();
+                        MCalendar calendarWithDays = MCalendar.getInstance();
+                        serialize.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
+                        e.Cancel = false;
+                    }
+                }
+                else
+                {
+                    e.Cancel = false;
+                }          
             }
         }
     }
