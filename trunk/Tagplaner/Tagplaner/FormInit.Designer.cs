@@ -69,6 +69,7 @@
             this.Name = "FormInit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tagplaner";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormInit_FormClosing);
             this.Load += new System.EventHandler(this.Init_Load);
             this.ResumeLayout(false);
