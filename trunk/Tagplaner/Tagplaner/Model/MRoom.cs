@@ -10,16 +10,20 @@ namespace Tagplaner
     {
         private int id;
         private string number;
+        private int place_id;
 
         #region getter
         public int Id
         {
             get { return id; }
-            set { this.id = value; }
         }
         public String Number
         {
             get { return number; }
+        }
+        public int Place_id
+        {
+            get { return place_id; }
         }
         #endregion
 
@@ -31,10 +35,11 @@ namespace Tagplaner
             this.number = number;
         }
 
-        public MRoom(int id, string number)
+        public MRoom(int id, string number, int place_id)
         {
             this.id = id;
             this.number = number;
+            this.place_id = place_id;
         }
         #endregion
 
