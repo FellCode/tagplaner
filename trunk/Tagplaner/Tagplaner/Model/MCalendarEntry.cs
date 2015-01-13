@@ -65,7 +65,6 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor für einen Seminartag.
         /// </summary>
-        /// <param name="calendarDay">Dazugehöriger Kalendertag</param>
         /// <param name="trainer">Seminartrainer</param>
         /// <param name="cotrainer">Cotrainer</param>
         /// <param name="seminar">Seminar </param>
@@ -84,7 +83,6 @@ namespace Tagplaner
         /// Konstruktor für einen bereits bestehendes Seminarobjekt aus der Datenbank.
         /// </summary>
         /// <param name="id">Id des Seminarobjektes aus der Datenbank</param>
-        /// <param name="calendarDay">Dazugehöriger Kalendertag</param>
         /// <param name="trainer">Seminartrainer</param>
         /// <param name="cotrainer">Cotrainer</param>
         /// <param name="seminar">Seminar </param>
@@ -105,7 +103,6 @@ namespace Tagplaner
         /// Konstruktor für einen bestehenden Praxistag aus der Datenbank.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="calendarDay"></param>
         /// <param name="practice"></param>
         public MCalendarEntry(int id, MPractice practice)
         {
@@ -116,7 +113,6 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor für einen Praxistag.
         /// </summary>
-        /// <param name="calendarDay"></param>
         /// <param name="practice"></param>
         public MCalendarEntry(MPractice practice)
         {
@@ -126,7 +122,6 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor für einen Schultag.
         /// </summary>
-        /// <param name="calendarDay"></param>
         /// <param name="school"></param>
         public MCalendarEntry(MSchool school)
         {
@@ -137,7 +132,6 @@ namespace Tagplaner
         /// Konstruktor für einen bestehenden Schultag aus der Datenbank.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="calendarDay"></param>
         /// <param name="school"></param>
         public MCalendarEntry(int id, MSchool school)
         {
