@@ -124,26 +124,26 @@ namespace Tagplaner
                             
                            
                             //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
-                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Id != 0)
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
                             {
                                 dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                                 dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                                 Console.WriteLine("IF-School");
                             }
-                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString() != "")
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                             {
                                 dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
                                 dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
                                 Console.WriteLine("IF-Seminar");
                             }
-                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id != 0)
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
                                 dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
                                 dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
                                 Console.WriteLine("IF-Practice: " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id.ToString());
                             }
                             //Case: Sowohl Seminar als auch Praxis Objekt existieren
-                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString() != "" && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id != 0)
+                            if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
                                  dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                                  dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
@@ -195,23 +195,23 @@ namespace Tagplaner
             dGV[6 * Convert.ToInt32(bereich) + 3, y_Coord].Value = entry.Cotrainer.Name.ToString();
        
            
-            if (entry.School.Id != 0)
+            if (entry.School != null)
             {
                 dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.School.Comment.ToString();
                 dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.School.Comment.ToString();
             }
-            if(entry.Practice.Id !=0)
+            if(entry.Practice != null)
             {
                 dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Practice.Comment.ToString();
                 dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Practice.Comment.ToString();
             }
-            if(entry.Seminar.Title.ToString() != "")
+            if(entry.Seminar != null)
             {
                 dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Seminar.Comment.ToString();
                 dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Seminar.Comment.ToString();
             }
             
-            if(entry.Practice.Id !=0 && entry.Seminar.Title.ToString() != "")
+            if(entry.Practice.Id !=0 && entry.Seminar != null)
             {
                 dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Practice.Comment.ToString();
                 dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Seminar.Comment.ToString();
