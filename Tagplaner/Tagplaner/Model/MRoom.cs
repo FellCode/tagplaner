@@ -35,6 +35,12 @@ namespace Tagplaner
             this.number = number;
         }
 
+        public MRoom(int id, string number)
+        {
+            this.id = id;
+            this.number = number;
+        }
+
         public MRoom(int id, string number, int place_id)
         {
             this.id = id;
