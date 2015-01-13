@@ -16,7 +16,7 @@ namespace Tagplaner
     /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen
     /// innerhalb der Tabelle
     /// </summary>
-    class CEditPlan : TagplanBearbeitenUserControl
+    class CEditPlan
     {
 
         int x_Coord = 0;
@@ -45,7 +45,7 @@ namespace Tagplaner
 
             this.dGV = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dGV)).BeginInit();
-            this.SuspendLayout();
+            
 
             this.dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV.Location = new System.Drawing.Point(drawingPointX, drawingPointY);
