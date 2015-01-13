@@ -79,19 +79,19 @@ namespace Tagplaner
                     }
                     break;
                 case 2:
-                    if (typeOfClasses[0] != null)
+                    if (typeOfClasses[0] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[0], ""));
                     }
-                    if (typeOfClasses[1] != null)
+                    if (typeOfClasses[1] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[1], ""));
                     }
-                    if (typeOfClasses[2] != null)
+                    if (typeOfClasses[2] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[2], ""));
                     }
-                    if (typeOfClasses[3] != null)
+                    if (typeOfClasses[3] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[3], ""));
                     }

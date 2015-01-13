@@ -260,18 +260,26 @@ namespace Tagplaner
             {
                 typeOfClasses.Add("AE");
             }
+            else
+                typeOfClasses.Add("");
             if (checkBoxErsterJahrgangSI.Checked)
             {
                 typeOfClasses.Add("SI");
             }
+            else
+                typeOfClasses.Add("");
             if (checkBoxZweiterJahrgangAE.Checked)
             {
                 typeOfClasses.Add("AE");
             }
+            else
+                typeOfClasses.Add("");
             if (checkBoxZweiterJahrgangSI.Checked)
             {
                 typeOfClasses.Add("SI");
             }
+            else
+                typeOfClasses.Add("");
         }
     }
 }
