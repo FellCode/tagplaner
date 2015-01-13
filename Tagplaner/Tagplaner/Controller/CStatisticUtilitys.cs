@@ -27,13 +27,9 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountWeekendDays()
         {
-            MCalendarDay calendarDay = null;
             int weekendCounter = 0;
 
-            for (int i = 0; i < MCalendar.getInstance().CalendarList.Count(); i++)
-            {
-                calendarDay = MCalendar.getInstance().CalendarList.ElementAt(i);
-
+            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList) {
                 if (calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday") ||
                     calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
                 {
@@ -51,13 +47,9 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountHolidayDays()
         {
-            MCalendarDay calendarDay = null;
             int holidayCounter = 0;
 
-            for (int i = 0; i < MCalendar.getInstance().CalendarList.Count(); i++)
-            {
-                calendarDay = MCalendar.getInstance().CalendarList.ElementAt(i);
-
+            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList) {
                 if (!String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     holidayCounter++;
@@ -74,7 +66,19 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountSeminarDays()
         {
-            return 0;
+            int seminarCounter = 0;
+            
+            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            {
+                if (calendarDay.CalendarEntry.Count > 0) { 
+                    if (calendarDay.CalendarEntry.ElementAt(0).Seminar != null)
+                    {
+                        seminarCounter++;
+                    }
+                }
+            }
+            
+            return seminarCounter;
         }
 
         /// <summary>
@@ -84,7 +88,20 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountSchoolDays()
         {
-            return 0;
+            int schoolCounter = 0;
+
+            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            {
+                if (calendarDay.CalendarEntry.Count > 0)
+                {
+                    if (calendarDay.CalendarEntry.ElementAt(0).School != null)
+                    {
+                        schoolCounter++;
+                    }
+                }
+            }
+            
+            return schoolCounter;
         }
 
         /// <summary>
@@ -94,7 +111,20 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountPraticeDays()
         {
-            return 0;
+            int praticeCounter = 0;
+
+            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            {
+                if (calendarDay.CalendarEntry.Count > 0)
+                {
+                    if (calendarDay.CalendarEntry.ElementAt(0).Practice != null)
+                    {
+                        praticeCounter++;
+                    }
+                }
+            }
+
+            return praticeCounter;
         }
     }
 }
