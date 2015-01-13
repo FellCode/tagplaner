@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    [Serializable()]
     public class MHoliday
     {
         private int id;

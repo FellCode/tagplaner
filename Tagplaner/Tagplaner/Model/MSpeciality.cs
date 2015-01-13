@@ -8,6 +8,7 @@ namespace Tagplaner
 {
     public class MSpeciality
     {
+        [Serializable()]
         private int id;
         private string apprenticeship;
         private string specialityName;
