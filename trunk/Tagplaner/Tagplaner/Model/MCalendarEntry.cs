@@ -10,7 +10,6 @@ namespace Tagplaner
     public class MCalendarEntry
     {
         private int id;
-        private MCalendarDay calendarDay;
         private MTrainer trainer;
         private MTrainer cotrainer;
         private MSeminar seminar;
@@ -20,11 +19,6 @@ namespace Tagplaner
         private MRoom room;
 
         #region getter
-        public MCalendarDay CalendarDay
-        {
-            get { return calendarDay; }
-            set { calendarDay = value; }
-        }
         public int Id
         {
             get { return id; }
@@ -77,10 +71,9 @@ namespace Tagplaner
         /// <param name="seminar">Seminar </param>
         /// <param name="place">Platz an dem das Seminar statt findet.</param>
         /// <param name="room">Raum indem das Seminar statt findet.</param>
-        public MCalendarEntry( MCalendarDay calendarDay, MTrainer trainer, MTrainer cotrainer,
+        public MCalendarEntry(MTrainer trainer, MTrainer cotrainer,
             MSeminar seminar, MPlace place, MRoom room)
         {
-            this.calendarDay = calendarDay;
             this.trainer = trainer;
             this.cotrainer = cotrainer;
             this.seminar = seminar;
@@ -97,11 +90,10 @@ namespace Tagplaner
         /// <param name="seminar">Seminar </param>
         /// <param name="place">Platz an dem das Seminar statt findet.</param>
         /// <param name="room">Raum indem das Seminar statt findet.</param>
-        public MCalendarEntry(int id,MCalendarDay calendarDay, MTrainer trainer, MTrainer cotrainer,
+        public MCalendarEntry(int id, MTrainer trainer, MTrainer cotrainer,
     MSeminar seminar, MPlace place, MRoom room)
         {
             this.id = id;
-            this.calendarDay = calendarDay;
             this.trainer = trainer;
             this.cotrainer = cotrainer;
             this.seminar = seminar;
@@ -115,10 +107,9 @@ namespace Tagplaner
         /// <param name="id"></param>
         /// <param name="calendarDay"></param>
         /// <param name="practice"></param>
-        public MCalendarEntry(int id, MCalendarDay calendarDay, MPractice practice)
+        public MCalendarEntry(int id, MPractice practice)
         {
             this.id = id;
-            this.calendarDay = calendarDay;
             this.practice = practice;
         }
 
@@ -127,9 +118,8 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendarDay"></param>
         /// <param name="practice"></param>
-        public MCalendarEntry(MCalendarDay calendarDay, MPractice practice)
+        public MCalendarEntry(MPractice practice)
         {
-            this.calendarDay = calendarDay;
             this.practice = practice;
         }
 
@@ -138,9 +128,8 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendarDay"></param>
         /// <param name="school"></param>
-        public MCalendarEntry(MCalendarDay calendarDay, MSchool school)
+        public MCalendarEntry(MSchool school)
         {
-            this.calendarDay = calendarDay;
             this.school = school;
         }
 
@@ -150,10 +139,9 @@ namespace Tagplaner
         /// <param name="id"></param>
         /// <param name="calendarDay"></param>
         /// <param name="school"></param>
-        public MCalendarEntry(int id, MCalendarDay calendarDay, MSchool school)
+        public MCalendarEntry(int id, MSchool school)
         {
             this.id = id;
-            this.calendarDay = calendarDay;
             this.school = school;
         }
         #endregion
