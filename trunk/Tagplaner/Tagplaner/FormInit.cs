@@ -99,7 +99,7 @@ namespace Tagplaner
 
                 // Messagebox mit Speicher-Hinweis anzeigen
                 DialogResult dialogSaveResult = MessageBox.Show(
-                MMessage.REQUEST_FILE_SAVE, "Tagplaner", MessageBoxButtons.YesNo);
+                MMessage.REQUEST_FILE_SAVE, "Tagplaner", MessageBoxButtons.YesNoCancel);
 
                 // Wenn Ja gedrückt wurde SaveDialog anzeigen
                 if (dialogSaveResult == DialogResult.Yes)
@@ -120,6 +120,9 @@ namespace Tagplaner
                         serialize.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
                         e.Cancel = false;
                     }
+                }
+                else if (dialogSaveResult == DialogResult.Cancel) {
+                    e.Cancel = true;
                 }
                 else
                 {
