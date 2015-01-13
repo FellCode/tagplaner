@@ -41,7 +41,6 @@ namespace Tagplaner
             addTabPage(seminarVerwaltenUC, "Seminar verwalten");
             addTabPage(raumVerwaltenUC, "Räume verwalten");
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
-            addTabPage(new StatistikUserControl(), "Statistiken");
             addTabPage(statistikUC, "Statistiken");
         }
 
