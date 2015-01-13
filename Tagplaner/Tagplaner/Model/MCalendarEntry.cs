@@ -10,17 +10,21 @@ namespace Tagplaner
     public class MCalendarEntry
     {
         private int id;
+        private MCalendarDay calendarDay;
         private MTrainer trainer;
         private MTrainer cotrainer;
-        private MSpeciality speciality;
         private MSeminar seminar;
         private MPractice practice;
         private MSchool school;
-        private MHoliday holiday;
         private MPlace place;
         private MRoom room;
 
         #region getter
+        public MCalendarDay CalendarDay
+        {
+            get { return calendarDay; }
+            set { calendarDay = value; }
+        }
         public int Id
         {
             get { return id; }
@@ -29,78 +33,95 @@ namespace Tagplaner
         public MTrainer Trainer
         {
             get { return trainer; }
+            set { this.trainer = value; }
         }
         public MTrainer Cotrainer
         {
             get { return cotrainer; }
-        }
-        public MSpeciality Speciality
-        {
-            get { return speciality; }
+            set { this.cotrainer = value; }
         }
         public MSeminar Seminar
         {
             get { return seminar; }
+            set { this.seminar = value; }
         }
         public MPractice Practice
         {
             get { return practice; }
+            set { this.practice = value; }
         }
         public MSchool School
         {
             get { return school; }
-        }
-        public MHoliday Holiday
-        {
-            get { return holiday; }
+            set { this.school = value; }
         }
         public MPlace Place
         {
             get { return place; }
+            set { this.place = value; }
         }
         public MRoom Room
         {
             get { return room; }
+            set { this.room = value; }
+        }
+        #endregion
+
+        #region Konstruktoren
+        public MCalendarEntry( MCalendarDay calendarDay, MTrainer trainer, MTrainer cotrainer,
+            MSeminar seminar, MPlace place, MRoom room)
+        {
+            this.calendarDay = calendarDay;
+            this.trainer = trainer;
+            this.cotrainer = cotrainer;
+            this.seminar = seminar;
+            this.place = place;
+            this.room = room;
+        }
+        public MCalendarEntry(int id,MCalendarDay calendarDay, MTrainer trainer, MTrainer cotrainer,
+    MSeminar seminar, MPlace place, MRoom room)
+        {
+            this.id = id;
+            this.calendarDay = calendarDay;
+            this.trainer = trainer;
+            this.cotrainer = cotrainer;
+            this.seminar = seminar;
+            this.place = place;
+            this.room = room;
+        }
+
+        public MCalendarEntry(int id, MCalendarDay calendarDay, MPractice practice)
+        {
+            this.id = id;
+            this.calendarDay = calendarDay;
+            this.practice = practice;
+        }
+
+        public MCalendarEntry(MCalendarDay calendarDay, MPractice practice)
+        {
+            this.calendarDay = calendarDay;
+            this.practice = practice;
+        }
+
+        public MCalendarEntry(MCalendarDay calendarDay, MSchool school)
+        {
+            this.calendarDay = calendarDay;
+            this.school = school;
+        }
+        public MCalendarEntry(int id, MCalendarDay calendarDay, MSchool school)
+        {
+            this.id = id;
+            this.calendarDay = calendarDay;
+            this.school = school;
         }
         #endregion
 
 
-        public MCalendarEntry( MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
-            MSeminar seminar, MPlace place, MRoom room)
-        {
-            this.trainer = trainer;
-            this.cotrainer = cotrainer;
 
-            this.speciality = speciality;
-            this.seminar = seminar;
-            this.place = place;
-            this.room = room;
-        }
-        public MCalendarEntry(int id, MTrainer trainer, MTrainer cotrainer, MSpeciality speciality,
-    MSeminar seminar, MPlace place, MRoom room)
-        {
-            this.id = id;
-            this.trainer = trainer;
-            this.cotrainer = cotrainer;
 
-            this.speciality = speciality;
-            this.seminar = seminar;
-            this.place = place;
-            this.room = room;
-        }
 
-        public MCalendarEntry(int id, MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
-        {
-            this.id = id;
-            this.speciality = speciality;
-            this.practice = practice;
-        }
 
-        public MCalendarEntry(MCalendarDay calendarDay, MSpeciality speciality, MPractice practice)
-        {
 
-            this.speciality = speciality;
-            this.practice = practice;
-        }
+
     }
 }

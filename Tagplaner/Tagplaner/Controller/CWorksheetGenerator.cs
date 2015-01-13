@@ -152,12 +152,7 @@ namespace Tagplaner
                         //1-4 Durchläufe                        
                         foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
-                            if (calendarDay.CalendarEntry[i_entry-1].Holiday != null)
-                            {
-                                #region Holiday
-                                #endregion
-                            }
-                            else if (calendarDay.CalendarEntry[i_entry-1].School != null)
+                            if (calendarDay.CalendarEntry[i_entry-1].School != null)
                             {
                                 #region School
                                 string comment = calendarDay.CalendarEntry[i_entry-1].School.Comment;
