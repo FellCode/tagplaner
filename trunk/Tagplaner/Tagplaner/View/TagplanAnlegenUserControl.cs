@@ -153,7 +153,8 @@ namespace Tagplaner
 
                 listView.Items.Add(listViewItem);
             }
-            //}
+            CEditPlan ceditplan = new CEditPlan();
+            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, listView);
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
