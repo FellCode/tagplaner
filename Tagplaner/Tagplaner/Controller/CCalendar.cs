@@ -16,13 +16,12 @@ namespace Tagplaner
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
         //public List<MCalendarDay> fillDaysInitial(DateTime startdate,DateTime enddate,List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
-        public List<MCalendarDay> fillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays)
+        public List<MCalendarDay> fillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
             calendarUtilitys.generateCalenderDayEntrys();
 
-            //ICalCSVConverter iCalCSVConverter = new ICalCSVConverter(vacationCurrentYearUrl, vacationNextYearUrl);
-            CICalCSVConverter iCalCSVConverter = new CICalCSVConverter("CSV\\Ferien_Hessen_2015.ics", "CSV\\Ferien_Hessen_2016.ics");
+            CICalCSVConverter iCalCSVConverter = new CICalCSVConverter(vacationCurrentYearUrl, vacationNextYearUrl);
             foreach (MVacation vacation in iCalCSVConverter.GetICalEntrys(startdate, enddate))
             {
                 foreach (MCalendarDay day in listDays)
@@ -45,11 +44,10 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
-        //public List<MCalendarDay> fillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
-        public List<MCalendarDay> fillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays)
+        public List<MCalendarDay> fillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             CHoliday holiday = new CHoliday();
-            foreach (MHoliday tempHoliday in holiday.GetHoliday("Nordrhein-Westfalen", startdate, enddate))
+            foreach (MHoliday tempHoliday in holiday.GetHoliday(holidayCurrentYearUrl, holidayNextYearUrl, startdate, enddate))
             {
                 foreach (MCalendarDay day in listDays)
                 {
