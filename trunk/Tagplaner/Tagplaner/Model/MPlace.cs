@@ -13,6 +13,7 @@ namespace Tagplaner
         private string place;
         private string contact;
         private List<MRoom> rooms;
+        private int federalstate_id;
 
         #region getter
         public int Id
@@ -32,6 +33,10 @@ namespace Tagplaner
         {
             get { return rooms; }
         }
+        public int Federalstate_id
+        {
+            get { return federalstate_id; }
+        }
         #endregion
 
         #region constructor
@@ -47,6 +52,13 @@ namespace Tagplaner
             this.id = id;
             this.place = place;
             this.contact = contact;
+        }
+        public MPlace(int id, string place, string contact, int federalstate_id)
+        {
+            this.id = id;
+            this.place = place;
+            this.contact = contact;
+            this.federalstate_id = federalstate_id;
         }
         #endregion
 
