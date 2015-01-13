@@ -63,5 +63,41 @@ namespace Tagplaner
             }
             return listDays;
         }
+
+        public List<MSpeciality> fillSpeziallityInitial(List<MSpeciality> speciality,int classes, List<string> typeOfClasses)
+        {
+            switch (classes)
+            {
+                case 1:
+                    if (typeOfClasses[0] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[0], ""));
+                    }
+                    if (typeOfClasses[1] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[1], ""));
+                    }
+                    break;
+                case 2:
+                    if (typeOfClasses[0] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[0], ""));
+                    }
+                    if (typeOfClasses[1] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[1], ""));
+                    }
+                    if (typeOfClasses[2] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[2], ""));
+                    }
+                    if (typeOfClasses[3] != null)
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[3], ""));
+                    }
+                    break;
+            }
+            return speciality;
+        }
     }
 }

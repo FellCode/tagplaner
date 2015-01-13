@@ -18,6 +18,7 @@ namespace Tagplaner
         private String nextYear;
         private string startdateString;
         private string enddateString;
+        private List<MSpeciality> speciality;
 
         #region getter
         public int Id
@@ -50,7 +51,12 @@ namespace Tagplaner
             get { return calendarList; }
             set { calendarList = value; }
         }
-
+        public List<MSpeciality> Speciality
+        {
+            get { return speciality; }
+            set { speciality = value; }
+        }
+        #endregion
         private MCalendar()
         {
 
@@ -63,7 +69,7 @@ namespace Tagplaner
                 instance = new MCalendar();
             } return instance;
         }
-        #endregion
+
 
         //public void fillCalendarInitial(DateTime start, DateTime end, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses)
@@ -87,6 +93,7 @@ namespace Tagplaner
 
             //CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList);
+            Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
 
         #region AddDay-Methods

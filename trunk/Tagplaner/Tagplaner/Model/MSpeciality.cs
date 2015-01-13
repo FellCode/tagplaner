@@ -9,9 +9,8 @@ namespace Tagplaner
     public class MSpeciality
     {
         private int id;
+        private string apprenticeship;
         private string specialityName;
-        private string year;
-        private string region;
 
         #region getter
 
@@ -25,30 +24,20 @@ namespace Tagplaner
         {
             get { return specialityName; }
         }
-        public string Year
-        {
-            get { return year; }
-        }
-        public string Region
-        {
-            get { return region; }
-        }
         #endregion
 
         #region constructor
-        public MSpeciality( string specialityName, string year, string region)
+        public MSpeciality(string specialityName, string apprenticeship)
         {
             
             this.specialityName = specialityName;
-            this.year = year;
-            this.region = region;
+            this.apprenticeship = apprenticeship;
         }
-        public MSpeciality(int id, string specialityName, string year, string region)
+        public MSpeciality(int id, string specialityName, string apprenticeship)
         {
             this.id = id;
             this.specialityName = specialityName;
-            this.year = year;
-            this.region = region;
+            this.apprenticeship = apprenticeship;
         }
         #endregion
     }
