@@ -107,6 +107,12 @@
     <Compile Include="Model\MTrainer.cs" />
     <Compile Include="Model\MSeminar.cs" />
     <Compile Include="Model\MVacation.cs" />
+    <Compile Include="View\FerienFeiertageAuswaehlenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FerienFeiertageAuswaehlenForm.Designer.cs">
+      <DependentUpon>FerienFeiertageAuswaehlenForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </Compile>
     <EmbeddedResource Include="Controller\CEditPlan.resx">
       <DependentUpon>CEditPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FerienFeiertageAuswaehlenForm.resx">
+      <DependentUpon>FerienFeiertageAuswaehlenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
