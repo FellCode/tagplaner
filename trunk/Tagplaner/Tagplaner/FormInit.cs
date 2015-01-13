@@ -16,6 +16,8 @@ namespace Tagplaner
         TagplanBearbeitenUserControl tagplanBearbeitenUC;
         SeminarVerwaltenUserControl seminarVerwaltenUC;
         StatistikUserControl statistikUC;
+        RaumVerwaltenUserControl raumVerwaltenUC;
+        TrainerVerwaltenUserControl trainerVerwaltenUC;
 
         public FormInit()
         {
@@ -24,6 +26,8 @@ namespace Tagplaner
             tagplanAnlegenUC = new TagplanAnlegenUserControl(this, tagplanBearbeitenUC);
             seminarVerwaltenUC = new SeminarVerwaltenUserControl();
             statistikUC = new StatistikUserControl();
+            raumVerwaltenUC = new RaumVerwaltenUserControl();
+            trainerVerwaltenUC = new TrainerVerwaltenUserControl();
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -35,6 +39,9 @@ namespace Tagplaner
             addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
             addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
             addTabPage(seminarVerwaltenUC, "Seminar verwalten");
+            addTabPage(raumVerwaltenUC, "Räume verwalten");
+            addTabPage(trainerVerwaltenUC, "Trainer verwalten");
+            addTabPage(new StatistikUserControl(), "Statistiken");
             addTabPage(statistikUC, "Statistiken");
         }
 
