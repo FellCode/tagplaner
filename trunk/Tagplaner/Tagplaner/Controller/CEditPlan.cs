@@ -53,7 +53,7 @@ namespace Tagplaner
             this.dGV.TabIndex = 0;
             this.dGV.ColumnCount = columnCount;
             
-            for(int columnCounter=0;columnCounter<=countGrid;columnCounter++)
+            for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
             {
                 this.dGV.Columns[0 + 6 * columnCounter].Name = "Ort";
                 this.dGV.Columns[1 + 6 * columnCounter].Name = "Raum";
@@ -107,7 +107,7 @@ namespace Tagplaner
             // Durchläuft jeden Kalendertag
             for (int rowCounter = 0; rowCounter < listView.Items.Count - 1; rowCounter++)
             {
-                if (!(mCalendar.CalendarList[rowCounter].CalendarDate == Convert.ToDateTime(listView.Items[rowCounter].SubItems["Datum"])))
+                if (!(mCalendar.CalendarList[rowCounter].CalendarDate == Convert.ToDateTime(listView.Items[rowCounter].SubItems["Datum"])));
                 {
                     if (mCalendar.CalendarList[rowCounter].HolidayName != "")
                     {
@@ -170,8 +170,6 @@ namespace Tagplaner
         /// <returns></returns>
         public MCalendarEntry getSelectedEntryModel()
         {
-
-
             MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
             return calendarEntry;
@@ -183,6 +181,7 @@ namespace Tagplaner
         /// <param name="entry"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
+
             MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
             double bereich = 0;
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
