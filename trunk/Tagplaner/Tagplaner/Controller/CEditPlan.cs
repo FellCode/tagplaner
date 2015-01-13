@@ -181,9 +181,8 @@ namespace Tagplaner
         /// Hier werden die Änderungen übergeben und wieder in das DataGrid geschrieben
         /// </summary>
         /// <param name="entry"></param>
-        public void ApplyChangesToGrid(MCalendarEntry entry)
+        public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-
             MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
             double bereich = 0;
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
