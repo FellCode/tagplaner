@@ -34,6 +34,9 @@ namespace Tagplaner
             listView1.Items.Add(GetApprenticeshipDaysListViewItem());
             listView1.Items.Add(GetWeekendDaysListViewItem());
             listView1.Items.Add(GetHolidayDaysListViewItem());
+            listView1.Items.Add(GetSeminarDaysListViewItem());
+            listView1.Items.Add(GetSchoolDaysListViewItem());
+            listView1.Items.Add(GetPraticeDaysListViewItem());
         }
 
         private ListViewItem GetAllDaysListViewItem()
@@ -81,6 +84,39 @@ namespace Tagplaner
             lvHolidayDays.SubItems.Add(Convert.ToString(holidayDays));
 
             return lvHolidayDays;
+        }
+
+        private ListViewItem GetSeminarDaysListViewItem()
+        {
+            int seminarDays = CStatisticUtilitys.CountSeminarDays();
+
+            ListViewItem lvSeminarDays = new ListViewItem();
+            lvSeminarDays.Text = "Seminartage";
+            lvSeminarDays.SubItems.Add(Convert.ToString(seminarDays));
+
+            return lvSeminarDays;
+        }
+
+        private ListViewItem GetSchoolDaysListViewItem()
+        {
+            int schoolDays = CStatisticUtilitys.CountSchoolDays();
+
+            ListViewItem lvSchoolDays = new ListViewItem();
+            lvSchoolDays.Text = "Schultage";
+            lvSchoolDays.SubItems.Add(Convert.ToString(schoolDays));
+
+            return lvSchoolDays;
+        }
+
+        private ListViewItem GetPraticeDaysListViewItem()
+        {
+            int praticeDays = CStatisticUtilitys.CountSchoolDays();
+
+            ListViewItem lvPraticeDays = new ListViewItem();
+            lvPraticeDays.Text = "Praxistage";
+            lvPraticeDays.SubItems.Add(Convert.ToString(praticeDays));
+
+            return lvPraticeDays;
         }
     }
 }
