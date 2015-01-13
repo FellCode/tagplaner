@@ -8,6 +8,7 @@ namespace Tagplaner
 {
     public class MTrainer
     {
+        [Serializable()]
         private int id;
         private string name;
         private string surname;

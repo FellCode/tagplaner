@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    [Serializable()]
     public class MFederalState
     {   
         private int id;

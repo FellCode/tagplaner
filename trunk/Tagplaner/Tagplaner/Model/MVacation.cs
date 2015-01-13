@@ -14,7 +14,8 @@ namespace Tagplaner
 	/// <summary>
 	/// Description of MVacation.
 	/// </summary>
-	
+    /// 
+    [Serializable()]
 	public class MVacation
     {
         private int id;
