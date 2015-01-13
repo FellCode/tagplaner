@@ -45,22 +45,18 @@
             this.checkBoxZweiterJahrgangAE = new System.Windows.Forms.CheckBox();
             this.buttonWeiter = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btn_ferienOeffnen = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btn_feiertageOeffnen = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.btn_ferienOeffnen = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -115,45 +111,45 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // dateTimePicker1
+            // dateTimePickerVon
             // 
             this.dateTimePickerVon.Location = new System.Drawing.Point(88, 27);
-            this.dateTimePickerVon.Name = "dateTimePicker1";
+            this.dateTimePickerVon.Name = "dateTimePickerVon";
             this.dateTimePickerVon.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerVon.TabIndex = 4;
             // 
-            // dateTimePicker2
+            // dateTimePickerBis
             // 
             this.dateTimePickerBis.Location = new System.Drawing.Point(88, 53);
-            this.dateTimePickerBis.Name = "dateTimePicker2";
+            this.dateTimePickerBis.Name = "dateTimePickerBis";
             this.dateTimePickerBis.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerBis.TabIndex = 5;
             // 
-            // checkBox4
+            // checkBoxErsterJahrgangSI
             // 
             this.checkBoxErsterJahrgangSI.AutoSize = true;
             this.checkBoxErsterJahrgangSI.Location = new System.Drawing.Point(6, 40);
-            this.checkBoxErsterJahrgangSI.Name = "checkBox4";
+            this.checkBoxErsterJahrgangSI.Name = "checkBoxErsterJahrgangSI";
             this.checkBoxErsterJahrgangSI.Size = new System.Drawing.Size(36, 17);
             this.checkBoxErsterJahrgangSI.TabIndex = 10;
             this.checkBoxErsterJahrgangSI.Text = "SI";
             this.checkBoxErsterJahrgangSI.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxErsterJahrgangAE
             // 
             this.checkBoxErsterJahrgangAE.AutoSize = true;
             this.checkBoxErsterJahrgangAE.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxErsterJahrgangAE.Name = "checkBox3";
+            this.checkBoxErsterJahrgangAE.Name = "checkBoxErsterJahrgangAE";
             this.checkBoxErsterJahrgangAE.Size = new System.Drawing.Size(40, 17);
             this.checkBoxErsterJahrgangAE.TabIndex = 9;
             this.checkBoxErsterJahrgangAE.Text = "AE";
             this.checkBoxErsterJahrgangAE.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // comboBoxBundesland
             // 
             this.comboBoxBundesland.FormattingEnabled = true;
             this.comboBoxBundesland.Location = new System.Drawing.Point(88, 80);
-            this.comboBoxBundesland.Name = "comboBox1";
+            this.comboBoxBundesland.Name = "comboBoxBundesland";
             this.comboBoxBundesland.Size = new System.Drawing.Size(138, 21);
             this.comboBoxBundesland.TabIndex = 7;
             this.comboBoxBundesland.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -191,30 +187,30 @@
             this.groupBox2.Text = "Jahrgang 2";
             this.groupBox2.Visible = false;
             // 
-            // checkBox5
+            // checkBoxZweiterJahrgangSI
             // 
             this.checkBoxZweiterJahrgangSI.AutoSize = true;
             this.checkBoxZweiterJahrgangSI.Location = new System.Drawing.Point(6, 40);
-            this.checkBoxZweiterJahrgangSI.Name = "checkBox5";
+            this.checkBoxZweiterJahrgangSI.Name = "checkBoxZweiterJahrgangSI";
             this.checkBoxZweiterJahrgangSI.Size = new System.Drawing.Size(36, 17);
             this.checkBoxZweiterJahrgangSI.TabIndex = 10;
             this.checkBoxZweiterJahrgangSI.Text = "SI";
             this.checkBoxZweiterJahrgangSI.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // checkBoxZweiterJahrgangAE
             // 
             this.checkBoxZweiterJahrgangAE.AutoSize = true;
             this.checkBoxZweiterJahrgangAE.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxZweiterJahrgangAE.Name = "checkBox6";
+            this.checkBoxZweiterJahrgangAE.Name = "checkBoxZweiterJahrgangAE";
             this.checkBoxZweiterJahrgangAE.Size = new System.Drawing.Size(40, 17);
             this.checkBoxZweiterJahrgangAE.TabIndex = 9;
             this.checkBoxZweiterJahrgangAE.Text = "AE";
             this.checkBoxZweiterJahrgangAE.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonWeiter
             // 
-            this.buttonWeiter.Location = new System.Drawing.Point(428, 225);
-            this.buttonWeiter.Name = "button4";
+            this.buttonWeiter.Location = new System.Drawing.Point(688, 441);
+            this.buttonWeiter.Name = "buttonWeiter";
             this.buttonWeiter.Size = new System.Drawing.Size(73, 23);
             this.buttonWeiter.TabIndex = 14;
             this.buttonWeiter.Text = "Weiter";
@@ -229,10 +225,20 @@
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Location = new System.Drawing.Point(12, 254);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(489, 56);
+            this.groupBox3.Size = new System.Drawing.Size(749, 56);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tagplan";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(264, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "label3";
+            this.label3.Visible = false;
             // 
             // button3
             // 
@@ -270,52 +276,11 @@
             this.groupBox4.Controls.Add(this.btn_ferienOeffnen);
             this.groupBox4.Location = new System.Drawing.Point(12, 324);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(489, 56);
+            this.groupBox4.Size = new System.Drawing.Size(749, 111);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Ferien";
+            this.groupBox4.Text = "Ferien- und Feiertagedatei öffnen";
             this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
-            // 
-            // btn_ferienOeffnen
-            // 
-            this.btn_ferienOeffnen.Location = new System.Drawing.Point(13, 27);
-            this.btn_ferienOeffnen.Name = "btn_ferienOeffnen";
-            this.btn_ferienOeffnen.Size = new System.Drawing.Size(75, 23);
-            this.btn_ferienOeffnen.TabIndex = 15;
-            this.btn_ferienOeffnen.Text = "Öffnen";
-            this.btn_ferienOeffnen.UseVisualStyleBackColor = true;
-            this.btn_ferienOeffnen.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.btn_feiertageOeffnen);
-            this.groupBox5.Location = new System.Drawing.Point(12, 396);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(489, 56);
-            this.groupBox5.TabIndex = 18;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Feiertage";
-            // 
-            // btn_feiertageOeffnen
-            // 
-            this.btn_feiertageOeffnen.Location = new System.Drawing.Point(13, 27);
-            this.btn_feiertageOeffnen.Name = "btn_feiertageOeffnen";
-            this.btn_feiertageOeffnen.Size = new System.Drawing.Size(75, 23);
-            this.btn_feiertageOeffnen.TabIndex = 15;
-            this.btn_feiertageOeffnen.Text = "Öffnen";
-            this.btn_feiertageOeffnen.UseVisualStyleBackColor = true;
-            this.btn_feiertageOeffnen.Click += new System.EventHandler(this.btn_feiertageOeffnen_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(264, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "label3";
-            this.label3.Visible = false;
             // 
             // label4
             // 
@@ -327,21 +292,20 @@
             this.label4.Text = "label4";
             this.label4.Visible = false;
             // 
-            // label6
+            // btn_ferienOeffnen
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(104, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "label6";
-            this.label6.Visible = false;
+            this.btn_ferienOeffnen.Location = new System.Drawing.Point(13, 27);
+            this.btn_ferienOeffnen.Name = "btn_ferienOeffnen";
+            this.btn_ferienOeffnen.Size = new System.Drawing.Size(75, 23);
+            this.btn_ferienOeffnen.TabIndex = 15;
+            this.btn_ferienOeffnen.Text = "Öffnen";
+            this.btn_ferienOeffnen.UseVisualStyleBackColor = true;
+            this.btn_ferienOeffnen.Click += new System.EventHandler(this.button6_Click);
             // 
             // TagplanAnlegenUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonWeiter);
@@ -355,7 +319,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TagplanAnlegenUserControl";
-            this.Size = new System.Drawing.Size(520, 475);
+            this.Size = new System.Drawing.Size(777, 475);
             this.Load += new System.EventHandler(this.TagplanAnlegenUserControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -367,8 +331,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,10 +360,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btn_ferienOeffnen;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button btn_feiertageOeffnen;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
     }
 }
