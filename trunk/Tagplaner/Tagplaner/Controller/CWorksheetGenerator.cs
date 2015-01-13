@@ -17,22 +17,22 @@ namespace Tagplaner
 
         public WorksheetGenerator() { }
 
-        /*
-        aRange.Merge(Missing.Value);
-        Object[] args = new Object[1];
+            /*
+            aRange.Merge(Missing.Value);
+            Object[] args = new Object[1];
 
-        args[0] = 6;
-        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, args);
+            args[0] = 6;
+            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, args);
 
-        aRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.RosyBrown);
-        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
-        aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.PeachPuff);
-        aRange.Merge(Missing.Value);
-        aRange.EntireColumn.ColumnWidth = 20;
+            aRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.RosyBrown);
+            aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.PeachPuff);
+            aRange.Merge(Missing.Value);
+            aRange.EntireColumn.ColumnWidth = 20;
 
-        aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-        aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-        aRange.Value2 = "C# SEMINAR";*/
+            aRange.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            aRange.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+            aRange.Value2 = "C# SEMINAR";*/
 
         public bool WriteFile(MCalendar calendar)
         {
@@ -84,95 +84,94 @@ namespace Tagplaner
             aRange.EntireColumn.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
 
             //Schleife fuer jeden Tag in der calendarList
-                foreach (MCalendarDay calendarDay in calendar.CalendarList)
-                {
+            foreach (MCalendarDay calendarDay in calendar.CalendarList)
+            {
 
                     #region Dokumentkopf
                     aRange = ws.get_Range("E1");
                     aRange.EntireColumn.ColumnWidth = 1;
                     #endregion
 
-                    //Findet heraus, ob eine neue Kalenderwoche startet
-                    #region calendarWeek
-                    if (calendarWeek != calendarDay.CalendarWeek)
-                    {
-                        cell1 = "A" + i_day;
-                        cell2 = "B" + i_day;
-                        aRange = ws.get_Range(cell1, cell2);
-                        aRange.Merge(Missing.Value);
-                        aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                        data[0] = "KW" + calendarDay.CalendarWeek;
-                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-
-
-                        cell1 = "C" + i_day;
-                        cell2 = "Q" + i_day;
-                        aRange = ws.get_Range(cell1, cell2);
-                        aRange.Merge(Missing.Value);
-                        aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                        i_day++;
-                        calendarWeek = calendarDay.CalendarWeek;
-
-                    }
-                    #endregion
-
-                    //Erstellt das Datum-Feld
+                //Findet heraus, ob eine neue Kalenderwoche startet
+                #region calendarWeek
+                if (calendarWeek != calendarDay.CalendarWeek)
+                {
                     cell1 = "A" + i_day;
+                    cell2 = "B" + i_day;
+                    aRange = ws.get_Range(cell1, cell2);
+                    aRange.Merge(Missing.Value);
+                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    data[0] = "KW" + calendarDay.CalendarWeek;
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+
+
+                    cell1 = "C" + i_day;
+                    cell2 = "Q" + i_day;
+                    aRange = ws.get_Range(cell1, cell2);
+                    aRange.Merge(Missing.Value);
+                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    i_day++;
+                    calendarWeek = calendarDay.CalendarWeek;
+
+                }
+                #endregion
+
+                //Erstellt das Datum-Feld
+                cell1 = "A" + i_day;
                     aRange = ws.get_Range(cell1);
-                    //Wochentag
-                    data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+                //Wochentag
+                data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
 
-                    if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
-                    {
-                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
+                {
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
 
 
-                        cell1 = "B" + i_day;
+                    cell1 = "B" + i_day;
                         aRange = ws.get_Range(cell1);
-                        data[0] = calendarDay.CalendarDate;
-                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                        aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    data[0] = calendarDay.CalendarDate;
+                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
 
 
                         #region Ferien
                         if (calendar.CalendarList[i_list].VacationName != null)
-                        {
+                    {
                             if (calendar.CalendarList[i_list].VacationName != vacation)
-                            {
+                        {
                                 vacation = calendar.CalendarList[i_list].VacationName;
-                                cell1 = "C" + i_day;
+                            cell1 = "C" + i_day;
                                 vacation_cell = cell1;
                                 aRange = ws.get_Range(cell1);
                                 data[0] = vacation.Substring(0, vacation.IndexOf(" "));
-
-                                aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                            
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
 
                                 //aRange.Borders[XlBordersIndex.xlEdgeRight].Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
                                 //aRange.Borders[XlBordersIndex.xlEdgeRight].Weight = XlBorderWeight.xlThick;
                                 aRange.Orientation = 50;
                                 aRange.EntireRow.RowHeight = 15;
                                
-                            }
+                        }
                             else
                             {
                                 cell2 = "C" + i_day;
                                 aRange = ws.get_Range(vacation_cell, cell2);
                                 aRange.Merge(Missing.Value);
                             }
-                        }
+                    }
                         #endregion
 
-                        int i_entry = 1;
+                    int i_entry = 1;
                         #region CalendarEntry
                         //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
                         //1-4 Durchläufe                        
                         foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
-                            if (calendarDay.CalendarEntry[i_entry - 1].School != null)
-
+                            if (calendarDay.CalendarEntry[i_entry-1].School != null)
                             {
                                 #region School
                                 string comment = calendarDay.CalendarEntry[i_entry - 1].School.Comment;
@@ -254,46 +253,46 @@ namespace Tagplaner
                                 string tech = calendarDay.CalendarEntry[i_entry - 1].Seminar.HasTechnology;
 
                                 switch (i_entry - 1)
-                                {
-                                    case 1: cell1 = "D" + i_day;
-                                        break;
+                        {
+                            case 1: cell1 = "D" + i_day;
+                                break;
 
-                                    case 2: cell1 = "K" + i_day;
-                                        break;
+                            case 2: cell1 = "K" + i_day;
+                                break;
 
-                                    case 3: cell1 = "R" + i_day;
-                                        break;
+                            case 3: cell1 = "R" + i_day;
+                                break;
 
-                                    case 4: cell1 = "Y" + i_day;
-                                        break;
-                                }
-                                if (abbrevaiation != null)
-                                {
-                                    data[0] = abbrevaiation;
-                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                                }
-                                if (title != null)
-                                {
-                                    data[0] = title;
-                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                                }
-                                aRange.Merge(Missing.Value);
-                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
-                                #endregion
+                            case 4: cell1 = "Y" + i_day;
+                                break;
+                        }
+                        if (abbrevaiation != null)
+                        {
+                            data[0] = abbrevaiation;
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        }
+                        if (title != null)
+                        {
+                            data[0] = title;
+                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                        }
+                        aRange.Merge(Missing.Value);
+                        aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);                        
+                        #endregion
                             }
                             i_entry++;
                         }
                         #endregion
                         i_day++;
                     }
-                    else
-                    {
-                        //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
+                else
+                {
+                    //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
                         vacation = null;
-                    }
-                    i_list++;
-
                 }
+                    i_list++;
+                
+            }
             return true;
         }
 
