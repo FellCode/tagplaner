@@ -69,11 +69,11 @@ namespace Tagplaner
             switch (classes)
             {
                 case 1:
-                    if (typeOfClasses[0] != null)
+                    if (typeOfClasses[0] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[0], ""));
                     }
-                    if (typeOfClasses[1] != null)
+                    if (typeOfClasses[1] != "")
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[1], ""));
                     }
