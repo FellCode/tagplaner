@@ -18,7 +18,7 @@ namespace Tagplaner
         private String nextYear;
         private string startdateString;
         private string enddateString;
-        private List<MSpeciality> speciality;
+        private List<MSpeciality> speciality = new List<MSpeciality>();
         private bool saved;
 
         #region getter
