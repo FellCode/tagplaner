@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    [Serializable()]
     public class MSpeciality
     {
-        [Serializable()]
         private int id;
         private string apprenticeship;
         private string specialityName;
