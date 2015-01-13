@@ -156,6 +156,12 @@
     <Compile Include="View\TagplanBearbeitenUserControl.Designer.cs">
       <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\TrainerVerwaltenUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\TrainerVerwaltenUserControl.Designer.cs">
+      <DependentUpon>TrainerVerwaltenUserControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controller\CEditPlan.resx">
       <DependentUpon>CEditPlan.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\TagplanBearbeitenUserControl.resx">
       <DependentUpon>TagplanBearbeitenUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\TrainerVerwaltenUserControl.resx">
+      <DependentUpon>TrainerVerwaltenUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -52,5 +52,10 @@ namespace Tagplaner
            MPlace place = (MPlace) comboBox2.SelectedItem;
              db.FillRoomCombobox(comboBox1, place.Id);
         }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
