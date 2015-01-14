@@ -35,7 +35,7 @@ namespace Tagplaner
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
             ListView listView = userControl.GetListView();
 
-            int columnCount = 6 * countGrid;
+            int columnCount = 6 * countGrid +4;
             int space = 10;
             int drawingSizeX = 700;
             int drawingSizeY = 400;
@@ -52,15 +52,20 @@ namespace Tagplaner
             this.dGV.Size = new System.Drawing.Size(drawingSizeX, drawingSizeY);
             this.dGV.TabIndex = 0;
             this.dGV.ColumnCount = columnCount;
-            
+
+            this.dGV.Columns[0].Name = "KW";
+            this.dGV.Columns[1].Name = "Datum";
+            this.dGV.Columns[2].Name = "Ferien";
+            this.dGV.Columns[3].Name = "Feiertage";
+
             for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
             {
-                this.dGV.Columns[0 + 6 * columnCounter].Name = "Ort";
-                this.dGV.Columns[1 + 6 * columnCounter].Name = "Raum";
-                this.dGV.Columns[2 + 6 * columnCounter].Name = "Trainer";
-                this.dGV.Columns[3 + 6 * columnCounter].Name = "Co-Trainer";
-                this.dGV.Columns[4 + 6 * columnCounter].Name = "Aktivität";
-                this.dGV.Columns[5 + 6 * columnCounter].Name = "Aktivität";
+                this.dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
+                this.dGV.Columns[5 + 6 * columnCounter].Name = "Raum";
+                this.dGV.Columns[6 + 6 * columnCounter].Name = "Trainer";
+                this.dGV.Columns[7 + 6 * columnCounter].Name = "Co-Trainer";
+                this.dGV.Columns[8 + 6 * columnCounter].Name = "Aktivität";
+                this.dGV.Columns[9 + 6 * columnCounter].Name = "Aktivität";
 
             }
 
@@ -77,10 +82,11 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void TagplanBearbeitenUserControl_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(x_Coord) / 6));
+            int x_Cell = e.ColumnIndex;
+            x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(e.ColumnIndex) / 6));
             y_Coord = e.RowIndex;
 
-            if (x_Coord < 0 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1)
+            if (x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1)
             {
                 MessageBox.Show("Keine gueltige Zelle");
             }
@@ -96,7 +102,7 @@ namespace Tagplaner
         /// <param name="dGV"></param>
         /// <param name="columnCount"></param>
         /// <param name="listView"></param>
-        public void fillGrids(DataGridView dGV, int columnCount, ListView listView)
+        public void fillGrids(DataGridView dGV, int columnCount, List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
@@ -111,49 +117,64 @@ namespace Tagplaner
             MPlace ort = new MPlace("Koeln", "Arnold", room);
 
             // Durchläuft jeden Kalendertag
-            for (int rowCounter = 0; rowCounter < listView.Items.Count ; rowCounter++)
+            for (int rowCounter = 0; rowCounter < calendarDays.Count ; rowCounter++)
             {
-            
-                    if (mCalendar.CalendarList[rowCounter].HolidayName != "")
+                dGV.Rows.Add();
+                
+                dGV[0,rowCounter].Value = calendarDays[rowCounter].CalendarWeek.ToString();
+                dGV[1 ,rowCounter].Value = calendarDays[rowCounter].CalendarDate.ToString();
+                if (calendarDays[columnCount].HolidayName != null)
+                dGV[2 , rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
+                if (calendarDays[columnCount].VacationName != null) 
+                dGV[3 , rowCounter].Value = calendarDays[rowCounter].VacationName.ToString();
+
+                if (calendarDays[columnCount].HolidayName == null)
                     {
-                        dGV.Rows.Add();
+                        
                         //Durchläuft jede Spalte der Tabelle
                         for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
 
+
+
                             mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
 
-                            dGV[0 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
-                            dGV[1 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
-                            dGV[2 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
-                            dGV[3 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
-                            
+
                            
+			
+
+
+                            dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
+                            dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
+                            dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
+                            dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
+
+
                             //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
                             {
-                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
-                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
+                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
+                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                                 Console.WriteLine("IF-School");
                             }
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                             {
-                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
-                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                                 Console.WriteLine("IF-Seminar");
                             }
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
-                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
-                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
                                 Console.WriteLine("IF-Practice: " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id.ToString());
                             }
                             //Case: Sowohl Seminar als auch Praxis Objekt existieren
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
-                                 dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
-                                 dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
-                        
+                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+
                             }
                         }
 
@@ -162,7 +183,7 @@ namespace Tagplaner
                     {
                         for (int columnCounter = 0; columnCounter <= columnCount; columnCounter++)
                         {
-                            dGV[columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].HolidayName;
+                            dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                         }
 
                     }
@@ -196,35 +217,33 @@ namespace Tagplaner
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
 
             //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
-            dGV[6 * Convert.ToInt32(bereich) + 0, y_Coord].Value = entry.Place.Place.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 1, y_Coord].Value = entry.Room.Number.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 2, y_Coord].Value = entry.Trainer.Name.ToString();
-            dGV[6 * Convert.ToInt32(bereich) + 3, y_Coord].Value = entry.Cotrainer.Name.ToString();
-       
-           
+            dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Place.Place.ToString();
+            dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Room.Number.ToString();
+            dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Trainer.Name.ToString();
+            dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Cotrainer.Name.ToString();
+
+
             if (entry.School != null)
             {
-                dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.School.Comment.ToString();
-                dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.School.Comment.ToString();
+                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.School.Comment.ToString();
+                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.School.Comment.ToString();
             }
-            if(entry.Practice != null)
+            if (entry.Practice != null)
             {
-                dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Practice.Comment.ToString();
-                dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Practice.Comment.ToString();
+                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
+                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
             }
-            if(entry.Seminar != null)
+            if (entry.Seminar != null)
             {
-                dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Seminar.Comment.ToString();
-                dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Seminar.Comment.ToString();
-            }
-            
-            if(entry.Practice.Id !=0 && entry.Seminar != null)
-            {
-                dGV[6 * Convert.ToInt32(bereich) + 4, y_Coord].Value = entry.Practice.Comment.ToString();
-                dGV[6 * Convert.ToInt32(bereich) + 5, y_Coord].Value = entry.Seminar.Comment.ToString();
-
+                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
+                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
             }
 
+            if (entry.Practice.Id != 0 && entry.Seminar != null)
+            {
+                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
+                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
+            }
         }
     }
 }
