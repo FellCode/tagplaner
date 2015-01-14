@@ -40,9 +40,12 @@ namespace Tagplaner
             serializer = new CSerialize();
             typeOfClasses = new List<String>();
             numberOfYears = 1;
-            databaseController = new CDatabase();
-            //databaseController.FillFederalStateCombobox(comboBoxBundesland);
             InitializeComponent();
+            
+            //DatenbankController wird später auf Startfenster verschoben
+            databaseController = CDatabase.GetInstance();
+            databaseController.FillAllList();
+            databaseController.FillFederalStateComboBox(comboBoxBundesland);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,8 +150,7 @@ namespace Tagplaner
                 listView.Items.Add(listViewItem);
             }
             CEditPlan ceditplan = new CEditPlan();
-            //ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, calenderDayList);
-            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, listView);
+            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, calendarDayList);
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
@@ -199,24 +201,7 @@ namespace Tagplaner
 
         private void btn_feiertageOeffnen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Feiertage");
-
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Feiertage";
-            openFileDialog1.Title = "Feiertagedatei öffnen";
-            openFileDialog1.Filter = "Feiertage|*.ft";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
-
-            if (fileChoiceResult == DialogResult.OK)
-            {
-                //choosenHoliday = (MHoliday)serializer.DeserializeObject(openFileDialog1.FileName);
-
-                this.label4.Text = openFileDialog1.FileName + " geöffnet";
-                this.label4.Visible = true;
-            }
+            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -257,26 +242,8 @@ namespace Tagplaner
 
         public String splitUrl(String url)
         {
-            String splittedUrl;
-            int counter = 0;
             String[] substrings = url.Split('\\');
-            foreach (String partOfSubstring in substrings)
-            {
-                counter++;
-            }
-            splittedUrl = substrings[counter - 1];
-            return splittedUrl;
-        }
-
-        public String createTextForUrlLabel(List<String> urlList)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            foreach (String url in urlList)
-            {
-                sb.Append(url + "\n");
-            }
-            return sb.ToString();
+            return substrings[substrings.Length - 1];
         }
     }
 }
