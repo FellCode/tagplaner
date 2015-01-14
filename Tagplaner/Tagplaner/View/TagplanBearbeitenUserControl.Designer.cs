@@ -1,4 +1,6 @@
-﻿namespace Tagplaner
+﻿using System.Windows.Forms;
+
+namespace Tagplaner
 {
     partial class TagplanBearbeitenUserControl
     {
@@ -43,12 +45,16 @@
             this.columnHeader3,
             this.columnHeader4});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(450, 366);
+            //this.listView1.Size = new System.Drawing.Size(450, 366);
+            this.listView1.Size = new System.Drawing.Size(450, /*System.Windows.Forms.*/SystemInformation.VirtualScreen.Height);
+
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
