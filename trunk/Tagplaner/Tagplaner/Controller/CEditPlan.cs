@@ -110,8 +110,6 @@ namespace Tagplaner
             room.Add(new MRoom("209"));
             MPlace ort = new MPlace("Koeln", "Arnold", room);
 
-            
-
             // Durchläuft jeden Kalendertag
             for (int rowCounter = 0; rowCounter < listView.Items.Count ; rowCounter++)
             {
@@ -162,9 +160,9 @@ namespace Tagplaner
                     }
                     else
                     {
-                        for (int k = 0; k <= columnCount; k++)
+                        for (int columnCounter = 0; columnCounter <= columnCount; columnCounter++)
                         {
-                            dGV[k, rowCounter].Value = mCalendar.CalendarList[rowCounter].HolidayName;
+                            dGV[columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].HolidayName;
                         }
 
                     }
