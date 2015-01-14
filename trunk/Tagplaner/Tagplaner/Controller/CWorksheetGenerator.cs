@@ -88,9 +88,11 @@ namespace Tagplaner
             int i_list = 0;
             string calendarWeek = "";
             string vacation = null;
-            string vacation_cell = null;
-            MSeminar seminar = null;
+            string[] merge = new string[5];
+            Object[] entry = new Object[4];
+            MSchool[] school = new MSchool[4];
             string merge_cell = null;
+            MSeminar seminar = null;
             string day = null;
             var german = new System.Globalization.CultureInfo("de-DE");
 
@@ -161,7 +163,7 @@ namespace Tagplaner
 
                     //setCell1("B" + i_day);
                     setRange("B" + i_day);
-                    setValue(calendarDay.CalendarDate);
+                    setValue(calendarDay.CalendarDate.ToString().Substring(0,10));
                     setBorderColor(System.Drawing.Color.Black);
 
 
@@ -171,9 +173,8 @@ namespace Tagplaner
                         if (calendar.CalendarList[i_list].VacationName != vacation)
                         {
                             vacation = calendar.CalendarList[i_list].VacationName;
-                            setCell1("C" + i_day);
-                            vacation_cell = cell1;
-                            setRange(cell1);
+                            merge[0] = "C" + i_day;
+                            setRange(merge[0]);
                             setValue(vacation.Substring(0, vacation.IndexOf(" ")));
                             aRange.Orientation = 90;
                             aRange.EntireRow.RowHeight = 15;
@@ -183,7 +184,7 @@ namespace Tagplaner
                         }
                         else
                         {
-                            aRange = ws.get_Range(vacation_cell, "C" + i_day);
+                            aRange = ws.get_Range(merge[0], "C" + i_day);
                             aRange.Merge(Missing.Value);
                         }
                     }
@@ -192,18 +193,16 @@ namespace Tagplaner
                     #region Feiertag
                     if (calendar.CalendarList[i_list].HolidayName != null)
                     {
-                        setRange("E" + i_day, "J" + i_day);
+                        setRange("E" + i_day, "Q" + i_day);
                         aRange.Merge(Missing.Value);
                         setValue(calendar.CalendarList[i_list].HolidayName);
                         setBackgroundColor(System.Drawing.Color.GreenYellow);
                         setBorderColor(System.Drawing.Color.Black);
+                        seminar = null;
                     }
                     #endregion
                     else
                     {
-
-
-
                         int i_entry = 1;
                         #region CalendarEntry
                         //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
@@ -213,35 +212,76 @@ namespace Tagplaner
                             if (calendarDay.CalendarEntry[i_entry - 1].School != null)
                             {
                                 #region School
-                                string comment = calendarDay.CalendarEntry[i_entry - 1].School.Comment;
-                                switch (i_entry)
-                                {
+                                if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null) {
+                                    if (i_entry == 1)
+                                    {
+                                        if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
+                                        {
+                                            //ENTRY 1
+                                            entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
+                                            merge[i_entry] = "G" + i_day;
+                                            setRange(merge[i_entry], "J" + i_day);
+                                            school[i_entry - 1] = (MSchool)entry[i_entry - 1];
+                                            aRange.Merge(Missing.Value);
+                                            setBackgroundColor(System.Drawing.Color.Blue);
+                                            if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
+                                            {
+                                                setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
+                                            }
+                                            setFontColor(System.Drawing.Color.White);
+                                            setBorderColor(System.Drawing.Color.Black);
+                                        }
+                                        else
+                                        {
+                                            setRange(merge[i_entry], "J" + i_day);
+                                            aRange.Merge(Missing.Value);
+                                            setBorderColor(System.Drawing.Color.Black);
+                                        }
+                                    }
+                                    else if (i_entry == 2)
+                                    {
+                                        //ENTRY 2
+                                        //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
+                                        {
+                                            if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
+                                            {
 
-                                    case 1: cell1 = "H" + i_day;
-                                        cell2 = "K" + i_day;
-                                        break;
+                                                entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
+                                                merge[i_entry] = "N" + i_day;
+                                                setRange(merge[i_entry], "Q" + i_day);
+                                                school[i_entry - 1] = (MSchool)entry[i_entry - 1];
 
-                                    case 2: cell1 = "K" + i_day;
-                                        break;
 
-                                    case 3: cell1 = "R" + i_day;
-                                        break;
+                                                if (school[i_entry - 2] != null && school[i_entry - 1].Comment != school[i_entry - 2].Comment)
+                                                {
+                                                    aRange.Merge(Missing.Value);
+                                                    setBackgroundColor(System.Drawing.Color.Blue);
+                                                    if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
+                                                    {
+                                                        setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
+                                                    }
+                                                    setFontColor(System.Drawing.Color.White);
+                                                    setBorderColor(System.Drawing.Color.Black);
+                                                }
+                                                else
+                                                {
+                                                    setRange(merge[i_entry - 1], "Q" + i_day);
+                                                    aRange.Merge(Missing.Value);
+                                                    setBorderColor(System.Drawing.Color.Black);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                setRange(merge[i_entry], "Q" + i_day);
+                                                aRange.Merge(Missing.Value);
+                                                setBorderColor(System.Drawing.Color.Black);
 
-                                    case 4: cell1 = "Y" + i_day;
-                                        break;
+                                            }
+                                        }
 
-                                }
-                                aRange = ws.get_Range(cell1, cell2);
-                                aRange.Merge(Missing.Value);
-                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue);
-                                if (comment != null)
-                                {
-                                    data[0] = comment;
-                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                                    /*aRange.Borders[XlBordersIndex.xlEdgeLeft].Weight = XlBorderWeight.xlHairline;*/
+                                    }
                                 }
                                 #endregion
-
                             }
                             else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
                             {
@@ -401,6 +441,11 @@ namespace Tagplaner
                     //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
                     vacation = null;
                     seminar = null;
+                    school[0] = null;
+                    school[1] = null;
+                    school[2] = null;
+                    school[3] = null;
+                    System.Console.WriteLine("TEST");
                 }
                 i_list++;
 
