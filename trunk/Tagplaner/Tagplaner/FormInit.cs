@@ -44,9 +44,6 @@ namespace Tagplaner
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
             addTabPage(statistikUC, "Statistiken");
 
-            openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
-            tabControl1.SelectedIndex = 1;
-
         }
 
         /// <summary>
