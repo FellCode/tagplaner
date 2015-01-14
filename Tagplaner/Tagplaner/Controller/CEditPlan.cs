@@ -15,6 +15,10 @@ namespace Tagplaner
     /// Datum: 13.01.15
     /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen
     /// innerhalb der Tabelle
+    /// ------TODO------
+    /// -Schleife im Apply Testen
+    /// - Spaltenvariable einfügen
+    /// - Feiertage (evtl Ferien) Grün färben 
     /// </summary>
     class CEditPlan
     {
@@ -35,7 +39,7 @@ namespace Tagplaner
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
             ListView listView = userControl.GetListView();
 
-            int columnCount = 6 * countGrid + 4;
+            int columnCount = 6* countGrid + 4;
             int space = 10;
             int drawingSizeX = 700;
             int drawingSizeY = 400;
@@ -106,12 +110,12 @@ namespace Tagplaner
         /// <param name="dGV"></param>
         /// <param name="columnCount"></param>
         /// <param name="listView"></param>
-        public void fillGrids(DataGridView dGV, int columnCount, List<MCalendarDay> calendarDays)
+        public void fillGrids(DataGridView dGV, List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
             //TEST
-
+            int columnCount = dGV.ColumnCount;
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
             MSeminar seminar = new MSeminar("SEMINARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR", "Subtitel", "SAP", "false", "commment");
