@@ -79,7 +79,8 @@ namespace Tagplaner
         {
             x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(x_Coord) / 6));
             y_Coord = e.RowIndex;
-            if (x_Coord < 0 || y_Coord < 0 || x_Coord == e.ColumnIndex || y_Coord == e.RowIndex)
+
+            if (x_Coord < 0 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1)
             {
                 MessageBox.Show("Keine gueltige Zelle");
             }
@@ -123,8 +124,6 @@ namespace Tagplaner
                         {
 
                             mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
-//                            mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Id = 1;
-
 
                             dGV[0 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
                             dGV[1 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
@@ -141,8 +140,8 @@ namespace Tagplaner
                             }
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                             {
-                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
-                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar;
+                                dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                                 Console.WriteLine("IF-Seminar");
                             }
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
