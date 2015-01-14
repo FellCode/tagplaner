@@ -22,6 +22,7 @@ namespace Tagplaner
         public string Comment
         {
             get { return comment; }
+            set { this.Comment = value; }
         }
         #endregion
 
