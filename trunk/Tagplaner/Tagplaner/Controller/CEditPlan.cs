@@ -58,6 +58,11 @@ namespace Tagplaner
             this.dGV.Columns[2].Name = "Ferien";
             this.dGV.Columns[3].Name = "Feiertage";
 
+            this.dGV.Columns[0].ReadOnly = true;
+            this.dGV.Columns[1].ReadOnly = true;
+            this.dGV.Columns[2].ReadOnly = true;
+            this.dGV.Columns[3].ReadOnly = true;
+
             for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
             {
                 this.dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
@@ -139,7 +144,6 @@ namespace Tagplaner
                         dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
                         dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
 
-
                         //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
                         {
@@ -173,6 +177,7 @@ namespace Tagplaner
                     for (int columnCounter = 4; columnCounter <= columnCount; columnCounter++)
                     {
                         dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
+                        dGV[columnCounter, rowCounter].ReadOnly = true;
                     }
                 }
             }
@@ -209,7 +214,6 @@ namespace Tagplaner
             dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Room.Number.ToString();
             dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Trainer.Name.ToString();
             dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Cotrainer.Name.ToString();
-
 
             if (entry.School != null)
             {
