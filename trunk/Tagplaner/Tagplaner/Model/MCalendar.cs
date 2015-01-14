@@ -94,6 +94,11 @@ namespace Tagplaner
             //Befüllen der Speciality
             Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
+
+        public static void SetInstance(MCalendar calendar)
+        {
+            instance = calendar;
+        }
         #region AddDay-Methods
 
         #endregion

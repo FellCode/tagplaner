@@ -147,6 +147,7 @@ namespace Tagplaner
                 listView.Items.Add(listViewItem);
             }
             CEditPlan ceditplan = new CEditPlan();
+            //ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, calenderDayList);
             ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, listView);
         }
 
@@ -176,7 +177,7 @@ namespace Tagplaner
         //Laden der Ferien und Feiertage
         private void button6_Click(object sender, EventArgs e)
         {
-            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm())
+            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
@@ -224,6 +225,8 @@ namespace Tagplaner
 
         }
 
+
+        //Tagplan speichern
         private void button3_Click_1(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -244,6 +247,8 @@ namespace Tagplaner
             }
         }
 
+
+        //Tagplan öffnen
         private void button2_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -259,7 +264,12 @@ namespace Tagplaner
 
             if (fileChoiceResult == DialogResult.OK)
             {
+                
                 calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
+                
+                //Singletoninstanz wird dem geladenen Objekt zugewiesen
+                MCalendar.SetInstance(calendarWithDays);
+                
                 tagplanBearbeitenUC.GetListView().Items.Clear();
                 fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
                 this.label3.Text = "Tagplan: " + splitUrl(openFileDialog1.FileName) + " geöffnet";
