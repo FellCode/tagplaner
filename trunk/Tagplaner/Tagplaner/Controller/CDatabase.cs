@@ -354,7 +354,70 @@ namespace Tagplaner
 
         public bool UpdateRoom(MRoom room)
         {
-            return false;
+            ConnectDatabase();
+            try
+            {
+                
+                ExecuteNonQuery("update raum set "
+                              + "raumnummer = \"" + room.Number + "\""
+                              + ",fk_seminarort_id = " + room.Place_id
+                              + " where raum_id = " + room.Id
+                              );
+                CloseDatabase();
+                AllRoom.Clear();
+                FillAllRoom();
+                return true;
+            }catch(SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
+
+        public bool UpdatePlace(MPlace place)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("update seminarort set "
+                              + " ansprechpartner = \"" + place.Contact + "\""
+                              + ",fk_bundesland_id = " + place.Federalstate_id
+                              + ",ort = \"" + place.Place + "\""
+                              + " where seminarort_id = " + place.Id
+                              );
+                CloseDatabase();
+                AllPlace.Clear();
+                FillAllPlace();
+                return true;
+            }
+            catch(SQLiteException e)
+            {
+                CloseDatabase();
+                return false;
+            }
+                
+        }
+
+        public bool UpdateFederalState(MFederalState federalstate)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("update bundesland set "
+                              + " kuerzel = \"" + federalstate.Abbreviation + "\""
+                              + ",name = \"" + federalstate.Name + "\""
+                              + " where bundesland_id = " + federalstate.Id
+                              );
+                CloseDatabase();
+                AllFederalState.Clear();
+                FillAllFederalState();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
         }
         #endregion
 
@@ -956,27 +1019,48 @@ namespace Tagplaner
         #region Get
         public MTrainer GetTrainer(int id)
         {
-            return AllTrainer[id];
+            if (AllTrainer.ContainsKey(id))
+            {
+                return AllTrainer[id];
+
+            }
+            return null;
         }
 
         public MFederalState GetFederalState(int id)
         {
-            return AllFederalState[id];
+            if(AllFederalState.ContainsKey(id))
+            {
+                return AllFederalState[id];
+            }
+            return null;
         }
 
         public MPlace GetPlace(int id)
         {
-            return AllPlace[id];
+            if (AllPlace.ContainsKey(id))
+            {
+                return AllPlace[id];
+            }
+            return null;
         }
 
         public MRoom GetRoom(int id)
         {
-            return AllRoom[id];
+            if (AllRoom.ContainsKey(id))
+            {
+                return AllRoom[id];
+            }
+            return null;
         }
 
         public MSeminar GetSeminar(int id)
         {
-            return AllSeminar[id];
+            if (AllSeminar.ContainsKey(id))
+            {
+                return AllSeminar[id];
+            }
+            return null;
         }
         #endregion
 
