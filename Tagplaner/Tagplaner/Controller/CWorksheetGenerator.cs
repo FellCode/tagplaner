@@ -187,62 +187,36 @@ namespace Tagplaner
                     }
                     #endregion
 
-                    int i_entry = 1;
-                    #region CalendarEntry
-                    //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
-                    //1-4 Durchläufe                        
-                    foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
+                    #region Feiertag
+                    if (calendar.CalendarList[i_list].HolidayName != null)
                     {
-                        if (calendarDay.CalendarEntry[i_entry - 1].School != null)
+                        setRange("E" + i_day, "J" + i_day);
+                        aRange.Merge(Missing.Value);
+                        setValue(calendar.CalendarList[i_list].HolidayName);
+                        setBackgroundColor(System.Drawing.Color.GreenYellow);
+                        setBorderColor(System.Drawing.Color.Black);
+                    }
+                    #endregion
+                    else
+                    {
+
+
+
+                        int i_entry = 1;
+                        #region CalendarEntry
+                        //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
+                        //1-4 Durchläufe                        
+                        foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                         {
-                            #region School
-                            string comment = calendarDay.CalendarEntry[i_entry - 1].School.Comment;
-                            switch (i_entry)
+                            if (calendarDay.CalendarEntry[i_entry - 1].School != null)
                             {
-
-                                case 1: cell1 = "H" + i_day;
-                                    cell2 = "K" + i_day;
-                                    break;
-
-                                case 2: cell1 = "K" + i_day;
-                                    break;
-
-                                case 3: cell1 = "R" + i_day;
-                                    break;
-
-                                case 4: cell1 = "Y" + i_day;
-                                    break;
-
-                            }
-                            aRange = ws.get_Range(cell1, cell2);
-                            aRange.Merge(Missing.Value);
-                            aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue);
-                            if (comment != null)
-                            {
-                                data[0] = comment;
-                                aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                                /*aRange.Borders[XlBordersIndex.xlEdgeLeft].Weight = XlBorderWeight.xlHairline;*/
-                            }
-                            #endregion
-
-                        }
-                        else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
-                        {
-
-                            if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
-                            {
-                                #region Practice/Seminar
-                                string comment_p = calendarDay.CalendarEntry[i_entry - 1].Practice.Comment;
-                                #endregion
-
-                            }
-                            else
-                            {
-                                #region Practice
-                                string comment = calendarDay.CalendarEntry[i_entry - 1].Practice.Comment;
-                                switch (i_entry - 1)
+                                #region School
+                                string comment = calendarDay.CalendarEntry[i_entry - 1].School.Comment;
+                                switch (i_entry)
                                 {
-                                    case 1: cell1 = "D" + i_day;
+
+                                    case 1: cell1 = "H" + i_day;
+                                        cell2 = "K" + i_day;
                                         break;
 
                                     case 2: cell1 = "K" + i_day;
@@ -255,100 +229,142 @@ namespace Tagplaner
                                         break;
 
                                 }
-
+                                aRange = ws.get_Range(cell1, cell2);
                                 aRange.Merge(Missing.Value);
-                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue);
                                 if (comment != null)
                                 {
                                     data[0] = comment;
                                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                    /*aRange.Borders[XlBordersIndex.xlEdgeLeft].Weight = XlBorderWeight.xlHairline;*/
                                 }
                                 #endregion
 
                             }
-
-                        }
-                        else
-                        {
-
-                            #region Seminar
-                            string comment = calendarDay.CalendarEntry[i_entry - 1].Seminar.Comment;
-                            string title = calendarDay.CalendarEntry[i_entry - 1].Seminar.Title;
-                            string abbrevaiation = calendarDay.CalendarEntry[i_entry - 1].Seminar.Abbreviation;
-                            string subtitle = calendarDay.CalendarEntry[i_entry - 1].Seminar.Subtitle;
-                            string tech = calendarDay.CalendarEntry[i_entry - 1].Seminar.HasTechnology;
-                            string room = calendarDay.CalendarEntry[i_entry - 1].Room.Number;
-                            string abbrevaiation_t = calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation;
-
-
-                            switch (i_entry)
+                            else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
                             {
-                                case 1: cell1 = "F" + i_day;
-                                    cell2 = "F" + i_day;
-                                    break;
-                                case 2: cell1 = "M" + i_day;
-                                    cell2 = "M" + i_day;
-                                    break;
+
+                                if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
+                                {
+                                    #region Practice/Seminar
+                                    string comment_p = calendarDay.CalendarEntry[i_entry - 1].Practice.Comment;
+                                    #endregion
+
+                                }
+                                else
+                                {
+                                    #region Practice
+                                    string comment = calendarDay.CalendarEntry[i_entry - 1].Practice.Comment;
+                                    switch (i_entry - 1)
+                                    {
+                                        case 1: cell1 = "D" + i_day;
+                                            break;
+
+                                        case 2: cell1 = "K" + i_day;
+                                            break;
+
+                                        case 3: cell1 = "R" + i_day;
+                                            break;
+
+                                        case 4: cell1 = "Y" + i_day;
+                                            break;
+
+                                    }
+
+                                    aRange.Merge(Missing.Value);
+                                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+                                    if (comment != null)
+                                    {
+                                        data[0] = comment;
+                                        aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                    }
+                                    #endregion
+
+                                }
+
                             }
-                            if (room != null)
+                            else
                             {
+
+                                #region Seminar
+                                string comment = calendarDay.CalendarEntry[i_entry - 1].Seminar.Comment;
+                                string title = calendarDay.CalendarEntry[i_entry - 1].Seminar.Title;
+                                string abbrevaiation = calendarDay.CalendarEntry[i_entry - 1].Seminar.Abbreviation;
+                                string subtitle = calendarDay.CalendarEntry[i_entry - 1].Seminar.Subtitle;
+                                string tech = calendarDay.CalendarEntry[i_entry - 1].Seminar.HasTechnology;
+                                string room = calendarDay.CalendarEntry[i_entry - 1].Room.Number;
+                                string abbrevaiation_t = calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation;
+
+
+                                switch (i_entry)
+                                {
+                                    case 1: cell1 = "F" + i_day;
+                                        cell2 = "F" + i_day;
+                                        break;
+                                    case 2: cell1 = "M" + i_day;
+                                        cell2 = "M" + i_day;
+                                        break;
+                                }
+                                if (room != null)
+                                {
+                                    aRange = ws.get_Range(cell1, cell2);
+                                    data[0] = room;
+                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                    data[0] = null;
+
+                                }
+
+                                switch (i_entry)
+                                {
+                                    case 1: cell1 = "G" + i_day;
+                                        cell2 = "G" + i_day;
+                                        break;
+
+                                    case 2: cell1 = "N" + i_day;
+                                        cell2 = "N" + i_day;
+                                        break;
+                                }
+                                if (abbrevaiation_t != null)
+                                {
+                                    aRange = ws.get_Range(cell1, cell2);
+                                    data[0] = abbrevaiation_t;
+                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                }
+                                switch (i_entry)
+                                {
+
+                                    case 1: cell1 = "H" + i_day;
+                                        cell2 = "K" + i_day;
+                                        break;
+
+                                    case 2: cell1 = "O" + i_day;
+                                        cell2 = "R" + i_day;
+                                        break;
+
+                                    case 3: cell1 = "R" + i_day;
+                                        break;
+
+                                    case 4: cell1 = "Y" + i_day;
+                                        break;
+                                }
+
                                 aRange = ws.get_Range(cell1, cell2);
-                                data[0] = room;
-                                aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                                data[0] = null;
+                                aRange.Merge(Missing.Value);
+                                aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+                                aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
 
+                                if (title != null)
+                                {
+                                    data[0] = null;
+                                    data[0] = abbrevaiation;
+                                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                                }
+                                #endregion
                             }
-
-                            switch (i_entry)
-                            {
-                                case 1: cell1 = "G" + i_day;
-                                    cell2 = "G" + i_day;
-                                    break;
-
-                                case 2: cell1 = "N" + i_day;
-                                    cell2 = "N" + i_day;
-                                    break;
-                            }
-                            if (abbrevaiation_t != null)
-                            {
-                                aRange = ws.get_Range(cell1, cell2);
-                                data[0] = abbrevaiation_t;
-                                aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                            }
-                            switch (i_entry)
-                            {
-
-                                case 1: cell1 = "H" + i_day;
-                                    cell2 = "K" + i_day;
-                                    break;
-
-                                case 2: cell1 = "O" + i_day;
-                                    cell2 = "R" + i_day;
-                                    break;
-
-                                case 3: cell1 = "R" + i_day;
-                                    break;
-
-                                case 4: cell1 = "Y" + i_day;
-                                    break;
-                            }
-
-                            aRange = ws.get_Range(cell1, cell2);
-                            aRange.Merge(Missing.Value);
-                            aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
-                            aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-
-                            if (title != null)
-                            {
-                                data[0] = null;
-                                data[0] = abbrevaiation;
-                                aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                            }
-                            #endregion
+                            i_entry++;
                         }
-                        i_entry++;
+                        #endregion
                     }
-                    #endregion
                     i_day++;
                 }
                 else
