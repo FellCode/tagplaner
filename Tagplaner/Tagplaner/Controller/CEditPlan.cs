@@ -148,19 +148,16 @@ namespace Tagplaner
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
-                            Console.WriteLine("IF-School");
                         }
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
-                            Console.WriteLine("IF-Seminar");
                         }
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
-                            Console.WriteLine("IF-Practice: " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Id.ToString());
                         }
                         //Case: Sowohl Seminar als auch Praxis Objekt existieren
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
@@ -190,9 +187,6 @@ namespace Tagplaner
         /// <returns></returns>
         public MCalendarEntry getSelectedEntryModel()
         {
-            Console.WriteLine(" ");
-            Console.WriteLine("y-Coord " + y_Coord);
-            Console.WriteLine("x-Coord " + x_Coord);
             MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
             return calendarEntry;
