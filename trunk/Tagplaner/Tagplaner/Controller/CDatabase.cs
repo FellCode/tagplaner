@@ -283,6 +283,7 @@ namespace Tagplaner
                                         + "\"" + federalstate.Name + "\""
                                         + ",\"" + federalstate.Abbreviation + "\""
                                         + ")");
+               ExecuteNonQuery("commit;");
                 CloseDatabase();
                 FillAllFederalState();
                 return true;
@@ -301,7 +302,7 @@ namespace Tagplaner
             ConnectDatabase();
             try
             {
-                ExecuteNonQuery("update seminar set"
+                ExecuteNonQuery("update seminar set "
                                    + "titel =  \"" + seminar.Title + "\""
                                    + ",untertitel = \"" + seminar.Subtitle + "\""
                                    + ",kuerzel = \"" + seminar.Abbreviation + "\""
@@ -332,7 +333,7 @@ namespace Tagplaner
                 {
                     isinternal = 0;
                 }
-                ExecuteNonQuery("update trainer set"
+                ExecuteNonQuery("update trainer set "
                               + "kuerzel = \""        + trainer.Abbreviation  + "\""
                               + ",intern = "          + isinternal
                               + ",vorname = \""       + trainer.Name          + "\""
@@ -349,6 +350,11 @@ namespace Tagplaner
                 CloseDatabase();
                 return false;
             }
+        }
+
+        public bool UpdateRoom(MRoom room)
+        {
+            return false;
         }
         #endregion
 
@@ -803,7 +809,7 @@ namespace Tagplaner
         }
         #endregion
 
-        private void FillAllList()
+        public void FillAllList()
         {
             lock (this)
             {
