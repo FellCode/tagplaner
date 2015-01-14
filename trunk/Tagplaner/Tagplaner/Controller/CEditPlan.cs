@@ -202,32 +202,35 @@ namespace Tagplaner
             double bereich = 0;
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
 
-            //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
-            dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Place.Place.ToString();
-            dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Room.Number.ToString();
-            dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Trainer.Name.ToString();
-            dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Cotrainer.Name.ToString();
+            for (int i = 0; i < applyIteration; i++)
+            {
+                //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
+                dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Place.Place.ToString();
+                dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Room.Number.ToString();
+                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Trainer.Name.ToString();
+                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Cotrainer.Name.ToString();
 
-            if (entry.School != null)
-            {
-                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.School.Comment.ToString();
-                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.School.Comment.ToString();
-            }
-            if (entry.Practice != null)
-            {
-                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
-                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
-            }
-            if (entry.Seminar != null)
-            {
-                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
-                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
-            }
+                if (entry.School != null)
+                {
+                    dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.School.Comment.ToString();
+                    dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.School.Comment.ToString();
+                }
+                if (entry.Practice != null)
+                {
+                    dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Practice.Comment.ToString();
+                    dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Practice.Comment.ToString();
+                }
+                if (entry.Seminar != null)
+                {
+                    dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Seminar.Comment.ToString();
+                    dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Seminar.Comment.ToString();
+                }
 
-            if (entry.Practice.Id != 0 && entry.Seminar != null)
-            {
-                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Practice.Comment.ToString();
-                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord].Value = entry.Seminar.Comment.ToString();
+                if (entry.Practice.Id != 0 && entry.Seminar != null)
+                {
+                    dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Practice.Comment.ToString();
+                    dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord+i].Value = entry.Seminar.Comment.ToString();
+                }
             }
         }
     }    
