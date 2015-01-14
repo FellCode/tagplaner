@@ -89,6 +89,8 @@ namespace Tagplaner
             string calendarWeek = "";
             string vacation = null;
             string vacation_cell = null;
+            MSeminar seminar = null;
+            string merge_cell = null;
             string day = null;
             var german = new System.Globalization.CultureInfo("de-DE");
 
@@ -296,6 +298,8 @@ namespace Tagplaner
                                 string abbrevaiation_t = calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation;
 
 
+
+
                                 switch (i_entry)
                                 {
                                     case 1: cell1 = "F" + i_day;
@@ -353,13 +357,38 @@ namespace Tagplaner
                                 aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
                                 aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
 
+                                if (calendar.CalendarList[i_list] != null)
+                                {
+
+                                    if (calendar.CalendarList[i_list].CalendarEntry[i_entry - 1].Seminar != seminar)
+                                    {
+
+                                        merge_cell = cell1;
+                                        seminar = calendar.CalendarList[i_list].CalendarEntry[i_entry - 1].Seminar;
+
+                                    }
+                                    else
+                                    {
+                                        switch (i_entry - 1)
+                                        {
+                                            case 1: cell2 = "K" + i_day;
+                                                break;
+                                            case 2: cell2 = "R" + i_day;
+                                                break;
+                                        }
+                                        aRange = ws.get_Range(merge_cell, cell2);
+                                        aRange.Merge(Missing.Value);
+
+                                    }
+                                }
+
                                 if (title != null)
                                 {
                                     data[0] = null;
-                                    data[0] = abbrevaiation;
+                                    data[0] = title;
                                     aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
                                 }
-                                #endregion
+                                #endregion  
                             }
                             i_entry++;
                         }
@@ -371,6 +400,7 @@ namespace Tagplaner
                 {
                     //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
                     vacation = null;
+                    seminar = null;
                 }
                 i_list++;
 
