@@ -48,6 +48,7 @@ namespace Tagplaner.View
             InitializeComponent();
             this.startDate = startDate;
             this.endDate = endDate;
+            csvComverter = new CICalCSVConverter();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,16 +60,13 @@ namespace Tagplaner.View
             openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Feiertage";
             openFileDialog1.Title = "Feiertagedatei aktuelles Jahr öffnen";
             openFileDialog1.Filter = "Feiertage|*.csv";
-            openFileDialog1.Multiselect = true;
 
             DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
 
             if (fileChoiceResult == DialogResult.OK)
             {
                 //Checken ob Datei den Zeitraum enthält
-                csvComverter = new CICalCSVConverter(openFileDialog1.FileName, null);
-                
-                if (csvComverter.ReadICalEntrysCurrentYear(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31))==true)
+                if (csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog1.FileName)) ;
                 {
                     this.textBox1.Text = splitUrl(openFileDialog1.FileName);
                     this.textFromTextBox1 = openFileDialog1.FileName;
@@ -87,7 +85,6 @@ namespace Tagplaner.View
             openFileDialog2.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Feiertage";
             openFileDialog2.Title = "Feiertagdatei nächstes Jahr öffnen";
             openFileDialog2.Filter = "Feiertage|*.csv";
-            openFileDialog2.Multiselect = true;
 
             DialogResult fileChoiceResult = openFileDialog2.ShowDialog();
 
@@ -109,16 +106,19 @@ namespace Tagplaner.View
             openFileDialog3.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Ferien";
             openFileDialog3.Title = "Feriendatei aktuelles Jahr öffnen";
             openFileDialog3.Filter = "Ferien|*.ics";
-            openFileDialog3.Multiselect = true;
 
             DialogResult fileChoiceResult = openFileDialog3.ShowDialog();
 
+
             if (fileChoiceResult == DialogResult.OK)
             {
-                this.textBox3.Text = splitUrl(openFileDialog3.FileName);
-                this.textFromTextBox3 = openFileDialog3.FileName;
-                file3Choosen = true;
-                CheckAllFilesChoosen();
+                if (csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog3.FileName))
+                {
+                    this.textBox3.Text = splitUrl(openFileDialog3.FileName);
+                    this.textFromTextBox3 = openFileDialog3.FileName;
+                    file3Choosen = true;
+                    CheckAllFilesChoosen();
+                }
             }
         }
 
@@ -131,16 +131,18 @@ namespace Tagplaner.View
             openFileDialog4.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Ferien";
             openFileDialog4.Title = "Feriendatei nächstes Jahr öffnen";
             openFileDialog4.Filter = "Ferien|*.ics";
-            openFileDialog4.Multiselect = true;
 
             DialogResult fileChoiceResult = openFileDialog4.ShowDialog();
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                this.textBox4.Text = splitUrl(openFileDialog4.FileName);
-                this.textFromTextBox4 = openFileDialog4.FileName;
-                file4Choosen = true;
-                CheckAllFilesChoosen();
+                if (csvComverter.CheckICSFile(new DateTime(endDate.Year, 1, 1), new DateTime(endDate.Year, endDate.Month, endDate.Day), openFileDialog4.FileName))
+                {
+                    this.textBox4.Text = splitUrl(openFileDialog4.FileName);
+                    this.textFromTextBox4 = openFileDialog4.FileName;
+                    file4Choosen = true;
+                    CheckAllFilesChoosen();
+                }
             }
         }
 

@@ -123,18 +123,22 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Multiselect = false;
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
+            openFileDialog2.Multiselect = false;
             // 
             // openFileDialog3
             // 
             this.openFileDialog3.FileName = "openFileDialog3";
+            openFileDialog3.Multiselect = false;
             // 
             // openFileDialog4
             // 
             this.openFileDialog4.FileName = "openFileDialog4";
+            openFileDialog4.Multiselect = false;
             // 
             // button5
             // 

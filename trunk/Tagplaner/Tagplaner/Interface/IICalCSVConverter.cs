@@ -11,11 +11,12 @@ using System.Collections.Generic;
 
 namespace Tagplaner
 {
-	/// <summary>
-	/// Description of Interface1.
-	/// </summary>
-	public interface IICalCSVConverter
-	{
-		List<MVacation> GetICalEntrys(DateTime startdate, DateTime enddate);
-	}
+    /// <summary>
+    /// Description of Interface1.
+    /// </summary>
+    public interface IICalCSVConverter
+    {
+        bool CheckICSFile(DateTime startdate, DateTime enddate, string filename);
+        List<MVacation> GetICalEntrys(DateTime startdate, DateTime enddate);
+    }
 }
