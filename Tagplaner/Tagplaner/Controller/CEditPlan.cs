@@ -105,7 +105,7 @@ namespace Tagplaner
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
             MSpeciality mspec = new MSpeciality(1, "2014", "Koeln");
-            MSeminar seminar = new MSeminar("", "Subtitel", "SAP", "false", "commment");
+            MSeminar seminar = new MSeminar("SEMINARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR", "Subtitel", "SAP", "false", "commment");
             List<MRoom> room = new List<MRoom>();
             room.Add(new MRoom("209"));
             MPlace ort = new MPlace("Koeln", "Arnold", room);
