@@ -65,6 +65,16 @@ namespace Tagplaner
             this.isInternal = isInternal;
             
         }
+
+        public MTrainer(string name, string surname, string abbreviation, bool isInternal)
+        {
+         
+            this.name = name;
+            this.surname = surname;
+            this.abbreviation = abbreviation;
+            this.isInternal = isInternal;
+
+        }
         #endregion
 
         public override string ToString()

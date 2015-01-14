@@ -12,11 +12,15 @@ namespace Tagplaner
 {
     public partial class TrainerVerwaltenUserControl : UserControl
     {
-        CDatabase db = new CDatabase();
+        CDatabase db;
+      
+        
         public TrainerVerwaltenUserControl()
         {
+            db = CDatabase.GetInstance();
+
             InitializeComponent();
-            db.FillTrainerCombobox(comboBox1);
+            db.FillTrainerComboBox(comboBox1);
         }
 
         private void TrainerVerwaltenUserControl_Load(object sender, EventArgs e)
@@ -82,11 +86,14 @@ namespace Tagplaner
         {
             if (radioButton1.Checked == true)
             {
-                db.InsertTrainer(textBox2.Text, textBox1.Text, textBox3.Text, "1");
+
+                MTrainer trainer = new MTrainer(textBox1.Text,textBox2.Text,textBox3.Text,true);
+                db.InsertTrainer(trainer);
             }
             else if (radioButton2.Checked == true)
             {
-                db.InsertTrainer(textBox2.Text, textBox1.Text, textBox3.Text, "0");
+                MTrainer trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
+                db.InsertTrainer(trainer);
             }
         }
     }

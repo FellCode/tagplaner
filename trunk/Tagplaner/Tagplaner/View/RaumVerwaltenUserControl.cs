@@ -12,12 +12,15 @@ namespace Tagplaner
 {
     public partial class RaumVerwaltenUserControl : UserControl
     {
-        CDatabase db = new CDatabase();
+        CDatabase db;
 
         public RaumVerwaltenUserControl()
         {
+            db = CDatabase.GetInstance();
             InitializeComponent();
-            db.FillLocationCombobox(comboBox2);
+            db.FillPlaceComboBox(comboBox2);
+            
+          
         }
 
         private void RaumVerwaltenUserControl_Load(object sender, EventArgs e)
@@ -43,15 +46,16 @@ namespace Tagplaner
         private void button1_Click(object sender, EventArgs e)
         {
              MPlace place = (MPlace) comboBox2.SelectedItem;
-            db.InsertRoom(textBox1.Text, place.Id.ToString()); 
+             MRoom room = new MRoom(textBox1.Text, place.Id);
+             db.InsertRoom(room);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            comboBox1.Items.Clear();
-           MPlace place = (MPlace) comboBox2.SelectedItem;
-             db.FillRoomCombobox(comboBox1, place.Id);
+        {   comboBox1.Items.Clear();
+            
+            MPlace place = (MPlace)comboBox2.SelectedItem;
+            db.FillRoomComboBox(comboBox1, place.Id);
+           
         }
 
         private void button3_Click_1(object sender, EventArgs e)
