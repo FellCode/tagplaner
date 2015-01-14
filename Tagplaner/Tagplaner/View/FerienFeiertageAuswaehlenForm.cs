@@ -22,6 +22,11 @@ namespace Tagplaner.View
         String textFromTextBox3;
         String textFromTextBox4;
 
+        DateTime startDate;
+        DateTime endDate;
+
+        CICalCSVConverter csvComverter;
+
         public String TextForBox1
         {
             get { return textFromTextBox1; }
@@ -38,9 +43,11 @@ namespace Tagplaner.View
         {
             get { return textFromTextBox4; }
         }
-        public FerienFeiertageAuswaehlenForm()
+        public FerienFeiertageAuswaehlenForm(DateTime startDate, DateTime endDate)
         {
             InitializeComponent();
+            this.startDate = startDate;
+            this.endDate = endDate;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,10 +65,16 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                this.textBox1.Text = splitUrl(openFileDialog1.FileName);
-                this.textFromTextBox1 = openFileDialog1.FileName;
-                file1Choosen = true;
-                CheckAllFilesChoosen();
+                //Checken ob Datei den Zeitraum enthält
+                csvComverter = new CICalCSVConverter(openFileDialog1.FileName, null);
+                
+                if (csvComverter.ReadICalEntrysCurrentYear(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31))==true)
+                {
+                    this.textBox1.Text = splitUrl(openFileDialog1.FileName);
+                    this.textFromTextBox1 = openFileDialog1.FileName;
+                    file1Choosen = true;
+                    CheckAllFilesChoosen();
+                }
             }
         }
 
