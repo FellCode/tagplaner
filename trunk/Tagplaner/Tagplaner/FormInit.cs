@@ -133,29 +133,31 @@ namespace Tagplaner
 
         private void tagplanÖffnenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openTagplan();
+            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
+            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
+
+            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
+
+            if (fileChoiceResult == DialogResult.OK)
+            {
+                openTagplan(openFileDialog1.FileName);
+                tabControl1.SelectedIndex = 1;
+
+                tagplanBearbeitenUC.GetListView().Items.Clear();
+                tagplanAnlegenUC.fillListViewWithDays(
+                    MCalendar.getInstance().CalendarList, tagplanBearbeitenUC.GetListView());  
+            }
         }
 
         private void tagplanSpeichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //saveTagplan();
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
-
             saveFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
-
-            saveFileDialog1.Filter = "Tagplan|*.tp";
-            saveFileDialog1.Title = "Tagplan abspeichern";
-
             DialogResult fileSaveResult = saveFileDialog1.ShowDialog();
 
             if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
             {
-                CSerialize serializer = new CSerialize();
-                MCalendar calendarWithDays = MCalendar.getInstance();
-                serializer.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
-                calendarWithDays.Saved = true;
+                saveTagplan(saveFileDialog1.FileName);
             }
         }
 
@@ -174,36 +176,19 @@ namespace Tagplaner
             System.Windows.Forms.Application.Exit();
         }
 
-
-        private void openTagplan()
+        private void openTagplan(string filename)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            CSerialize serializer = new CSerialize();
+            MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
+            MCalendar.SetInstance(calendarWithDays);
+        }
 
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
-
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
-            openFileDialog1.Title = "Tagplan öffnen";
-            openFileDialog1.Filter = "Tagplan|*.tp";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
-
-            if (fileChoiceResult == DialogResult.OK)
-            {
-                CSerialize serializer = new CSerialize();
-                MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
-
-                //Singletoninstanz wird dem geladenen Objekt zugewiesen
-                MCalendar.SetInstance(calendarWithDays);
-
-                tagplanBearbeitenUC.GetListView().Items.Clear();
-                tagplanAnlegenUC.fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
-               
-                //this.label3.Text = "Tagplan: " + splitUrl(openFileDialog1.FileName) + " geöffnet";
-                //this.label3.Visible = true;
-
-                tabControl1.SelectedIndex = 1;
-            }
+        private void saveTagplan(string filename)
+        {
+            CSerialize serializer = new CSerialize();
+            MCalendar calendarWithDays = MCalendar.getInstance();
+            serializer.SerializeObject(calendarWithDays, filename);
+            calendarWithDays.Saved = true;
         }
 
         private void openExportPdfWindow()
