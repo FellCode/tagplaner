@@ -49,6 +49,7 @@ namespace Tagplaner
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            comboBox1.Items.Clear();
            MPlace place = (MPlace) comboBox2.SelectedItem;
              db.FillRoomCombobox(comboBox1, place.Id);
         }

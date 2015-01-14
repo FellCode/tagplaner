@@ -16,7 +16,6 @@ namespace Tagplaner
         
         public SeminarVerwaltenUserControl()
         {
-
             InitializeComponent();
             
          db.FillSeminarCombobox(seminarBox);
