@@ -48,7 +48,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_ferienOeffnen = new System.Windows.Forms.Button();
@@ -209,6 +208,7 @@
             // 
             // buttonWeiter
             // 
+            this.buttonWeiter.Enabled = false;
             this.buttonWeiter.Location = new System.Drawing.Point(688, 441);
             this.buttonWeiter.Name = "buttonWeiter";
             this.buttonWeiter.Size = new System.Drawing.Size(73, 23);
@@ -222,8 +222,7 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(12, 254);
+            this.groupBox3.Location = new System.Drawing.Point(12, 370);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(749, 56);
             this.groupBox3.TabIndex = 15;
@@ -233,7 +232,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(264, 32);
+            this.label3.Location = new System.Drawing.Point(192, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 19;
@@ -260,21 +259,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(175, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Erstellen";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.btn_ferienOeffnen);
-            this.groupBox4.Location = new System.Drawing.Point(12, 324);
+            this.groupBox4.Location = new System.Drawing.Point(12, 251);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(749, 111);
             this.groupBox4.TabIndex = 17;
@@ -357,7 +346,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btn_ferienOeffnen;
         private System.Windows.Forms.Label label3;

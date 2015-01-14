@@ -19,7 +19,6 @@ namespace Tagplaner
         private List<MSpeciality> speciality = new List<MSpeciality>();
         private bool saved;
 
-
         #region getter
         public int Id
         {
@@ -61,7 +60,7 @@ namespace Tagplaner
             get { return saved; }
             set { saved = value; }
         }
-
+        #endregion
         private MCalendar()
         {
 
@@ -74,7 +73,6 @@ namespace Tagplaner
                 instance = new MCalendar();
             } return instance;
         }
-        #endregion
 
         public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
@@ -88,19 +86,16 @@ namespace Tagplaner
 
             CalendarList.Clear();
 
-            //Befüllen der CalendarList mit Ferientagen von startdatum bis enddatum
             CCalendar ccalendar = new CCalendar();
+            //Befüllen der Ferientagen
             CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
-
-            //Befüllen der CalendarList mit Ferientagen von startdatum bis enddatum
+            //Befüllen der Ferientagen
             CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
-
+            //Befüllen der Speciality
             Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
-
         #region AddDay-Methods
 
         #endregion
-
     }
 }

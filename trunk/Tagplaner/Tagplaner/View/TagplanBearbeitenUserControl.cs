@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tagplaner;
 
-
 namespace Tagplaner
 {
     public partial class TagplanBearbeitenUserControl : UserControl
@@ -29,7 +28,8 @@ namespace Tagplaner
             this.Controls.Add(dGV);
         }
 
-        public ListView GetListView(){
+        public ListView GetListView()
+        {
             return this.listView1;
         }
         public DataGridView dGVReturn()

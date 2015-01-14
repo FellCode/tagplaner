@@ -13,7 +13,6 @@ namespace Tagplaner
 {
     public partial class TagplanAnlegenUserControl : UserControl
     {
-
         Tagplaner.View.FerienFeiertageAuswaehlenForm ferienFeiertageAuswaehlenForm;
         private DataGridView dGV = new DataGridView();
 
@@ -33,9 +32,6 @@ namespace Tagplaner
         String vacationNextYearUrl;
         String holidayCurrentYearUrl;
         String holidayNextYearUrl;
-
-        List<String> vacationFileUrls;
-        List<String> holidayFileUrls;
 
         public TagplanAnlegenUserControl(FormInit formInit, TagplanBearbeitenUserControl tagplanBearbeitenUC)
         {
@@ -82,6 +78,7 @@ namespace Tagplaner
 
         }
 
+        //Zum nächsten Tab springen
         public void nextTabPage()
         {
             formInit.tabPageChange(1);
@@ -91,21 +88,17 @@ namespace Tagplaner
             tagplanBearbeitenUC.GetListView().AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
-        //Variante mit Laden der
-        //public void GetCalendarWithDates(String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYear, String holidayNextYear)
+        //Initialisieren des Kalenderobjekts
         public void GetCalendarWithDates()
         {
             CeckCheckboxes();
-            //MCalendar.getInstance().fillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, vacationCurrentYearUrl,vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
-            //MCalendar.getInstance().fillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationFileUrls, holidayFileUrls);
             MCalendar.getInstance().fillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
 
+        //Füllen der Listview mit Tagen, Ferien und Feiertagen
         public void fillListViewWithDays(List<MCalendarDay> calendarDayList, ListView listView)
         {
-            //if (choosenHoliday != null && choosenVacation != null)
-            //{
             foreach (MCalendarDay calendarDay in calendarDayList)
             {
                 ListViewItem listViewItem = new ListViewItem();
@@ -164,12 +157,25 @@ namespace Tagplaner
 
         private void buttonWeiter_Click(object sender, EventArgs e)
         {
-            nextTabPage();
+            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
+            {
+                tagplanBearbeitenUC.GetListView().Items.Clear();
+
+                //Werte aus Datepicker werden an Kalenderobjekt übergeben
+                GetCalendarWithDates();
+
+                //ListView wird mit Tagen gefüllt
+                fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
+
+                //TagplanBearbeitenTab wird angezeigt
+                this.label3.Visible = false;
+                nextTabPage();
+            }
         }
 
+        //Laden der Ferien und Feiertage
         private void button6_Click(object sender, EventArgs e)
         {
-
             using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm())
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
@@ -184,35 +190,11 @@ namespace Tagplaner
                                        "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
                                        "Feiertagdatei (Von): " + splitUrl(vacationCurrentYearUrl) + "\n" +
                                        "Feiertagdatei (Bis): " + splitUrl(vacationNextYearUrl) + " geöffnet";
-
-                    /*
-                    this.label4.Text = createTextForUrlLabel(vacationFileUrls) +
-                                       createTextForUrlLabel(holidayFileUrls) + " geöffnet";
                     this.label4.Visible = true;
-                    */
+                    this.buttonWeiter.Enabled = true;
                 }
             }
 
-            /*
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Ferien");
-
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Ferien";
-            openFileDialog1.Title = "Ferienzeitendatei öffnen";
-            openFileDialog1.Filter = "Ferien|*.fe";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
-
-            if (fileChoiceResult == DialogResult.OK)
-            {
-                //choosenVacation = (MVacation)serializer.DeserializeObject(openFileDialog1.FileName);
-                
-                this.label6.Text = openFileDialog1.FileName + " geöffnet";
-                this.label6.Visible = true;
-            }
-            */
         }
 
         private void btn_feiertageOeffnen_Click(object sender, EventArgs e)
@@ -239,14 +221,7 @@ namespace Tagplaner
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            tagplanBearbeitenUC.GetListView().Items.Clear();
-            //Werte aus Datepicker werden an Kalenderobjekt übergeben
-            GetCalendarWithDates();
-            //ListView wird mit Tagen gefüllt
-            fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
-            //TagplanBearbeitenTab wird angezeigt
-            this.label3.Visible = false;
-            nextTabPage();
+
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -308,14 +283,14 @@ namespace Tagplaner
             }
             else
                 typeOfClasses.Add("");
-            
+
             if (checkBoxZweiterJahrgangAE.Checked)
             {
                 typeOfClasses.Add("AE");
             }
             else
                 typeOfClasses.Add("");
-            
+
             if (checkBoxZweiterJahrgangSI.Checked)
             {
                 typeOfClasses.Add("SI");
