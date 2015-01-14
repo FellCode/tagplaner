@@ -12,13 +12,15 @@ namespace Tagplaner
 {
     public partial class SeminarVerwaltenUserControl : UserControl
     {
-        CDatabase db = new CDatabase();
+        CDatabase db;
         
         public SeminarVerwaltenUserControl()
-        {
-            InitializeComponent();
+        {  InitializeComponent();
+            db = CDatabase.GetInstance();
+            db.FillAllList();
+            db.FillSeminarComboBox(seminarBox);
             
-         db.FillSeminarCombobox(seminarBox);
+            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -44,7 +46,10 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
-            db.InsertSeminar(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+
+            MSeminar seminar = new MSeminar(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+
+            db.InsertSeminar(seminar);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -64,6 +69,11 @@ namespace Tagplaner
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
         }
       
     }

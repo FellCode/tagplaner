@@ -48,6 +48,12 @@ namespace Tagplaner
             this.number = number;
             this.place_id = place_id;
         }
+
+        public MRoom( string number, int place_id)
+        {
+            this.number = number;
+            this.place_id = place_id;
+        }
         #endregion
 
         public override string ToString()

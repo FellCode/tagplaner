@@ -66,6 +66,14 @@ namespace Tagplaner
             this.hasTechnology = hasTechnology;
             this.comment = comment;
         }
+        public MSeminar(string title, string subtitle, string abbreviation, string hasTechnology)
+        {
+            this.title = title;
+            this.subtitle = subtitle;
+            this.abbreviation = abbreviation;
+            this.hasTechnology = hasTechnology;
+          
+        }
         public MSeminar(int id, string title, string subtitle, string abbreviation, string hasTechnology, string comment)
         {
             this.id = id;
