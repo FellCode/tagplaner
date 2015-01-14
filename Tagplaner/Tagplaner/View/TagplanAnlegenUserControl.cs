@@ -169,7 +169,6 @@ namespace Tagplaner
                 fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
 
                 //TagplanBearbeitenTab wird angezeigt
-                this.label3.Visible = false;
                 nextTabPage();
             }
         }
@@ -223,59 +222,6 @@ namespace Tagplaner
         private void button1_Click_1(object sender, EventArgs e)
         {
 
-        }
-
-
-        //Tagplan speichern
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
-
-            saveFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
-
-            saveFileDialog1.Filter = "Tagplan|*.tp";
-            saveFileDialog1.Title = "Tagplan abspeichern";
-
-            DialogResult fileSaveResult = saveFileDialog1.ShowDialog();
-
-            if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
-            {
-                calendarWithDays = MCalendar.getInstance();
-                serializer.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
-            }
-        }
-
-
-        //Tagplan öffnen
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
-
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
-            openFileDialog1.Title = "Tagplan öffnen";
-            openFileDialog1.Filter = "Tagplan|*.tp";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
-
-            if (fileChoiceResult == DialogResult.OK)
-            {
-                
-                calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
-                
-                //Singletoninstanz wird dem geladenen Objekt zugewiesen
-                MCalendar.SetInstance(calendarWithDays);
-                
-                tagplanBearbeitenUC.GetListView().Items.Clear();
-                fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
-                this.label3.Text = "Tagplan: " + splitUrl(openFileDialog1.FileName) + " geöffnet";
-                this.label3.Visible = true;
-                nextTabPage();
-            }
         }
 
         public void CeckCheckboxes()

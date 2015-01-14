@@ -130,5 +130,86 @@ namespace Tagplaner
                 }          
             }
         }
+
+        private void tagplanÖffnenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openTagplan();
+        }
+
+        private void tagplanSpeichernToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //saveTagplan();
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
+
+            saveFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
+
+            saveFileDialog1.Filter = "Tagplan|*.tp";
+            saveFileDialog1.Title = "Tagplan abspeichern";
+
+            DialogResult fileSaveResult = saveFileDialog1.ShowDialog();
+
+            if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
+            {
+                CSerialize serializer = new CSerialize();
+                MCalendar calendarWithDays = MCalendar.getInstance();
+                serializer.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
+                calendarWithDays.Saved = true;
+            }
+        }
+
+        private void excelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //exportExcel();
+        }
+
+        private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openExportPdfWindow();
+        }
+
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+
+        private void openTagplan()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Tagplan");
+
+            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Tagplan";
+            openFileDialog1.Title = "Tagplan öffnen";
+            openFileDialog1.Filter = "Tagplan|*.tp";
+            openFileDialog1.Multiselect = true;
+
+            DialogResult fileChoiceResult = openFileDialog1.ShowDialog();
+
+            if (fileChoiceResult == DialogResult.OK)
+            {
+                CSerialize serializer = new CSerialize();
+                MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
+
+                //Singletoninstanz wird dem geladenen Objekt zugewiesen
+                MCalendar.SetInstance(calendarWithDays);
+
+                tagplanBearbeitenUC.GetListView().Items.Clear();
+                tagplanAnlegenUC.fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
+               
+                //this.label3.Text = "Tagplan: " + splitUrl(openFileDialog1.FileName) + " geöffnet";
+                //this.label3.Visible = true;
+
+                tabControl1.SelectedIndex = 1;
+            }
+        }
+
+        private void openExportPdfWindow()
+        {
+            ExportPdfForm exportPdfForm = new ExportPdfForm();
+            exportPdfForm.ShowDialog();
+        }
     }
 }
