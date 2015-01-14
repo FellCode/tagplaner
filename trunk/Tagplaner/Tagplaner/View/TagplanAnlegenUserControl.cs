@@ -150,7 +150,7 @@ namespace Tagplaner
                 listView.Items.Add(listViewItem);
             }
             CEditPlan ceditplan = new CEditPlan();
-            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), 12, calendarDayList);
+            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), calendarDayList);
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
