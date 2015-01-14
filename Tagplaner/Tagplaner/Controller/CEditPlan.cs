@@ -76,7 +76,6 @@ namespace Tagplaner
 
             this.dGV.CellClick += new DataGridViewCellEventHandler(TagplanBearbeitenUserControl_CellClick);
 
-
             return dGV;
         }
 
@@ -91,7 +90,7 @@ namespace Tagplaner
             x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(e.ColumnIndex) / 6));
             y_Coord = e.RowIndex;
 
-            if (x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1)
+            if (x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1 || dGV[x_Cell, y_Coord].ReadOnly == true)
             {
                 MessageBox.Show("Keine gueltige Zelle");
             }
