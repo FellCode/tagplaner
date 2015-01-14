@@ -43,6 +43,10 @@ namespace Tagplaner
             addTabPage(raumVerwaltenUC, "Räume verwalten");
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
             addTabPage(statistikUC, "Statistiken");
+
+            openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
+            tabControl1.SelectedIndex = 1;
+
         }
 
         /// <summary>
@@ -179,7 +183,7 @@ namespace Tagplaner
         private void openTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
-            MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(openFileDialog1.FileName);
+            MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(filename);
             MCalendar.SetInstance(calendarWithDays);
         }
 
