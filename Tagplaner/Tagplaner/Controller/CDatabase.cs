@@ -390,7 +390,7 @@ namespace Tagplaner
                 FillAllPlace();
                 return true;
             }
-            catch(SQLiteException e)
+            catch(SQLiteException)
             {
                 CloseDatabase();
                 return false;
@@ -422,6 +422,95 @@ namespace Tagplaner
         #endregion
 
         #region delete
+        public bool DeleteSeminar(MSeminar seminar)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("delete from seminar where seminar_id = " + seminar.Id);
+                CloseDatabase();
+                AllSeminar.Clear();
+                FillAllSeminar();
+                return true;
+            }
+            catch(SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
+
+        public bool DeleteTrainer(MTrainer trainer)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("delete from trainer where trainer_id = " + trainer.Id);
+                CloseDatabase();
+                AllTrainer.Clear();
+                FillAllTrainer();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
+
+        public bool DeleteRoom(MRoom room)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("delete from raum where raum_id = " + room.Id);
+                CloseDatabase();
+                AllRoom.Clear();
+                FillAllRoom();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
+
+        public bool DeletePlace(MPlace place)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("delete from seminarort where seminarort_id = " + place.Id);
+                CloseDatabase();
+                AllPlace.Clear();
+                FillAllPlace();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
+
+        public bool DeleteFederalState(MFederalState federalstate)
+        {
+            ConnectDatabase();
+            try
+            {
+                ExecuteNonQuery("delete from bundesland where bundesland_id = " + federalstate.Id);
+                CloseDatabase();
+                AllFederalState.Clear();
+                FillAllFederalState();
+                return true;
+            }
+            catch (SQLiteException)
+            {
+                CloseDatabase();
+                return false;
+            }
+        }
         #endregion
         //Für die erst Installation der Datenbank
         public void CreateDB()
