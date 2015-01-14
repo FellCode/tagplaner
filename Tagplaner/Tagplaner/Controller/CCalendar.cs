@@ -15,7 +15,6 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
-        //public List<MCalendarDay> fillDaysInitial(DateTime startdate,DateTime enddate,List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         public List<MCalendarDay> fillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
@@ -62,7 +61,7 @@ namespace Tagplaner
             return listDays;
         }
 
-        public List<MSpeciality> fillSpeziallityInitial(List<MSpeciality> speciality,int classes, List<string> typeOfClasses)
+        public List<MSpeciality> fillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
         {
             switch (classes)
             {
