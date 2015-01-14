@@ -79,7 +79,7 @@ namespace Tagplaner
         {
             x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(x_Coord) / 6));
             y_Coord = e.RowIndex;
-            if (x_Coord < 0 || y_Coord < 0 || x_Coord > e.ColumnIndex || y_Coord > e.RowIndex)
+            if (x_Coord < 0 || y_Coord < 0 || x_Coord == e.ColumnIndex || y_Coord == e.RowIndex)
             {
                 MessageBox.Show("Keine gueltige Zelle");
             }
