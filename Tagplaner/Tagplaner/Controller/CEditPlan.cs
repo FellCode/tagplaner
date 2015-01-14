@@ -78,8 +78,15 @@ namespace Tagplaner
         private void TagplanBearbeitenUserControl_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(x_Coord) / 6));
-            y_Coord = e.RowIndex ;
-            getSelectedEntryModel();
+            y_Coord = e.RowIndex;
+            if (x_Coord < 0 || y_Coord < 0 || x_Coord > e.ColumnIndex || y_Coord > e.RowIndex)
+            {
+                MessageBox.Show("Keine gueltige Zelle");
+            }
+            else
+            {
+                getSelectedEntryModel();
+            }
         }
 
         /// <summary>
@@ -114,7 +121,10 @@ namespace Tagplaner
                         //Durchläuft jede Spalte der Tabelle
                         for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
+
                             mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
+//                            mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Id = 1;
+
 
                             dGV[0 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
                             dGV[1 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
