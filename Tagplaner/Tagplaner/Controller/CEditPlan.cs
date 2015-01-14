@@ -67,6 +67,12 @@ namespace Tagplaner
             this.dGV.Columns[2].ReadOnly = true;
             this.dGV.Columns[3].ReadOnly = true;
 
+            this.dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            this.dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            this.dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            this.dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
             for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
             {
                 this.dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
@@ -75,6 +81,13 @@ namespace Tagplaner
                 this.dGV.Columns[7 + 6 * columnCounter].Name = "Co-Trainer";
                 this.dGV.Columns[8 + 6 * columnCounter].Name = "Aktivität";
                 this.dGV.Columns[9 + 6 * columnCounter].Name = "Aktivität";
+
+                this.dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                this.dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                this.dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                this.dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                this.dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                this.dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             }
 
@@ -174,7 +187,7 @@ namespace Tagplaner
                 }
                 else
                 {
-                    for (int columnCounter = 4; columnCounter <= columnCount; columnCounter++)
+                    for (int columnCounter = 4; columnCounter <= columnCount - 1; columnCounter++)
                     {
                         dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                         dGV[columnCounter, rowCounter].ReadOnly = true;
@@ -183,8 +196,6 @@ namespace Tagplaner
             }
         }
             
-
-
         /// <summary>
         /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
         /// </summary>
