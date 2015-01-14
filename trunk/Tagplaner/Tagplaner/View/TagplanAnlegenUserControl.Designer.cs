@@ -44,17 +44,12 @@
             this.checkBoxZweiterJahrgangSI = new System.Windows.Forms.CheckBox();
             this.checkBoxZweiterJahrgangAE = new System.Windows.Forms.CheckBox();
             this.buttonWeiter = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_ferienOeffnen = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,7 +144,7 @@
             this.comboBoxBundesland.FormattingEnabled = true;
             this.comboBoxBundesland.Location = new System.Drawing.Point(88, 80);
             this.comboBoxBundesland.Name = "comboBoxBundesland";
-            this.comboBoxBundesland.Size = new System.Drawing.Size(138, 21);
+            this.comboBoxBundesland.Size = new System.Drawing.Size(200, 21);
             this.comboBoxBundesland.TabIndex = 7;
             this.comboBoxBundesland.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -217,48 +212,6 @@
             this.buttonWeiter.UseVisualStyleBackColor = true;
             this.buttonWeiter.Click += new System.EventHandler(this.buttonWeiter_Click);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Location = new System.Drawing.Point(12, 370);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(749, 56);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Tagplan";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(192, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "label3";
-            this.label3.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(94, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "Speichern";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(13, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Öffnen";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label4);
@@ -296,7 +249,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonWeiter);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -316,8 +268,6 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -343,12 +293,8 @@
         private System.Windows.Forms.CheckBox checkBoxZweiterJahrgangSI;
         private System.Windows.Forms.CheckBox checkBoxZweiterJahrgangAE;
         private System.Windows.Forms.Button buttonWeiter;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btn_ferienOeffnen;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
     }
 }
