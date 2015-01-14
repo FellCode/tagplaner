@@ -1035,7 +1035,7 @@ namespace Tagplaner
 
         }
 
-        public static CDatabase GetInstanz()
+        public static CDatabase GetInstance()
         {
             if (database == null)
             { 
