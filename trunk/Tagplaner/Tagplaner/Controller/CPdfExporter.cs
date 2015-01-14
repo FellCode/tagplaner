@@ -309,10 +309,30 @@ namespace Tagplaner
             else
             {
                 // Year two - FIAE
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell("210"));
-                pdfTable.AddCell(this.CreateBodyTableCellPratice());
+                MCalendarEntry calendarEntry = calendarDay.CalendarEntry.ElementAt(0);
+               
+                if (calendarEntry.Seminar != null)
+                {
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
+                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(
+                        calendarEntry.Seminar.Title));
+                }
+                else if (calendarEntry.School != null)
+                {
+                    pdfTable.AddCell(this.CreateBodyTableCell(""));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
+                    pdfTable.AddCell(this.CreateBodyTableCellSchool());
+                }
+                else if (calendarEntry.Practice != null)
+                {
+                    pdfTable.AddCell(this.CreateBodyTableCell(""));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
+                    pdfTable.AddCell(this.CreateBodyTableCellPratice());
+                }
 
                 // Year two  - FISI
                 pdfTable.AddCell(this.CreateBodyTableCell(""));
@@ -350,6 +370,8 @@ namespace Tagplaner
             pdfcell.BackgroundColor = BaseColor.BLUE;
             pdfcell.Phrase = new Phrase("");
             pdfcell.Colspan = 4;
+            pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -366,6 +388,7 @@ namespace Tagplaner
             pdfcell.Phrase = new Phrase(seminarName, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -381,6 +404,7 @@ namespace Tagplaner
             pdfcell.Phrase = new Phrase(comment);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -396,6 +420,7 @@ namespace Tagplaner
             pdfcell.Phrase = new Phrase(holidayName, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -414,6 +439,7 @@ namespace Tagplaner
             pdfcell.Phrase = new Phrase(name, FONT_UNIQUE);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -430,6 +456,7 @@ namespace Tagplaner
             pdfcell.Phrase = new Phrase(value, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
             return pdfcell;
         }
@@ -440,13 +467,15 @@ namespace Tagplaner
         /// <param name="calenderWeek"></param>
         private void CreateBodyTableRowWeekend(string calenderWeek)
         {
+            int calendarWeekTmp = Convert.ToInt16(calenderWeek) + 1;
+
             PdfPCell pdfCell = new PdfPCell();
             PdfPTable pdfTable = new PdfPTable(32);
             pdfTable.WidthPercentage = 100;
             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
             pdfCell.BackgroundColor = BaseColor.LIGHT_GRAY;
-            pdfCell.Phrase = new Phrase("KW " + calenderWeek, FONT_SMALL_BOLD) { };
+            pdfCell.Phrase = new Phrase("KW " + calendarWeekTmp.ToString(), FONT_SMALL_BOLD) { };
             pdfCell.Colspan = 3;
             pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT;
             pdfTable.AddCell(pdfCell);
