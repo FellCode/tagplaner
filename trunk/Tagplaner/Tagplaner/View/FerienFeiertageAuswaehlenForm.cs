@@ -65,14 +65,11 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                //Checken ob Datei den Zeitraum enthält
-                if (csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog1.FileName)) ;
-                {
-                    this.textBox1.Text = splitUrl(openFileDialog1.FileName);
-                    this.textFromTextBox1 = openFileDialog1.FileName;
-                    file1Choosen = true;
-                    CheckAllFilesChoosen();
-                }
+                //Hier fehlt noch die Prüfung der csv-Dateien
+                this.textBox1.Text = splitUrl(openFileDialog1.FileName);
+                this.textFromTextBox1 = openFileDialog1.FileName;
+                file1Choosen = true;
+                CheckAllFilesChoosen();
             }
         }
 
@@ -90,6 +87,7 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
+                //Hier fehlt noch die Prüfung der csv-Dateien
                 this.textBox2.Text = splitUrl(openFileDialog2.FileName);
                 this.textFromTextBox2 = openFileDialog2.FileName;
                 file2Choosen = true;
@@ -109,15 +107,16 @@ namespace Tagplaner.View
 
             DialogResult fileChoiceResult = openFileDialog3.ShowDialog();
 
-
             if (fileChoiceResult == DialogResult.OK)
             {
-                if (csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog3.FileName))
+                this.textFromTextBox3 = openFileDialog3.FileName;
+                this.textBox3.Text = splitUrl(openFileDialog3.FileName);
+                file3Choosen = true;
+                CheckAllFilesChoosen();
+
+                if (!csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog3.FileName))
                 {
-                    this.textBox3.Text = splitUrl(openFileDialog3.FileName);
-                    this.textFromTextBox3 = openFileDialog3.FileName;
-                    file3Choosen = true;
-                    CheckAllFilesChoosen();
+                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + splitUrl(openFileDialog3.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
                 }
             }
         }
@@ -136,12 +135,14 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                if (csvComverter.CheckICSFile(new DateTime(endDate.Year, 1, 1), new DateTime(endDate.Year, endDate.Month, endDate.Day), openFileDialog4.FileName))
+                this.textFromTextBox4 = openFileDialog4.FileName;
+                this.textBox4.Text = splitUrl(openFileDialog4.FileName);
+                file4Choosen = true;
+                CheckAllFilesChoosen();
+
+                if (!csvComverter.CheckICSFile(new DateTime(endDate.Year, 1, 1), new DateTime(endDate.Year, endDate.Month, endDate.Day), openFileDialog4.FileName))
                 {
-                    this.textBox4.Text = splitUrl(openFileDialog4.FileName);
-                    this.textFromTextBox4 = openFileDialog4.FileName;
-                    file4Choosen = true;
-                    CheckAllFilesChoosen();
+                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + splitUrl(openFileDialog4.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
                 }
             }
         }
@@ -178,6 +179,11 @@ namespace Tagplaner.View
             }
             splittedUrl = substrings[counter - 1];
             return splittedUrl;
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
