@@ -12,9 +12,11 @@ namespace Tagplaner
 {
     public partial class TrainerVerwaltenUserControl : UserControl
     {
+        CDatabase db = new CDatabase();
         public TrainerVerwaltenUserControl()
         {
             InitializeComponent();
+            db.FillTrainerCombobox(comboBox1);
         }
 
         private void TrainerVerwaltenUserControl_Load(object sender, EventArgs e)
@@ -54,6 +56,38 @@ namespace Tagplaner
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MTrainer trainer = (MTrainer) comboBox1.SelectedItem;
+            textBox1.Text = trainer.Name;
+            textBox2.Text = trainer.Surname;
+            textBox3.Text = trainer.Abbreviation;
+
+            if (trainer.IsInternal == true)
+            {
+                radioButton1.Checked = true;
+                radioButton2.Checked = false;
+            }
+            else if (trainer.IsInternal == false)
+            {
+                radioButton2.Checked = true;
+                radioButton1.Checked = false;
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == true)
+            {
+                db.InsertTrainer(textBox2.Text, textBox1.Text, textBox3.Text, "1");
+            }
+            else if (radioButton2.Checked == true)
+            {
+                db.InsertTrainer(textBox2.Text, textBox1.Text, textBox3.Text, "0");
+            }
         }
     }
 }
