@@ -20,6 +20,7 @@ namespace Tagplaner
         private Range aRange;
         private string cell1 = "A1";
         private string cell2 = "B1";
+        private Object[] data = new Object[1];
 
 
         public WorksheetGenerator() {
@@ -53,15 +54,15 @@ namespace Tagplaner
         {
             aRange = ws.get_Range(cell1, cell2);
         }
-        private void setCell1(String cell1)
+        private void setCell1(string cell1)
         {
             this.cell1 = cell1;
         }
-        private void setCell2(String cell2)
+        private void setCell2(string cell2)
         {
             this.cell2 = cell2;
         }
-        private void setBackground(System.Drawing.Color color)
+        private void setBackgroundColor(System.Drawing.Color color)
         {
             aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(color);
         }
@@ -69,35 +70,49 @@ namespace Tagplaner
         {
             aRange.Font.Color = System.Drawing.ColorTranslator.ToOle(color);
         }
+        private void setBorderColor(System.Drawing.Color color)
+        {
+            aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(color);
+        }
+        private void setValue(Object value)
+        {
+            data[0] = value;
+            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+        }
 
         public bool WriteFile(MCalendar calendar)
         {
+
+            #region setup
             int i_day = 1;
             int i_list = 0;
-            Object[] data = new Object[1];
             string calendarWeek = "";
             string vacation = null;
             string vacation_cell = null;
+            string day = null;
             var german = new System.Globalization.CultureInfo("de-DE");
 
             setRange(cell1);
-            aRange.EntireColumn.ColumnWidth = 3;
+            aRange.EntireColumn.ColumnWidth = 4;
             setRange("B1");
             aRange.EntireColumn.ColumnWidth = 10;
             setRange("A1", "Z1");
             aRange.EntireColumn.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
             aRange.EntireColumn.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+            aRange.EntireColumn.WrapText = true;
+            //aRange.EntireColumn.Font.Name = "Verdana";
+            #endregion
 
             //Schleife fuer jeden Tag in der calendarList
             foreach (MCalendarDay calendarDay in calendar.CalendarList)
             {
 
                 #region Dokumentkopf
-                aRange = ws.get_Range("D1");
+                setRange("D1");
                 aRange.EntireColumn.ColumnWidth = 1;
                 //aRange.EntireColumn.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Pink);
-                setBackground(System.Drawing.Color.Pink);
-                aRange.EntireColumn.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                setBackgroundColor(System.Drawing.Color.Pink);
+                setBorderColor(System.Drawing.Color.Black);
                 setRange("C1");
                 aRange.EntireColumn.ColumnWidth = 5;
 
@@ -107,29 +122,24 @@ namespace Tagplaner
                 #region calendarWeek
                 if (calendarWeek != calendarDay.CalendarWeek)
                 {
-                    setCell1("A" + i_day);
-                    setCell2("B" + i_day);
-                    setRange(cell1, cell2);
+                    setRange("A" + i_day, "B" + i_day);
                     aRange.Merge(Missing.Value);
-                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                    data[0] = "KW" + calendarDay.CalendarWeek;
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
+                    setBackgroundColor(System.Drawing.Color.LightGray);
+                    setBorderColor(System.Drawing.Color.Black);
+                    setValue("KW" + calendarDay.CalendarWeek);
 
 
-                    cell1 = "E" + i_day;
-                    cell2 = "Q" + i_day;
-                    aRange = ws.get_Range(cell1, cell2);
+                    setRange("E" + i_day, "Q" + i_day);
                     aRange.Merge(Missing.Value);
-                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
-                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    setBackgroundColor(System.Drawing.Color.LightBlue);
+                    setBorderColor(System.Drawing.Color.Black);
 
 
-                    cell1 = "C" + i_day;
-                    aRange = ws.get_Range(cell1);
+                    setRange("C" + i_day);
+                    //setRange(cell1);
                     aRange.Merge(Missing.Value);
-                    aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
-                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    setBackgroundColor(System.Drawing.Color.LightBlue);
+                    setBorderColor(System.Drawing.Color.Black);
                     i_day++;
                     calendarWeek = calendarDay.CalendarWeek;
 
@@ -137,22 +147,20 @@ namespace Tagplaner
                 #endregion
 
                 //Erstellt das Datum-Feld
-                cell1 = "A" + i_day;
-                aRange = ws.get_Range(cell1);
+                setRange("A" + i_day);
+
                 //Wochentag
-                data[0] = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+                day = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
 
-                if (!(data[0].ToString().Equals("SA") || data[0].ToString().Equals("SO")))
+                if (!(day.Equals("SA") || day.Equals("SO")))
                 {
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    setValue(day);
+                    setBorderColor(System.Drawing.Color.Black);
 
-
-                    cell1 = "B" + i_day;
-                    aRange = ws.get_Range(cell1);
-                    data[0] = calendarDay.CalendarDate;
-                    aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-                    aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                    //setCell1("B" + i_day);
+                    setRange("B" + i_day);
+                    setValue(calendarDay.CalendarDate);
+                    setBorderColor(System.Drawing.Color.Black);
 
 
                     #region Ferien
@@ -161,27 +169,19 @@ namespace Tagplaner
                         if (calendar.CalendarList[i_list].VacationName != vacation)
                         {
                             vacation = calendar.CalendarList[i_list].VacationName;
-                            cell1 = "C" + i_day;
+                            setCell1("C" + i_day);
                             vacation_cell = cell1;
-                            aRange = ws.get_Range(cell1);
-                            data[0] = vacation.Substring(0, vacation.IndexOf(" "));
-
-                            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, data);
-
-                            //aRange.Borders[XlBordersIndex.xlEdgeRight].Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
-                            //aRange.Borders[XlBordersIndex.xlEdgeRight].Weight = XlBorderWeight.xlThick;
+                            setRange(cell1);
+                            setValue(vacation.Substring(0, vacation.IndexOf(" ")));
                             aRange.Orientation = 90;
                             aRange.EntireRow.RowHeight = 15;
-                            aRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.GreenYellow);
-                            aRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Black);
+                            setBackgroundColor(System.Drawing.Color.GreenYellow);
+                            setBorderColor(System.Drawing.Color.Black);
                             aRange.Font.Size = 8;
-                            aRange.WrapText = true;
-
                         }
                         else
                         {
-                            cell2 = "C" + i_day;
-                            aRange = ws.get_Range(vacation_cell, cell2);
+                            aRange = ws.get_Range(vacation_cell, "C" + i_day);
                             aRange.Merge(Missing.Value);
                         }
                     }
@@ -362,6 +362,7 @@ namespace Tagplaner
             }
             aRange = ws.get_Range("D1", "D" + (i_day - 1));
             aRange.Merge(Missing.Value);
+            setBorderColor(System.Drawing.Color.Black);
             return true;
         }
 
