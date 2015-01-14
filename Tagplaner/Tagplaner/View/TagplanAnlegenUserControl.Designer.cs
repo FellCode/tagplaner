@@ -146,6 +146,7 @@
             this.comboBoxBundesland.Name = "comboBoxBundesland";
             this.comboBoxBundesland.Size = new System.Drawing.Size(200, 21);
             this.comboBoxBundesland.TabIndex = 7;
+            this.comboBoxBundesland.Text = "Bitte Bundesland wählen";
             this.comboBoxBundesland.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
@@ -204,7 +205,7 @@
             // buttonWeiter
             // 
             this.buttonWeiter.Enabled = false;
-            this.buttonWeiter.Location = new System.Drawing.Point(688, 441);
+            this.buttonWeiter.Location = new System.Drawing.Point(688, 377);
             this.buttonWeiter.Name = "buttonWeiter";
             this.buttonWeiter.Size = new System.Drawing.Size(73, 23);
             this.buttonWeiter.TabIndex = 14;
@@ -260,7 +261,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TagplanAnlegenUserControl";
-            this.Size = new System.Drawing.Size(777, 475);
+            this.Size = new System.Drawing.Size(777, 413);
             this.Load += new System.EventHandler(this.TagplanAnlegenUserControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
