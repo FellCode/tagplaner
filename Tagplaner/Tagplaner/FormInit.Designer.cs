@@ -45,6 +45,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +103,7 @@
             // 
             this.tagplanÖffnenToolStripMenuItem.Name = "tagplanÖffnenToolStripMenuItem";
             this.tagplanÖffnenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tagplanÖffnenToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.tagplanÖffnenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.tagplanÖffnenToolStripMenuItem.Text = "Tagplan öffnen";
             this.tagplanÖffnenToolStripMenuItem.Click += new System.EventHandler(this.tagplanÖffnenToolStripMenuItem_Click);
             // 
@@ -116,7 +118,7 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(208, 6);
             // 
             // exportierenToolStripMenuItem
             // 
@@ -124,7 +126,7 @@
             this.excelToolStripMenuItem,
             this.pDFToolStripMenuItem});
             this.exportierenToolStripMenuItem.Name = "exportierenToolStripMenuItem";
-            this.exportierenToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.exportierenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.exportierenToolStripMenuItem.Text = "Exportieren";
             // 
             // excelToolStripMenuItem
@@ -144,12 +146,12 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(195, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 6);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -173,6 +175,18 @@
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "tp";
+            this.saveFileDialog1.Filter = "Tagplan|*.tp";
+            this.saveFileDialog1.Title = "Tagplan abspeichern";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Tagplan|*.tp";
+            this.openFileDialog1.Title = "Tagplan öffnen";
             // 
             // FormInit
             // 
@@ -214,6 +228,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
