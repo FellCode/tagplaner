@@ -87,10 +87,6 @@ namespace Tagplaner
         public void nextTabPage()
         {
             formInit.tabPageChange(1);
-            tagplanBearbeitenUC.GetListView().AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.HeaderSize);
-            tagplanBearbeitenUC.GetListView().AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize);
-            tagplanBearbeitenUC.GetListView().AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize);
-            tagplanBearbeitenUC.GetListView().AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         //Initialisieren des Kalenderobjekts
@@ -102,55 +98,9 @@ namespace Tagplaner
         }
 
         //Füllen der Listview mit Tagen, Ferien und Feiertagen
-        public void fillListViewWithDays(List<MCalendarDay> calendarDayList, ListView listView)
+        public void FillFormWithDataGridView(List<MCalendarDay> calendarDayList)
         {
-            foreach (MCalendarDay calendarDay in calendarDayList)
-            {
-                ListViewItem listViewItem = new ListViewItem();
-
-                if (int.Parse(calendarDay.CalendarWeek) % 2 == 0)
-                {
-                    listViewItem.Text = calendarDay.CalendarWeek;
-                    listViewItem.SubItems.Add((calendarDay.GetCalendarDatePrintDate()));
-
-                    listViewItem.SubItems[0].BackColor = Color.LightCyan;
-                    listViewItem.SubItems[1].BackColor = Color.LightCyan;
-                    listViewItem.UseItemStyleForSubItems = false;
-                }
-
-                else
-                {
-                    listViewItem.Text = calendarDay.CalendarWeek;
-                    listViewItem.SubItems.Add(calendarDay.GetCalendarDatePrintDate());
-                }
-
-                if (calendarDay.VacationName != null)
-                {
-                    listViewItem.SubItems.Add(calendarDay.VacationName);
-
-                    listViewItem.SubItems[2].BackColor = Color.LightGreen;
-                    listViewItem.UseItemStyleForSubItems = false;
-                }
-
-                if (calendarDay.HolidayName != null && calendarDay.VacationName != null)
-                {
-                    listViewItem.SubItems.Add(calendarDay.HolidayName);
-
-                    listViewItem.SubItems[3].BackColor = Color.LightGreen;
-                    listViewItem.UseItemStyleForSubItems = false;
-                }
-
-                if (calendarDay.HolidayName != null)
-                {
-                    listViewItem.SubItems.Add("");
-                    listViewItem.SubItems.Add(calendarDay.HolidayName);
-
-                    listViewItem.SubItems[3].BackColor = Color.LightGreen;
-                    listViewItem.UseItemStyleForSubItems = false;
-                }
-
-                listView.Items.Add(listViewItem);
-            }
+            
             int x = 0;
             if (checkBoxErsterJahrgangAE.Checked == true)
                 x += 1;
@@ -182,13 +132,13 @@ namespace Tagplaner
         {
             if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
             {
-                tagplanBearbeitenUC.GetListView().Items.Clear();
+               
 
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 GetCalendarWithDates();
 
-                //ListView wird mit Tagen gefüllt
-                fillListViewWithDays(calendarWithDays.CalendarList, tagplanBearbeitenUC.GetListView());
+                //DataGridview wird erstellt, befüllt und übergeben
+                FillFormWithDataGridView(calendarWithDays.CalendarList);
 
                 //TagplanBearbeitenTab wird angezeigt
                 nextTabPage();

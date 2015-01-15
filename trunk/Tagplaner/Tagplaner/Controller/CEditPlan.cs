@@ -37,14 +37,14 @@ namespace Tagplaner
         public DataGridView createDataGridViews(int countGrid)
         {
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
-            ListView listView = userControl.GetListView();
+            
 
             int columnCount = 6* countGrid + 4;
             int space = 10;
             int drawingSizeX = 700;
             int drawingSizeY = 400;
             int drawingPointY = 0;
-            int drawingPointX = listView.Size.Width + space;
+            int drawingPointX = space;
 
 
             this.dGV = new System.Windows.Forms.DataGridView();
