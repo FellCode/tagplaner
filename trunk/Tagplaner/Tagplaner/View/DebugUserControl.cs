@@ -29,7 +29,7 @@ namespace Tagplaner
             return instance;
         }
 
-        public void addDebugMessage(string debugMessage)
+        public void AddDebugMessage(string debugMessage)
         {
             DateTime datetime = DateTime.Now;
             this.listBox1.Items.Add("[" + datetime.ToString() + "] - " + debugMessage);
