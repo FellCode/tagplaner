@@ -45,7 +45,10 @@ namespace Tagplaner
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            timer.Stop();
+            FormInit formInit = new FormInit();
+            formInit.Show();
+            this.Hide();
         }
 
         private void SplashScreenForm_Load(object sender, EventArgs e)
