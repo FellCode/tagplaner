@@ -8,11 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tagplaner.View;
 
 namespace Tagplaner
 {
     public partial class FormInit : Form
     {
+        Boolean tabsAlreadyAdded = false;
+
         TagplanAnlegenUserControl tagplanAnlegenUC;
         TagplanBearbeitenUserControl tagplanBearbeitenUC;
         SeminarVerwaltenUserControl seminarVerwaltenUC;
@@ -42,14 +45,14 @@ namespace Tagplaner
             showDateTimeAsTitle();
 
             // Init tabpages
-            addTabPage(tagplanAnlegenUC, "Tagplan anlegen");
-            addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten");
-            addTabPage(seminarVerwaltenUC, "Seminar verwalten");
-            addTabPage(raumVerwaltenUC, "Räume verwalten");
-            addTabPage(trainerVerwaltenUC, "Trainer verwalten");
-            addTabPage(statistikUC, "Statistiken");
+            addTabPage(tagplanAnlegenUC, "Tagplan anlegen", true);
+            //addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", false);
+            addTabPage(seminarVerwaltenUC, "Seminar verwalten", true);
+            addTabPage(raumVerwaltenUC, "Räume verwalten", true);
+            addTabPage(trainerVerwaltenUC, "Trainer verwalten", true);
+            //addTabPage(statistikUC, "Statistiken", false);
 
-            addTabPage(debugUC, "Debug");
+            addTabPage(debugUC, "Debug", true);
 
             /*
             openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
@@ -66,17 +69,22 @@ namespace Tagplaner
         /// </summary>
         /// <param name="userControl"></param>
         /// <param name="pageName"></param>
-        private void addTabPage(UserControl userControl, string pageName) {
+        private void addTabPage(UserControl userControl, string pageName, Boolean enabled)
+        {
             userControl.Dock = DockStyle.Fill;
             userControl.BackColor = Color.White;
+            //userControl.Enabled = enabled;
+            //userControl.Visible = enabled;
 
             // Init tabPage
             TabPage tabPage = new TabPage();
             tabPage.Text = pageName;
+            //tabPage.Controls.Add(userControl);
             tabPage.Controls.Add(userControl);
 
             // Add tabpage to tabControl1
             tabControl1.TabPages.Add(tabPage);
+            
         }
 
         public void tabPageChange(int pageIndex)
@@ -89,7 +97,8 @@ namespace Tagplaner
             showDateTimeAsTitle();
         }
 
-        private void showDateTimeAsTitle() {
+        private void showDateTimeAsTitle()
+        {
             string time = DateTime.Now.ToShortTimeString();
             string date = DateTime.Now.ToShortDateString();
 
@@ -101,7 +110,7 @@ namespace Tagplaner
             else
             {
                 this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.getInstance().LastModified.ToShortDateString();
-            }   
+            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,7 +127,8 @@ namespace Tagplaner
         private void FormInit_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Prüfen, ob der Tagplan bereits gespeichert wurde
-            if (!MCalendar.getInstance().Saved) {
+            if (!MCalendar.getInstance().Saved)
+            {
                 e.Cancel = true;
 
                 // Messagebox mit Speicher-Hinweis anzeigen
@@ -145,13 +155,14 @@ namespace Tagplaner
                         e.Cancel = false;
                     }
                 }
-                else if (dialogSaveResult == DialogResult.Cancel) {
+                else if (dialogSaveResult == DialogResult.Cancel)
+                {
                     e.Cancel = true;
                 }
                 else
                 {
                     e.Cancel = false;
-                }          
+                }
             }
         }
 
@@ -208,6 +219,7 @@ namespace Tagplaner
             dGV = cEditPlan.createDataGridViews(MCalendar.getInstance().Speciality.Count());
             dGV = cEditPlan.fillGrids(dGV, MCalendar.getInstance().CalendarList);
             tagplanBearbeitenUC.AddDGV(dGV);
+            this.EnableBearbeitenStatistikTabPage();
         }
 
         private void saveTagplan(string filename)
@@ -226,7 +238,28 @@ namespace Tagplaner
 
         private void FormInit_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit(); 
+            Application.Exit();
+        }
+
+        public void EnableBearbeitenStatistikTabPage()
+        {
+            if (!tabsAlreadyAdded)
+            {
+                TabPage tabPageStatistik = new TabPage();
+                tabPageStatistik.Text = "Statistik";
+                tabPageStatistik.Controls.Add(statistikUC);
+
+                tabControl1.TabPages.Insert(4, tabPageStatistik);
+
+                TabPage tabPageBearbeiten = new TabPage();
+                tabPageBearbeiten.Text = "Tagplan bearbeiten";
+                tabPageBearbeiten.Controls.Add(tagplanBearbeitenUC);
+
+                tabControl1.TabPages.Insert(1, tabPageBearbeiten);
+                //addTabPage(statistikUC, "Statistik", true);
+                //addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", true);
+            }
+            tabsAlreadyAdded = true;
         }
     }
 }
