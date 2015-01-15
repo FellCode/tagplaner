@@ -44,6 +44,8 @@ namespace Tagplaner
 
             //DatenbankController wird später auf Startfenster verschoben
             databaseController = CDatabase.GetInstance();
+          //  databaseController.CreateDB();
+          //  databaseController.FillDB();
             databaseController.FillAllList();
             databaseController.FillFederalStateComboBox(comboBoxBundesland);
         }
@@ -95,7 +97,7 @@ namespace Tagplaner
         public void GetCalendarWithDates()
         {
             CeckCheckboxes();
-            MCalendar.getInstance().fillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
+            MCalendar.getInstance().FillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
 
@@ -262,6 +264,11 @@ namespace Tagplaner
         {
             String[] substrings = url.Split('\\');
             return substrings[substrings.Length - 1];
+        }
+
+        private void dateTimePickerVon_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -111,6 +111,7 @@
             this.dateTimePickerVon.Name = "dateTimePickerVon";
             this.dateTimePickerVon.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerVon.TabIndex = 4;
+            this.dateTimePickerVon.ValueChanged += new System.EventHandler(this.dateTimePickerVon_ValueChanged);
             // 
             // dateTimePickerBis
             // 
