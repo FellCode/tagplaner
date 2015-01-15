@@ -9,6 +9,10 @@ using System.Threading;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Klasse zum Verbinden mit der Datenbank und Ausführen der SQL-Abfragen,
+    /// sowie erstellen der Objektlisten und Syncronisation dieser mit der Datenbank.
+    /// </summary>
     public class CDatabase : IDatabase
     {
         private static CDatabase database;
@@ -22,8 +26,10 @@ namespace Tagplaner
         private Dictionary<int, MRoom> AllRoom = new Dictionary<int, MRoom>();
         private Dictionary<int, MSeminar> AllSeminar = new Dictionary<int, MSeminar>();
 
-        // Die Verbindungsmethode zur Datenbank
-
+        /// <summary>
+        /// Verbindungsmethode zur Datenbank
+        /// </summary>
+        /// <returns>bool</returns>
         private bool ConnectDatabase()
         {
 
@@ -41,8 +47,10 @@ namespace Tagplaner
 
         }
 
-        //Die Methode zum schließen der verbindung zu Datenbank
-
+        /// <summary>
+        /// Methode zum schließen der verbindung zu Datenbank
+        /// </summary>
+        /// <returns></returns>
         private bool CloseDatabase()
         {
 
@@ -58,8 +66,12 @@ namespace Tagplaner
 
         }
 
-        //Die Methode zum ausführen einer SQL Query
 
+        /// <summary>
+        /// Methode zum ausführen einer SQL Query mit ergebnis(select)
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         private SQLiteDataReader ExecuteQuery(string query)
         {
             m_dbCommand.CommandText = query;
@@ -67,6 +79,10 @@ namespace Tagplaner
             return reader;
         }
 
+        /// <summary>
+        /// Methode zum Ausführen einer SQl Query ohne Ergebnis
+        /// </summary>
+        /// <param name="query"></param>
         private void ExecuteNonQuery(string query)
         {
             m_dbCommand.CommandText = query;
@@ -91,97 +107,11 @@ namespace Tagplaner
 
 
         #region insert
-        [Obsolete("Bitte nutz InsertSeminar(MSeminar)")]
-        public bool InsertSeminar(string titel, string untertitel, string kuerzel, string technik)
-        {
-            ConnectDatabase();
-            int seminarId = nextId("seminar");
-            try
-            {
-                ExecuteNonQuery("insert into seminar(titel,untertitel,kuerzel,technik) values("
-                    + seminarId
-                    + ",\"" + titel + "\""
-                    + ",\"" + untertitel + "\""
-                    + ",\"" + kuerzel + "\""
-                    + ",\"" + technik + "\""
-                    + ")");
-                CloseDatabase();
-                return true;
-            }
-            catch (SQLiteException)
-            {
-                CloseDatabase();
-                return false;
-            }
-        }
-        [Obsolete("Bitte nutz InsertRoom(MRoom)")]
-        public bool InsertRoom(string raumnummer, string fk_seminarort_id)
-        {
-            ConnectDatabase();
-            int raum_id = nextId("raum");
-            try
-            {
-                m_dbCommand.CommandText = "insert into raum(raumnummer,fk_seminarort_id) values(" + raum_id
-                                        + ",\"" + raumnummer + "\""
-                                        + "," + fk_seminarort_id
-                                        + ")";
-                m_dbCommand.ExecuteNonQuery();
-                CloseDatabase();
-                return true;
-            }
-            catch (SQLiteException)
-            {
-                CloseDatabase();
-                return false;
-            }
-        }
-        [Obsolete("Bitte nutz InsertPlace(MPlace)")]
-        public bool InsertLocation(string ort, string ansprechpartner, string fk_bundesland_id)
-        {
-            ConnectDatabase();
-            int seminarort_id = nextId("seminarort");
-            try
-            {
-                m_dbCommand.CommandText = "insert into seminarort(ort,ansprechpartner,fk_bundesland_id) values("
-                                            + seminarort_id
-                                            + ",\"" + ort + "\""
-                                            + ",\"" + ansprechpartner + "\""
-                                            + "," + fk_bundesland_id + ")";
-                CloseDatabase();
-                return true;
-            }
-            catch (SQLiteException)
-            {
-                CloseDatabase();
-                return false;
-            }
-        }
-        [Obsolete("Bitte nutz InsertFederalState(MFederalState)")]
-        public bool InsertFederelState(string name, string kuerzel)
-        {
-            ConnectDatabase();
-            int bundesland_id = nextId("bundesland");
-            try
-            {
-                m_dbCommand.CommandText = "insert into bundesland values("
-                                        + bundesland_id + ",\""
-                                        + name + "\",\""
-                                        + kuerzel + "\")";
-                CloseDatabase();
-                return true;
-            }
-            catch (SQLiteException)
-            {
-                CloseDatabase();
-                return false;
-            }
-        }
-        [Obsolete("Bitte nutz InsertTrainer(MTrainer)")]
-        public bool InsertTrainer(string vorname, string nachname, string kuerzel, string intern)
-        {
-            return false;
-        }
-
+        /// <summary>
+        /// Einfügen eines Seminars in die DB
+        /// </summary>
+        /// <param name="seminar"></param>
+        /// <returns>bool</returns>
         public bool InsertSeminar(MSeminar seminar)
         {
             ConnectDatabase();
@@ -206,6 +136,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Einfügen eines Trainers in die DB
+        /// </summary>
+        /// <param name="trainer"></param>
+        /// <returns>bool</returns>
         public bool InsertTrainer(MTrainer trainer)
         {
             ConnectDatabase();
@@ -239,6 +174,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Einfügen eines Raums in die DB
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns>bool</returns>
         public bool InsertRoom(MRoom room)
         {
             ConnectDatabase();
@@ -261,6 +201,12 @@ namespace Tagplaner
             }
         }
 
+
+        /// <summary>
+        /// Einfügen eines Seminarortes in die DB
+        /// </summary>
+        /// <param name="place"></param>
+        /// <returns>bool</returns>
         public bool InsertPlace(MPlace place)
         {
             ConnectDatabase();
@@ -283,6 +229,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Einfügen eines Bundeslandes in die DB
+        /// </summary>
+        /// <param name="federalstate"></param>
+        /// <returns>bool</returns>
         public bool InsertFederalState(MFederalState federalstate)
         {
             ConnectDatabase();
@@ -308,6 +259,11 @@ namespace Tagplaner
         #endregion
 
         #region update
+        /// <summary>
+        /// Ändern einse Seminars in Datenbank
+        /// </summary>
+        /// <param name="seminar"></param>
+        /// <returns></returns>
         public bool UpdateSeminar(MSeminar seminar)
         {
             ConnectDatabase();
@@ -330,6 +286,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Ändern eines Trainers in der Datenbank
+        /// </summary>
+        /// <param name="trainer"></param>
+        /// <returns></returns>
         public bool UpdateTrainer(MTrainer trainer)
         {
             ConnectDatabase();
@@ -363,6 +324,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Ändern eines Raums in der Datenbank
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
         public bool UpdateRoom(MRoom room)
         {
             ConnectDatabase();
@@ -385,6 +351,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Ändern eines Seminarortes in der Datenbank
+        /// </summary>
+        /// <param name="place"></param>
+        /// <returns></returns>
         public bool UpdatePlace(MPlace place)
         {
             ConnectDatabase();
@@ -409,6 +380,11 @@ namespace Tagplaner
                 
         }
 
+        /// <summary>
+        /// Ändern eines Bundeslandes in der Datenbank
+        /// </summary>
+        /// <param name="federalstate"></param>
+        /// <returns></returns>
         public bool UpdateFederalState(MFederalState federalstate)
         {
             ConnectDatabase();
@@ -628,7 +604,9 @@ namespace Tagplaner
             connect.Close();
         }
 
-        //zum ersten befuellen der DB
+        /// <summary>
+        /// Erzeugen von Testdaten in der Datenbank
+        /// </summary>
         public void FillDB()
         {
             FillSeminar();
@@ -639,6 +617,9 @@ namespace Tagplaner
         }
 
         #region tabellen_fuellen
+        /// <summary>
+        /// Tabelle Seminar füllen
+        /// </summary>
         private void FillSeminar()
         {
             ConnectDatabase();
@@ -679,8 +660,8 @@ namespace Tagplaner
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen Software Qualität - Test', NULL, 'DATESTFI', NULL )");
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Infoveranstaltung Abschlussprüfung', NULL, 'DAVAP-INFO-1', NULL )");
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Infoveranstaltung Projektantrag und Doku', NULL, 'DAVAP-INFO-2', NULL )");
-            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Prüfungsvorbereitung - Schriftliche Abschlussprüfu', NULL, 'DAVAP-S', NULL )");
-            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vertiefung objektorientierte Anforderungsanalyse f', NULL, 'DAVOOBA', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Prüfungsvorbereitung - Schriftliche Abschlussprüfung', NULL, 'DAVAP-S', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vertiefung objektorientierte Anforderungsanalyse für Business Analysten', NULL, 'DAVOOBA', NULL )");
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vorbereitung auf die Zwischenprüfung', NULL, 'DAVZP-1', NULL )");
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vorbereitung auf die Zwischenprüfung', NULL, 'DAVZP-2', NULL )");
             ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Werkstatt Webanwendung', NULL, 'DAWERKWEB', NULL )");
@@ -689,8 +670,9 @@ namespace Tagplaner
             CloseDatabase();
         }
         
-       
-
+        /// <summary>
+        /// Tabelle Trainer füllen
+        /// </summary>
         private void FillTrainer()
         {
             SQLiteConnection connect;
@@ -735,6 +717,9 @@ namespace Tagplaner
             connect.Close();
         }
 
+        /// <summary>
+        /// Tabelle Bundesland füllen
+        /// </summary>
         private void FillBundesland()
         {
             SQLiteConnection connect;
@@ -755,6 +740,9 @@ namespace Tagplaner
             connect.Close();
         }
 
+        /// <summary>
+        /// Tabelle Seminarort füllen
+        /// </summary>
         private void FillSeminarort()
         {
 
@@ -782,6 +770,9 @@ namespace Tagplaner
             connect.Close();
         }
 
+        /// <summary>
+        /// Tabelle Raum füllen
+        /// </summary>
         private void FillRaum()
         {
 
@@ -854,108 +845,9 @@ namespace Tagplaner
 
         #endregion
 
-        #region combobox
-        [Obsolete("Bitte nutz FillTrainerComboBox(ComboBox)")]
-        public void FillTrainerCombobox(ComboBox combobox)
-        {
-            combobox.Items.Clear();
-            ConnectDatabase();
-            bool intern;
-            SQLiteDataReader reader = ExecuteQuery("select * from trainer");
-
-            while (reader.Read())
-            {
-                if (Convert.ToInt32(reader["intern"].ToString()) == 1)
-                {
-                    intern = true;
-                }
-                else
-                {
-                    intern = false;
-                }
-                combobox.Items.Add(new MTrainer(Convert.ToInt32(reader["trainer_id"].ToString()),
-                                                reader["vorname"].ToString(),
-                                                reader["nachname"].ToString(),
-                                                reader["kuerzel"].ToString(),
-                                                intern));
-            }
-
-            reader.Close();
-
-            CloseDatabase();
-        }
-        [Obsolete("Bitte nutz FillSeminarComboBox(ComboBox)")]
-        public void FillSeminarCombobox(ComboBox combobox)
-        {
-
-            ConnectDatabase();
-
-            SQLiteDataReader reader = ExecuteQuery("select * from seminar");
-
-            while (reader.Read())
-            {
-                combobox.Items.Add(new MSeminar(Convert.ToInt32(reader["seminar_id"].ToString()),
-                                            reader["titel"].ToString(),
-                                            reader["untertitel"].ToString(),
-                                            reader["kuerzel"].ToString(),
-                                            reader["technik"].ToString(),
-                                            "")); //comment, wird nicht von der DB befuellt
-            }
-
-            reader.Close();
-            CloseDatabase();
-        }
-        [Obsolete("Bitte nutz FillFederalStateComboBox(ComboBox)")]
-        public void FillFederalStateCombobox(ComboBox combobox)
-        {
-
-            ConnectDatabase();
-
-            SQLiteDataReader reader = ExecuteQuery("select bundesland_id, name, kuerzel from bundesland");
-
-            while (reader.Read())
-            {
-                combobox.Items.Add(new MFederalState(Convert.ToInt32(reader["bundesland_id"].ToString()), reader["name"].ToString(), reader["kuerzel"].ToString()));
-            }
-            reader.Close();
-            CloseDatabase();
-        }
-        [Obsolete("Bitte nutz FillTPlaceComboBox(ComboBox)")]
-        public void FillLocationCombobox(ComboBox combobox)
-        {
-            ConnectDatabase();
-
-            SQLiteDataReader reader = ExecuteQuery("select seminarort_id, ort,ansprechpartner  from seminarort");
-
-            while (reader.Read())
-            {
-                combobox.Items.Add(new MPlace(Convert.ToInt32(reader["seminarort_id"].ToString()),
-                                                reader["ort"].ToString(),
-                                                reader["ansprechpartner"].ToString()));
-            }
-
-            reader.Close();
-            CloseDatabase();
-        }
-        [Obsolete("Bitte nutz FillRoomComboBox(ComboBox,int)")]
-        public void FillRoomCombobox(ComboBox combobox, int location)
-        {
-            ConnectDatabase();
-
-            SQLiteDataReader reader = ExecuteQuery("select raum_id, raumnummer from raum where fk_seminarort_id =" + location);
-
-            while (reader.Read())
-            {
-                combobox.Items.Add(new MRoom(Convert.ToInt32(reader["raum_id"].ToString()),
-                                                   reader["raumnummer"].ToString()
-                                                   ));
-            }
-
-            reader.Close();
-            CloseDatabase();
-        }
-        #endregion
-
+        /// <summary>
+        /// Alle Dictionaries anhand der Datenbank füllen
+        /// </summary>
         public void FillAllList()
         {
             lock (this)
@@ -970,6 +862,9 @@ namespace Tagplaner
         }
 
         #region FillAll
+        /// <summary>
+        /// Trainerobjekte in Dictionary AllTrainer eintragen
+        /// </summary>
         private void FillAllTrainer()
         {
             ConnectDatabase();
@@ -996,6 +891,9 @@ namespace Tagplaner
             CloseDatabase();
         }
 
+        /// <summary>
+        /// FederalStateobjekte in Dictionary AllFederalState eintragen
+        /// </summary>
         private void FillAllFederalState()
         {
             ConnectDatabase();
@@ -1010,6 +908,9 @@ namespace Tagplaner
             CloseDatabase();
         }
 
+        /// <summary>
+        /// Placeobjekte in Dictionary AllPlace eintragen
+        /// </summary>
         private void FillAllPlace()
         {
             ConnectDatabase();
@@ -1025,6 +926,9 @@ namespace Tagplaner
             CloseDatabase();
         }
 
+        /// <summary>
+        /// Raumobjekte in Dictionary AllRoom eintragen
+        /// </summary>
         private void FillAllRoom()
         {
             ConnectDatabase();
@@ -1039,6 +943,9 @@ namespace Tagplaner
             CloseDatabase();
         }
 
+        /// <summary>
+        /// Seminarobjekte in AllSeminar eintragen
+        /// </summary>
         private void FillAllSeminar()
         {
             ConnectDatabase();
@@ -1058,6 +965,10 @@ namespace Tagplaner
         #endregion
 
         #region Add
+        /// <summary>
+        /// Ein Trainerobjekt AllTrainer hinzufügen
+        /// </summary>
+        /// <param name="trainer"></param>
         private void AddTrainer(MTrainer trainer)
         {
            if (AllTrainer.ContainsKey(trainer.Id) == false)
@@ -1066,7 +977,10 @@ namespace Tagplaner
            }
            
         }
-       
+       /// <summary>
+       /// Ein Federalstateobjekt AllFederalState hinzufügen
+       /// </summary>
+       /// <param name="federalstate"></param>
         private void AddFederalState(MFederalState federalstate)
         {
             if(AllFederalState.ContainsKey(federalstate.Id) == false)
@@ -1075,6 +989,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Ein Placeobjekt AllPlace hinzufügen
+        /// </summary>
+        /// <param name="place"></param>
         private void AddPlace(MPlace place)
         {
             if(AllPlace.ContainsKey(place.Id) == false)
@@ -1083,6 +1001,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Ein Roomobjekt AllRoom hinzufügen
+        /// </summary>
+        /// <param name="room"></param>
         private void AddRoom(MRoom room)
         {
             if (AllRoom.ContainsKey(room.Id) == false)
@@ -1090,7 +1012,10 @@ namespace Tagplaner
                 AllRoom.Add(room.Id, room);
             }
         }
-
+        /// <summary>
+        /// Ein Seminarobjekt AllSeminar hinzufügen
+        /// </summary>
+        /// <param name="seminar"></param>
         private void AddSeminar(MSeminar seminar)
         {
             if(AllSeminar.ContainsKey(seminar.Id) == false)
@@ -1101,6 +1026,11 @@ namespace Tagplaner
         #endregion
 
         #region Get
+        /// <summary>
+        /// Ein Trainerobjekt aus AllTrainer holen
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MTrainer GetTrainer(int id)
         {
             if (AllTrainer.ContainsKey(id))
@@ -1111,6 +1041,11 @@ namespace Tagplaner
             return null;
         }
 
+        /// <summary>
+        /// Ein FederalStateobjekt aus AllFederalState holen
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MFederalState GetFederalState(int id)
         {
             if(AllFederalState.ContainsKey(id))
@@ -1120,6 +1055,11 @@ namespace Tagplaner
             return null;
         }
 
+        /// <summary>
+        /// Ein Placeobjekt aus AllPlace holen
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MPlace GetPlace(int id)
         {
             if (AllPlace.ContainsKey(id))
@@ -1129,6 +1069,11 @@ namespace Tagplaner
             return null;
         }
 
+        /// <summary>
+        /// Ein Roomobjekt aus AllRoom holen
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MRoom GetRoom(int id)
         {
             if (AllRoom.ContainsKey(id))
@@ -1138,6 +1083,11 @@ namespace Tagplaner
             return null;
         }
 
+        /// <summary>
+        /// Ein Seminarobjekt aus AllSeminar holen
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MSeminar GetSeminar(int id)
         {
             if (AllSeminar.ContainsKey(id))
@@ -1145,33 +1095,6 @@ namespace Tagplaner
                 return AllSeminar[id];
             }
             return null;
-        }
-        #endregion
-
-        #region contains
-        public bool ContainsSeminar(MSeminar seminar)
-        {
-            return AllSeminar.ContainsValue(seminar);
-        }
-
-        public bool ContainsTrainer(MTrainer trainer)
-        {
-            return AllTrainer.ContainsValue(trainer);
-        }
-
-        public bool ContainsRoom(MRoom room)
-        {
-            return AllRoom.ContainsValue(room);
-        }
-
-        public bool ContainsPlace(MPlace place)
-        {
-            return AllPlace.ContainsValue(place);
-        }
-
-        public bool ContainsFederalState(MFederalState federalstate)
-        {
-            return AllFederalState.ContainsValue(federalstate);
         }
         #endregion
 
@@ -1225,13 +1148,7 @@ namespace Tagplaner
         }
         #endregion
 
-        [Obsolete("Bitte nutz GetInstanz")]
-        public CDatabase()
-        {
-
-        }
-
-        private CDatabase(int i)
+        private CDatabase()
         {
 
         }
@@ -1240,27 +1157,40 @@ namespace Tagplaner
         {
             if (database == null)
             { 
-                database = new CDatabase(1);
+                database = new CDatabase();
             }
             return database;
         }
     
+        /// <summary>
+        /// Alle Listen als Thread füllen
+        /// </summary>
         public void ThreadFillAll()
         {
             Thread t_FillAll = new Thread(FillAllList);
             t_FillAll.Start();
         }
 
+        /// <summary>
+        /// Datenbank kopieren
+        /// </summary>
         private void SaveDB()
         {
             System.IO.File.Copy(url, backup, true);
         }
 
+        /// <summary>
+        /// datenbank aus kopie wiederherstellen
+        /// </summary>
         private void RestoreDB()
         {
             System.IO.File.Copy(backup, url, true);
         }
 
+        /// <summary>
+        /// Überprüfen ob Datenbank beschädigt ist
+        /// </summary>
+        /// <returns></returns>
         private bool CheckDB()
         {
             ConnectDatabase();
@@ -1275,6 +1205,9 @@ namespace Tagplaner
 
         }
 
+        /// <summary>
+        /// Datenbank überprüfen und ggf wiederherstellen oder sichern.
+        /// </summary>
         public void CheckDBForBug()
         {
             if (CheckDB())
