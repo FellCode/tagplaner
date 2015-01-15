@@ -103,16 +103,15 @@ namespace Tagplaner
                 trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
 
             }
-            if (db.ContainsTrainer(trainer) == false)
+
+            erg = db.InsertTrainer(trainer);
+            if (erg == true)
             {
-                erg = db.InsertTrainer(trainer);
-                if (erg == true)
-                {
-                    comboBox1.Text = "";
-                    comboBox1.Items.Clear();
-                    db.FillTrainerComboBox(comboBox1);
-                }
+                comboBox1.Text = "";
+                comboBox1.Items.Clear();
+                db.FillTrainerComboBox(comboBox1);
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
