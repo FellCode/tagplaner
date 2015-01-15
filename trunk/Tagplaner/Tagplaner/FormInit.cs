@@ -91,7 +91,15 @@ namespace Tagplaner
             string time = DateTime.Now.ToShortTimeString();
             string date = DateTime.Now.ToShortDateString();
 
-            this.Text = "Tagplaner | " + date + " - " + time;
+
+            if (MCalendar.getInstance().LastModified.Year.ToString().Equals("1"))
+            {
+                this.Text = "Tagplaner | " + date + " - " + time;
+            }
+            else
+            {
+                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.getInstance().LastModified.ToShortDateString();
+            }   
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,8 +163,8 @@ namespace Tagplaner
             if (fileChoiceResult == DialogResult.OK)
             {
                 openTagplan(openFileDialog1.FileName);
+                showDateTimeAsTitle();
                 tabPageChange(1);
-
             }
         }
 
@@ -197,9 +205,9 @@ namespace Tagplaner
         private void saveTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
-            MCalendar calendarWithDays = MCalendar.getInstance();
-            serializer.SerializeObject(calendarWithDays, filename);
-            calendarWithDays.Saved = true;
+            MCalendar.getInstance().LastModified = DateTime.Now;
+            serializer.SerializeObject(MCalendar.getInstance(), filename);
+            MCalendar.getInstance().Saved = true;
         }
 
         private void openExportPdfWindow()
