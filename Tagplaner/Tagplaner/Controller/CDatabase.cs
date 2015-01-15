@@ -200,7 +200,7 @@ namespace Tagplaner
             catch (SQLiteException e)
             {
                 DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.addDebugMessage(e.ToString());
+                uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -233,7 +233,7 @@ namespace Tagplaner
             catch (SQLiteException e)
             {
                 DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.addDebugMessage(e.ToString());
+                uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -255,7 +255,7 @@ namespace Tagplaner
             catch (SQLiteException e)
             {
                 DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.addDebugMessage(e.ToString());
+                uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -277,7 +277,7 @@ namespace Tagplaner
             catch (SQLiteException e)
             {
                 DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.addDebugMessage(e.ToString());
+                uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -300,7 +300,7 @@ namespace Tagplaner
             catch (SQLiteException e)
             {
                 DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.addDebugMessage(e.ToString());
+                uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
