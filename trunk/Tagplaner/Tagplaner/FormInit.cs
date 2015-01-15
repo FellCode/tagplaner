@@ -44,12 +44,7 @@ namespace Tagplaner
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
             addTabPage(statistikUC, "Statistiken");
 
-            openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
-            tabPageChange(1);
 
-            tagplanBearbeitenUC.GetListView().Items.Clear();
-            tagplanAnlegenUC.fillListViewWithDays(
-                MCalendar.getInstance().CalendarList, tagplanBearbeitenUC.GetListView());
         }
 
         /// <summary>
