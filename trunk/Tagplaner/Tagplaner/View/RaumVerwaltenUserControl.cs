@@ -38,12 +38,15 @@ namespace Tagplaner
             button1.Enabled = true;
             textBox1.Clear();
             comboBox1.Text = "";
-            comboBox2.Text = "";
+        
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+           MRoom room = (MRoom) comboBox1.SelectedItem;
+
             button1.Enabled = false;
+            textBox1.Text = room.Number;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,6 +83,10 @@ namespace Tagplaner
            bool erg =  db.DeleteRoom(room);
            if (erg == true)
            {
+               button1.Enabled = true;
+               textBox1.Clear();
+               comboBox1.Text = "";
+           
                comboBox1.Items.Clear();
                comboBox1.Text = "";
                db.FillTrainerComboBox(comboBox1);

@@ -122,6 +122,15 @@ namespace Tagplaner
 
             if (erg == true)
             {
+
+                button1.Enabled = true;
+                comboBox1.Text = "";
+                textBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+
                 comboBox1.Items.Clear();
                 comboBox1.Text = "";
                 db.FillTrainerComboBox(comboBox1);
