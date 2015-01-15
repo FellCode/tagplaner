@@ -31,11 +31,6 @@ namespace Tagplaner
             dGV.Columns[2].Name = "Ferien";
             dGV.Columns[3].Name = "Feiertage";
 
-            dGV.Columns[0].ReadOnly = true;
-            dGV.Columns[1].ReadOnly = true;
-            dGV.Columns[2].ReadOnly = true;
-            dGV.Columns[3].ReadOnly = true;
-
             dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
             dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
             dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;

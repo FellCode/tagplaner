@@ -109,6 +109,11 @@ namespace Tagplaner
                 if (calendarDays[rowCounter].VacationName != null) 
                     dGV[3 , rowCounter].Value = calendarDays[rowCounter].VacationName.ToString();
 
+                dGV.Columns[0].ReadOnly = true;
+                dGV.Columns[1].ReadOnly = true;
+                dGV.Columns[2].ReadOnly = true;
+                dGV.Columns[3].ReadOnly = true;
+
                 if (calendarDays[rowCounter].HolidayName == null)
                 {
 
