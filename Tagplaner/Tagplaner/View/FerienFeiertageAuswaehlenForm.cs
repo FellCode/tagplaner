@@ -54,6 +54,7 @@ namespace Tagplaner.View
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Feiertage");
 
@@ -76,6 +77,7 @@ namespace Tagplaner.View
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog2 = new OpenFileDialog();
+            openFileDialog1.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Feiertage");
 
@@ -98,6 +100,7 @@ namespace Tagplaner.View
         private void button3_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog3 = new OpenFileDialog();
+            openFileDialog1.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Ferien");
 
@@ -124,6 +127,7 @@ namespace Tagplaner.View
         private void button4_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog4 = new OpenFileDialog();
+            openFileDialog1.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Ferien");
 

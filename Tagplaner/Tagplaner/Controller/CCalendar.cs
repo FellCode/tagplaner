@@ -66,29 +66,29 @@ namespace Tagplaner
             switch (classes)
             {
                 case 1:
-                    if (typeOfClasses[0] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[0]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[0], ""));
                     }
-                    if (typeOfClasses[1] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[1]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[1], ""));
                     }
                     break;
                 case 2:
-                    if (typeOfClasses[0] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[0]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[0], ""));
                     }
-                    if (typeOfClasses[1] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[1]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[1], ""));
                     }
-                    if (typeOfClasses[2] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[2]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[2], ""));
                     }
-                    if (typeOfClasses[3] != "")
+                    if (String.IsNullOrEmpty(typeOfClasses[3]))
                     {
                         speciality.Add(new MSpeciality(typeOfClasses[3], ""));
                     }
