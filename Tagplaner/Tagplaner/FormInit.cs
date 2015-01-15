@@ -44,6 +44,12 @@ namespace Tagplaner
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
             addTabPage(statistikUC, "Statistiken");
 
+            openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
+            tabPageChange(1);
+
+            tagplanBearbeitenUC.GetListView().Items.Clear();
+            tagplanAnlegenUC.fillListViewWithDays(
+                MCalendar.getInstance().CalendarList, tagplanBearbeitenUC.GetListView());
         }
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace Tagplaner
             if (fileChoiceResult == DialogResult.OK)
             {
                 openTagplan(openFileDialog1.FileName);
-                tabControl1.SelectedIndex = 1;
+                tabPageChange(1);
 
                 tagplanBearbeitenUC.GetListView().Items.Clear();
                 tagplanAnlegenUC.fillListViewWithDays(
