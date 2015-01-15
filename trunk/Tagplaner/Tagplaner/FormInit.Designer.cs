@@ -184,7 +184,6 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Tagplan|*.tp";
             this.openFileDialog1.Title = "Tagplan öffnen";
             // 
