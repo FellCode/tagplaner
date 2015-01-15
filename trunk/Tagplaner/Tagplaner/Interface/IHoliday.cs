@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    interface IHoliday    
+    public interface IHoliday    
     {
         List<MHoliday> GetHoliday(String pfad1 ,String pfad2, DateTime startDate, DateTime endDate);
     }

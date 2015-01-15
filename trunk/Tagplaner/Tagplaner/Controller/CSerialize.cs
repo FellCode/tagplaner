@@ -12,7 +12,7 @@ namespace Tagplaner
     /// Author: Isabella Pfeuster, Christopher Holler
     /// Date: 07.01.2015
     /// </summary>
-    class CSerialize : ISerialize
+    public class CSerialize : ISerialize
     {
         private static BinaryFormatter formatter = new BinaryFormatter();
         private static FileStream stream;

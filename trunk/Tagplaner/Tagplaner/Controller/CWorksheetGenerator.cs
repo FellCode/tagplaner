@@ -12,7 +12,7 @@ namespace Tagplaner
     //Author: Stefan, Arnold
 
 
-    class WorksheetGenerator : IWorksheetGenerator
+    public class WorksheetGenerator : IWorksheetGenerator
     {
         private Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
         private Workbook wb;

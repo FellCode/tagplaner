@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    interface IChangepanel
+    public interface IChangepanel
     {
 
 

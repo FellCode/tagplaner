@@ -20,7 +20,7 @@ namespace Tagplaner
     /// - Spaltenvariable einfügen
     /// - Feiertage (evtl Ferien) Grün färben 
     /// </summary>
-    class CEditPlan
+    public class CEditPlan
     {
 
         int x_Coord = 0;
