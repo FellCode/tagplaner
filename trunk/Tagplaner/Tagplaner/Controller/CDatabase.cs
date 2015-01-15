@@ -641,71 +641,55 @@ namespace Tagplaner
         #region tabellen_fuellen
         private void FillSeminar()
         {
-            SQLiteConnection connect;
-            connect = new SQLiteConnection("Data Source=" + url);
-            connect.Open();
-            SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"JavaScript\",\"Webseiten mit Programmfunktionalität steuern\",\"DAJSCRI\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Objektorientierte Anforderungsanalyse\",\"Statiische und dynamische Klassenmodellierung\",\"DAOOANW\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"IT-Sicherheitskonzepte\",null,\"DASIKON\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"C# Grundlagen\",null,\"DACSHGL\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Grundlagen der Informationstechnologie\",null,\"DAGLITE\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Grundlagen Netze\",null,\"DAGLNET\",\"Laptop, Switch, Hub\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Java Grundlagen\",\"Grundlagen\",\"DAJAVAG\",\"Laptop, Eclipse\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Grundlagen der Programmierung\",null,\"DAGLPRO\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"C# Vertiefung\",null,\"DACSHVT\",\"Laptop, SharpDevelop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Betriebssysteme (Linux und Windows)\",null,\"DABESYS\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"XML Einführung\",\"Die Auszeichnungssprache zur strukturellen Beschreibung von Web-Dokumenten\",\"DAXMLWD\",\"Laptop, XMLEditor\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Der Business Analyst  in der Anforderungsanalyse\",null,\"BUSAO-R (3)\",\"Laptop, Visio\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Netzwerkintegration\",null,\"DANWINT\",\"Laptop, Server, VMWare\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Systemüberwachung\",null,\"DASYSUB\",\"Laptop, Server, VMWare\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"HTML Grundlagen\",null,\"DAIHTML\",\"Laptop, HTML-Kit\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"MySQL Grundlagen\",null,\"DAMYSQLGL-ALT\",\"Laptop, MySQL-Community Edition\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Projektaufgabe Java Vertiefung\",\"Anhängervermietung\",\" PROJVT\",\"Laptop, Eclipse\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Projektaufgabe C# Vertiefung\",null,\"DAPROCSV\",\"Laptop, SharpDevelop\")";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "insert into seminar(titel,untertitel,kuerzel,technik) values(\"Vertiefung objektorientierte Anforderungsanalyse für Business Analysten\",null,\"DAVOOBA\",\"Laptop\")";
-            command.ExecuteNonQuery();
-
-            connect.Close();
+            ConnectDatabase();
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('DB2 Optimierung', NULL, 'D2OPT', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Erste Hilfe', NULL, 'DA1HI', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Betriebssysteme (Linux und Windows)', NULL, 'DABESYS', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen Betriebswirtschaft', NULL, 'DABWLGL', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Cebit Präsentation', NULL, 'DACEBITP', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('C Grundlagen', NULL, 'DACGRLG', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('C# Grundlagen', NULL, 'DACSHGL', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('C# Vertiefung', NULL, 'DACSHVT', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('C# Werkstatt', NULL, 'DACWK', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen der Informationstechnologie', NULL, 'DAGLITE', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen Netze', NULL, 'DAGLNET', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen der Programmierung', NULL, 'DAGLPRO', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('HTML Grundlagen', NULL, 'DAIHTML', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Java Grundlagen', NULL, 'DAJAVAG', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Java Grundlagen Werkstatt', NULL, 'DAJAVAGWS', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Java Vertiefung', NULL, 'DAJAVVT', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Jour Fixe Personalverantwortliche', NULL, 'DAJFPV', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('JavaScript', NULL, 'DAJSCRI', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Numerische Mathematik', NULL, 'DAMATHE', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Marktanalyse auf Fachmesse', NULL, 'DAMESS', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('MySQL Grundlagen', NULL, 'DAMYSQLGL', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('MySQL Grundlagen', NULL, 'DAMYSQLGL-ALT', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Netzwerkintegration', NULL, 'DANWINT', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('MS-Office Grundlagen', NULL, 'DAOFFGL', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Objektorientierte Anforderungsanalyse ', NULL, 'DAOOANW', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Objektorientiertes Design ', NULL, 'DAOODES', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('PHP Grundlagen', NULL, 'DAPHPGL', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Projektsimulation Betriebssysteme', NULL, 'DAPROBS', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Projektaufgabe C# Vertiefung', NULL, 'DAPROCSV', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('IT-Sicherheitskonzepte ', NULL, 'DASIKON', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Starttag Köln', NULL, 'DASTF-K', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('CSC-Starttag Wiesbaden', NULL, 'DASTF-WI-C', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('System- und Netzwerkadministration', NULL, 'DASYNWA', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Systemüberwachung', NULL, 'DASYSUB', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Grundlagen Software Qualität - Test', NULL, 'DATESTFI', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Infoveranstaltung Abschlussprüfung', NULL, 'DAVAP-INFO-1', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Infoveranstaltung Projektantrag und Doku', NULL, 'DAVAP-INFO-2', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Prüfungsvorbereitung - Schriftliche Abschlussprüfu', NULL, 'DAVAP-S', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vertiefung objektorientierte Anforderungsanalyse f', NULL, 'DAVOOBA', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vorbereitung auf die Zwischenprüfung', NULL, 'DAVZP-1', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Vorbereitung auf die Zwischenprüfung', NULL, 'DAVZP-2', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('Werkstatt Webanwendung', NULL, 'DAWERKWEB', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('DA Workshop betriebliche Projektarbeit', NULL, 'DAWSBP', NULL )");
+            ExecuteNonQuery("INSERT INTO seminar (titel, untertitel, kuerzel, technik) VALUES ('XML Einführung', NULL, 'DAXMLWD', NULL )");
+            CloseDatabase();
         }
+        
+       
 
         private void FillTrainer()
         {
