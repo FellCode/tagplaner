@@ -42,5 +42,16 @@ namespace Tagplaner
             formInit.Show();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SplashScreenForm_Load(object sender, EventArgs e)
+        {
+            this.Width = pictureBox1.Width;
+            this.Height = pictureBox1.Height;
+        }
     }
 }
