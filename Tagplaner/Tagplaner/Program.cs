@@ -16,7 +16,7 @@ namespace Tagplaner
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormInit());
+            Application.Run(new SplashScreenFormcs());
 
             #region TESTDATEN
 
