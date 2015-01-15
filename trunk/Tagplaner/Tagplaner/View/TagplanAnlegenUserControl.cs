@@ -41,7 +41,7 @@ namespace Tagplaner
             typeOfClasses = new List<String>();
             numberOfYears = 1;
             InitializeComponent();
-            
+
             //DatenbankController wird später auf Startfenster verschoben
             databaseController = CDatabase.GetInstance();
             databaseController.FillAllList();
@@ -95,7 +95,7 @@ namespace Tagplaner
         public void GetCalendarWithDates()
         {
             CeckCheckboxes();
-            MCalendar.getInstance().FillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
+            MCalendar.getInstance().fillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
 
@@ -149,8 +149,26 @@ namespace Tagplaner
 
                 listView.Items.Add(listViewItem);
             }
-            CEditPlan ceditplan = new CEditPlan();
-            ceditplan.fillGrids(tagplanBearbeitenUC.dGVReturn(), calendarDayList);
+            int x = 0;
+            if (checkBoxErsterJahrgangAE.Checked == true)
+                x += 1;
+            if (checkBoxErsterJahrgangSI.Checked == true)
+                x += 1;
+            if (checkBoxZweiterJahrgangAE.Checked == true)
+                x += 1;
+            if (checkBoxZweiterJahrgangSI.Checked == true)
+                x += 1;
+            if (x == 0)
+            {
+                MessageBox.Show("Bitte einen Jahrgang auswählen");
+            }
+            else
+            {
+                CEditPlan cEditPlan = new CEditPlan();
+                dGV = cEditPlan.createDataGridViews(x);
+                dGV = cEditPlan.fillGrids(dGV, calendarDayList);
+                tagplanBearbeitenUC.AddDGV(dGV);
+            }
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
@@ -201,7 +219,7 @@ namespace Tagplaner
 
         private void btn_feiertageOeffnen_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
