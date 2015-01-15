@@ -151,11 +151,11 @@
     <Compile Include="View\SeminarVerwaltenUserControl.designer.cs">
       <DependentUpon>SeminarVerwaltenUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\SplashScreenFormcs.cs">
+    <Compile Include="View\SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SplashScreenFormcs.Designer.cs">
-      <DependentUpon>SplashScreenFormcs.cs</DependentUpon>
+    <Compile Include="View\SplashScreenForm.Designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\StatistikUserControl.cs">
       <SubType>UserControl</SubType>
@@ -211,8 +211,8 @@
     <EmbeddedResource Include="View\SeminarVerwaltenUserControl.resx">
       <DependentUpon>SeminarVerwaltenUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SplashScreenFormcs.resx">
-      <DependentUpon>SplashScreenFormcs.cs</DependentUpon>
+    <EmbeddedResource Include="View\SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\StatistikUserControl.resx">
       <DependentUpon>StatistikUserControl.cs</DependentUpon>

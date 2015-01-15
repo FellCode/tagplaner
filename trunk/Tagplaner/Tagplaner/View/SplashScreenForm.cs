@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    public partial class SplashScreenFormcs : Form
+    public partial class SplashScreenForm : Form
     {
         private Timer timer;
 
-        public SplashScreenFormcs()
+        public SplashScreenForm()
         {
             InitializeComponent();
         }
