@@ -46,6 +46,7 @@
             this.Weiterführung = new System.Windows.Forms.CheckBox();
             this.AnzahlTage = new System.Windows.Forms.NumericUpDown();
             this.tagel = new System.Windows.Forms.Label();
+            this.Seminarpanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             this.Tagart.Name = "Tagart";
             this.Tagart.Size = new System.Drawing.Size(121, 21);
             this.Tagart.TabIndex = 0;
+            this.Tagart.SelectedIndexChanged += new System.EventHandler(this.Tagart_SelectedIndexChanged);
             // 
             // Seminar
             // 
@@ -216,10 +218,18 @@
             this.tagel.TabIndex = 23;
             this.tagel.Text = "Tage";
             // 
+            // Seminarpanel
+            // 
+            this.Seminarpanel.Location = new System.Drawing.Point(183, 22);
+            this.Seminarpanel.Name = "Seminarpanel";
+            this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
+            this.Seminarpanel.TabIndex = 24;
+            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Seminarpanel);
             this.Controls.Add(this.tagel);
             this.Controls.Add(this.AnzahlTage);
             this.Controls.Add(this.Weiterführung);
@@ -267,5 +277,6 @@
         public System.Windows.Forms.CheckBox Weiterführung;
         public System.Windows.Forms.NumericUpDown AnzahlTage;
         public System.Windows.Forms.Label tagel;
+        private System.Windows.Forms.Panel Seminarpanel;
     }
 }
