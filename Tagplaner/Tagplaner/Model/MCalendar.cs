@@ -93,13 +93,12 @@ namespace Tagplaner
 
             CalendarList.Clear();
 
-            CCalendar ccalendar = new CCalendar();
             //Befüllen der Ferientagen
-            CalendarList = ccalendar.FillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
+            CalendarList = CCalendar.FillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
             //Befüllen der Ferientagen
-            CalendarList = ccalendar.FillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
+            CalendarList = CCalendar.FillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             //Befüllen der Speciality
-            Speciality = ccalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
+            Speciality = CCalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
 
         public static void SetInstance(MCalendar calendar)
