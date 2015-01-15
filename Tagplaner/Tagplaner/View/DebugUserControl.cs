@@ -12,10 +12,21 @@ namespace Tagplaner
 {
     public partial class DebugUserControl : UserControl
     {
-        public DebugUserControl()
+        private static DebugUserControl instance;
+
+        private DebugUserControl()
         {
             InitializeComponent();
-            addDebugMessage("Hallo Deine Mutter");
+        }
+
+        public static DebugUserControl GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new DebugUserControl();
+            }
+
+            return instance;
         }
 
         public void addDebugMessage(string debugMessage)
