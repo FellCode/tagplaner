@@ -74,7 +74,7 @@ namespace Tagplaner
             } return instance;
         }
 
-        public void fillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
+        public void FillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             startdate = start;
             enddate = end;
@@ -88,11 +88,11 @@ namespace Tagplaner
 
             CCalendar ccalendar = new CCalendar();
             //Befüllen der Ferientagen
-            CalendarList = ccalendar.fillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
+            CalendarList = ccalendar.FillDaysInitial(start, end, CalendarList, vacationCurrentYearUrl, vacationNextYearUrl);
             //Befüllen der Ferientagen
-            CalendarList = ccalendar.fillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
+            CalendarList = ccalendar.FillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             //Befüllen der Speciality
-            Speciality = ccalendar.fillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
+            Speciality = ccalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
 
         public static void SetInstance(MCalendar calendar)
