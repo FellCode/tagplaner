@@ -17,6 +17,7 @@ namespace Tagplaner
     public interface IICalCSVConverter
     {
         bool CheckICSFile(DateTime startdate, DateTime enddate, string filename);
+        bool CheckCsvFile(DateTime startdate, DateTime enddate, string filename);
         List<MVacation> GetICalEntrys(DateTime startdate, DateTime enddate);
     }
 }
