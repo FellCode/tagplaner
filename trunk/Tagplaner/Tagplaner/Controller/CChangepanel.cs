@@ -18,6 +18,8 @@ namespace Tagplaner
         private CDatabase cdb = CDatabase.GetInstance();
         private CEditPlan cep = new CEditPlan();
 
+        private TagplanChangepanelUserControl tcp = new TagplanChangepanelUserControl();
+        
         private int ortid;
         private MCalendarEntry ccalendarentry;
      
@@ -33,23 +35,42 @@ namespace Tagplaner
         /// <param name="ortb"></param>
         /// <param name="raumb"></param>
         /// <param name="kommentarb"></param>
-        public void ChangeCalendarEntry(MCalendarEntry calendarentry, ComboBox tagartb, ComboBox seminarb,
-            ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb)
+        //public void ChangeCalendarEntry(MCalendarEntry calendarentry, ComboBox tagartb, ComboBox seminarb,
+        //    ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb)
+        //{
+        //    ccalendarentry = calendarentry;
+
+        //    FillDayType(tagartb);
+        //    FillSeminar(seminarb);
+        //    FillTrainer(trainerb);
+        //    FillCoTrainer(cotrainerb);
+        //    FillLocation(ortb);
+
+        //    SetDayTyp(ccalendarentry, tagartb);
+        //    SetSeminar(ccalendarentry, seminarb);
+        //    SetTrainer(ccalendarentry, trainerb);
+        //    SetCoTrainer(ccalendarentry, cotrainerb);
+        //    SetLocation(ccalendarentry, raumb);
+        //    SetRoom(ccalendarentry, raumb);
+
+        //}
+
+        public void ChangeCalendarEntry(MCalendarEntry calendarentry)
         {
             ccalendarentry = calendarentry;
 
-            FillDayType(tagartb);
-            FillSeminar(seminarb);
-            FillTrainer(trainerb);
-            FillCoTrainer(cotrainerb);
-            FillLocation(ortb);
+            FillDayType(tcp.Tagart);
+            FillSeminar(tcp.Seminar);
+            FillTrainer(tcp.Trainer);
+            FillCoTrainer(tcp.CoTrainer);
+            FillLocation(tcp.Ort);
 
-            SetDayTyp(ccalendarentry, tagartb);
-            SetSeminar(ccalendarentry, seminarb);
-            SetTrainer(ccalendarentry, trainerb);
-            SetCoTrainer(ccalendarentry, cotrainerb);
-            SetLocation(ccalendarentry, raumb);
-            SetRoom(ccalendarentry, raumb);
+            SetDayTyp(ccalendarentry, tcp.Tagart);
+            SetSeminar(ccalendarentry, tcp.Seminar);
+            SetTrainer(ccalendarentry, tcp.Trainer);
+            SetCoTrainer(ccalendarentry, tcp.CoTrainer);
+            SetLocation(ccalendarentry, tcp.Ort);
+            SetRoom(ccalendarentry, tcp.Raum);
 
         }
 
@@ -63,22 +84,37 @@ namespace Tagplaner
         /// <param name="ortb"></param>
         /// <param name="raumb"></param>
         /// <param name="kommentarb"></param>
-        public void PasteEntry(ComboBox tagartb, ComboBox seminarb,
-            ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb)
+        //public void PasteEntry(ComboBox tagartb, ComboBox seminarb,
+        //    ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb)
+        //{
+
+        //    GetSeminar(ccalendarentry, seminarb);
+        //    GetTrainer(ccalendarentry, trainerb);
+        //    GetCoTrainer(ccalendarentry, cotrainerb);
+        //    GetLocation(ccalendarentry, raumb);
+        //    GetRoom(ccalendarentry, raumb);
+        //    GetComment(ccalendarentry, kommentarb, tagartb);
+
+
+        //    cep.ApplyChangesToGrid(1, ccalendarentry);
+
+        //}
+
+        public void PasteEntry()
         {
 
-            GetSeminar(ccalendarentry, seminarb);
-            GetTrainer(ccalendarentry, trainerb);
-            GetCoTrainer(ccalendarentry, cotrainerb);
-            GetLocation(ccalendarentry, raumb);
-            GetRoom(ccalendarentry, raumb);
-            GetComment(ccalendarentry, kommentarb, tagartb);
+            GetSeminar(ccalendarentry, tcp.Seminar);
+            GetTrainer(ccalendarentry, tcp.Trainer);
+            GetCoTrainer(ccalendarentry, tcp.CoTrainer);
+            GetLocation(ccalendarentry, tcp.Ort);
+            GetRoom(ccalendarentry, tcp.Raum);
+            GetComment(ccalendarentry, tcp.Kommentar, tcp.Tagart);
+            GetInterationNumber(tcp.Weiterführung, tcp.AnzahlTage);
 
 
-            cep.ApplyChangesToGrid(1, ccalendarentry);
+            cep.ApplyChangesToGrid(GetInterationNumber(tcp.Weiterführung, tcp.AnzahlTage), ccalendarentry);
 
         }
-
 
 
         public bool FillDayType(ComboBox Tagart)
@@ -343,5 +379,18 @@ namespace Tagplaner
                     break;
             }        
          }
+
+        public int GetInterationNumber(CheckBox weitercheck,NumericUpDown anzahltage)
+        {
+            if (weitercheck.Checked == true)
+            {
+                return Convert.ToInt32(anzahltage.Value);
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
       }
    }
