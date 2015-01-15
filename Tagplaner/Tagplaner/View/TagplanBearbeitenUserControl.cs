@@ -20,6 +20,26 @@ namespace Tagplaner
 
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
+            dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV.Location = new System.Drawing.Point(10, 10);
+            dGV.TabIndex = 0;
+            dGV.ColumnCount = 4;
+            dGV.Dock = System.Windows.Forms.DockStyle.Fill;
+
+            dGV.Columns[0].Name = "KW";
+            dGV.Columns[1].Name = "Datum";
+            dGV.Columns[2].Name = "Ferien";
+            dGV.Columns[3].Name = "Feiertage";
+
+            dGV.Columns[0].ReadOnly = true;
+            dGV.Columns[1].ReadOnly = true;
+            dGV.Columns[2].ReadOnly = true;
+            dGV.Columns[3].ReadOnly = true;
+
+            dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
         public void AddDGV(DataGridView dGV)
@@ -27,5 +47,11 @@ namespace Tagplaner
             this.Controls.Clear();
             this.Controls.Add(dGV);
         }
+        public DataGridView returnDGV()
+        {
+            return dGV;
+        }
+
+        
     }
 }

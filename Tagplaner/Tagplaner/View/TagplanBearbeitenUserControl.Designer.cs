@@ -30,69 +30,34 @@ namespace Tagplaner
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dGV = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV)).BeginInit();
             this.SuspendLayout();
             // 
-            // listView1
+            // dGV
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            //this.listView1.Size = new System.Drawing.Size(450, 366);
-            this.listView1.Size = new System.Drawing.Size(450, /*System.Windows.Forms.*/SystemInformation.VirtualScreen.Height);
-
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "KW";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Datum";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Ferien";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Feiertag";
+            this.dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV.Location = new System.Drawing.Point(0, 0);
+            this.dGV.Name = "dGV";
+            this.dGV.Size = new System.Drawing.Size(650, 313);
+            this.dGV.TabIndex = 0;
             // 
             // TagplanBearbeitenUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.dGV);
             this.Name = "TagplanBearbeitenUserControl";
             this.Size = new System.Drawing.Size(651, 366);
             this.Load += new System.EventHandler(this.TagplanBearbeitenUserControl_Load);
-            //this.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGV)).EndInit();
+            this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private DataGridView dGV;
+
     }
 }
