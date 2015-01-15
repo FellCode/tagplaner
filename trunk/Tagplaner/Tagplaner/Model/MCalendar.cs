@@ -18,6 +18,7 @@ namespace Tagplaner
         private string enddateString;
         private List<MSpeciality> speciality = new List<MSpeciality>();
         private bool saved;
+        private DateTime lastModified;
 
         #region getter
         public int Id
@@ -59,6 +60,11 @@ namespace Tagplaner
         {
             get { return saved; }
             set { saved = value; }
+        }
+        public DateTime LastModified
+        {
+            get { return lastModified; }
+            set { lastModified = value; }
         }
         #endregion
         private MCalendar()
