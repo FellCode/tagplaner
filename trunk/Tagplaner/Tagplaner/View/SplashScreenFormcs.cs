@@ -35,14 +35,12 @@ namespace Tagplaner
             this.Hide();
         }
 
-        private void SplashScreenFormcs_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit(); 
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-
+            timer.Stop();
+            FormInit formInit = new FormInit();
+            formInit.Show();
+            this.Hide();
         }
     }
 }
