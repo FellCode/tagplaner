@@ -157,9 +157,6 @@ namespace Tagplaner
                 openTagplan(openFileDialog1.FileName);
                 tabPageChange(1);
 
-                tagplanBearbeitenUC.GetListView().Items.Clear();
-                tagplanAnlegenUC.fillListViewWithDays(
-                    MCalendar.getInstance().CalendarList, tagplanBearbeitenUC.GetListView());  
             }
         }
 

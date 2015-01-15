@@ -22,12 +22,9 @@ namespace Tagplaner
         {
         }
 
-        public ListView GetListView()
-        {
-            return this.listView1;
-        }
         public void AddDGV(DataGridView dGV)
         {
+            this.Controls.Clear();
             this.Controls.Add(dGV);
         }
     }
