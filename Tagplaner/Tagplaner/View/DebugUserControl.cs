@@ -15,11 +15,13 @@ namespace Tagplaner
         public DebugUserControl()
         {
             InitializeComponent();
+            addDebugMessage("Hallo Deine Mutter");
         }
 
         public void addDebugMessage(string debugMessage)
         {
-            this.listBox1.Items.Add(debugMessage);
+            DateTime datetime = DateTime.Now;
+            this.listBox1.Items.Add("[" + datetime.ToString() + "] - " + debugMessage);
         }
     }
 }
