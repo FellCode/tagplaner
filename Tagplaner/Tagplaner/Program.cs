@@ -33,16 +33,21 @@ namespace Tagplaner
                 @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Ferien_Hessen_2016.ics",
                 @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Nordrhein-Westfalen2015.csv",
                 @"C:\Daten\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\CSV\Nordrhein-Westfalen2015.csv");
-
+            
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("", "", "", false, true);
             MSpeciality mspec = new MSpeciality(1, "AE14", "2014");
-            MSeminar seminar = new MSeminar("Titel", "Subtitel", "SAP", "bla", "commment");
+            MSeminar seminar = new MSeminar("Titel", "Subtitle", "SAP", "bla", "commment");
             MPlace ort = new MPlace("Koeln", "Arnold", rooms);
             MRoom roomm = new MRoom("109");
 
 
             calendar.CalendarList[0].CalendarEntry.Add(new MCalendarEntry(1, trainer, trainer_co, seminar, ort, roomm));
+            calendar.CalendarList[5].CalendarEntry.Add(new MCalendarEntry(new MSchool("a")));
+            calendar.CalendarList[5].CalendarEntry.Add(new MCalendarEntry(new MSchool("a")));
+            calendar.CalendarList[6].CalendarEntry.Add(new MCalendarEntry(new MSchool("a")));
+            calendar.CalendarList[7].CalendarEntry.Add(new MCalendarEntry(new MSchool("")));
+            calendar.CalendarList[8].CalendarEntry.Add(new MCalendarEntry(new MSchool("")));
             WorksheetGenerator ws = new WorksheetGenerator();
             
             ws.WriteFile(calendar);
