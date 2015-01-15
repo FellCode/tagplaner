@@ -72,6 +72,8 @@
             // 
             // seminarBox
             // 
+            this.seminarBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.seminarBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.seminarBox.FormattingEnabled = true;
             this.seminarBox.Location = new System.Drawing.Point(88, 28);
             this.seminarBox.Name = "seminarBox";
