@@ -19,6 +19,7 @@ namespace Tagplaner
         StatistikUserControl statistikUC;
         RaumVerwaltenUserControl raumVerwaltenUC;
         TrainerVerwaltenUserControl trainerVerwaltenUC;
+        DebugUserControl debugUC;
 
         public FormInit()
         {
@@ -29,6 +30,8 @@ namespace Tagplaner
             statistikUC = new StatistikUserControl();
             raumVerwaltenUC = new RaumVerwaltenUserControl();
             trainerVerwaltenUC = new TrainerVerwaltenUserControl();
+
+            debugUC = new DebugUserControl();
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -43,6 +46,8 @@ namespace Tagplaner
             addTabPage(raumVerwaltenUC, "Räume verwalten");
             addTabPage(trainerVerwaltenUC, "Trainer verwalten");
             addTabPage(statistikUC, "Statistiken");
+
+            addTabPage(debugUC, "Debug");
 
             /*
             openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
