@@ -45,6 +45,7 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
+            comboBox1.Text = "";
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
@@ -95,6 +96,12 @@ namespace Tagplaner
                 MTrainer trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
                 db.InsertTrainer(trainer);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MTrainer trainer = (MTrainer)comboBox1.SelectedItem;
+            db.DeleteTrainer(trainer);
         }
     }
 }
