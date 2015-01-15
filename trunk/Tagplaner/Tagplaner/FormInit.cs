@@ -31,7 +31,7 @@ namespace Tagplaner
             raumVerwaltenUC = new RaumVerwaltenUserControl();
             trainerVerwaltenUC = new TrainerVerwaltenUserControl();
 
-            debugUC = new DebugUserControl();
+            debugUC = DebugUserControl.GetInstance();
         }
 
         private void Init_Load(object sender, EventArgs e)
