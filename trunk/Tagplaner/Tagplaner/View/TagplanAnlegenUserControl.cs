@@ -148,7 +148,21 @@ namespace Tagplaner
         //Laden der Ferien und Feiertage
         private void button6_Click(object sender, EventArgs e)
         {
-            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
+
+            holidayCurrentYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
+            holidayNextYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2016.csv";
+            vacationCurrentYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
+            vacationNextYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2016.ics";
+
+            this.label4.Text = "Feriendatei (Von): " + splitUrl(holidayCurrentYearUrl) + "\n" +
+                               "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
+                               "Feiertagdatei (Von): " + splitUrl(vacationCurrentYearUrl) + "\n" +
+                               "Feiertagdatei (Bis): " + splitUrl(vacationNextYearUrl) + " geöffnet";
+            this.label4.Visible = true;
+            this.buttonWeiter.Enabled = true;
+            
+
+            /*using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
@@ -165,7 +179,7 @@ namespace Tagplaner
                     this.label4.Visible = true;
                     this.buttonWeiter.Enabled = true;
                 }
-            }
+            }*/
 
         }
 

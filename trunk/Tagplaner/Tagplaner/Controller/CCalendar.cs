@@ -15,7 +15,7 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
-        public List<MCalendarDay> FillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
+        public static List<MCalendarDay> FillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
             calendarUtilitys.generateCalenderDayEntrys();
@@ -43,7 +43,7 @@ namespace Tagplaner
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
         /// <returns></returns>
-        public List<MCalendarDay> FillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
+        public static List<MCalendarDay> FillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             CHoliday holiday = new CHoliday();
             foreach (MHoliday tempHoliday in holiday.GetHoliday(holidayCurrentYearUrl, holidayNextYearUrl, startdate, enddate))
@@ -61,7 +61,7 @@ namespace Tagplaner
             return listDays;
         }
 
-        public List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
+        public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
         {
             switch (classes)
             {
