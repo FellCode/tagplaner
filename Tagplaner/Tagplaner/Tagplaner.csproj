@@ -59,15 +59,25 @@
     <Reference Include="DDay.iCal">
       <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp">
+    <Reference Include="itextsharp, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>DDay-iCal-1_0_2-BetaCandidate2-bin\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Tagplaner\Tagplaner\packages\System.Data.SQLite.EF6.1.0.94.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Tagplaner\Tagplaner\packages\System.Data.SQLite.Linq.1.0.94.1\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -192,6 +202,12 @@
     <Compile Include="View\TrainerVerwaltenUserControl.Designer.cs">
       <DependentUpon>TrainerVerwaltenUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\TagplanChangepanelUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\TagplanChangepanelUserControl.Designer.cs">
+      <DependentUpon>TagplanChangepanelUserControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controller\CEditPlan.resx">
       <DependentUpon>CEditPlan.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\TrainerVerwaltenUserControl.resx">
       <DependentUpon>TrainerVerwaltenUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\TagplanChangepanelUserControl.resx">
+      <DependentUpon>TagplanChangepanelUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
