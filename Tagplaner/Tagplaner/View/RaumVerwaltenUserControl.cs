@@ -19,8 +19,8 @@ namespace Tagplaner
             db = CDatabase.GetInstance();
             InitializeComponent();
             db.FillPlaceComboBox(comboBox2);
-            
-          
+
+
         }
 
         private void RaumVerwaltenUserControl_Load(object sender, EventArgs e)
@@ -38,12 +38,12 @@ namespace Tagplaner
             button1.Enabled = true;
             textBox1.Clear();
             comboBox1.Text = "";
-        
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           MRoom room = (MRoom) comboBox1.SelectedItem;
+            MRoom room = (MRoom)comboBox1.SelectedItem;
 
             button1.Enabled = false;
             textBox1.Text = room.Number;
@@ -51,46 +51,46 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
-             MPlace place = (MPlace) comboBox2.SelectedItem;
-             MRoom room = new MRoom(textBox1.Text, place.Id);
+            MPlace place = (MPlace)comboBox2.SelectedItem;
+            MRoom room = new MRoom(textBox1.Text, place.Id);
 
-             if (db.ContainsRoom(room))
-             {
-                 bool erg = db.InsertRoom(room);
 
-                 if (erg == true)
-                 {
-                     comboBox1.Text = "";
-                     comboBox1.Items.Clear();
-                     db.FillRoomComboBox(comboBox1, place.Id);
-                 }
-             }
+            bool erg = db.InsertRoom(room);
+
+            if (erg == true)
+            {
+                comboBox1.Text = "";
+                comboBox1.Items.Clear();
+                db.FillRoomComboBox(comboBox1, place.Id);
+            }
+
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {   comboBox1.Text = "";
+        {
+            comboBox1.Text = "";
             comboBox1.Items.Clear();
-          
-            
+
+
             MPlace place = (MPlace)comboBox2.SelectedItem;
             db.FillRoomComboBox(comboBox1, place.Id);
-           
+
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            MRoom room =(MRoom) comboBox1.SelectedItem;
-           bool erg =  db.DeleteRoom(room);
-           if (erg == true)
-           {
-               button1.Enabled = true;
-               textBox1.Clear();
-               comboBox1.Text = "";
-           
-               comboBox1.Items.Clear();
-               comboBox1.Text = "";
-               db.FillTrainerComboBox(comboBox1);
-           }
+            MRoom room = (MRoom)comboBox1.SelectedItem;
+            bool erg = db.DeleteRoom(room);
+            if (erg == true)
+            {
+                button1.Enabled = true;
+                textBox1.Clear();
+                comboBox1.Text = "";
+
+                comboBox1.Items.Clear();
+                comboBox1.Text = "";
+                db.FillTrainerComboBox(comboBox1);
+            }
         }
     }
 }
