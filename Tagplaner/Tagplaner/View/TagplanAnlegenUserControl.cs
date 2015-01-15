@@ -14,7 +14,7 @@ namespace Tagplaner
     public partial class TagplanAnlegenUserControl : UserControl
     {
         Tagplaner.View.FerienFeiertageAuswaehlenForm ferienFeiertageAuswaehlenForm;
-        private DataGridView dGV = new DataGridView();
+        private DataGridView dGV;
 
         private FormInit formInit;
 
@@ -42,47 +42,43 @@ namespace Tagplaner
             numberOfYears = 1;
             InitializeComponent();
 
-            //DatenbankController wird später auf Startfenster verschoben
             databaseController = CDatabase.GetInstance();
-          //  databaseController.CreateDB();
-          //  databaseController.FillDB();
             databaseController.FillAllList();
             databaseController.FillFederalStateComboBox(comboBoxBundesland);
+
+            dGV = new DataGridView();
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void TagplanAnlegenUserControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             groupBox1.Visible = true;
             groupBox2.Visible = false;
+            groupBox3.Visible = false;
+            groupBox5.Visible = false;
             numberOfYears = 1;
         }
 
         private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
         {
             groupBox2.Visible = true;
+            groupBox3.Visible = false;
+            groupBox5.Visible = false;
             numberOfYears = 2;
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-
+            groupBox3.Visible = true;
+            groupBox5.Visible = false;
+            numberOfYears = 3;
         }
 
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox5.Visible = true;
+            numberOfYears = 4;
+        }
+        
         //Zum nächsten Tab springen
         public void nextTabPage()
         {
@@ -92,7 +88,22 @@ namespace Tagplaner
         //Initialisieren des Kalenderobjekts
         public void GetCalendarWithDates()
         {
-            CeckCheckboxes();
+            //Ausbildungsgänge erster Jahrgang checken
+            CeckCheckboxes(checkBoxErsterJahrgangAE);
+            CeckCheckboxes(checkBoxErsterJahrgangSI);
+            
+            //Ausbildungsgänge zweiter Jahrgang checken
+            CeckCheckboxes(checkBoxZweiterJahrgangAE);
+            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+            
+            //Ausbildungsgänge dritter Jahrgang checken
+            CeckCheckboxes(checkBoxZweiterJahrgangAE);
+            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+            
+            //Ausbildungsgänge dritter Jahrgang checken
+            CeckCheckboxes(checkBoxZweiterJahrgangAE);
+            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+
             MCalendar.getInstance().FillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
@@ -100,69 +111,40 @@ namespace Tagplaner
         //Füllen der Listview mit Tagen, Ferien und Feiertagen
         public void FillFormWithDataGridView(List<MCalendarDay> calendarDayList)
         {
-            
-            int x = 0;
-            if (checkBoxErsterJahrgangAE.Checked == true)
-                x += 1;
-            if (checkBoxErsterJahrgangSI.Checked == true)
-                x += 1;
-            if (checkBoxZweiterJahrgangAE.Checked == true)
-                x += 1;
-            if (checkBoxZweiterJahrgangSI.Checked == true)
-                x += 1;
-            if (x == 0)
+            //Je nach Anzahl der ausgewählten Jahrgänge werden Spalten angelegt
+            if (CountCheckedCheckboxes() == 0)
             {
                 MessageBox.Show("Bitte einen Jahrgang auswählen");
             }
             else
             {
                 CEditPlan cEditPlan = new CEditPlan();
-                dGV = cEditPlan.createDataGridViews(x);
+                dGV = cEditPlan.createDataGridViews(CountCheckedCheckboxes());
                 dGV = cEditPlan.fillGrids(dGV, calendarDayList);
                 tagplanBearbeitenUC.AddDGV(dGV);
+                nextTabPage();
             }
-        }
-
-        private void groupBox4_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonWeiter_Click(object sender, EventArgs e)
         {
             if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
             {
-               
+                formInit.EnableBearbeitenStatistikTabPage();
 
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 GetCalendarWithDates();
 
                 //DataGridview wird erstellt, befüllt und übergeben
                 FillFormWithDataGridView(calendarWithDays.CalendarList);
-
-                //TagplanBearbeitenTab wird angezeigt
-                nextTabPage();
             }
         }
 
         //Laden der Ferien und Feiertage
         private void button6_Click(object sender, EventArgs e)
         {
-
-            holidayCurrentYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
-            holidayNextYearUrl = @"C:\Users\"+ Environment.UserName +@"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2016.csv";
-            vacationCurrentYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
-            vacationNextYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2016.ics";
-
-            this.label4.Text = "Feriendatei (Von): " + splitUrl(holidayCurrentYearUrl) + "\n" +
-                               "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
-                               "Feiertagdatei (Von): " + splitUrl(vacationCurrentYearUrl) + "\n" +
-                               "Feiertagdatei (Bis): " + splitUrl(vacationNextYearUrl) + " geöffnet";
-            this.label4.Visible = true;
-            this.buttonWeiter.Enabled = true;
-            
-
-            /*using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
+            //Modaler Dialog zum Laden der Dateien wird aufgerufen
+            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
@@ -179,60 +161,51 @@ namespace Tagplaner
                     this.label4.Visible = true;
                     this.buttonWeiter.Enabled = true;
                 }
-            }*/
-
+            }
         }
 
-        private void btn_feiertageOeffnen_Click(object sender, EventArgs e)
+        //Methode zum Überprüfen ob eine Checkbox ausgewählt ist. Fügt der Liste typeOfClasses Werte hinzu
+        public void CeckCheckboxes(CheckBox checkBox)
         {
-
+            if (checkBox.Checked)
+            {
+                typeOfClasses.Add(checkBox.Text);
+            }
+            else
+                typeOfClasses.Add("");
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        //Zählt die ausgewählten Checkboxen
+        public int CountCheckedCheckboxes()
         {
+            int checkedBoxesCount = 0;
+            if (checkBoxErsterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBoxErsterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBoxZweiterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBoxZweiterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBoxDritterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBoxDritterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBoxVierterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBoxVierterJahrgangSI.Checked) checkedBoxesCount++;
 
+            return checkedBoxesCount;
         }
 
-        public void CeckCheckboxes()
-        {
-            if (checkBoxErsterJahrgangAE.Checked)
-            {
-                typeOfClasses.Add("AE");
-            }
-            else
-                typeOfClasses.Add("");
-
-            if (checkBoxErsterJahrgangSI.Checked)
-            {
-                typeOfClasses.Add("SI");
-            }
-            else
-                typeOfClasses.Add("");
-
-            if (checkBoxZweiterJahrgangAE.Checked)
-            {
-                typeOfClasses.Add("AE");
-            }
-            else
-                typeOfClasses.Add("");
-
-            if (checkBoxZweiterJahrgangSI.Checked)
-            {
-                typeOfClasses.Add("SI");
-            }
-            else
-                typeOfClasses.Add("");
-        }
-
+        //Splitet eine Url. Nur der Dateiname wird zurückgeliefert 
         public String splitUrl(String url)
         {
             String[] substrings = url.Split('\\');
             return substrings[substrings.Length - 1];
         }
 
-        private void dateTimePickerVon_ValueChanged(object sender, EventArgs e)
+        //Überprüfen ob End- vor Anfangsdatum liegt
+        private void dateTimePickerBis_ValueChanged(object sender, EventArgs e)
         {
-
+            if (this.dateTimePickerBis.Value < this.dateTimePickerVon.Value)
+            {
+                MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
+                this.dateTimePickerBis.Value = this.dateTimePickerVon.Value;
+            }
         }
     }
 }
