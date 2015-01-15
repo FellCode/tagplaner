@@ -149,10 +149,10 @@ namespace Tagplaner
         private void button6_Click(object sender, EventArgs e)
         {
 
-            holidayCurrentYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
-            holidayNextYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2016.csv";
-            vacationCurrentYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
-            vacationNextYearUrl = @"C:\Users\choller\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2016.ics";
+            holidayCurrentYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
+            holidayNextYearUrl = @"C:\Users\"+ Environment.UserName +@"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2016.csv";
+            vacationCurrentYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
+            vacationNextYearUrl = @"C:\Users\" + Environment.UserName + @"\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2016.ics";
 
             this.label4.Text = "Feriendatei (Von): " + splitUrl(holidayCurrentYearUrl) + "\n" +
                                "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
