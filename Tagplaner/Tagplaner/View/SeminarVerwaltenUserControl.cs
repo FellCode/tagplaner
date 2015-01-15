@@ -17,7 +17,6 @@ namespace Tagplaner
         public SeminarVerwaltenUserControl()
         {  InitializeComponent();
             db = CDatabase.GetInstance();
-            db.FillAllList();
             db.FillSeminarComboBox(seminarBox);
             
             
@@ -54,11 +53,12 @@ namespace Tagplaner
 
         private void button2_Click(object sender, EventArgs e)
         {
+            seminarBox.Text = "";
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
             textBox4.Clear();
-            textBox5.Clear();
+       
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -73,7 +73,8 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+            MSeminar seminar = (MSeminar)seminarBox.SelectedItem;
+            db.DeleteSeminar(seminar);
         }
       
     }

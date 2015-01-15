@@ -36,6 +36,8 @@ namespace Tagplaner
         private void button3_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            comboBox1.Text = "";
+            comboBox2.Text = "";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,7 +53,9 @@ namespace Tagplaner
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {   comboBox1.Items.Clear();
+        {   comboBox1.Text = "";
+            comboBox1.Items.Clear();
+          
             
             MPlace place = (MPlace)comboBox2.SelectedItem;
             db.FillRoomComboBox(comboBox1, place.Id);
@@ -60,7 +64,8 @@ namespace Tagplaner
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-           
+            MRoom room =(MRoom) comboBox1.SelectedItem;
+            db.DeleteRoom(room);
         }
     }
 }
