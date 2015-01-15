@@ -13,28 +13,22 @@ namespace Tagplaner
 {
     public partial class TagplanBearbeitenUserControl : UserControl
     {
-        private DataGridView dGV;
-
-        public TagplanBearbeitenUserControl()
+         public TagplanBearbeitenUserControl()
         {
             InitializeComponent();
-            dGV = new DataGridView();
         }
 
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
-            CEditPlan cEditPlan = new CEditPlan();
-            dGV = cEditPlan.createDataGridViews(3);
-            this.Controls.Add(dGV);
         }
 
         public ListView GetListView()
         {
             return this.listView1;
         }
-        public DataGridView dGVReturn()
+        public void AddDGV(DataGridView dGV)
         {
-            return dGV;
+            this.Controls.Add(dGV);
         }
     }
 }
