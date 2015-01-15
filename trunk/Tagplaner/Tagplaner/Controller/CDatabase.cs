@@ -13,6 +13,7 @@ namespace Tagplaner
     {
         private static CDatabase database;
         private string url = "TagplanerDatabase.sqlite";
+        private string backup = "TagplanerDBBackup.sqlite";
         private SQLiteConnection m_dbConnection;
         private SQLiteCommand m_dbCommand;
         private Dictionary<int, MTrainer> AllTrainer = new Dictionary<int, MTrainer>();
@@ -196,8 +197,10 @@ namespace Tagplaner
                 FillAllSeminar();
                 return true;
             }
-            catch (SQLiteException)
+            catch (SQLiteException e)
             {
+                DebugUserControl uc = DebugUserControl.GetInstance();
+                uc.addDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -227,8 +230,10 @@ namespace Tagplaner
                 FillAllTrainer();
                 return true;
             }
-            catch (SQLiteException)
+            catch (SQLiteException e)
             {
+                DebugUserControl uc = DebugUserControl.GetInstance();
+                uc.addDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -247,8 +252,10 @@ namespace Tagplaner
                 FillAllRoom();
                 return true;
             }
-            catch (SQLiteException)
+            catch (SQLiteException e)
             {
+                DebugUserControl uc = DebugUserControl.GetInstance();
+                uc.addDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -267,8 +274,10 @@ namespace Tagplaner
                 FillAllPlace();
                 return true;
             }
-            catch (SQLiteException)
+            catch (SQLiteException e)
             {
+                DebugUserControl uc = DebugUserControl.GetInstance();
+                uc.addDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -288,8 +297,10 @@ namespace Tagplaner
                 FillAllFederalState();
                 return true;
             }
-            catch (SQLiteException)
+            catch (SQLiteException e)
             {
+                DebugUserControl uc = DebugUserControl.GetInstance();
+                uc.addDebugMessage(e.ToString());
                 CloseDatabase();
                 return false;
             }
@@ -748,7 +759,7 @@ namespace Tagplaner
             SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into bundesland(name,kuerzel) values(\"Nordrehin-Westfalen\",\"NRW\")";
+            command.CommandText = "insert into bundesland(name,kuerzel) values(\"Nordrhein-Westfalen\",\"NRW\")";
             command.ExecuteNonQuery();
 
             command.CommandText = "insert into bundesland(name,kuerzel) values(\"Hessen\",\"HE\")";
@@ -951,9 +962,9 @@ namespace Tagplaner
 
             while (reader.Read())
             {
-                combobox.Items.Add(new MPlace(Convert.ToInt32(reader["seminarort_id"].ToString()),
-                                                   reader["ort"].ToString(),
-                                                   reader["ansprechpartner"].ToString()));
+                combobox.Items.Add(new MRoom(Convert.ToInt32(reader["raum_id"].ToString()),
+                                                   reader["raumnummer"].ToString()
+                                                   ));
             }
 
             reader.Close();
@@ -1153,6 +1164,33 @@ namespace Tagplaner
         }
         #endregion
 
+        #region contains
+        public bool ContainsSeminar(MSeminar seminar)
+        {
+            return AllSeminar.ContainsValue(seminar);
+        }
+
+        public bool ContainsTrainer(MTrainer trainer)
+        {
+            return AllTrainer.ContainsValue(trainer);
+        }
+
+        public bool ContainsRoom(MRoom room)
+        {
+            return AllRoom.ContainsValue(room);
+        }
+
+        public bool ContainsPlace(MPlace place)
+        {
+            return AllPlace.ContainsValue(place);
+        }
+
+        public bool ContainsFederalState(MFederalState federalstate)
+        {
+            return AllFederalState.ContainsValue(federalstate);
+        }
+        #endregion
+
         #region new_combobox
         public void FillTrainerComboBox(ComboBox combobox)
         {
@@ -1227,6 +1265,38 @@ namespace Tagplaner
         {
             Thread t_FillAll = new Thread(FillAllList);
             t_FillAll.Start();
+        }
+
+        private void SaveDB()
+        {
+            System.IO.File.Copy(url, backup, true);
+        }
+
+        private void RestoreDB()
+        {
+            System.IO.File.Copy(backup, url, true);
+        }
+
+        private bool CheckDB()
+        {
+            ConnectDatabase();
+            m_dbCommand.CommandText = "PRAGMA integrity_check";
+            int i = m_dbCommand.ExecuteNonQuery();
+            CloseDatabase();
+            if (i == -1)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+        public void CheckDBForBug()
+        {
+            if (CheckDB())
+                SaveDB();
+            else
+                RestoreDB();
         }
     }
 }
