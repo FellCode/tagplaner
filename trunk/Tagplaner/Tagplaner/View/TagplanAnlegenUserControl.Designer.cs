@@ -47,10 +47,21 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_ferienOeffnen = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDritterJahrgangSI = new System.Windows.Forms.CheckBox();
+            this.checkBoxDritterJahrgangAE = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBoxVierterJahrgangSI = new System.Windows.Forms.CheckBox();
+            this.checkBoxVierterJahrgangAE = new System.Windows.Forms.CheckBox();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -73,22 +84,25 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.radioButton4);
+            this.panel1.Controls.Add(this.radioButton3);
             this.panel1.Controls.Add(this.radioButton2);
             this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(88, 107);
+            this.panel1.Location = new System.Drawing.Point(88, 114);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(104, 56);
+            this.panel1.Size = new System.Drawing.Size(414, 55);
             this.panel1.TabIndex = 3;
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(9, 26);
+            this.radioButton2.Location = new System.Drawing.Point(112, 19);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(84, 17);
+            this.radioButton2.Size = new System.Drawing.Size(31, 17);
             this.radioButton2.TabIndex = 5;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "2 Jahrgänge";
+            this.radioButton2.Text = "2";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged_1);
             // 
@@ -96,12 +110,12 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(9, 5);
+            this.radioButton1.Location = new System.Drawing.Point(8, 19);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(78, 17);
+            this.radioButton1.Size = new System.Drawing.Size(31, 17);
             this.radioButton1.TabIndex = 4;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "1 Jahrgang";
+            this.radioButton1.Text = "1";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
@@ -111,7 +125,6 @@
             this.dateTimePickerVon.Name = "dateTimePickerVon";
             this.dateTimePickerVon.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerVon.TabIndex = 4;
-            this.dateTimePickerVon.ValueChanged += new System.EventHandler(this.dateTimePickerVon_ValueChanged);
             // 
             // dateTimePickerBis
             // 
@@ -119,6 +132,7 @@
             this.dateTimePickerBis.Name = "dateTimePickerBis";
             this.dateTimePickerBis.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerBis.TabIndex = 5;
+            this.dateTimePickerBis.ValueChanged += new System.EventHandler(this.dateTimePickerBis_ValueChanged);
             // 
             // checkBoxErsterJahrgangSI
             // 
@@ -148,7 +162,6 @@
             this.comboBoxBundesland.Size = new System.Drawing.Size(200, 21);
             this.comboBoxBundesland.TabIndex = 7;
             this.comboBoxBundesland.Text = "Bitte Bundesland wählen";
-            this.comboBoxBundesland.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -163,19 +176,18 @@
             // 
             this.groupBox1.Controls.Add(this.checkBoxErsterJahrgangSI);
             this.groupBox1.Controls.Add(this.checkBoxErsterJahrgangAE);
-            this.groupBox1.Location = new System.Drawing.Point(88, 173);
+            this.groupBox1.Location = new System.Drawing.Point(88, 168);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(94, 65);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Jahrgang 1";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBoxZweiterJahrgangSI);
             this.groupBox2.Controls.Add(this.checkBoxZweiterJahrgangAE);
-            this.groupBox2.Location = new System.Drawing.Point(194, 173);
+            this.groupBox2.Location = new System.Drawing.Point(194, 168);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(94, 65);
             this.groupBox2.TabIndex = 11;
@@ -206,7 +218,7 @@
             // buttonWeiter
             // 
             this.buttonWeiter.Enabled = false;
-            this.buttonWeiter.Location = new System.Drawing.Point(688, 377);
+            this.buttonWeiter.Location = new System.Drawing.Point(429, 358);
             this.buttonWeiter.Name = "buttonWeiter";
             this.buttonWeiter.Size = new System.Drawing.Size(73, 23);
             this.buttonWeiter.TabIndex = 14;
@@ -218,13 +230,12 @@
             // 
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.btn_ferienOeffnen);
-            this.groupBox4.Location = new System.Drawing.Point(12, 251);
+            this.groupBox4.Location = new System.Drawing.Point(12, 239);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(749, 111);
+            this.groupBox4.Size = new System.Drawing.Size(490, 111);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Ferien- und Feiertagedatei öffnen";
-            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
             // label4
             // 
@@ -246,10 +257,109 @@
             this.btn_ferienOeffnen.UseVisualStyleBackColor = true;
             this.btn_ferienOeffnen.Click += new System.EventHandler(this.button6_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.checkBoxDritterJahrgangSI);
+            this.groupBox3.Controls.Add(this.checkBoxDritterJahrgangAE);
+            this.groupBox3.Location = new System.Drawing.Point(301, 168);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(94, 65);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Jahrgang 3";
+            this.groupBox3.Visible = false;
+            // 
+            // checkBoxDritterJahrgangSI
+            // 
+            this.checkBoxDritterJahrgangSI.AutoSize = true;
+            this.checkBoxDritterJahrgangSI.Location = new System.Drawing.Point(6, 40);
+            this.checkBoxDritterJahrgangSI.Name = "checkBoxDritterJahrgangSI";
+            this.checkBoxDritterJahrgangSI.Size = new System.Drawing.Size(36, 17);
+            this.checkBoxDritterJahrgangSI.TabIndex = 10;
+            this.checkBoxDritterJahrgangSI.Text = "SI";
+            this.checkBoxDritterJahrgangSI.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDritterJahrgangAE
+            // 
+            this.checkBoxDritterJahrgangAE.AutoSize = true;
+            this.checkBoxDritterJahrgangAE.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxDritterJahrgangAE.Name = "checkBoxDritterJahrgangAE";
+            this.checkBoxDritterJahrgangAE.Size = new System.Drawing.Size(40, 17);
+            this.checkBoxDritterJahrgangAE.TabIndex = 9;
+            this.checkBoxDritterJahrgangAE.Text = "AE";
+            this.checkBoxDritterJahrgangAE.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.checkBoxVierterJahrgangSI);
+            this.groupBox5.Controls.Add(this.checkBoxVierterJahrgangAE);
+            this.groupBox5.Location = new System.Drawing.Point(408, 168);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(94, 65);
+            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Jahrgang 4";
+            this.groupBox5.Visible = false;
+            // 
+            // checkBoxVierterJahrgangSI
+            // 
+            this.checkBoxVierterJahrgangSI.AutoSize = true;
+            this.checkBoxVierterJahrgangSI.Location = new System.Drawing.Point(6, 40);
+            this.checkBoxVierterJahrgangSI.Name = "checkBoxVierterJahrgangSI";
+            this.checkBoxVierterJahrgangSI.Size = new System.Drawing.Size(36, 17);
+            this.checkBoxVierterJahrgangSI.TabIndex = 10;
+            this.checkBoxVierterJahrgangSI.Text = "SI";
+            this.checkBoxVierterJahrgangSI.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxVierterJahrgangAE
+            // 
+            this.checkBoxVierterJahrgangAE.AutoSize = true;
+            this.checkBoxVierterJahrgangAE.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxVierterJahrgangAE.Name = "checkBoxVierterJahrgangAE";
+            this.checkBoxVierterJahrgangAE.Size = new System.Drawing.Size(40, 17);
+            this.checkBoxVierterJahrgangAE.TabIndex = 9;
+            this.checkBoxVierterJahrgangAE.Text = "AE";
+            this.checkBoxVierterJahrgangAE.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(219, 19);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(31, 17);
+            this.radioButton3.TabIndex = 6;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "3";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(327, 19);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(31, 17);
+            this.radioButton4.TabIndex = 7;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "4";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Anzahl der Jahrgänge";
+            // 
             // TagplanAnlegenUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.buttonWeiter);
             this.Controls.Add(this.groupBox2);
@@ -262,8 +372,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TagplanAnlegenUserControl";
-            this.Size = new System.Drawing.Size(777, 413);
-            this.Load += new System.EventHandler(this.TagplanAnlegenUserControl_Load);
+            this.Size = new System.Drawing.Size(515, 398);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -272,6 +381,10 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,5 +411,14 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btn_ferienOeffnen;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxDritterJahrgangSI;
+        private System.Windows.Forms.CheckBox checkBoxDritterJahrgangAE;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox checkBoxVierterJahrgangSI;
+        private System.Windows.Forms.CheckBox checkBoxVierterJahrgangAE;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }
