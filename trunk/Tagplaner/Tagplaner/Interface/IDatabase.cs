@@ -10,11 +10,11 @@ namespace Tagplaner
 {
     public interface IDatabase
     {
-        bool InsertSeminar(string titel, string untertitel, string kuerzel, string technick);
+        bool InsertSeminar(MSeminar seminar);
         bool InsertTrainer(MTrainer trainer);
-        bool InsertRoom(string raumnummer, string fk_seminarort_id);
-        bool InsertLocation(string ort, string ansprechpartner, string fk_bundesland_id);
-        bool InsertFederelState(string name, string kuerzel);
+        bool InsertRoom(MRoom room);
+        bool InsertPlace(MPlace place);
+        bool InsertFederalState(MFederalState federalstate);
 
 
         void FillTrainerComboBox(ComboBox combobox);
