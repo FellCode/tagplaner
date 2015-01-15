@@ -20,6 +20,7 @@ namespace Tagplaner
         RaumVerwaltenUserControl raumVerwaltenUC;
         TrainerVerwaltenUserControl trainerVerwaltenUC;
         DebugUserControl debugUC;
+        private DataGridView dGV;
 
         public FormInit()
         {
@@ -30,6 +31,7 @@ namespace Tagplaner
             statistikUC = new StatistikUserControl();
             raumVerwaltenUC = new RaumVerwaltenUserControl();
             trainerVerwaltenUC = new TrainerVerwaltenUserControl();
+            dGV = new DataGridView();
 
             debugUC = DebugUserControl.GetInstance();
         }
@@ -200,6 +202,12 @@ namespace Tagplaner
             CSerialize serializer = new CSerialize();
             MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(filename);
             MCalendar.SetInstance(calendarWithDays);
+
+            //Füllt die GridView mit Daten
+            CEditPlan cEditPlan = new CEditPlan();
+            dGV = cEditPlan.createDataGridViews(MCalendar.getInstance().Speciality.Count());
+            dGV = cEditPlan.fillGrids(dGV, MCalendar.getInstance().CalendarList);
+            tagplanBearbeitenUC.AddDGV(dGV);
         }
 
         private void saveTagplan(string filename)
