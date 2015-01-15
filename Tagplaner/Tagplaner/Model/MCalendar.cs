@@ -67,6 +67,7 @@ namespace Tagplaner
             set { lastModified = value; }
         }
         #endregion
+
         private MCalendar()
         {
 
