@@ -15,8 +15,8 @@ namespace Tagplaner
         /// Dieser Controler dient dazu um ein MCalenderEntry Objekt anzunehmen und in die Comboboxen zu schreiben.
         /// Dazu gibt er die gewählten Daten wieder an das Grid zurück
         /// </summary>
-        CDatabase cdb = new CDatabase();
-        CEditPlan cep = new CEditPlan();
+        private CDatabase cdb = CDatabase.GetInstance();
+        private CEditPlan cep = new CEditPlan();
 
         private int ortid;
         private MCalendarEntry ccalendarentry;
@@ -102,7 +102,7 @@ namespace Tagplaner
         {
             try
             {
-                cdb.FillSeminarCombobox(Seminar);
+                cdb.FillSeminarComboBox(Seminar);
                 return true;
             }
             catch (FormatException)
@@ -115,7 +115,7 @@ namespace Tagplaner
         {
             try
             {
-                cdb.FillTrainerCombobox(Trainer);
+                cdb.FillTrainerComboBox(Trainer);
 
                 return true;
             }
@@ -129,7 +129,7 @@ namespace Tagplaner
         {
             try
             {
-                cdb.FillTrainerCombobox(CoTrainer);
+                cdb.FillTrainerComboBox(CoTrainer);
 
                 return true;
             }
@@ -143,7 +143,7 @@ namespace Tagplaner
         {
             try
             {
-                cdb.FillLocationCombobox(Ort);
+                cdb.FillPlaceComboBox(Ort);
 
                 return true;
             }
@@ -161,7 +161,7 @@ namespace Tagplaner
 
                 string idort = Convert.ToString(Ort.SelectedValue);
                 ortid = Convert.ToInt32(idort);
-                cdb.FillRoomCombobox(Raum, ortid);
+                cdb.FillRoomComboBox(Raum, ortid);
 
                 return true;
             }
