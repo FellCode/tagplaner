@@ -13,14 +13,16 @@ namespace Tagplaner
     public partial class TrainerVerwaltenUserControl : UserControl
     {
         CDatabase db;
-      
-        
+
+
         public TrainerVerwaltenUserControl()
         {
             db = CDatabase.GetInstance();
 
             InitializeComponent();
             db.FillTrainerComboBox(comboBox1);
+
+
         }
 
         private void TrainerVerwaltenUserControl_Load(object sender, EventArgs e)
@@ -45,6 +47,7 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
+            button1.Enabled = true;
             comboBox1.Text = "";
             textBox1.Clear();
             textBox2.Clear();
@@ -65,11 +68,14 @@ namespace Tagplaner
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MTrainer trainer = (MTrainer) comboBox1.SelectedItem;
+            button1.Enabled = false;
+
+            MTrainer trainer = (MTrainer)comboBox1.SelectedItem;
             textBox1.Text = trainer.Name;
             textBox2.Text = trainer.Surname;
             textBox3.Text = trainer.Abbreviation;
 
+            button1.Enabled = false;
             if (trainer.IsInternal == true)
             {
                 radioButton1.Checked = true;
@@ -85,23 +91,46 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
+            bool erg = false;
+            MTrainer trainer = null;
             if (radioButton1.Checked == true)
             {
+                trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, true);
 
-                MTrainer trainer = new MTrainer(textBox1.Text,textBox2.Text,textBox3.Text,true);
-                db.InsertTrainer(trainer);
             }
             else if (radioButton2.Checked == true)
             {
-                MTrainer trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
-                db.InsertTrainer(trainer);
+                trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
+
+            }
+            if (db.ContainsTrainer(trainer) == false)
+            {
+                erg = db.InsertTrainer(trainer);
+                if (erg == true)
+                {
+                    comboBox1.Text = "";
+                    comboBox1.Items.Clear();
+                    db.FillTrainerComboBox(comboBox1);
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             MTrainer trainer = (MTrainer)comboBox1.SelectedItem;
-            db.DeleteTrainer(trainer);
+            bool erg = db.DeleteTrainer(trainer);
+
+            if (erg == true)
+            {
+                comboBox1.Items.Clear();
+                comboBox1.Text = "";
+                db.FillTrainerComboBox(comboBox1);
+            }
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
