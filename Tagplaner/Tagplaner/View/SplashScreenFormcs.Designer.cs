@@ -35,9 +35,9 @@
             // 
             this.button1.Location = new System.Drawing.Point(12, 222);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(489, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "Überspringen nur zum Testen";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -51,7 +51,6 @@
             this.Name = "SplashScreenFormcs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SplashScreenFormcs";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SplashScreenFormcs_FormClosed);
             this.Shown += new System.EventHandler(this.SplashScreenFormcs_Shown);
             this.ResumeLayout(false);
 
