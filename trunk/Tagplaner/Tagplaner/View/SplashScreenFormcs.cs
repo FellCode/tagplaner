@@ -16,7 +16,7 @@ namespace Tagplaner
 
         public SplashScreenFormcs()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
