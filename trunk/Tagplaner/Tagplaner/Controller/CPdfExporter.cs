@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Tagplaner 
 {
-    class CPdfExporter : IPdfExporter
+    public class CPdfExporter : IPdfExporter
     {
         private Document doc;
         private List<MTrainer> trainerList;
