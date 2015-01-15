@@ -1181,12 +1181,12 @@ namespace Tagplaner
             }
         }
 
-        public void FillRoomComboBox(ComboBox combobox, int place_id)
+        public void FillRoomComboBox(ComboBox combobox, int location)
         {
             combobox.Items.Clear();
             foreach(int key in AllRoom.Keys)
             {
-                if (AllRoom[key].Place_id == place_id)
+                if (AllRoom[key].Place_id == location)
                 {
                     combobox.Items.Add(AllRoom[key]);
                 }
