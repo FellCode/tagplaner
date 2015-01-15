@@ -123,7 +123,7 @@ namespace Tagplaner
         /// <param name="dGV"></param>
         /// <param name="columnCount"></param>
         /// <param name="listView"></param>
-        public void fillGrids(DataGridView dGV, List<MCalendarDay> calendarDays)
+        public DataGridView fillGrids(DataGridView dGV, List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
@@ -194,6 +194,7 @@ namespace Tagplaner
                     }
                 }
             }
+            return dGV;
         }
             
         /// <summary>
