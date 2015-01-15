@@ -1,6 +1,6 @@
 ﻿namespace Tagplaner
 {
-    partial class SplashScreenFormcs
+    partial class SplashScreenForm
     {
         /// <summary>
         /// Required designer variable.
