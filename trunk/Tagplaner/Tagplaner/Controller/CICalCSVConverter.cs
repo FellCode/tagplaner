@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DDay.iCal;
+using System.IO;
 
 namespace Tagplaner
 {
@@ -64,6 +65,39 @@ namespace Tagplaner
                 return false;
             }
             return true;
+        }
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
+
+        public bool CheckCsvFile(DateTime startDate, DateTime endDate, String fileUrl)
+        {
+            bool csvOkay = false;
+
+            var reader = new StreamReader(fileUrl);
+            List<string> listOccurences = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(';');
+
+                listOccurences.Add(values[0]);
+            }
+
+            foreach (DateTime dayInEnum in EachDay(startDate, endDate))
+            {
+                for (int counter = 1; counter < listOccurences.Count; counter++)
+                {
+                    if (dayInEnum.ToShortDateString() == listOccurences[counter])
+                    {
+                        csvOkay = true;
+                    }
+                }
+            }
+            return csvOkay;
         }
 
         public bool CheckCurrentyear(DateTime startdate, string filename)
