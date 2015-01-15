@@ -41,21 +41,17 @@ namespace Tagplaner
 
             int columnCount = 6* countGrid + 4;
             int space = 10;
-            int drawingSizeX = 700;
-            int drawingSizeY = 400;
             int drawingPointY = 0;
             int drawingPointX = space;
 
-
             this.dGV = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dGV)).BeginInit();
-            
 
             this.dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV.Location = new System.Drawing.Point(drawingPointX, drawingPointY);
-            this.dGV.Size = new System.Drawing.Size(drawingSizeX, drawingSizeY);
             this.dGV.TabIndex = 0;
             this.dGV.ColumnCount = columnCount;
+            this.dGV.Dock = System.Windows.Forms.DockStyle.Fill;
 
             this.dGV.Columns[0].Name = "KW";
             this.dGV.Columns[1].Name = "Datum";
