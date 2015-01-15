@@ -54,7 +54,7 @@ namespace Tagplaner.View
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.AutoUpgradeEnabled = false;
+            this.openFileDialog1.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Feiertage");
 
@@ -66,18 +66,22 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                //Hier fehlt noch die Prüfung der csv-Dateien
-                this.textBox1.Text = splitUrl(openFileDialog1.FileName);
+                this.textBox1.Text = SplitUrl(openFileDialog1.FileName);
                 this.textFromTextBox1 = openFileDialog1.FileName;
                 file1Choosen = true;
                 CheckAllFilesChoosen();
+                if (!csvComverter.CheckCsvFile(startDate, endDate, openFileDialog1.FileName))
+                {
+                    this.toolStripStatusLabel1.Text = "Keine Feiertage in '" + SplitUrl(openFileDialog1.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
+                }
+                else this.toolStripStatusLabel1.Text = "";
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog2 = new OpenFileDialog();
-            openFileDialog1.AutoUpgradeEnabled = false;
+            this.openFileDialog2.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Feiertage");
 
@@ -89,18 +93,22 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                //Hier fehlt noch die Prüfung der csv-Dateien
-                this.textBox2.Text = splitUrl(openFileDialog2.FileName);
+                this.textBox2.Text = SplitUrl(openFileDialog2.FileName);
                 this.textFromTextBox2 = openFileDialog2.FileName;
                 file2Choosen = true;
                 CheckAllFilesChoosen();
+                if (!csvComverter.CheckCsvFile(startDate, endDate, openFileDialog2.FileName))
+                {
+                    this.toolStripStatusLabel1.Text = "Keine Feiertage in '" + SplitUrl(openFileDialog2.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
+                }
+                else this.toolStripStatusLabel1.Text = "";
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog3 = new OpenFileDialog();
-            openFileDialog1.AutoUpgradeEnabled = false;
+            this.openFileDialog3.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Ferien");
 
@@ -113,21 +121,22 @@ namespace Tagplaner.View
             if (fileChoiceResult == DialogResult.OK)
             {
                 this.textFromTextBox3 = openFileDialog3.FileName;
-                this.textBox3.Text = splitUrl(openFileDialog3.FileName);
+                this.textBox3.Text = SplitUrl(openFileDialog3.FileName);
                 file3Choosen = true;
                 CheckAllFilesChoosen();
 
                 if (!csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog3.FileName))
                 {
-                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + splitUrl(openFileDialog3.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
+                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + SplitUrl(openFileDialog3.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
                 }
+                else this.toolStripStatusLabel1.Text = "";
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog4 = new OpenFileDialog();
-            openFileDialog1.AutoUpgradeEnabled = false;
+            this.openFileDialog4.AutoUpgradeEnabled = false;
 
             System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Ferien");
 
@@ -140,14 +149,15 @@ namespace Tagplaner.View
             if (fileChoiceResult == DialogResult.OK)
             {
                 this.textFromTextBox4 = openFileDialog4.FileName;
-                this.textBox4.Text = splitUrl(openFileDialog4.FileName);
+                this.textBox4.Text = SplitUrl(openFileDialog4.FileName);
                 file4Choosen = true;
                 CheckAllFilesChoosen();
 
                 if (!csvComverter.CheckICSFile(new DateTime(endDate.Year, 1, 1), new DateTime(endDate.Year, endDate.Month, endDate.Day), openFileDialog4.FileName))
                 {
-                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + splitUrl(openFileDialog4.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
+                    this.toolStripStatusLabel1.Text = "Keine Ferien in '" + SplitUrl(openFileDialog4.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
                 }
+                else this.toolStripStatusLabel1.Text = "";
             }
         }
 
@@ -172,17 +182,10 @@ namespace Tagplaner.View
             this.Dispose(true);
         }
 
-        public String splitUrl(String url)
+        public String SplitUrl(String url)
         {
-            String splittedUrl;
-            int counter = 0;
             String[] substrings = url.Split('\\');
-            foreach (String partOfSubstring in substrings)
-            {
-                counter++;
-            }
-            splittedUrl = substrings[counter - 1];
-            return splittedUrl;
+            return substrings[substrings.Length - 1];
         }
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
