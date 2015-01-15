@@ -202,6 +202,7 @@
             this.Text = "Tagplaner";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormInit_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormInit_FormClosed);
             this.Load += new System.EventHandler(this.Init_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
