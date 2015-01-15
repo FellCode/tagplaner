@@ -11,11 +11,9 @@ namespace Tagplaner
     {
 
 
-        void ChangeCalendarEntry(MCalendarEntry calendarentry, ComboBox tagartb, ComboBox seminarb,
-            ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb);
+        void ChangeCalendarEntry(MCalendarEntry calendarentry);
 
-        void PasteEntry(ComboBox tagartb, ComboBox seminarb,
-            ComboBox trainerb, ComboBox cotrainerb, ComboBox ortb, ComboBox raumb, TextBox kommentarb);
+        void PasteEntry();
 
         bool FillDayType(ComboBox Tagart);
 
