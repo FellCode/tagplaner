@@ -16,7 +16,7 @@ namespace Tagplaner
 
         public SplashScreenFormcs()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
@@ -38,6 +38,11 @@ namespace Tagplaner
         private void SplashScreenFormcs_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit(); 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
