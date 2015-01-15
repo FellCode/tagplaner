@@ -142,7 +142,7 @@ namespace Tagplaner
                 dGV.Rows.Add();
                 
                 dGV[0,rowCounter].Value = calendarDays[rowCounter].CalendarWeek.ToString();
-                dGV[1 ,rowCounter].Value = calendarDays[rowCounter].CalendarDate.ToString();
+                dGV[1, rowCounter].Value = calendarDays[rowCounter].GetCalendarDatePrintDate();
                 if (calendarDays[rowCounter].HolidayName != null)
                     dGV[2 , rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                 if (calendarDays[rowCounter].VacationName != null) 
