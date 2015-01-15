@@ -47,8 +47,8 @@ namespace Tagplaner
             
             dGV.ColumnCount = columnCount;
 
-            for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
-            {               
+            for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
+            {
                 dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
                 dGV.Columns[5 + 6 * columnCounter].Name = "Raum";
                 dGV.Columns[6 + 6 * columnCounter].Name = "Trainer";
@@ -65,31 +65,11 @@ namespace Tagplaner
 
             }
 
-            dGV.CellClick += new DataGridViewCellEventHandler(TagplanBearbeitenUserControl_CellClick);
-
             return dGV;
         }
 
-        /// <summary>
-        /// Wird in eine Zelle der Tabelle geklickt, started es die Methodedie ermittelt welches Model zu dem angeklickten Element gehört
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TagplanBearbeitenUserControl_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int x_Cell = e.ColumnIndex;
-            x_Coord = Convert.ToInt32(Math.Floor((Convert.ToDouble(e.ColumnIndex)-4d) / 6));
-            y_Coord = e.RowIndex;
-
-            if (x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1 || dGV[x_Cell, y_Coord].ReadOnly == true)
-            {
-                MessageBox.Show("Keine gueltige Zelle");
-            }
-            else
-            {
-                getSelectedEntryModel();
-            }
-        }
+     
+     
 
         /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen

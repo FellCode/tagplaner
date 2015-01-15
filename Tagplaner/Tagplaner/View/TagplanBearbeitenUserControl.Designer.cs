@@ -37,18 +37,24 @@ namespace Tagplaner
             // dGV
             // 
             this.dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGV.Location = new System.Drawing.Point(0, 0);
             this.dGV.Name = "dGV";
-            this.dGV.Size = new System.Drawing.Size(650, 313);
+            this.dGV.Size = new System.Drawing.Size(100, 100);
             this.dGV.TabIndex = 0;
+            this.dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_CellClick);
+            
             // 
             // TagplanBearbeitenUserControl
             // 
+
+            
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.dGV);
             this.Name = "TagplanBearbeitenUserControl";
-            this.Size = new System.Drawing.Size(651, 366);
+            this.Size = new System.Drawing.Size(900,700 );
             this.Load += new System.EventHandler(this.TagplanBearbeitenUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dGV)).EndInit();
             this.ResumeLayout(false);
