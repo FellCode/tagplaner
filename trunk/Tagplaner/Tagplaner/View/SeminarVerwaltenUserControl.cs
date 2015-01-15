@@ -34,8 +34,10 @@ namespace Tagplaner
 
         private void seminarBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MSeminar seminar = (MSeminar)seminarBox.SelectedItem; 
-           
+            MSeminar seminar = (MSeminar)seminarBox.SelectedItem;
+            button1.Enabled = false;
+
+
             textBox1.Text = seminar.Title;
             textBox2.Text = seminar.Subtitle;
             textBox3.Text = seminar.Abbreviation;
@@ -45,14 +47,26 @@ namespace Tagplaner
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             MSeminar seminar = new MSeminar(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
 
-            db.InsertSeminar(seminar);
+            if (db.ContainsSeminar(seminar) == false)
+            {
+
+                bool erg = db.InsertSeminar(seminar);
+                if (erg == true)
+                {
+                    seminarBox.Items.Clear();
+                    seminarBox.Text = "";
+                    db.FillSeminarComboBox(seminarBox);
+                }
+
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            button1.Enabled = true;
             seminarBox.Text = "";
             textBox1.Clear();
             textBox2.Clear();
@@ -74,7 +88,13 @@ namespace Tagplaner
         private void button3_Click(object sender, EventArgs e)
         {
             MSeminar seminar = (MSeminar)seminarBox.SelectedItem;
-            db.DeleteSeminar(seminar);
+            bool erg = db.DeleteSeminar(seminar);
+            if (erg == true)
+            {
+                seminarBox.Text = "";
+                seminarBox.Items.Clear();
+                db.FillSeminarComboBox(seminarBox);
+            }
         }
       
     }

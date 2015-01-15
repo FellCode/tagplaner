@@ -35,6 +35,7 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
+            button1.Enabled = true;
             textBox1.Clear();
             comboBox1.Text = "";
             comboBox2.Text = "";
@@ -42,14 +43,25 @@ namespace Tagplaner
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            button1.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
              MPlace place = (MPlace) comboBox2.SelectedItem;
              MRoom room = new MRoom(textBox1.Text, place.Id);
-             db.InsertRoom(room);
+
+             if (db.ContainsRoom(room))
+             {
+                 bool erg = db.InsertRoom(room);
+
+                 if (erg == true)
+                 {
+                     comboBox1.Text = "";
+                     comboBox1.Items.Clear();
+                     db.FillRoomComboBox(comboBox1, place.Id);
+                 }
+             }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,7 +77,13 @@ namespace Tagplaner
         private void button3_Click_1(object sender, EventArgs e)
         {
             MRoom room =(MRoom) comboBox1.SelectedItem;
-            db.DeleteRoom(room);
+           bool erg =  db.DeleteRoom(room);
+           if (erg == true)
+           {
+               comboBox1.Items.Clear();
+               comboBox1.Text = "";
+               db.FillTrainerComboBox(comboBox1);
+           }
         }
     }
 }
