@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    interface IPdfExporter
+    public interface IPdfExporter
     {
         bool ExportPdf(string filename);
     }

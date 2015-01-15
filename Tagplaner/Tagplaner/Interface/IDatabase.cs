@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    interface IDatabase
+    public interface IDatabase
     {
         bool InsertSeminar(string titel, string untertitel, string kuerzel, string technick);
         bool InsertTrainer(MTrainer trainer);

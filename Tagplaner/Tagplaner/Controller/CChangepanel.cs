@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    class CChangepanel : IChangepanel
+    public class CChangepanel : IChangepanel
     {
         /// <summary>
         /// Autor: Matthias Ohm

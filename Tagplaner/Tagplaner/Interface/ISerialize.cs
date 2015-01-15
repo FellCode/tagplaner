@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    interface ISerialize
+    public interface ISerialize
     {
         //void SerializeObject(MCalendar obj, string name);
         //MCalendar DeserializeObject(string name);

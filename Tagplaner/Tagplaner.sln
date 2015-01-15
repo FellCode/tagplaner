@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagplaner", "Tagplaner\Tagplaner.csproj", "{B179D87C-61A6-42DF-80CF-845282615205}"
 EndProject
@@ -17,6 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bibliotheken", "Bibliotheke
 		Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\antlr.runtime.dll = Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\antlr.runtime.dll
 		Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.Collections.dll = Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.Collections.dll
 		Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll = Tagplaner\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4180C9CC-221A-4B8B-98F3-CF51B093BA42}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+		Performance2.psess = Performance2.psess
+		Performance3.psess = Performance3.psess
 	EndProjectSection
 EndProject
 Global
@@ -36,5 +43,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

@@ -8,7 +8,7 @@ namespace Tagplaner
 {
 
     //Author: Stefan, Arnold
-    interface IWorksheetGenerator
+    public interface IWorksheetGenerator
     {
 
         //days muss Kalendertag sowie Seminar/Urlaub/Schultag und Bemerkung/Raum usw. enthalten

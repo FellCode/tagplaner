@@ -12,7 +12,7 @@ namespace Tagplaner
     /// Author: Felix Smuda, Niklas Wazal
     /// Date: 07.01.2015
     /// </summary>
-    class CHoliday : IHoliday
+    public class CHoliday : IHoliday
     {
         private List<MHoliday> holidayList = new List<MHoliday>();
 
