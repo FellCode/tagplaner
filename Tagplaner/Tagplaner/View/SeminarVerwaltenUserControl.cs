@@ -91,6 +91,14 @@ namespace Tagplaner
             bool erg = db.DeleteSeminar(seminar);
             if (erg == true)
             {
+
+                button1.Enabled = true;
+                seminarBox.Text = "";
+                textBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+                textBox4.Clear();
+
                 seminarBox.Text = "";
                 seminarBox.Items.Clear();
                 db.FillSeminarComboBox(seminarBox);
