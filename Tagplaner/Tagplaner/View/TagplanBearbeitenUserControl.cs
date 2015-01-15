@@ -61,13 +61,9 @@ namespace Tagplaner
             x_Coord = Convert.ToInt32(Math.Floor((Convert.ToDouble(e.ColumnIndex) - 4d) / 6));
             y_Coord = e.RowIndex;
 
-            if (x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1 || dGV[x_Cell, y_Coord].ReadOnly == true)
+            if (!((x_Cell <= 3 || y_Coord < 0 || x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1) && dGV[x_Cell, y_Coord].ReadOnly == true))
             {
-                MessageBox.Show("Keine gueltige Zelle");
-            }
-            else
-            {
-               cEditPlan.getSelectedEntryModel();
+                cEditPlan.getSelectedEntryModel();
             }
         }
 

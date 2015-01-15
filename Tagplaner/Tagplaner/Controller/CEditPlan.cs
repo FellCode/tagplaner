@@ -63,6 +63,13 @@ namespace Tagplaner
                 dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
 
+                dGV.Columns[4 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[5 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[6 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
+
             }
 
             return dGV;
