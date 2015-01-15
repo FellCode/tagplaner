@@ -13,6 +13,7 @@ namespace Tagplaner
     public partial class TagplanChangepanelUserControl : UserControl
     {
         CDatabase cdb = CDatabase.GetInstance();
+        CChangepanel ccp = new CChangepanel();
 
         public TagplanChangepanelUserControl()
         {
@@ -34,6 +35,13 @@ namespace Tagplaner
             MRoom sraum = (MRoom)Raum.SelectedItem;
 
             cdb.FillRoomComboBox(Raum, sraum.Id);
+        }
+
+        private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ccp.ChangeVisibility(Tagart, Seminarpanel);
+
         }
     }
 }
