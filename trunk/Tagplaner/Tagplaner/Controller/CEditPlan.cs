@@ -37,57 +37,35 @@ namespace Tagplaner
         public DataGridView createDataGridViews(int countGrid)
         {
             TagplanBearbeitenUserControl userControl = new TagplanBearbeitenUserControl();
-            
+            DataGridView dGV = new System.Windows.Forms.DataGridView();
 
             int columnCount = 6* countGrid + 4;
-            int space = 10;
-            int drawingPointY = 0;
-            int drawingPointX = space;
 
-            this.dGV = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV)).BeginInit();
+            
 
-            this.dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV.Location = new System.Drawing.Point(drawingPointX, drawingPointY);
-            this.dGV.TabIndex = 0;
-            this.dGV.ColumnCount = columnCount;
-            this.dGV.Dock = System.Windows.Forms.DockStyle.Fill;
-
-            this.dGV.Columns[0].Name = "KW";
-            this.dGV.Columns[1].Name = "Datum";
-            this.dGV.Columns[2].Name = "Ferien";
-            this.dGV.Columns[3].Name = "Feiertage";
-
-            this.dGV.Columns[0].ReadOnly = true;
-            this.dGV.Columns[1].ReadOnly = true;
-            this.dGV.Columns[2].ReadOnly = true;
-            this.dGV.Columns[3].ReadOnly = true;
-
-            this.dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            this.dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            this.dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-            this.dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
-
+            dGV = userControl.returnDGV();
+            
+            dGV.ColumnCount = columnCount;
 
             for(int columnCounter=0; columnCounter <= countGrid - 1 ;columnCounter++)
-            {
-                this.dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
-                this.dGV.Columns[5 + 6 * columnCounter].Name = "Raum";
-                this.dGV.Columns[6 + 6 * columnCounter].Name = "Trainer";
-                this.dGV.Columns[7 + 6 * columnCounter].Name = "Co-Trainer";
-                this.dGV.Columns[8 + 6 * columnCounter].Name = "Aktivität";
-                this.dGV.Columns[9 + 6 * columnCounter].Name = "Aktivität";
+            {               
+                dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
+                dGV.Columns[5 + 6 * columnCounter].Name = "Raum";
+                dGV.Columns[6 + 6 * columnCounter].Name = "Trainer";
+                dGV.Columns[7 + 6 * columnCounter].Name = "Co-Trainer";
+                dGV.Columns[8 + 6 * columnCounter].Name = "Aktivität";
+                dGV.Columns[9 + 6 * columnCounter].Name = "Aktivität";
 
-                this.dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             }
 
-            this.dGV.CellClick += new DataGridViewCellEventHandler(TagplanBearbeitenUserControl_CellClick);
+            dGV.CellClick += new DataGridViewCellEventHandler(TagplanBearbeitenUserControl_CellClick);
 
             return dGV;
         }
