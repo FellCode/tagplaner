@@ -23,11 +23,20 @@ namespace Tagplaner
         int x_Coord = 0;
         int y_Coord = 0;
 
+
+        /// <summary>
+        /// Malt alle Elemente auf das UserControl
+        /// </summary>
         public TagplanBearbeitenUserControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Fügt dem Panel das TagplanChangepanelUserControl hinzu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
             panel1.Controls.Add(new TagplanChangepanelUserControl());

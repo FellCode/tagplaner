@@ -20,7 +20,7 @@ namespace Tagplaner
         private string comment;
 
         /// <summary>
-        /// Implementation der Getter und Setter der Klasse
+        /// Implementation der Get Funktion für die ID Eigenschaft
         /// </summary>
         #region getter
         public int Id
@@ -28,20 +28,33 @@ namespace Tagplaner
             get { return id; }
             set { this.id = value; }
         }
+        /// <summary>
+        ///  /// Implementation der Get Funktion für die HolidayDate Eigenschaft
+        /// </summary>
         public DateTime HolidayDate
         {
             get { return holidayDate; }
         }
+        /// <summary>
+        ///  /// Implementation der Get Funktion für die HolidayName Eigenschaft
+        /// </summary>
         public string HolidayName
         {
             get { return holidayName; }
         }
+
+        /// <summary>
+        /// Implementation der Get Funktion für die Comment Eigenschaft
+        /// </summary>
         public string Comment
         {
             get { return comment; }
         }
         #endregion
-
+        /// <summary>
+        /// Implementation der Set Funktion für die Comment Eigenschaft
+        /// </summary>
+        /// <param name="comment"></param>
         #region setter
         public void SetComment(string comment){
             this.comment = comment;
