@@ -161,8 +161,8 @@ namespace Tagplaner
             }
             else
             {
-                tagplanBearbeitenUC.createDataGridViews(CountCheckedCheckboxes());
-                tagplanBearbeitenUC.fillGrids(calendarDayList);
+                tagplanBearbeitenUC.CreateDataGridViews(CountCheckedCheckboxes());
+                tagplanBearbeitenUC.FillGrids(calendarDayList);
                 formInit.EnableBearbeitenStatistikTabPage();
                 NextTabPage();
             }
