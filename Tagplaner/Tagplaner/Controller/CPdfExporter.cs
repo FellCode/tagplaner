@@ -299,11 +299,11 @@ namespace Tagplaner
             // Ferien
             if (!String.IsNullOrEmpty(calendarDay.VacationName))
             {
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday());
+                pdfTable.AddCell(this.CreateBodyTableCellHoliday("", 1));
             }
             else
             {
-                pdfTable.AddCell(this.CreateBodyTableCell());
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
             }
 
             // Feiertag
@@ -319,43 +319,42 @@ namespace Tagplaner
                
                 if (calendarEntry.Seminar != null)
                 {
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
-                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(
-                        calendarEntry.Seminar.Title));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
                 }
                 else if (calendarEntry.School != null)
                 {
-                    pdfTable.AddCell(this.CreateBodyTableCell(""));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
                     pdfTable.AddCell(this.CreateBodyTableCellSchool());
                 }
                 else if (calendarEntry.Practice != null)
                 {
-                    pdfTable.AddCell(this.CreateBodyTableCell(""));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation));
-                    pdfTable.AddCell(this.CreateBodyTableCellPratice());
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
                 }
 
                 // Year two  - FISI
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCellPratice());
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCellPratice("", 1));
 
                 // Year one  - FIAE
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                 pdfTable.AddCell(this.CreateBodyTableCellSchool());
 
                 // Year one  - FISI
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
-                pdfTable.AddCell(this.CreateBodyTableCell(""));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                 pdfTable.AddCell(this.CreateBodyTableCellSchool());
             }
 
