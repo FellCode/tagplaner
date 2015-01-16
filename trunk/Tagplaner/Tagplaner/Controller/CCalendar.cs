@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Controler für die Klasse MCalendar.
+    /// </summary>
     public class CCalendar
     {
         /// <summary>
@@ -70,7 +73,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="speciality">Die Liste der Fcahrichtungen des MCalendar-Objektes.</param>
         /// <param name="classes">Die Anzahl der Jahrgänge des Kalenders.</param>
-        /// <param name="typeOfClasses"Enthält die selektierten Fachrichtungen></param>
+        /// <param name="typeOfClasses">Enthält die selektierten Fachrichtungen</param>
         /// <returns>Enthält die befüllte Liste der Fachrichtungen.</returns>
         public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
         {
