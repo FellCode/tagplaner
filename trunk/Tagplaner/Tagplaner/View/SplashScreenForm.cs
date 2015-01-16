@@ -22,8 +22,7 @@ namespace Tagplaner
         /// </summary>
         public SplashScreenForm()
         {
-            InitializeComponent();
-            InitLabelNames();
+            InitializeComponent();          
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
@@ -62,6 +61,8 @@ namespace Tagplaner
         {
             this.Width = pictureBox1.Width;
             this.Height = pictureBox1.Height;
+
+            InitLabelNames();
         }
 
         /// <summary>
