@@ -28,6 +28,9 @@ namespace Tagplaner
             this.Close();
         }
 
+        /// <summary>
+        /// Öffnet den SpeicherDialog um das PDF-Dokument zu erzeugen
+        /// </summary>
         private void exportPdf()
         {
             saveFileDialog1.ShowDialog();
