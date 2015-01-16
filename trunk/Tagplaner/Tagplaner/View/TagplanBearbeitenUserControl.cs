@@ -19,6 +19,7 @@ namespace Tagplaner
     /// </summary>
     public partial class TagplanBearbeitenUserControl : UserControl
     {
+        TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
         int x_Coord = 0;
         int y_Coord = 0;
 
@@ -230,6 +231,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
             int x_Coord = 0;
             int y_Coord = 0;
             int x_Cell = e.ColumnIndex;
@@ -238,7 +240,7 @@ namespace Tagplaner
 
             if (!(((x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1) && dGV[x_Cell, y_Coord].ReadOnly == true) || x_Cell <= 3 || y_Coord < 0))
             {
-                GetSelectedEntryModel();
+                tagplanChangePanelUserControl.ChangeCalendarEntry(GetSelectedEntryModel());
             }
         }
     }
