@@ -27,6 +27,9 @@ namespace Tagplaner
             RefreshListView();
         }
 
+        /// <summary>
+        /// Aktualisiert die Statistikanzeige in der ListView
+        /// </summary>
         public void RefreshListView() {
             listView1.Items.Clear();
 
@@ -39,6 +42,10 @@ namespace Tagplaner
             listView1.Items.Add(GetPraticeDaysListViewItem());
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Tage gesamt"
+        /// </summary>
+        /// <returns>ListViewItem für Tage gesamt</returns>
         private ListViewItem GetAllDaysListViewItem()
         {
             int allDays = CStatisticUtilitys.CountAllApprenticeshipDays();
@@ -50,6 +57,10 @@ namespace Tagplaner
             return lvAllDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Tage gesamt ohne Wochenenden und Feiertage"
+        /// </summary>
+        /// <returns>ListViewItem für Tage gesamt ohne Wochenenden und Feiertage</returns>
         private ListViewItem GetApprenticeshipDaysListViewItem()
         {
             int allDays = CStatisticUtilitys.CountAllApprenticeshipDays();
@@ -64,28 +75,40 @@ namespace Tagplaner
             return lvApprenticeshipDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Anzahl Samstage und Sonntage"
+        /// </summary>
+        /// <returns>ListViewItem für die Anzahl von Samstagen und Sonntagen</returns>
         private ListViewItem GetWeekendDaysListViewItem()
         {
             int weekendDays = CStatisticUtilitys.CountWeekendDays();
 
             ListViewItem lvWeekendDays = new ListViewItem();
-            lvWeekendDays.Text = "Samstage und Sonntage";
+            lvWeekendDays.Text = "Anzahl Samstage und Sonntage";
             lvWeekendDays.SubItems.Add(Convert.ToString(weekendDays));
 
             return lvWeekendDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Anzahl Feiertage"
+        /// </summary>
+        /// <returns>ListViewItem für die Anzahl der Feiertage</returns>
         private ListViewItem GetHolidayDaysListViewItem()
         {
             int holidayDays = CStatisticUtilitys.CountHolidayDays();
 
             ListViewItem lvHolidayDays = new ListViewItem();
-            lvHolidayDays.Text = "Feiertage";
+            lvHolidayDays.Text = "Anzahl Feiertage";
             lvHolidayDays.SubItems.Add(Convert.ToString(holidayDays));
 
             return lvHolidayDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Seminartage"
+        /// </summary>
+        /// <returns>ListViewItem für die Anzahl der Seminartage</returns>
         private ListViewItem GetSeminarDaysListViewItem()
         {
             int seminarDays = CStatisticUtilitys.CountSeminarDays();
@@ -97,6 +120,10 @@ namespace Tagplaner
             return lvSeminarDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Schultage"
+        /// </summary>
+        /// <returns>ListViewItem für die Anzahl der Schultage</returns>
         private ListViewItem GetSchoolDaysListViewItem()
         {
             int schoolDays = CStatisticUtilitys.CountSchoolDays();
@@ -108,6 +135,10 @@ namespace Tagplaner
             return lvSchoolDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit der Statistik-Informationen "Praxistage"
+        /// </summary>
+        /// <returns>ListViewItem für die Anzahl der Praxistage</returns>
         private ListViewItem GetPraticeDaysListViewItem()
         {
             int praticeDays = CStatisticUtilitys.CountSchoolDays();
