@@ -70,6 +70,16 @@ namespace Tagplaner
             groupBox_Jahrgang2.Visible = false;
             groupBox_Jahrgang3.Visible = false;
             groupBox_Jahrgang4.Visible = false;
+
+            checkBox_ZweiterJahrgangAE.Checked = false;
+            checkBox_ZweiterJahrgangSI.Checked = false;
+
+            checkBox_DritterJahrgangAE.Checked = false;
+            checkBox_DritterJahrgangSI.Checked = false;
+
+            checkBox_VierterJahrgangAE.Checked = false;
+            checkBox_VierterJahrgangSI.Checked = false;
+
             numberOfYears = 1;
         }
 
@@ -84,6 +94,13 @@ namespace Tagplaner
             groupBox_Jahrgang2.Visible = true;
             groupBox_Jahrgang3.Visible = false;
             groupBox_Jahrgang4.Visible = false;
+
+            checkBox_DritterJahrgangAE.Checked = false;
+            checkBox_DritterJahrgangSI.Checked = false;
+
+            checkBox_VierterJahrgangAE.Checked = false;
+            checkBox_VierterJahrgangSI.Checked = false;
+
             numberOfYears = 2;
         }
 
@@ -98,6 +115,10 @@ namespace Tagplaner
             groupBox_Jahrgang2.Visible = true;
             groupBox_Jahrgang3.Visible = true;
             groupBox_Jahrgang4.Visible = false;
+
+            checkBox_VierterJahrgangAE.Checked = false;
+            checkBox_VierterJahrgangSI.Checked = false;
+
             numberOfYears = 3;
         }
 
