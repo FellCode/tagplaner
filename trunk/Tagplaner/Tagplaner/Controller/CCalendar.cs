@@ -9,12 +9,14 @@ namespace Tagplaner
     public class CCalendar
     {
         /// <summary>
-        /// Funktion zum füllen der Tage vom Startdatum bis zum Enddatum sowie den dazugehörigen Ferien.
+        /// Funktion zum füllen der Tage mit Kalenderwoche vom Startdatum bis zum Enddatum sowie den dazugehörigen Ferien.
         /// </summary>
         /// <param name="startdate">Beginn des Kalenders</param>
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
-        /// <returns></returns>
+        /// <param name="vacationCurrentYearUrl">Pfad zur Datei die die Ferientage des ersten Kalenderjahres enthält.</param>
+        /// <param name="vacationNextYearUrl">Pfad zur Datei die die Ferientage des zweiten Kalenderjahres enthält.</param>
+        /// <returns>Enthält die, für den Kalender angelegten MCalenderDay-Objekte</returns>
         public static List<MCalendarDay> FillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
@@ -42,7 +44,9 @@ namespace Tagplaner
         /// <param name="startdate">Beginn des Kalenders</param>
         /// <param name="enddate">Ende des Kalenders</param>
         /// <param name="listDays">Liste der Tage von start bis ende</param>
-        /// <returns></returns>
+        /// <param name="holidayCurrentYearUrl">Pfad zur Datei die die Feiertage des ersten Kalenderjahres enthält.</param>
+        /// <param name="holidayNextYearUrl">Pfad zur Datei die die Feiertage des zweiten Kalenderjahres enthält.</param>
+        /// <returns>Enthält die Liste der MCalendarDay-Objekte mit den hinzugefügten Feiertagen.</returns>
         public static List<MCalendarDay> FillHolidaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             CHoliday holiday = new CHoliday();
@@ -61,6 +65,13 @@ namespace Tagplaner
             return listDays;
         }
 
+        /// <summary>
+        /// Füllt die übergebene Liste mit den selektierten Fachrichtungen der angegebenen Jahrgänge.
+        /// </summary>
+        /// <param name="speciality">Die Liste der Fcahrichtungen des MCalendar-Objektes.</param>
+        /// <param name="classes">Die Anzahl der Jahrgänge des Kalenders.</param>
+        /// <param name="typeOfClasses"Enthält die selektierten Fachrichtungen></param>
+        /// <returns>Enthält die befüllte Liste der Fachrichtungen.</returns>
         public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
         {
             switch (classes)
