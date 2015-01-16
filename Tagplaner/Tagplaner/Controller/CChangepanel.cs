@@ -16,9 +16,10 @@ namespace Tagplaner
         /// Dazu gibt er die gewählten Daten wieder an das Grid zurück
         /// </summary>
         private CDatabase cdb = CDatabase.GetInstance();
-        private CEditPlan cep = new CEditPlan();
+        
 
         private TagplanChangepanelUserControl tcp = new TagplanChangepanelUserControl();
+        private TagplanBearbeitenUserControl tagplanBearbeitenUserControl = new TagplanBearbeitenUserControl();
         
         private int ortid;
         private MCalendarEntry ccalendarentry;
@@ -112,7 +113,7 @@ namespace Tagplaner
             GetInterationNumber(tcp.Weiterführung, tcp.AnzahlTage);
 
 
-            cep.ApplyChangesToGrid(GetInterationNumber(tcp.Weiterführung, tcp.AnzahlTage), ccalendarentry);
+            tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(tcp.Weiterführung, tcp.AnzahlTage), ccalendarentry);
 
         }
 
