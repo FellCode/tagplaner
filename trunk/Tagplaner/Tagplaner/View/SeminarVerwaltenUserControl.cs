@@ -18,7 +18,7 @@ namespace Tagplaner
         {
             InitializeComponent();
             db = CDatabase.GetInstance();
-            db.FillSeminarComboBox(seminarBox);
+            db.FillSeminarComboBox(seminarComboBox);
 
 
         }
@@ -35,28 +35,28 @@ namespace Tagplaner
 
         private void seminarBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MSeminar seminar = (MSeminar)seminarBox.SelectedItem;
-            button1.Enabled = false;
+            MSeminar seminar = (MSeminar)seminarComboBox.SelectedItem;
+            speichernButton.Enabled = false;
 
 
-            textBox1.Text = seminar.Title;
-            textBox2.Text = seminar.Subtitle;
-            textBox3.Text = seminar.Abbreviation;
-            textBox4.Text = seminar.HasTechnology;
+            titelTextBox.Text = seminar.Title;
+            untertitelTextBox.Text = seminar.Subtitle;
+            kuerzelTextBox.Text = seminar.Abbreviation;
+            technikTextBox.Text = seminar.HasTechnology;
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MSeminar seminar = new MSeminar(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+            MSeminar seminar = new MSeminar(titelTextBox.Text, untertitelTextBox.Text, kuerzelTextBox.Text, technikTextBox.Text);
 
 
             bool erg = db.InsertSeminar(seminar);
             if (erg == true)
             {
-                seminarBox.Items.Clear();
-                seminarBox.Text = "";
-                db.FillSeminarComboBox(seminarBox);
+                seminarComboBox.Items.Clear();
+                seminarComboBox.Text = "";
+                db.FillSeminarComboBox(seminarComboBox);
             }
 
 
@@ -65,12 +65,12 @@ namespace Tagplaner
 
         private void button2_Click(object sender, EventArgs e)
         {
-            button1.Enabled = true;
-            seminarBox.Text = "";
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
+            speichernButton.Enabled = true;
+            seminarComboBox.Text = "";
+            titelTextBox.Clear();
+            untertitelTextBox.Clear();
+            kuerzelTextBox.Clear();
+            technikTextBox.Clear();
 
         }
 
@@ -86,21 +86,21 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MSeminar seminar = (MSeminar)seminarBox.SelectedItem;
+            MSeminar seminar = (MSeminar)seminarComboBox.SelectedItem;
             bool erg = db.DeleteSeminar(seminar);
             if (erg == true)
             {
 
-                button1.Enabled = true;
-                seminarBox.Text = "";
-                textBox1.Clear();
-                textBox2.Clear();
-                textBox3.Clear();
-                textBox4.Clear();
+                speichernButton.Enabled = true;
+                seminarComboBox.Text = "";
+                titelTextBox.Clear();
+                untertitelTextBox.Clear();
+                kuerzelTextBox.Clear();
+                technikTextBox.Clear();
 
-                seminarBox.Text = "";
-                seminarBox.Items.Clear();
-                db.FillSeminarComboBox(seminarBox);
+                seminarComboBox.Text = "";
+                seminarComboBox.Items.Clear();
+                db.FillSeminarComboBox(seminarComboBox);
             }
         }
 

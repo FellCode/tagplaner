@@ -18,7 +18,7 @@ namespace Tagplaner
         {
             db = CDatabase.GetInstance();
             InitializeComponent();
-            db.FillPlaceComboBox(comboBox2);
+            db.FillPlaceComboBox(seminarOrtComboBox);
 
 
         }
@@ -35,61 +35,61 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
-            button1.Enabled = true;
-            textBox1.Clear();
-            comboBox1.Text = "";
+            speichernButton.Enabled = true;
+            raumTextBox.Clear();
+            raeumeComboBox.Text = "";
 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MRoom room = (MRoom)comboBox1.SelectedItem;
+            MRoom room = (MRoom)raeumeComboBox.SelectedItem;
 
-            button1.Enabled = false;
-            textBox1.Text = room.Number;
+            speichernButton.Enabled = false;
+            raumTextBox.Text = room.Number;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MPlace place = (MPlace)comboBox2.SelectedItem;
-            MRoom room = new MRoom(textBox1.Text, place.Id);
+            MPlace place = (MPlace)seminarOrtComboBox.SelectedItem;
+            MRoom room = new MRoom(raumTextBox.Text, place.Id);
 
 
             bool erg = db.InsertRoom(room);
 
             if (erg == true)
             {
-                comboBox1.Text = "";
-                comboBox1.Items.Clear();
-                db.FillRoomComboBox(comboBox1, place.Id);
+                raeumeComboBox.Text = "";
+                raeumeComboBox.Items.Clear();
+                db.FillRoomComboBox(raeumeComboBox, place.Id);
             }
 
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox1.Text = "";
-            comboBox1.Items.Clear();
+            raeumeComboBox.Text = "";
+            raeumeComboBox.Items.Clear();
 
 
-            MPlace place = (MPlace)comboBox2.SelectedItem;
-            db.FillRoomComboBox(comboBox1, place.Id);
+            MPlace place = (MPlace)seminarOrtComboBox.SelectedItem;
+            db.FillRoomComboBox(raeumeComboBox, place.Id);
 
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            MRoom room = (MRoom)comboBox1.SelectedItem;
+            MRoom room = (MRoom)raeumeComboBox.SelectedItem;
             bool erg = db.DeleteRoom(room);
             if (erg == true)
             {
-                button1.Enabled = true;
-                textBox1.Clear();
-                comboBox1.Text = "";
+                speichernButton.Enabled = true;
+                raumTextBox.Clear();
+                raeumeComboBox.Text = "";
 
-                comboBox1.Items.Clear();
-                comboBox1.Text = "";
-                db.FillTrainerComboBox(comboBox1);
+                raeumeComboBox.Items.Clear();
+                raeumeComboBox.Text = "";
+                db.FillTrainerComboBox(raeumeComboBox);
             }
         }
     }

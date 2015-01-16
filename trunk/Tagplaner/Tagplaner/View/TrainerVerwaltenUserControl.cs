@@ -20,7 +20,7 @@ namespace Tagplaner
             db = CDatabase.GetInstance();
 
             InitializeComponent();
-            db.FillTrainerComboBox(comboBox1);
+            db.FillTrainerComboBox(trainerComboBox);
 
 
         }
@@ -47,13 +47,13 @@ namespace Tagplaner
 
         private void button3_Click(object sender, EventArgs e)
         {
-            button1.Enabled = true;
-            comboBox1.Text = "";
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            radioButton1.Checked = false;
-            radioButton2.Checked = false;
+            speichernButton.Enabled = true;
+            trainerComboBox.Text = "";
+            nachnameTextBox.Clear();
+            vornameTextBox.Clear();
+            kuerzelTextBox.Clear();
+            internRadioButton.Checked = false;
+            externRadioButton.Checked = false;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -68,23 +68,23 @@ namespace Tagplaner
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            button1.Enabled = false;
+            speichernButton.Enabled = false;
 
-            MTrainer trainer = (MTrainer)comboBox1.SelectedItem;
-            textBox1.Text = trainer.Name;
-            textBox2.Text = trainer.Surname;
-            textBox3.Text = trainer.Abbreviation;
+            MTrainer trainer = (MTrainer)trainerComboBox.SelectedItem;
+            nachnameTextBox.Text = trainer.Name;
+            vornameTextBox.Text = trainer.Surname;
+            kuerzelTextBox.Text = trainer.Abbreviation;
 
-            button1.Enabled = false;
+            speichernButton.Enabled = false;
             if (trainer.IsInternal == true)
             {
-                radioButton1.Checked = true;
-                radioButton2.Checked = false;
+                internRadioButton.Checked = true;
+                externRadioButton.Checked = false;
             }
             else if (trainer.IsInternal == false)
             {
-                radioButton2.Checked = true;
-                radioButton1.Checked = false;
+                externRadioButton.Checked = true;
+                internRadioButton.Checked = false;
             }
 
         }
@@ -93,46 +93,46 @@ namespace Tagplaner
         {
             bool erg = false;
             MTrainer trainer = null;
-            if (radioButton1.Checked == true)
+            if (internRadioButton.Checked == true)
             {
-                trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, true);
+                trainer = new MTrainer(nachnameTextBox.Text, vornameTextBox.Text, kuerzelTextBox.Text, true);
 
             }
-            else if (radioButton2.Checked == true)
+            else if (externRadioButton.Checked == true)
             {
-                trainer = new MTrainer(textBox1.Text, textBox2.Text, textBox3.Text, false);
+                trainer = new MTrainer(nachnameTextBox.Text, vornameTextBox.Text, kuerzelTextBox.Text, false);
 
             }
 
             erg = db.InsertTrainer(trainer);
             if (erg == true)
             {
-                comboBox1.Text = "";
-                comboBox1.Items.Clear();
-                db.FillTrainerComboBox(comboBox1);
+                trainerComboBox.Text = "";
+                trainerComboBox.Items.Clear();
+                db.FillTrainerComboBox(trainerComboBox);
             }
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MTrainer trainer = (MTrainer)comboBox1.SelectedItem;
+            MTrainer trainer = (MTrainer)trainerComboBox.SelectedItem;
             bool erg = db.DeleteTrainer(trainer);
 
             if (erg == true)
             {
 
-                button1.Enabled = true;
-                comboBox1.Text = "";
-                textBox1.Clear();
-                textBox2.Clear();
-                textBox3.Clear();
-                radioButton1.Checked = false;
-                radioButton2.Checked = false;
+                speichernButton.Enabled = true;
+                trainerComboBox.Text = "";
+                nachnameTextBox.Clear();
+                vornameTextBox.Clear();
+                kuerzelTextBox.Clear();
+                internRadioButton.Checked = false;
+                externRadioButton.Checked = false;
 
-                comboBox1.Items.Clear();
-                comboBox1.Text = "";
-                db.FillTrainerComboBox(comboBox1);
+                trainerComboBox.Items.Clear();
+                trainerComboBox.Text = "";
+                db.FillTrainerComboBox(trainerComboBox);
             }
         }
 
