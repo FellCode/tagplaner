@@ -28,100 +28,100 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button_HolidayCurrentYear = new System.Windows.Forms.Button();
+            this.button_HolidayNextYear = new System.Windows.Forms.Button();
+            this.button_VacationCurrentYear = new System.Windows.Forms.Button();
+            this.button_VacationNextYear = new System.Windows.Forms.Button();
+            this.textBox_HolidayCurrentYear = new System.Windows.Forms.TextBox();
+            this.textBox_HolidayNextYear = new System.Windows.Forms.TextBox();
+            this.textBox_VacationCurrentYear = new System.Windows.Forms.TextBox();
+            this.textBox_VacationNextYear = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog4 = new System.Windows.Forms.OpenFileDialog();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.button_OK = new System.Windows.Forms.Button();
+            this.button_Abbrechen = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // button_HolidayCurrentYear
             // 
-            this.button1.Location = new System.Drawing.Point(365, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Durchsuchen";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_HolidayCurrentYear.Location = new System.Drawing.Point(365, 15);
+            this.button_HolidayCurrentYear.Name = "button_HolidayCurrentYear";
+            this.button_HolidayCurrentYear.Size = new System.Drawing.Size(147, 23);
+            this.button_HolidayCurrentYear.TabIndex = 0;
+            this.button_HolidayCurrentYear.Text = "Durchsuchen";
+            this.button_HolidayCurrentYear.UseVisualStyleBackColor = true;
+            this.button_HolidayCurrentYear.Click += new System.EventHandler(this.button_HolidayCurrentYear_Click);
             // 
-            // button2
+            // button_HolidayNextYear
             // 
-            this.button2.Location = new System.Drawing.Point(365, 44);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(147, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Durchsuchen";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button_HolidayNextYear.Location = new System.Drawing.Point(365, 44);
+            this.button_HolidayNextYear.Name = "button_HolidayNextYear";
+            this.button_HolidayNextYear.Size = new System.Drawing.Size(147, 23);
+            this.button_HolidayNextYear.TabIndex = 1;
+            this.button_HolidayNextYear.Text = "Durchsuchen";
+            this.button_HolidayNextYear.UseVisualStyleBackColor = true;
+            this.button_HolidayNextYear.Click += new System.EventHandler(this.button_HolidayNextYear_Click);
             // 
-            // button3
+            // button_VacationCurrentYear
             // 
-            this.button3.Location = new System.Drawing.Point(365, 73);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(147, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Durchsuchen";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button_VacationCurrentYear.Location = new System.Drawing.Point(365, 73);
+            this.button_VacationCurrentYear.Name = "button_VacationCurrentYear";
+            this.button_VacationCurrentYear.Size = new System.Drawing.Size(147, 23);
+            this.button_VacationCurrentYear.TabIndex = 2;
+            this.button_VacationCurrentYear.Text = "Durchsuchen";
+            this.button_VacationCurrentYear.UseVisualStyleBackColor = true;
+            this.button_VacationCurrentYear.Click += new System.EventHandler(this.button_VacationCurrentYear_Click);
             // 
-            // button4
+            // button_VacationNextYear
             // 
-            this.button4.Location = new System.Drawing.Point(365, 102);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(147, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Durchsuchen";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button_VacationNextYear.Location = new System.Drawing.Point(365, 102);
+            this.button_VacationNextYear.Name = "button_VacationNextYear";
+            this.button_VacationNextYear.Size = new System.Drawing.Size(147, 23);
+            this.button_VacationNextYear.TabIndex = 3;
+            this.button_VacationNextYear.Text = "Durchsuchen";
+            this.button_VacationNextYear.UseVisualStyleBackColor = true;
+            this.button_VacationNextYear.Click += new System.EventHandler(this.button_VacationNextYear_Click);
             // 
-            // textBox1
+            // textBox_HolidayCurrentYear
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(37, 17);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(321, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "Feiertagedatei des aktuellen Jahres auswählen";
+            this.textBox_HolidayCurrentYear.Enabled = false;
+            this.textBox_HolidayCurrentYear.Location = new System.Drawing.Point(37, 17);
+            this.textBox_HolidayCurrentYear.Name = "textBox_HolidayCurrentYear";
+            this.textBox_HolidayCurrentYear.Size = new System.Drawing.Size(321, 20);
+            this.textBox_HolidayCurrentYear.TabIndex = 8;
+            this.textBox_HolidayCurrentYear.Text = "Feiertagedatei des aktuellen Jahres auswählen";
             // 
-            // textBox2
+            // textBox_HolidayNextYear
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(37, 46);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(321, 20);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Text = "Feiertagedatei des nächsten Jahres auswählen";
+            this.textBox_HolidayNextYear.Enabled = false;
+            this.textBox_HolidayNextYear.Location = new System.Drawing.Point(37, 46);
+            this.textBox_HolidayNextYear.Name = "textBox_HolidayNextYear";
+            this.textBox_HolidayNextYear.Size = new System.Drawing.Size(321, 20);
+            this.textBox_HolidayNextYear.TabIndex = 9;
+            this.textBox_HolidayNextYear.Text = "Feiertagedatei des nächsten Jahres auswählen";
             // 
-            // textBox3
+            // textBox_VacationCurrentYear
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(37, 74);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(321, 20);
-            this.textBox3.TabIndex = 10;
-            this.textBox3.Text = "Feriendatei des aktuellen Jahres auswählen";
+            this.textBox_VacationCurrentYear.Enabled = false;
+            this.textBox_VacationCurrentYear.Location = new System.Drawing.Point(37, 74);
+            this.textBox_VacationCurrentYear.Name = "textBox_VacationCurrentYear";
+            this.textBox_VacationCurrentYear.Size = new System.Drawing.Size(321, 20);
+            this.textBox_VacationCurrentYear.TabIndex = 10;
+            this.textBox_VacationCurrentYear.Text = "Feriendatei des aktuellen Jahres auswählen";
             // 
-            // textBox4
+            // textBox_VacationNextYear
             // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(37, 104);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(321, 20);
-            this.textBox4.TabIndex = 11;
-            this.textBox4.Text = "Feriendatei des nächsten Jahres auswählen";
+            this.textBox_VacationNextYear.Enabled = false;
+            this.textBox_VacationNextYear.Location = new System.Drawing.Point(37, 104);
+            this.textBox_VacationNextYear.Name = "textBox_VacationNextYear";
+            this.textBox_VacationNextYear.Size = new System.Drawing.Size(321, 20);
+            this.textBox_VacationNextYear.TabIndex = 11;
+            this.textBox_VacationNextYear.Text = "Feriendatei des nächsten Jahres auswählen";
             // 
             // openFileDialog1
             // 
@@ -139,26 +139,26 @@
             // 
             this.openFileDialog4.FileName = "openFileDialog4";
             // 
-            // button5
+            // button_OK
             // 
-            this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(364, 150);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(147, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "OK";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button_OK.Enabled = false;
+            this.button_OK.Location = new System.Drawing.Point(364, 150);
+            this.button_OK.Name = "button_OK";
+            this.button_OK.Size = new System.Drawing.Size(147, 23);
+            this.button_OK.TabIndex = 12;
+            this.button_OK.Text = "OK";
+            this.button_OK.UseVisualStyleBackColor = true;
+            this.button_OK.Click += new System.EventHandler(this.button_OK_Click);
             // 
-            // button6
+            // button_Abbrechen
             // 
-            this.button6.Location = new System.Drawing.Point(211, 150);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(147, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Abbrechen";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button_Abbrechen.Location = new System.Drawing.Point(211, 150);
+            this.button_Abbrechen.Name = "button_Abbrechen";
+            this.button_Abbrechen.Size = new System.Drawing.Size(147, 23);
+            this.button_Abbrechen.TabIndex = 13;
+            this.button_Abbrechen.Text = "Abbrechen";
+            this.button_Abbrechen.UseVisualStyleBackColor = true;
+            this.button_Abbrechen.Click += new System.EventHandler(this.button_Abbrechen_Click);
             // 
             // statusStrip1
             // 
@@ -169,7 +169,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(561, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "test";
-            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // toolStripStatusLabel1
             // 
@@ -182,16 +181,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 208);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_Abbrechen);
+            this.Controls.Add(this.button_OK);
+            this.Controls.Add(this.textBox_VacationNextYear);
+            this.Controls.Add(this.textBox_VacationCurrentYear);
+            this.Controls.Add(this.textBox_HolidayNextYear);
+            this.Controls.Add(this.textBox_HolidayCurrentYear);
+            this.Controls.Add(this.button_VacationNextYear);
+            this.Controls.Add(this.button_VacationCurrentYear);
+            this.Controls.Add(this.button_HolidayNextYear);
+            this.Controls.Add(this.button_HolidayCurrentYear);
             this.Name = "FerienFeiertageAuswaehlenForm";
             this.Text = "Ferien- und Feiertagedateien auswählen";
             this.statusStrip1.ResumeLayout(false);
@@ -203,20 +202,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button_HolidayCurrentYear;
+        private System.Windows.Forms.Button button_HolidayNextYear;
+        private System.Windows.Forms.Button button_VacationCurrentYear;
+        private System.Windows.Forms.Button button_VacationNextYear;
+        private System.Windows.Forms.TextBox textBox_HolidayCurrentYear;
+        private System.Windows.Forms.TextBox textBox_HolidayNextYear;
+        private System.Windows.Forms.TextBox textBox_VacationCurrentYear;
+        private System.Windows.Forms.TextBox textBox_VacationNextYear;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.OpenFileDialog openFileDialog3;
         private System.Windows.Forms.OpenFileDialog openFileDialog4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button_OK;
+        private System.Windows.Forms.Button button_Abbrechen;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         }
