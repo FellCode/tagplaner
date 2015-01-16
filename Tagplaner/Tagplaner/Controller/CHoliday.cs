@@ -16,12 +16,16 @@ namespace Tagplaner
     {
         private List<MHoliday> holidayList = new List<MHoliday>();
 
+       
         /// <summary>
         /// Die Funktion liest die CSV mit dem übergebenen Namen von Typ String ein und speichert das Datum 
         /// und den Namen des Feiertags in einem MHoliday Objekt.
         /// Dieses Objekt wird in einer List gespeichert und am Ende wird die Liste returned
         /// </summary>
-        /// <param name="region"></param>
+        /// <param name="pfad1"></param>
+        /// <param name="pfad2"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
         /// <returns></returns>
         public List<MHoliday> GetHoliday(String pfad1,String pfad2, DateTime startDate, DateTime endDate)
         {
