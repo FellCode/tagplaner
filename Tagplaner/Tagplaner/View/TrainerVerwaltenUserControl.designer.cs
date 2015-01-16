@@ -100,7 +100,7 @@
             this.trainerVerwalten.TabIndex = 1;
             this.trainerVerwalten.TabStop = false;
             this.trainerVerwalten.Text = "Trainer verwalten";
-            this.trainerVerwalten.Enter += new System.EventHandler(this.groupBox2_Enter);
+          
             // 
             // externRadioButton
             // 
@@ -217,11 +217,6 @@
             this.trainerVerwalten.PerformLayout();
             this.ResumeLayout(false);
 
-        }
-
-        private void groupBox2_Enter(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion
