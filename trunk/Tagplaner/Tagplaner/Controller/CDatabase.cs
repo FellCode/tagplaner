@@ -89,23 +89,6 @@ namespace Tagplaner
             m_dbCommand.ExecuteNonQuery();
         }
 
-        // Methode zum ermitteln der nächsten ID einer Tabelle
-        private int nextId(string tabelle)
-        {
-            int i = 0;
-            m_dbCommand.CommandText = "select max(" + tabelle + "_id) as id from " + tabelle;
-            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
-
-            while (reader.Read())
-            {
-                i = Convert.ToInt32(reader["id"].ToString());
-            }
-            reader.Close();
-            return i + 1;
-
-        }
-
-
         #region insert
         /// <summary>
         /// Einfügen eines Seminars in die DB
@@ -409,6 +392,11 @@ namespace Tagplaner
         #endregion
 
         #region delete
+        /// <summary>
+        /// Übergebenes Seminar aus der Datenbank löschen
+        /// </summary>
+        /// <param name="seminar"></param>
+        /// <returns></returns>
         public bool DeleteSeminar(MSeminar seminar)
         {
             ConnectDatabase();
@@ -427,6 +415,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Übergebener Trainer aus der Datenbank löschen
+        /// </summary>
+        /// <param name="trainer"></param>
+        /// <returns></returns>
         public bool DeleteTrainer(MTrainer trainer)
         {
             ConnectDatabase();
@@ -445,6 +438,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Übergebener Raum aus der Datenbank löschen
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
         public bool DeleteRoom(MRoom room)
         {
             ConnectDatabase();
@@ -463,6 +461,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Übergebenen Seminarort aus der Datenbank löschen
+        /// </summary>
+        /// <param name="place"></param>
+        /// <returns></returns>
         public bool DeletePlace(MPlace place)
         {
             ConnectDatabase();
@@ -481,6 +484,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Übergebenes Bundesland aus der Datenbank löschen
+        /// </summary>
+        /// <param name="federalstate"></param>
+        /// <returns></returns>
         public bool DeleteFederalState(MFederalState federalstate)
         {
             ConnectDatabase();
@@ -1177,6 +1185,10 @@ namespace Tagplaner
 
         }
 
+        /// <summary>
+        /// Erzeugt eine Instanz wenn keine vorhanden ist und gibt eine Instanz zuück
+        /// </summary>
+        /// <returns></returns>
         public static CDatabase GetInstance()
         {
             if (database == null)
