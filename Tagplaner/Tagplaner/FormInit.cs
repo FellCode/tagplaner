@@ -215,10 +215,7 @@ namespace Tagplaner
             MCalendar.SetInstance(calendarWithDays);
 
             //Füllt die GridView mit Daten
-            CEditPlan cEditPlan = new CEditPlan();
-            dGV = cEditPlan.createDataGridViews(MCalendar.getInstance().Speciality.Count());
-            dGV = cEditPlan.fillGrids(dGV, MCalendar.getInstance().CalendarList);
-            tagplanBearbeitenUC.AddDGV(dGV);
+            tagplanBearbeitenUC.fillGrids(MCalendar.getInstance().CalendarList);
             this.EnableBearbeitenStatistikTabPage();
         }
 

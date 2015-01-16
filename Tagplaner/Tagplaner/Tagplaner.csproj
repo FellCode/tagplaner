@@ -94,7 +94,6 @@
     <Compile Include="Controller\CCalendarUtilitys.cs" />
     <Compile Include="Controller\CChangepanel.cs" />
     <Compile Include="Controller\CDatabase.cs" />
-    <Compile Include="Controller\CEditPlan.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CICalCSVConverter.cs" />
     <Compile Include="Controller\CPdfExporter.cs" />
@@ -208,9 +207,6 @@
     <Compile Include="View\TagplanChangepanelUserControl.Designer.cs">
       <DependentUpon>TagplanChangepanelUserControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controller\CEditPlan.resx">
-      <DependentUpon>CEditPlan.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\DebugUserControl.resx">
       <DependentUpon>DebugUserControl.cs</DependentUpon>
     </EmbeddedResource>
