@@ -48,7 +48,7 @@ namespace Tagplaner
 
             dGV = new DataGridView();
         }
-        
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             groupBox1.Visible = true;
@@ -78,7 +78,7 @@ namespace Tagplaner
             groupBox5.Visible = true;
             numberOfYears = 4;
         }
-        
+
         //Zum nächsten Tab springen
         public void nextTabPage()
         {
@@ -118,11 +118,8 @@ namespace Tagplaner
             }
             else
             {
-                CEditPlan cEditPlan = new CEditPlan();
-                dGV = cEditPlan.createDataGridViews(CountCheckedCheckboxes());
-                dGV = cEditPlan.fillGrids(dGV, calendarDayList);
-                tagplanBearbeitenUC.AddDGV(dGV);
-                nextTabPage();
+                tagplanBearbeitenUC.createDataGridViews(x);
+                tagplanBearbeitenUC.fillGrids(calendarDayList);
             }
         }
 
@@ -131,7 +128,7 @@ namespace Tagplaner
             if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
             {
                 formInit.EnableBearbeitenStatistikTabPage();
-
+               
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 GetCalendarWithDates();
 
@@ -161,7 +158,7 @@ namespace Tagplaner
                     this.label4.Visible = true;
                     this.buttonWeiter.Enabled = true;
                 }
-            }
+        }
         }
 
         //Methode zum Überprüfen ob eine Checkbox ausgewählt ist. Fügt der Liste typeOfClasses Werte hinzu
@@ -173,11 +170,11 @@ namespace Tagplaner
             }
             else
                 typeOfClasses.Add("");
-        }
+            }
 
         //Zählt die ausgewählten Checkboxen
         public int CountCheckedCheckboxes()
-        {
+            {
             int checkedBoxesCount = 0;
             if (checkBoxErsterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBoxErsterJahrgangSI.Checked) checkedBoxesCount++;
@@ -202,7 +199,7 @@ namespace Tagplaner
         private void dateTimePickerBis_ValueChanged(object sender, EventArgs e)
         {
             if (this.dateTimePickerBis.Value < this.dateTimePickerVon.Value)
-            {
+        {
                 MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
                 this.dateTimePickerBis.Value = this.dateTimePickerVon.Value;
             }
