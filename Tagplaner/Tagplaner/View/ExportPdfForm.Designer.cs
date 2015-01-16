@@ -95,7 +95,6 @@
             this.Name = "ExportPdfForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PDF-Dokument exportieren";
-            this.Load += new System.EventHandler(this.ExportPdfForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
