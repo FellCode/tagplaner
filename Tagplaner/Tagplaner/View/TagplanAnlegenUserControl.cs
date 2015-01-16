@@ -116,11 +116,11 @@ namespace Tagplaner
             {
                 MessageBox.Show("Bitte einen Jahrgang auswählen");
             }
-            else
-            {
-                tagplanBearbeitenUC.createDataGridViews(x);
+           else{
+
+                tagplanBearbeitenUC.createDataGridViews(CountCheckedCheckboxes());
                 tagplanBearbeitenUC.fillGrids(calendarDayList);
-            }
+                }
         }
 
         private void buttonWeiter_Click(object sender, EventArgs e)
