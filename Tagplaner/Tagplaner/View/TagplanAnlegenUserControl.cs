@@ -115,7 +115,7 @@ namespace Tagplaner
         /// </summary>
         public void nextTabPage()
         {
-            formInit.tabPageChange(1);
+            formInit.TabPageChange(1);
         }
 
         /// <summary>

@@ -37,14 +37,14 @@ namespace Tagplaner
         private void Init_Load(object sender, EventArgs e)
         {
             // Show date and time
-            showDateTimeAsTitle();
+            ShowDateTimeAsTitle();
 
             // Init tabpages
-            addTabPage(tagplanAnlegenUC, "Tagplan anlegen", 0);
-            addTabPage(seminarVerwaltenUC, "Seminar verwalten", 1);
-            addTabPage(raumVerwaltenUC, "Räume verwalten", 2);
-            addTabPage(trainerVerwaltenUC, "Trainer verwalten", 3);
-            addTabPage(DebugUserControl.GetInstance(), "Debug", 4);
+            AddTabPage(tagplanAnlegenUC, "Tagplan anlegen", 0);
+            AddTabPage(seminarVerwaltenUC, "Seminar verwalten", 1);
+            AddTabPage(raumVerwaltenUC, "Räume verwalten", 2);
+            AddTabPage(trainerVerwaltenUC, "Trainer verwalten", 3);
+            AddTabPage(DebugUserControl.GetInstance(), "Debug", 4);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Tagplaner
         /// <param name="userControl">Instanz des UserControls das hinzugefügt werden soll</param>
         /// <param name="pageName">Anzeigetext für die tabPage</param>
         /// <param name="tabPosition">Position im tabControl</param>
-        private void addTabPage(UserControl userControl, string pageName, int tabPosition)
+        private void AddTabPage(UserControl userControl, string pageName, int tabPosition)
         {
             userControl.Dock = DockStyle.Fill;
             userControl.BackColor = Color.White;
@@ -72,20 +72,20 @@ namespace Tagplaner
         /// Wechselt zur angegebenen Seite im tabControl1
         /// </summary>
         /// <param name="pageIndex">Index von der Seite zu der gewechselt werden soll</param>
-        public void tabPageChange(int pageIndex)
+        public void TabPageChange(int pageIndex)
         {
             tabControl1.SelectedIndex = pageIndex;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            showDateTimeAsTitle();
+            ShowDateTimeAsTitle();
         }
 
         /// <summary>
         /// Zeigt Uhrzeit und Datum, sowie die Information über die letzte Speicherzeit des Tagplans
         /// </summary>
-        private void showDateTimeAsTitle()
+        private void ShowDateTimeAsTitle()
         {
             string time = DateTime.Now.ToShortTimeString();
             string date = DateTime.Now.ToShortDateString();
@@ -163,9 +163,9 @@ namespace Tagplaner
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                openTagplan(openFileDialog1.FileName);
-                showDateTimeAsTitle();
-                tabPageChange(1);
+                OpenTagplan(openFileDialog1.FileName);
+                ShowDateTimeAsTitle();
+                TabPageChange(1);
             }
         }
 
@@ -177,7 +177,7 @@ namespace Tagplaner
 
             if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
             {
-                saveTagplan(saveFileDialog1.FileName);
+                SaveTagplan(saveFileDialog1.FileName);
             }
         }
 
@@ -188,7 +188,7 @@ namespace Tagplaner
 
         private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openExportPdfWindow();
+            OpenExportPdfWindow();
         }
 
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -200,7 +200,7 @@ namespace Tagplaner
         /// Öffnet eine Tagplan Datei
         /// </summary>
         /// <param name="filename">Dateipfad und Name zur Datei die geöffnet werden soll</param>
-        private void openTagplan(string filename)
+        private void OpenTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
             MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(filename);
@@ -217,7 +217,7 @@ namespace Tagplaner
         /// Speichert die aktuelle Tagplan Datei
         /// </summary>
         /// <param name="filename">Speicherort und Dateiname für die zu Speichernden Datei</param>
-        private void saveTagplan(string filename)
+        private void SaveTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
             MCalendar.getInstance().LastModified = DateTime.Now;
@@ -228,7 +228,7 @@ namespace Tagplaner
         /// <summary>
         /// Zeigt das Fenster zum Exportieren von PDF-Dokumenten an
         /// </summary>
-        private void openExportPdfWindow()
+        private void OpenExportPdfWindow()
         {
             ExportPdfForm exportPdfForm = new ExportPdfForm();
             exportPdfForm.ShowDialog();
@@ -246,8 +246,8 @@ namespace Tagplaner
         {
             if (!tabsAlreadyAdded)
             {
-                addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", 1);
-                addTabPage(statistikUC, "Statistik", 5);
+                AddTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", 1);
+                AddTabPage(statistikUC, "Statistik", 5);
             }
             tabsAlreadyAdded = true;
         }
