@@ -8,34 +8,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Tagplaner.View;
 
 namespace Tagplaner
 {
- 
+    /// <summary>
+    /// UserControl zum erzeugen von Kalenderobjekten.
+    /// Start-, Enddatum, Bundesland, Anzahl und Art der Jahrgänge können über die Oberfläche gewählt werden 
+    /// </summary>
     public partial class TagplanAnlegenUserControl : UserControl
     {
-        Tagplaner.View.FerienFeiertageAuswaehlenForm ferienFeiertageAuswaehlenForm;
+        private FerienFeiertageAuswaehlenForm ferienFeiertageAuswaehlenForm;
         private DataGridView dGV;
 
         private FormInit formInit;
 
-        MCalendar calendarWithDays;
+        private MCalendar calendarWithDays;
 
-        int numberOfYears;
-        List<String> typeOfClasses;
+        private int numberOfYears;
+        private List<String> typeOfClasses;
 
-        TagplanBearbeitenUserControl tagplanBearbeitenUC;
+        private TagplanBearbeitenUserControl tagplanBearbeitenUC;
 
-        CSerialize serializer;
-        CDatabase databaseController;
+        private CSerialize serializer;
+        private CDatabase databaseController;
 
-        String vacationCurrentYearUrl;
-        String vacationNextYearUrl;
-        String holidayCurrentYearUrl;
-        String holidayNextYearUrl;
+        private String vacationCurrentYearUrl;
+        private String vacationNextYearUrl;
+        private String holidayCurrentYearUrl;
+        private String holidayNextYearUrl;
 
         /// <summary>
-        /// Konstruktor für TagplanAnlegenUserControl
+        /// Erzeugt ein Objekt vom Typ TagplanAnlegenUserControl
         /// </summary>
         /// <param name="formInit">Form auf der das UserControl eingebunden werden soll</param>
         /// <param name="tagplanBearbeitenUC">UserControl das die GridView enthält</param>
@@ -50,7 +54,7 @@ namespace Tagplaner
 
             databaseController = CDatabase.GetInstance();
             databaseController.FillAllList();
-            databaseController.FillFederalStateComboBox(comboBoxBundesland);
+            databaseController.FillFederalStateComboBox(comboBox_Bundesland);
 
             dGV = new DataGridView();
         }
@@ -60,26 +64,26 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_1Jahrgang_CheckedChanged(object sender, EventArgs e)
         {
-            groupBox1.Visible = true;
-            groupBox2.Visible = false;
-            groupBox3.Visible = false;
-            groupBox5.Visible = false;
+            groupBox_Jahrgang1.Visible = true;
+            groupBox_Jahrgang2.Visible = false;
+            groupBox_Jahrgang3.Visible = false;
+            groupBox_Jahrgang4.Visible = false;
             numberOfYears = 1;
         }
-        
+
         /// <summary>
         /// Registriert Änderungen des RadioButtons
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
+        private void radioButton_2Jahrgaenge_CheckedChanged_1(object sender, EventArgs e)
         {
-            groupBox1.Visible = true;
-            groupBox2.Visible = true;
-            groupBox3.Visible = false;
-            groupBox5.Visible = false;
+            groupBox_Jahrgang1.Visible = true;
+            groupBox_Jahrgang2.Visible = true;
+            groupBox_Jahrgang3.Visible = false;
+            groupBox_Jahrgang4.Visible = false;
             numberOfYears = 2;
         }
 
@@ -88,12 +92,12 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_3Jahrgaenge_CheckedChanged(object sender, EventArgs e)
         {
-            groupBox1.Visible = true;
-            groupBox2.Visible = true;
-            groupBox3.Visible = true;
-            groupBox5.Visible = false;
+            groupBox_Jahrgang1.Visible = true;
+            groupBox_Jahrgang2.Visible = true;
+            groupBox_Jahrgang3.Visible = true;
+            groupBox_Jahrgang4.Visible = false;
             numberOfYears = 3;
         }
 
@@ -102,50 +106,50 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_4Jahrgaenge_CheckedChanged(object sender, EventArgs e)
         {
-            groupBox1.Visible = true;
-            groupBox2.Visible = true;
-            groupBox3.Visible = true;
-            groupBox5.Visible = true;
+            groupBox_Jahrgang1.Visible = true;
+            groupBox_Jahrgang2.Visible = true;
+            groupBox_Jahrgang3.Visible = true;
+            groupBox_Jahrgang4.Visible = true;
             numberOfYears = 4;
         }
 
         /// <summary>
         /// Veranlasst den Sprung auf die nächste TabPage
         /// </summary>
-        public void nextTabPage()
+        public void NextTabPage()
         {
-            formInit.TabPageChange(1);
+            formInit.tabPageChange(1);
         }
 
         /// <summary>
-        /// Initialisieren des Kalenderobjekts
+        /// Initialisiert das Kalenderobjekts
         /// </summary>
         public void CreateCalendarWithDates()
         {
             //Ausbildungsgänge erster Jahrgang checken
-            CeckCheckboxes(checkBoxErsterJahrgangAE);
-            CeckCheckboxes(checkBoxErsterJahrgangSI);
+            CeckCheckboxes(checkBox_ErsterJahrgangAE);
+            CeckCheckboxes(checkBox_ErsterJahrgangSI);
 
             //Ausbildungsgänge zweiter Jahrgang checken
-            CeckCheckboxes(checkBoxZweiterJahrgangAE);
-            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+            CeckCheckboxes(checkBox_ZweiterJahrgangAE);
+            CeckCheckboxes(checkBox_ZweiterJahrgangSI);
 
             //Ausbildungsgänge dritter Jahrgang checken
-            CeckCheckboxes(checkBoxZweiterJahrgangAE);
-            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+            CeckCheckboxes(checkBox_DritterJahrgangAE);
+            CeckCheckboxes(checkBox_DritterJahrgangSI);
 
             //Ausbildungsgänge dritter Jahrgang checken
-            CeckCheckboxes(checkBoxZweiterJahrgangAE);
-            CeckCheckboxes(checkBoxZweiterJahrgangSI);
+            CeckCheckboxes(checkBox_VierterJahrgangAE);
+            CeckCheckboxes(checkBox_VierterJahrgangSI);
 
-            MCalendar.getInstance().FillCalendarInitial(this.dateTimePickerVon.Value, this.dateTimePickerBis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
+            MCalendar.getInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
 
         /// <summary>
-        /// Füllen der GridView
+        /// Füllt die GridView
         /// </summary>
         /// <param name="calendarDayList">Liste mit Kalendertagen in Zeitraum</param>
         public void FillFormWithDataGridView(List<MCalendarDay> calendarDayList)
@@ -157,9 +161,10 @@ namespace Tagplaner
             }
             else
             {
-                tagplanBearbeitenUC.CreateDataGridViews(CountCheckedCheckboxes());
-                tagplanBearbeitenUC.FillGrids(calendarDayList);
-                nextTabPage();
+                tagplanBearbeitenUC.createDataGridViews(CountCheckedCheckboxes());
+                tagplanBearbeitenUC.fillGrids(calendarDayList);
+                formInit.EnableBearbeitenStatistikTabPage();
+                NextTabPage();
             }
         }
 
@@ -168,12 +173,10 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonWeiter_Click(object sender, EventArgs e)
+        private void button_Weiter_Click(object sender, EventArgs e)
         {
             if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
             {
-                formInit.EnableBearbeitenStatistikTabPage();
-
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 CreateCalendarWithDates();
 
@@ -182,37 +185,36 @@ namespace Tagplaner
             }
         }
 
-        //Laden der Ferien und Feiertage
         /// <summary>
-        /// Laden der Ferien und Feiertage
+        /// Öffnet den Dialog zum Laden der Ferien- und Feiertagedatei
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
+        private void button_Oeffnen_Click(object sender, EventArgs e)
         {
             //Modaler Dialog zum Laden der Dateien wird aufgerufen
-            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
+            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePicker_Von.Value, dateTimePicker_Bis.Value))
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
-               {
+                {
                     holidayCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2015.csv";
                     holidayNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2016.csv";
                     vacationCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2015.ics";
                     vacationNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2016.ics";
 
-                    this.label4.Text = "Feriendatei (Von): " + splitUrl(holidayCurrentYearUrl) + "\n" +
-                                       "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
-                                       "Feiertagdatei (Von): " + splitUrl(vacationCurrentYearUrl) + "\n" +
-                                       "Feiertagdatei (Bis): " + splitUrl(vacationNextYearUrl) + " geöffnet";
-                    this.label4.Visible = true;
-                    this.buttonWeiter.Enabled = true;
+                    this.label_GeoeffneteDateienAnzeigen.Text = "Feriendatei (Von): " + SplitUrl(holidayCurrentYearUrl) + "\n" +
+                                       "Feriendatei (Bis): " + SplitUrl(holidayNextYearUrl) + "\n" +
+                                       "Feiertagdatei (Von): " + SplitUrl(vacationCurrentYearUrl) + "\n" +
+                                       "Feiertagdatei (Bis): " + SplitUrl(vacationNextYearUrl) + " geöffnet";
+                    this.label_GeoeffneteDateienAnzeigen.Visible = true;
+                    this.button_Weiter.Enabled = true;
                 }
             }
         }
 
         /// <summary>
-        /// Methode zum Überprüfen ob eine Checkbox ausgewählt ist. Fügt der Liste typeOfClasses Werte hinzu
+        /// Überprüft ob eine Checkbox ausgewählt ist. Fügt der Liste typeOfClasses Werte hinzu
         /// </summary>
         /// <param name="checkBox">Zu überprüfende Checkbox</param>
         public void CeckCheckboxes(CheckBox checkBox)
@@ -232,14 +234,14 @@ namespace Tagplaner
         public int CountCheckedCheckboxes()
         {
             int checkedBoxesCount = 0;
-            if (checkBoxErsterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBoxErsterJahrgangSI.Checked) checkedBoxesCount++;
-            if (checkBoxZweiterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBoxZweiterJahrgangSI.Checked) checkedBoxesCount++;
-            if (checkBoxDritterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBoxDritterJahrgangSI.Checked) checkedBoxesCount++;
-            if (checkBoxVierterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBoxVierterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_ErsterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBox_ErsterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_ZweiterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBox_ZweiterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_DritterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBox_DritterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_VierterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBox_VierterJahrgangSI.Checked) checkedBoxesCount++;
 
             return checkedBoxesCount;
         }
@@ -250,7 +252,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="url">Pfad zur Datei</param>
         /// <returns>Dateiname</returns>
-        public String splitUrl(String url)
+        public String SplitUrl(String url)
         {
             String[] substrings = url.Split('\\');
             return substrings[substrings.Length - 1];
@@ -261,12 +263,12 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dateTimePickerBis_ValueChanged(object sender, EventArgs e)
+        private void dateTimePicker_Bis_ValueChanged(object sender, EventArgs e)
         {
-            if (this.dateTimePickerBis.Value < this.dateTimePickerVon.Value)
+            if (this.dateTimePicker_Bis.Value < this.dateTimePicker_Von.Value)
             {
                 MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
-                this.dateTimePickerBis.Value = this.dateTimePickerVon.Value;
+                this.dateTimePicker_Bis.Value = this.dateTimePicker_Von.Value;
             }
         }
     }
