@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// UserControl das berechnete Statistiken in einem ListView anzeigt
+    /// </summary>
     public partial class StatistikUserControl : UserControl
     {
+        /// <summary>
+        /// Erzeugt eine neue Instanz von StatistikUserControl
+        /// </summary>
         public StatistikUserControl()
         {
             InitializeComponent();

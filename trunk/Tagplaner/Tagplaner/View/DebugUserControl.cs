@@ -23,6 +23,10 @@ namespace Tagplaner
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Liefert eine Instanz von DebugUserControl zurück
+        /// </summary>
+        /// <returns>Instanz von DebugUserControl</returns>
         public static DebugUserControl GetInstance()
         {
             if (instance == null)

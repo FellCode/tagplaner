@@ -36,6 +36,11 @@ namespace Tagplaner
         // Font for Unuiqday
         readonly Font FONT_UNIQUE = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.NORMAL, BaseColor.WHITE);
 
+        /// <summary>
+        /// Erstellt eine neue Instanz von CPdfExporter
+        /// </summary>
+        /// <param name="calendar">Instanz vom MCalendar</param>
+        /// <param name="trainerList">Instanz von List mit MTrainer Instanzen</param>
         public CPdfExporter(MCalendar calendar, List<MTrainer> trainerList)
         {
             this.calendar = calendar;

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Klasse mit static Methoden zum erzeugen von Statistiken
+    /// </summary>
     public class CStatisticUtilitys
     {
         private CStatisticUtilitys() { }

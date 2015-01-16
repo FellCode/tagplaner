@@ -10,10 +10,16 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// SplashScreen Form wird beim Start der Applikation angezeigt um Daten vorab zuladen
+    /// </summary>
     public partial class SplashScreenForm : Form
     {
         private Timer timer;
 
+        /// <summary>
+        /// Erstellt eine Instanz von SplashScreenForm
+        /// </summary>
         public SplashScreenForm()
         {
             InitializeComponent();
