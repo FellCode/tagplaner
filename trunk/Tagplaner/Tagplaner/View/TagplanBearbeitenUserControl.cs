@@ -33,12 +33,11 @@ namespace Tagplaner
             panel1.Controls.Add(new TagplanChangepanelUserControl());
         }
 
+  
         /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
         /// </summary>
-        /// <param name="dGV"></param>
-        /// <param name="columnCount"></param>
-        /// <param name="listView"></param>
+        /// <param name="calendarDays"></param>
         public void FillGrids(List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
