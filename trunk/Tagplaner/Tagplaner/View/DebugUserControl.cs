@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// UserControl für die Anzeige von Debug Informationen, diese Klasse ist als Singleton implementiert
+    /// um Lognachrichten aus jeder anderen Klasse einfach schreiben zu können
+    /// </summary>
     public partial class DebugUserControl : UserControl
     {
         private static DebugUserControl instance;
@@ -29,6 +33,10 @@ namespace Tagplaner
             return instance;
         }
 
+        /// <summary>
+        /// Erzeugt einen Logeintrag mit Datum und Uhrzeit in der ListBox
+        /// </summary>
+        /// <param name="debugMessage"></param>
         public void AddDebugMessage(string debugMessage)
         {
             DateTime datetime = DateTime.Now;
