@@ -376,5 +376,10 @@ namespace Tagplaner
 
         }
 
+        private void Seminarpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }
