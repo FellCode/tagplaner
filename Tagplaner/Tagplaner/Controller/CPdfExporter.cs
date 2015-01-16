@@ -41,6 +41,11 @@ namespace Tagplaner
             FillDayDictionary();
         }
 
+        /// <summary>
+        /// Erzeugt ein PDF-Dokument für den Tagplan und speichert diese an den angegebenen Ort
+        /// </summary>
+        /// <param name="filename">Speichertort für das PDF-Dokument</param>
+        /// <returns>Ist true wenn die Datei erfolgreich erstellt wurde</returns>
         public bool ExportPdf(string filename)
         {
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
@@ -114,7 +119,7 @@ namespace Tagplaner
         /// <summary>
         ///  Erzeugt die Legende für die verschiedenen Arten von Tagplan 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Tabelle für die Legende</returns>
         private PdfPTable CreateLegend()
         {
             PdfPTable legendTable = new PdfPTable(32);
@@ -166,7 +171,7 @@ namespace Tagplaner
         /// <summary>
         /// Erzeugt den Tabellenkopf für die Tagplan-Tabelle
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Tabelle mit überschriften für den Tagplan</returns>
         public PdfPTable CreateTopRow()
         {
             PdfPTable topRowTable = new PdfPTable(32);
@@ -241,10 +246,10 @@ namespace Tagplaner
         /// <summary>
         /// Erzeugt eine Tabellenreihe zwei Zellen
         /// </summary>
-        /// <param name="leftValue"></param>
-        /// <param name="rightValue"></param>
-        /// <param name="font"></param>
-        /// <param name="spaceBefore"></param>
+        /// <param name="leftValue">Wert für die linke Zelle</param>
+        /// <param name="rightValue">Wert für die rechte Zelle</param>
+        /// <param name="font">Schriftformatierung für die beiden Zellen</param>
+        /// <param name="spaceBefore">Abstand nach oben</param>
         private void CreateFooterTableRow(string leftValue, string rightValue, Font font, int spaceBefore)
         {
             PdfPTable pdfTable = new PdfPTable(2);
@@ -265,8 +270,8 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine neue Zelle für FooterTableRow
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="font"></param>
+        /// <param name="value">Text für die erzeugte Zelle</param>
+        /// <param name="font">Schriftformatierung</param>
         /// <returns></returns>
         private PdfPCell CreateFooterTableCell(string value, Font font)
         {
@@ -279,6 +284,7 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Tabellenreihe mit den eigentlichen Tagplan Informationen
         /// </summary>
+        /// <param name="calendarDay">CalendatTag aus der Liste von MCalendar</param>
         private void CreateBodyTableRow(MCalendarDay calendarDay)
         {
             PdfPTable pdfTable = new PdfPTable(32);
@@ -363,7 +369,7 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle für einen Schultag
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Zelle mit Formatierung für Schultage</returns>
         private PdfPCell CreateBodyTableCellSchool()
         {
             PdfPCell pdfcell = new PdfPCell();
@@ -379,9 +385,10 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle für einen Seminartag
         /// </summary>
-        /// <param name="seminarName"></param>
-        /// <returns></returns>
-        private PdfPCell CreateBodyTableCellSeminar(string seminarName, int colspan = 4)
+        /// <param name="seminarName">Name des Seminars</param>
+        /// <param name="colspan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <returns>Zelle mit Formatierung für Seminartage</returns>
+        private PdfPCell CreateBodyTableCellSeminar(string seminarName, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.CYAN;
@@ -396,8 +403,10 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle für einen Praxistag
         /// </summary>
-        /// <returns></returns>
-        private PdfPCell CreateBodyTableCellPratice(string comment = "", int colspan = 4)
+        /// <param name="comment">Kommentar für Praxistage</param>
+        /// <param name="colspan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <returns>Zelle mit Fomatierung für Praxistage</returns>
+        private PdfPCell CreateBodyTableCellPratice(string comment, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.YELLOW;
@@ -412,8 +421,10 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle für einen Ferien- / Feiertag
         /// </summary>
-        /// <returns></returns>
-        private PdfPCell CreateBodyTableCellHoliday(string holidayName = "", int colspan = 1)
+        /// <param name="holidayName">Name des Ferien- / Feiertags</param>
+        /// <param name="colspan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <returns>Zelle mit Formatierung für Ferien- und Feiertage</returns>
+        private PdfPCell CreateBodyTableCellHoliday(string holidayName, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.GREEN;
@@ -425,14 +436,15 @@ namespace Tagplaner
             return pdfcell;
         }
 
+        
         /// <summary>
         /// Erstellt eine Zelle für einen besonderen Tag wie zum Beispiel 
         /// IHK-Prüfungen
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="colspan"></param>
-        /// <returns></returns>
-        private PdfPCell CreateBodyTableCellUniqueDay(string name, int colspan = 1)
+        /// <param name="name">Name für den besonderen Tag</param>
+        /// <param name="colspan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <returns>Zelle mit Fomatierung für Praxistage</returns>
+        private PdfPCell CreateBodyTableCellUniqueDay(string name, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.RED;
@@ -447,10 +459,10 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="colspan"></param>
-        /// <returns></returns>
-        private PdfPCell CreateBodyTableCell(string value = "", int colspan = 1)
+        /// <param name="value">Text der in der Zelle stehen soll</param>
+        /// <param name="colspan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <returns>Unformatierte Zelle</returns>
+        private PdfPCell CreateBodyTableCell(string value, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.Phrase = new Phrase(value, FONT_NORMAL);
@@ -464,7 +476,7 @@ namespace Tagplaner
         /// <summary>
         /// Erzeugt eine Tabellenreihe für Wochenenden mit der aktuellen Kalenderwoche
         /// </summary>
-        /// <param name="calenderWeek"></param>
+        /// <param name="calenderWeek">Angabe der Kalendarwoche</param>
         private void CreateBodyTableRowWeekend(string calenderWeek)
         {
             int calendarWeekTmp = Convert.ToInt16(calenderWeek) + 1;
