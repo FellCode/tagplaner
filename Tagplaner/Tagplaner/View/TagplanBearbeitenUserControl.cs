@@ -39,7 +39,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
-            panel1.Controls.Add(new TagplanChangepanelUserControl());
+            panel1.Controls.Add(tagplanChangePanelUserControl);
         }
 
   
