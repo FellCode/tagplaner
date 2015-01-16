@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Die Klasse bildet einen Tagplan ab.
+    /// </summary>
     [Serializable()]
     public class MCalendar
     {
@@ -72,7 +75,10 @@ namespace Tagplaner
         {
 
         }
-
+        /// <summary>
+        /// Prüft, ob bereits eine Instanz der Klasse existiert. Diese wird zurück gegeben bzw. zuvor eine neue Instanz erzeugt.
+        /// </summary>
+        /// <returns>Enthält die Instanz der Klasse</returns>
         public static MCalendar getInstance()
         {
             if (instance == null)
@@ -80,7 +86,17 @@ namespace Tagplaner
                 instance = new MCalendar();
             } return instance;
         }
-
+        /// <summary>
+        /// Befüllt den Kalender initial mit den Tagen, beginnend beim angegebenen Anfangsdatum bis zum Enddatum sowie den dazugehörigen Kalenderwochen, Feiertagen und Ferien.
+        /// </summary>
+        /// <param name="start">Beginn des Kalenders.</param>
+        /// <param name="end">Ende des Kalenders.</param>
+        /// <param name="numberOfYears">Anzahl an Jahrgängen für die der Kalender erstellt wird.</param>
+        /// <param name="typesOfClasses">Gibt die Fachrichtungen der Jahrgänge an.</param>
+        /// <param name="vacationCurrentYearUrl">Pfad zur Datei die die Ferientage des ersten Kalenderjahres enthält.</param>
+        /// <param name="vacationNextYearUrl">Pfad zur Datei die die Ferientage des zweiten Kalenderjahres enthält.</param>
+        /// <param name="holidayCurrentYearUrl">Pfad zur Datei die die Feiertage des ersten Kalenderjahres enthält.</param>
+        /// <param name="holidayNextYearUrl">Pfad zur Datei die die Feiertage des zweiten Kalenderjahres enthält.</param>
         public void FillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             startdate = start;
@@ -100,13 +116,13 @@ namespace Tagplaner
             //Befüllen der Speciality
             Speciality = CCalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
         }
-
+        /// <summary>
+        /// Ersetzt die vorhandene Instanz des Kalenders durch die, in der Parameterliste angegebene.
+        /// </summary>
+        /// <param name="calendar">Kalenderinstanz die eingefügt werden soll.</param>
         public static void SetInstance(MCalendar calendar)
         {
             instance = calendar;
         }
-        #region AddDay-Methods
-
-        #endregion
     }
 }
