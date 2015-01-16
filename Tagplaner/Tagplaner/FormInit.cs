@@ -22,8 +22,6 @@ namespace Tagplaner
         StatistikUserControl statistikUC;
         RaumVerwaltenUserControl raumVerwaltenUC;
         TrainerVerwaltenUserControl trainerVerwaltenUC;
-        DebugUserControl debugUC;
-        private DataGridView dGV;
 
         public FormInit()
         {
@@ -34,9 +32,6 @@ namespace Tagplaner
             statistikUC = new StatistikUserControl();
             raumVerwaltenUC = new RaumVerwaltenUserControl();
             trainerVerwaltenUC = new TrainerVerwaltenUserControl();
-            dGV = new DataGridView();
-
-            debugUC = DebugUserControl.GetInstance();
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -45,23 +40,20 @@ namespace Tagplaner
             showDateTimeAsTitle();
 
             // Init tabpages
-            addTabPage(tagplanAnlegenUC, "Tagplan anlegen", true);
-            //addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", false);
-            addTabPage(seminarVerwaltenUC, "Seminar verwalten", true);
-            addTabPage(raumVerwaltenUC, "Räume verwalten", true);
-            addTabPage(trainerVerwaltenUC, "Trainer verwalten", true);
-
-            //Statistik- und TagplanBearbeitenUseControl werden erst später hinzugefügt und angezeigt
-
-            addTabPage(debugUC, "Debug", true);
+            addTabPage(tagplanAnlegenUC, "Tagplan anlegen", 0);
+            addTabPage(seminarVerwaltenUC, "Seminar verwalten", 1);
+            addTabPage(raumVerwaltenUC, "Räume verwalten", 2);
+            addTabPage(trainerVerwaltenUC, "Trainer verwalten", 3);
+            addTabPage(DebugUserControl.GetInstance(), "Debug", 4);
         }
 
         /// <summary>
         /// Fügt ein UserControl mit einer neuen Tabpage zu tabControl1 zu
         /// </summary>
-        /// <param name="userControl"></param>
-        /// <param name="pageName"></param>
-        private void addTabPage(UserControl userControl, string pageName, Boolean enabled)
+        /// <param name="userControl">Instanz des UserControls das hinzugefügt werden soll</param>
+        /// <param name="pageName">Anzeigetext für die tabPage</param>
+        /// <param name="tabPosition">Position im tabControl</param>
+        private void addTabPage(UserControl userControl, string pageName, int tabPosition)
         {
             userControl.Dock = DockStyle.Fill;
             userControl.BackColor = Color.White;
@@ -72,10 +64,14 @@ namespace Tagplaner
             tabPage.Controls.Add(userControl);
 
             // Add tabpage to tabControl1
-            tabControl1.TabPages.Add(tabPage);
+            tabControl1.TabPages.Insert(tabPosition, tabPage);
 
         }
 
+        /// <summary>
+        /// Wechselt zur angegebenen Seite im tabControl1
+        /// </summary>
+        /// <param name="pageIndex">Index von der Seite zu der gewechselt werden soll</param>
         public void tabPageChange(int pageIndex)
         {
             tabControl1.SelectedIndex = pageIndex;
@@ -86,6 +82,9 @@ namespace Tagplaner
             showDateTimeAsTitle();
         }
 
+        /// <summary>
+        /// Zeigt Uhrzeit und Datum, sowie die Information über die letzte Speicherzeit des Tagplans
+        /// </summary>
         private void showDateTimeAsTitle()
         {
             string time = DateTime.Now.ToShortTimeString();
@@ -98,7 +97,7 @@ namespace Tagplaner
             }
             else
             {
-                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.getInstance().LastModified.ToShortDateString();
+                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.getInstance().LastModified.ToShortDateString() + " " + MCalendar.getInstance().LastModified.ToShortTimeString();
             }
         }
 
@@ -197,6 +196,10 @@ namespace Tagplaner
             System.Windows.Forms.Application.Exit();
         }
 
+        /// <summary>
+        /// Öffnet eine Tagplan Datei
+        /// </summary>
+        /// <param name="filename">Dateipfad und Name zur Datei die geöffnet werden soll</param>
         private void openTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
@@ -210,6 +213,10 @@ namespace Tagplaner
             tagplanAnlegenUC.nextTabPage();
         }
 
+        /// <summary>
+        /// Speichert die aktuelle Tagplan Datei
+        /// </summary>
+        /// <param name="filename">Speicherort und Dateiname für die zu Speichernden Datei</param>
         private void saveTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
@@ -218,6 +225,9 @@ namespace Tagplaner
             MCalendar.getInstance().Saved = true;
         }
 
+        /// <summary>
+        /// Zeigt das Fenster zum Exportieren von PDF-Dokumenten an
+        /// </summary>
         private void openExportPdfWindow()
         {
             ExportPdfForm exportPdfForm = new ExportPdfForm();
@@ -229,22 +239,15 @@ namespace Tagplaner
             Application.Exit();
         }
 
+        /// <summary>
+        /// Fügt die UnserControls TagplanBearbeiten und Statistiken zum tabControl1 hinzu
+        /// </summary>
         public void EnableBearbeitenStatistikTabPage()
         {
             if (!tabsAlreadyAdded)
             {
-                TabPage tabPageStatistik = new TabPage();
-                tabPageStatistik.Text = "Statistik";
-                tabPageStatistik.Controls.Add(statistikUC);
-
-                tabControl1.TabPages.Insert(4, tabPageStatistik);
-
-                TabPage tabPageBearbeiten = new TabPage();
-                tabPageBearbeiten.Text = "Tagplan bearbeiten";
-                tagplanBearbeitenUC.Dock = DockStyle.Fill;
-                tabPageBearbeiten.Controls.Add(tagplanBearbeitenUC);
-
-                tabControl1.TabPages.Insert(1, tabPageBearbeiten);
+                addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", 1);
+                addTabPage(statistikUC, "Statistik", 5);
             }
             tabsAlreadyAdded = true;
         }
