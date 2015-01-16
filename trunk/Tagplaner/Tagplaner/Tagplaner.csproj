@@ -92,14 +92,12 @@
   <ItemGroup>
     <Compile Include="Controller\CCalendar.cs" />
     <Compile Include="Controller\CCalendarUtilitys.cs" />
-    <Compile Include="Controller\CChangepanel.cs" />
     <Compile Include="Controller\CDatabase.cs" />
     <Compile Include="Controller\CHoliday.cs" />
     <Compile Include="Controller\CICalCSVConverter.cs" />
     <Compile Include="Controller\CPdfExporter.cs" />
     <Compile Include="Controller\CSerialize.cs" />
     <Compile Include="Controller\CStatisticUtilitys.cs" />
-    <Compile Include="Interface\IChagepanel.cs" />
     <Compile Include="Interface\IDatabase.cs" />
     <Compile Include="Interface\ICalendarUtilitys.cs" />
     <Compile Include="Interface\IICalCSVConverter.cs" />
