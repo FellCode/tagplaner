@@ -12,6 +12,9 @@ using Tagplaner.View;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Hauptbildschirm mit TabControl in dem weitere TabPages eingefügt werden können um Daten zu Verwalten
+    /// </summary>
     public partial class FormInit : Form
     {
         Boolean tabsAlreadyAdded = false;
@@ -23,6 +26,9 @@ namespace Tagplaner
         RaumVerwaltenUserControl raumVerwaltenUC;
         TrainerVerwaltenUserControl trainerVerwaltenUC;
 
+        /// <summary>
+        /// Erzeugt eine neue Instanz von FormInit
+        /// </summary>
         public FormInit()
         {
             InitializeComponent();
@@ -121,7 +127,7 @@ namespace Tagplaner
 
                 // Messagebox mit Speicher-Hinweis anzeigen
                 DialogResult dialogSaveResult = MessageBox.Show(
-                MMessage.REQUEST_FILE_SAVE, "Tagplaner", MessageBoxButtons.YesNoCancel);
+                MMessage.CONFIRMATION_FILE_SAVE, "Tagplaner", MessageBoxButtons.YesNoCancel);
 
                 // Wenn Ja gedrückt wurde SaveDialog anzeigen
                 if (dialogSaveResult == DialogResult.Yes)

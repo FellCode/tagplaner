@@ -11,8 +11,14 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Form zum konfigurieren und exportieren des PDF-Dokuments
+    /// </summary>
     public partial class ExportPdfForm : Form
     {
+        /// <summary>
+        /// Erstellt eine neue Instanz von ExportPdfForm
+        /// </summary>
         public ExportPdfForm()
         {
             InitializeComponent();
