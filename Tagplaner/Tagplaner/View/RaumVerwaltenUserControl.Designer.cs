@@ -28,168 +28,168 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.raumAnzeigen = new System.Windows.Forms.GroupBox();
+            this.seminarOrtComboBox = new System.Windows.Forms.ComboBox();
+            this.seminarortLabel = new System.Windows.Forms.Label();
+            this.raeumeLabel = new System.Windows.Forms.Label();
+            this.raeumeComboBox = new System.Windows.Forms.ComboBox();
+            this.raumBearbeiten = new System.Windows.Forms.GroupBox();
+            this.zuruecksetzenButton = new System.Windows.Forms.Button();
+            this.loeschenButton = new System.Windows.Forms.Button();
+            this.speichernButton = new System.Windows.Forms.Button();
+            this.raumTextBox = new System.Windows.Forms.TextBox();
+            this.raumLabel = new System.Windows.Forms.Label();
+            this.raumAnzeigen.SuspendLayout();
+            this.raumBearbeiten.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox2
+            // raumAnzeigen
             // 
-            this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(640, 77);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Räume anzeigen";
+            this.raumAnzeigen.Controls.Add(this.seminarOrtComboBox);
+            this.raumAnzeigen.Controls.Add(this.seminarortLabel);
+            this.raumAnzeigen.Controls.Add(this.raeumeLabel);
+            this.raumAnzeigen.Controls.Add(this.raeumeComboBox);
+            this.raumAnzeigen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.raumAnzeigen.Location = new System.Drawing.Point(0, 0);
+            this.raumAnzeigen.Name = "raumAnzeigen";
+            this.raumAnzeigen.Size = new System.Drawing.Size(640, 77);
+            this.raumAnzeigen.TabIndex = 0;
+            this.raumAnzeigen.TabStop = false;
+            this.raumAnzeigen.Text = "Räume anzeigen";
             // 
-            // comboBox2
+            // seminarOrtComboBox
             // 
-            this.comboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(89, 30);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(168, 21);
-            this.comboBox2.TabIndex = 3;
-            this.comboBox2.Text = "bitte Seminarort wählen!";
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.seminarOrtComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.seminarOrtComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.seminarOrtComboBox.FormattingEnabled = true;
+            this.seminarOrtComboBox.Location = new System.Drawing.Point(89, 30);
+            this.seminarOrtComboBox.Name = "seminarOrtComboBox";
+            this.seminarOrtComboBox.Size = new System.Drawing.Size(168, 21);
+            this.seminarOrtComboBox.TabIndex = 3;
+            this.seminarOrtComboBox.Text = "bitte Seminarort wählen!";
+            this.seminarOrtComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
-            // label3
+            // seminarortLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Seminarort:";
+            this.seminarortLabel.AutoSize = true;
+            this.seminarortLabel.Location = new System.Drawing.Point(19, 30);
+            this.seminarortLabel.Name = "seminarortLabel";
+            this.seminarortLabel.Size = new System.Drawing.Size(60, 13);
+            this.seminarortLabel.TabIndex = 2;
+            this.seminarortLabel.Text = "Seminarort:";
             // 
-            // label1
+            // raeumeLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(329, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Räume:";
+            this.raeumeLabel.AutoSize = true;
+            this.raeumeLabel.Location = new System.Drawing.Point(329, 30);
+            this.raeumeLabel.Name = "raeumeLabel";
+            this.raeumeLabel.Size = new System.Drawing.Size(44, 13);
+            this.raeumeLabel.TabIndex = 1;
+            this.raeumeLabel.Text = "Räume:";
             // 
-            // comboBox1
+            // raeumeComboBox
             // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(391, 27);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(177, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.raeumeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.raeumeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.raeumeComboBox.FormattingEnabled = true;
+            this.raeumeComboBox.Location = new System.Drawing.Point(391, 27);
+            this.raeumeComboBox.Name = "raeumeComboBox";
+            this.raeumeComboBox.Size = new System.Drawing.Size(177, 21);
+            this.raeumeComboBox.TabIndex = 0;
+            this.raeumeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // groupBox3
+            // raumBearbeiten
             // 
-            this.groupBox3.Controls.Add(this.button4);
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(0, 77);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(640, 196);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Raum bearbeiten";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox2_Enter);
+            this.raumBearbeiten.Controls.Add(this.zuruecksetzenButton);
+            this.raumBearbeiten.Controls.Add(this.loeschenButton);
+            this.raumBearbeiten.Controls.Add(this.speichernButton);
+            this.raumBearbeiten.Controls.Add(this.raumTextBox);
+            this.raumBearbeiten.Controls.Add(this.raumLabel);
+            this.raumBearbeiten.Dock = System.Windows.Forms.DockStyle.Top;
+            this.raumBearbeiten.Location = new System.Drawing.Point(0, 77);
+            this.raumBearbeiten.Name = "raumBearbeiten";
+            this.raumBearbeiten.Size = new System.Drawing.Size(640, 196);
+            this.raumBearbeiten.TabIndex = 1;
+            this.raumBearbeiten.TabStop = false;
+            this.raumBearbeiten.Text = "Raum bearbeiten";
+            this.raumBearbeiten.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
-            // button4
+            // zuruecksetzenButton
             // 
-            this.button4.Location = new System.Drawing.Point(169, 71);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(88, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Zurücksetzen";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button3_Click);
+            this.zuruecksetzenButton.Location = new System.Drawing.Point(169, 71);
+            this.zuruecksetzenButton.Name = "zuruecksetzenButton";
+            this.zuruecksetzenButton.Size = new System.Drawing.Size(88, 23);
+            this.zuruecksetzenButton.TabIndex = 5;
+            this.zuruecksetzenButton.Text = "Zurücksetzen";
+            this.zuruecksetzenButton.UseVisualStyleBackColor = true;
+            this.zuruecksetzenButton.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button3
+            // loeschenButton
             // 
-            this.button3.Location = new System.Drawing.Point(88, 71);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Löschen";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.loeschenButton.Location = new System.Drawing.Point(88, 71);
+            this.loeschenButton.Name = "loeschenButton";
+            this.loeschenButton.Size = new System.Drawing.Size(75, 23);
+            this.loeschenButton.TabIndex = 4;
+            this.loeschenButton.Text = "Löschen";
+            this.loeschenButton.UseVisualStyleBackColor = true;
+            this.loeschenButton.Click += new System.EventHandler(this.button3_Click_1);
             // 
-            // button1
+            // speichernButton
             // 
-            this.button1.Location = new System.Drawing.Point(7, 71);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Speichern";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.speichernButton.Location = new System.Drawing.Point(7, 71);
+            this.speichernButton.Name = "speichernButton";
+            this.speichernButton.Size = new System.Drawing.Size(75, 23);
+            this.speichernButton.TabIndex = 2;
+            this.speichernButton.Text = "Speichern";
+            this.speichernButton.UseVisualStyleBackColor = true;
+            this.speichernButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // raumTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(89, 33);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(168, 20);
-            this.textBox1.TabIndex = 1;
+            this.raumTextBox.Location = new System.Drawing.Point(89, 33);
+            this.raumTextBox.Name = "raumTextBox";
+            this.raumTextBox.Size = new System.Drawing.Size(168, 20);
+            this.raumTextBox.TabIndex = 1;
             // 
-            // label2
+            // raumLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Raumnummer:";
+            this.raumLabel.AutoSize = true;
+            this.raumLabel.Location = new System.Drawing.Point(7, 36);
+            this.raumLabel.Name = "raumLabel";
+            this.raumLabel.Size = new System.Drawing.Size(75, 13);
+            this.raumLabel.TabIndex = 0;
+            this.raumLabel.Text = "Raumnummer:";
             // 
             // RaumVerwaltenUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.raumBearbeiten);
+            this.Controls.Add(this.raumAnzeigen);
             this.Name = "RaumVerwaltenUserControl";
             this.Size = new System.Drawing.Size(640, 341);
             this.Load += new System.EventHandler(this.RaumVerwaltenUserControl_Load);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.raumAnzeigen.ResumeLayout(false);
+            this.raumAnzeigen.PerformLayout();
+            this.raumBearbeiten.ResumeLayout(false);
+            this.raumBearbeiten.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox raumAnzeigen;
+        private System.Windows.Forms.GroupBox raumBearbeiten;
+        private System.Windows.Forms.Label raeumeLabel;
+        private System.Windows.Forms.ComboBox raeumeComboBox;
+        private System.Windows.Forms.TextBox raumTextBox;
+        private System.Windows.Forms.Label raumLabel;
+        private System.Windows.Forms.Button zuruecksetzenButton;
+        private System.Windows.Forms.Button loeschenButton;
+        private System.Windows.Forms.Button speichernButton;
+        private System.Windows.Forms.ComboBox seminarOrtComboBox;
+        private System.Windows.Forms.Label seminarortLabel;
 
     }
 }
