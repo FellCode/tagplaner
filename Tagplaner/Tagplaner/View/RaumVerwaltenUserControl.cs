@@ -67,6 +67,7 @@ namespace Tagplaner
             {
                 raeumeComboBox.Text = "";
                 raeumeComboBox.Items.Clear();
+                raumTextBox.Clear();
                 db.FillRoomComboBox(raeumeComboBox, place.Id);
             }
         }
