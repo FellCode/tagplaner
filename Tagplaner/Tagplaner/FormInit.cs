@@ -50,18 +50,10 @@ namespace Tagplaner
             addTabPage(seminarVerwaltenUC, "Seminar verwalten", true);
             addTabPage(raumVerwaltenUC, "Räume verwalten", true);
             addTabPage(trainerVerwaltenUC, "Trainer verwalten", true);
-            //addTabPage(statistikUC, "Statistiken", false);
+
+            //Statistik- und TagplanBearbeitenUseControl werden erst später hinzugefügt und angezeigt
 
             addTabPage(debugUC, "Debug", true);
-
-            /*
-            openTagplan(@"C:\Users\Alexander\Desktop\2015_2016.tp");
-            tabPageChange(1);
-
-            tagplanBearbeitenUC.GetListView().Items.Clear();
-            tagplanAnlegenUC.fillListViewWithDays(
-                MCalendar.getInstance().CalendarList, tagplanBearbeitenUC.GetListView());
-            */
         }
 
         /// <summary>
@@ -73,18 +65,15 @@ namespace Tagplaner
         {
             userControl.Dock = DockStyle.Fill;
             userControl.BackColor = Color.White;
-            //userControl.Enabled = enabled;
-            //userControl.Visible = enabled;
 
             // Init tabPage
             TabPage tabPage = new TabPage();
             tabPage.Text = pageName;
-            //tabPage.Controls.Add(userControl);
             tabPage.Controls.Add(userControl);
 
             // Add tabpage to tabControl1
             tabControl1.TabPages.Add(tabPage);
-            
+
         }
 
         public void tabPageChange(int pageIndex)
@@ -215,8 +204,10 @@ namespace Tagplaner
             MCalendar.SetInstance(calendarWithDays);
 
             //Füllt die GridView mit Daten
+            tagplanBearbeitenUC.createDataGridViews(MCalendar.getInstance().Speciality.Count());
             tagplanBearbeitenUC.fillGrids(MCalendar.getInstance().CalendarList);
-            this.EnableBearbeitenStatistikTabPage();
+            EnableBearbeitenStatistikTabPage();
+            tagplanAnlegenUC.nextTabPage();
         }
 
         private void saveTagplan(string filename)
@@ -254,8 +245,6 @@ namespace Tagplaner
                 tabPageBearbeiten.Controls.Add(tagplanBearbeitenUC);
 
                 tabControl1.TabPages.Insert(1, tabPageBearbeiten);
-                //addTabPage(statistikUC, "Statistik", true);
-                //addTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", true);
             }
             tabsAlreadyAdded = true;
         }
