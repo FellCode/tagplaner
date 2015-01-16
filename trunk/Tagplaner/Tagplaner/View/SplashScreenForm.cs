@@ -23,6 +23,7 @@ namespace Tagplaner
         public SplashScreenForm()
         {
             InitializeComponent();
+            InitLabelNames();
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
@@ -61,13 +62,21 @@ namespace Tagplaner
         {
             this.Width = pictureBox1.Width;
             this.Height = pictureBox1.Height;
+        }
 
+        /// <summary>
+        /// Konfiguriert das Label für die Namen der ersteller der Tagplan Applikation
+        /// </summary>
+        private void InitLabelNames()
+        {
             label1.Parent = pictureBox1;
             label1.BackColor = Color.Transparent;
             label1.Text = "Arnold Bechtold, Thomas Bender, Stefan Geißler,\n"
                 + "Christopher Holler, Matthias Ohm, Isabella Pfeuster,\n"
                 + "Felix Smuda, Alexander Theis, Maximilian Thill,\n"
                 + "Daniel Valero Moreno, Niklas Wazal";
+            label1.AutoSize = true;
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;  
         }
     }
 }
