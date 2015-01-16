@@ -192,21 +192,21 @@ namespace Tagplaner
             //Modaler Dialog zum Laden der Dateien wird aufgerufen
             using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePickerVon.Value, dateTimePickerBis.Value))
             {
-              //  DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
-              //  if (dr == DialogResult.OK)
-              //  {
-                    holidayCurrentYearUrl = @"C:\Users\fsmuda\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
-                    holidayNextYearUrl = @"C:\Users\fsmuda\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Feiertage\Nordrhein-Westfalen2015.csv";
-                    vacationCurrentYearUrl = @"C:\Users\fsmuda\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
-                    vacationNextYearUrl = @"C:\Users\fsmuda\Documents\Visual Studio 2013\Projects\Tagplaner\Tagplaner\Tagplaner\bin\Debug\Ferien\Ferien_Hessen_2015.ics";
+                DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
+                if (dr == DialogResult.OK)
+               {
+                    holidayCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2015.csv";
+                    holidayNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2016.csv";
+                    vacationCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2015.ics";
+                    vacationNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2016.ics";
 
                     this.label4.Text = "Feriendatei (Von): " + splitUrl(holidayCurrentYearUrl) + "\n" +
                                        "Feriendatei (Bis): " + splitUrl(holidayNextYearUrl) + "\n" +
                                        "Feiertagdatei (Von): " + splitUrl(vacationCurrentYearUrl) + "\n" +
                                        "Feiertagdatei (Bis): " + splitUrl(vacationNextYearUrl) + " geöffnet";
-             //       this.label4.Visible = true;
+                    this.label4.Visible = true;
                     this.buttonWeiter.Enabled = true;
-             //   }
+                }
             }
         }
 
