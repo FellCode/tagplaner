@@ -207,8 +207,8 @@ namespace Tagplaner
             MCalendar.SetInstance(calendarWithDays);
 
             //Füllt die GridView mit Daten
-            tagplanBearbeitenUC.createDataGridViews(MCalendar.getInstance().Speciality.Count());
-            tagplanBearbeitenUC.fillGrids(MCalendar.getInstance().CalendarList);
+            tagplanBearbeitenUC.CreateDataGridViews(MCalendar.getInstance().Speciality.Count());
+            tagplanBearbeitenUC.FillGrids(MCalendar.getInstance().CalendarList);
             EnableBearbeitenStatistikTabPage();
             tagplanAnlegenUC.nextTabPage();
         }

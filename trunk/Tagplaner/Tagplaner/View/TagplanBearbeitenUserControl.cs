@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tagplaner;
 
-namespace Tagplaner {
+namespace Tagplaner
+{
     /// <summary>
     /// Autor: Niklas Wazal, Felix Smuda
     /// Datum: 13.01.15
     /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen
     /// innerhalb der Tabelle
-    /// ------TODO------
-    /// -Schleife im Apply Testen
-    /// - Spaltenvariable einfügen
-    /// - Feiertage (evtl Ferien) Grün färben 
-    /// </summary>{
+    /// </summary>
     public partial class TagplanBearbeitenUserControl : UserControl
     {
         int x_Coord = 0;
@@ -32,9 +29,6 @@ namespace Tagplaner {
 
         private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
-            //dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            //dGV.TabIndex = 0;
-            //dGV.ColumnCount = 4;
             panel1.Controls.Add(new TagplanChangepanelUserControl());
         }
 
@@ -44,7 +38,7 @@ namespace Tagplaner {
         /// <param name="dGV"></param>
         /// <param name="columnCount"></param>
         /// <param name="listView"></param>
-        public void fillGrids(List<MCalendarDay> calendarDays)
+        public void FillGrids(List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
@@ -179,11 +173,12 @@ namespace Tagplaner {
         }
 
         /// <summary>
-        /// Diese Methode erstellt die Tabelle entsprechend der Menge an Blöcken die benötigt werden.
+        /// Diese Methode fügt dem DataGridView alle benötigten Columns hinzu entsprechend der gewählten
+        /// Optionen im TagplanAnlegen-Fenster.
         /// Dazu erwartet sie einen Int-Wert als Parameter.
         /// </summary>
         /// <param name="countGrid"></param>
-        public void createDataGridViews(int countGrid)
+        public void CreateDataGridViews(int countGrid)
         {
             int columnCount = 6 * countGrid + 4;
 
@@ -227,12 +222,12 @@ namespace Tagplaner {
                 dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
             }
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
+        /// entsprechend und es werden Methoden zum Bearbeiten der Einträge aufgerufen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int x_Coord = 0;
@@ -245,11 +240,6 @@ namespace Tagplaner {
             {
                 GetSelectedEntryModel();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ///panel1.Controls.Add(new TagplanChangepanelUserControl());
         }
     }
 }
