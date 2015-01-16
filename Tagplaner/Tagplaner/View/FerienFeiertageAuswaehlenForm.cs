@@ -10,22 +10,25 @@ using System.Windows.Forms;
 
 namespace Tagplaner.View
 {
+    /// <summary>
+    /// Form zum Auswählen von Dateien deren Inhalt Daten zu Ferien (.ics) und Feiertagen (.csv) enthält
+    /// </summary>
     public partial class FerienFeiertageAuswaehlenForm : Form
     {
-        Boolean file1Choosen;
-        Boolean file2Choosen;
-        Boolean file3Choosen;
-        Boolean file4Choosen;
+        private Boolean file1Choosen;
+        private Boolean file2Choosen;
+        private Boolean file3Choosen;
+        private Boolean file4Choosen;
 
-        String textFromTextBox1;
-        String textFromTextBox2;
-        String textFromTextBox3;
-        String textFromTextBox4;
+        private String textFromTextBox1;
+        private String textFromTextBox2;
+        private String textFromTextBox3;
+        private String textFromTextBox4;
 
-        DateTime startDate;
-        DateTime endDate;
+        private DateTime startDate;
+        private DateTime endDate;
 
-        CICalCSVConverter csvComverter;
+        private CICalCSVConverter csvComverter;
 
         public String TextForBox1
         {
@@ -43,6 +46,12 @@ namespace Tagplaner.View
         {
             get { return textFromTextBox4; }
         }
+        
+        /// <summary>
+        /// Erzeugt ein Objekt vom Typ FerienFeiertageAuswaehlenForm
+        /// </summary>
+        /// <param name="startDate">Gewähltes Startdatum</param>
+        /// <param name="endDate">Gewähltes Enddatum</param>
         public FerienFeiertageAuswaehlenForm(DateTime startDate, DateTime endDate)
         {
             InitializeComponent();
@@ -51,7 +60,12 @@ namespace Tagplaner.View
             csvComverter = new CICalCSVConverter();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Öffnet den Dialog zum Auswählen der Feiertagedatei für das aktuelle Jahr 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_HolidayCurrentYear_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             this.openFileDialog1.AutoUpgradeEnabled = false;
@@ -66,10 +80,12 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                this.textBox1.Text = SplitUrl(openFileDialog1.FileName);
+                this.textBox_HolidayCurrentYear.Text = SplitUrl(openFileDialog1.FileName);
                 this.textFromTextBox1 = openFileDialog1.FileName;
                 file1Choosen = true;
                 CheckAllFilesChoosen();
+
+                //Überprüfung ob in der Datei im ausgewählten Zeitraum Feiertage vorhanden sind
                 if (!csvComverter.CheckCsvFile(startDate, endDate, openFileDialog1.FileName))
                 {
                     this.toolStripStatusLabel1.Text = "Keine Feiertage in '" + SplitUrl(openFileDialog1.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
@@ -78,7 +94,12 @@ namespace Tagplaner.View
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Öffnet den Dialog zum Auswählen der Feiertagedatei für das nächste Jahr 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_HolidayNextYear_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog2 = new OpenFileDialog();
             this.openFileDialog2.AutoUpgradeEnabled = false;
@@ -93,10 +114,12 @@ namespace Tagplaner.View
 
             if (fileChoiceResult == DialogResult.OK)
             {
-                this.textBox2.Text = SplitUrl(openFileDialog2.FileName);
+                this.textBox_HolidayNextYear.Text = SplitUrl(openFileDialog2.FileName);
                 this.textFromTextBox2 = openFileDialog2.FileName;
                 file2Choosen = true;
                 CheckAllFilesChoosen();
+
+                //Überprüfung ob in der Datei im ausgewählten Zeitraum Feiertage vorhanden sind
                 if (!csvComverter.CheckCsvFile(startDate, endDate, openFileDialog2.FileName))
                 {
                     this.toolStripStatusLabel1.Text = "Keine Feiertage in '" + SplitUrl(openFileDialog2.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
@@ -105,7 +128,12 @@ namespace Tagplaner.View
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Öffnet den Dialog zum Auswählen der Feriendatei für das aktuelle Jahr  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_VacationCurrentYear_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog3 = new OpenFileDialog();
             this.openFileDialog3.AutoUpgradeEnabled = false;
@@ -121,10 +149,11 @@ namespace Tagplaner.View
             if (fileChoiceResult == DialogResult.OK)
             {
                 this.textFromTextBox3 = openFileDialog3.FileName;
-                this.textBox3.Text = SplitUrl(openFileDialog3.FileName);
+                this.textBox_VacationCurrentYear.Text = SplitUrl(openFileDialog3.FileName);
                 file3Choosen = true;
                 CheckAllFilesChoosen();
 
+                //Überprüfung ob in der Datei im ausgewählten Zeitraum Ferien vorhanden sind
                 if (!csvComverter.CheckICSFile(new DateTime(startDate.Year, startDate.Month, startDate.Day), new DateTime(startDate.Year, 12, 31), openFileDialog3.FileName))
                 {
                     this.toolStripStatusLabel1.Text = "Keine Ferien in '" + SplitUrl(openFileDialog3.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
@@ -133,7 +162,12 @@ namespace Tagplaner.View
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Öffnet den Dialog zum Auswählen der Feriendatei für das nächste Jahr  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_VacationNextYear_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog4 = new OpenFileDialog();
             this.openFileDialog4.AutoUpgradeEnabled = false;
@@ -149,10 +183,11 @@ namespace Tagplaner.View
             if (fileChoiceResult == DialogResult.OK)
             {
                 this.textFromTextBox4 = openFileDialog4.FileName;
-                this.textBox4.Text = SplitUrl(openFileDialog4.FileName);
+                this.textBox_VacationNextYear.Text = SplitUrl(openFileDialog4.FileName);
                 file4Choosen = true;
                 CheckAllFilesChoosen();
 
+                //Überprüfung ob in der Datei im ausgewählten Zeitraum Ferien vorhanden sind
                 if (!csvComverter.CheckICSFile(new DateTime(endDate.Year, 1, 1), new DateTime(endDate.Year, endDate.Month, endDate.Day), openFileDialog4.FileName))
                 {
                     this.toolStripStatusLabel1.Text = "Keine Ferien in '" + SplitUrl(openFileDialog4.FileName) + "' für den Zeitraum " + startDate.ToShortDateString() + " - " + endDate.ToShortDateString() + " enthalten";
@@ -161,36 +196,42 @@ namespace Tagplaner.View
             }
         }
 
-        //OK-Button enablen wenn alles nötigen Dateien ausgewählt wurden
+        /// <summary>
+        /// Überprüft ob alle Nötigen Dateien ausgewählt wurden. OK-Button wird enabled falls dies der Falls sein sollte
+        /// </summary>
         public void CheckAllFilesChoosen()
         {
             if (file1Choosen == true && file2Choosen == true && file3Choosen == true && file4Choosen == true)
             {
-                this.button5.Enabled = true;
+                this.button_OK.Enabled = true;
             }
         }
 
-        //OK-Result bei Button-Click setzen
-        private void button5_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Setzt DialogResult auf OK
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_OK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
 
         //Fenster schließen bei Button-Click
-        private void button6_Click(object sender, EventArgs e)
+        private void button_Abbrechen_Click(object sender, EventArgs e)
         {
             this.Dispose(true);
         }
 
+        /// <summary>
+        /// Splittet eine Url. Nur der Dateiname wird zurückgeliefert
+        /// </summary>
+        /// <param name="url">Pfad zur Datei</param>
+        /// <returns>Dateiname</returns>
         public String SplitUrl(String url)
         {
             String[] substrings = url.Split('\\');
             return substrings[substrings.Length - 1];
-        }
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }
