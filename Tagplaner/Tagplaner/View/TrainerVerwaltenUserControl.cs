@@ -19,7 +19,9 @@ namespace Tagplaner
     {
         CDatabase db;
 
-
+        /// <summary>
+        /// Datenbank Instanz wird geholt und die TrainerComboBox wird gefüllt
+        /// </summary>
         public TrainerVerwaltenUserControl()
         {
             db = CDatabase.GetInstance();

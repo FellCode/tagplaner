@@ -18,7 +18,9 @@ namespace Tagplaner
     public partial class SeminarVerwaltenUserControl : UserControl
     {
         CDatabase db;
-
+        /// <summary>
+        /// Datenbank Instanz wird geholt und die SeminarComboBox wird gefüllt.
+        /// </summary>
         public SeminarVerwaltenUserControl()
         {
             InitializeComponent();
@@ -77,7 +79,8 @@ namespace Tagplaner
             technikTextBox.Clear();
         }
         /// <summary>
-        ///  Wenn der Löschen Button 
+        ///  Wenn der Löschen Button betätigt wird, wird das ausgewählte Objekt aus der Combobox gelöscht
+        ///  und die Felder geleert und die ComboBox aktualisiert
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
