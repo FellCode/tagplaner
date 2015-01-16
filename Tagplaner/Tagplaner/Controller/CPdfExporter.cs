@@ -11,6 +11,9 @@ using System.IO;
 
 namespace Tagplaner 
 {
+    /// <summary>
+    /// Klasse zum erzeugen von Tagplan-PDF-Dokumenten, die das Interface IPdfExporter implementiert
+    /// </summary>
     public class CPdfExporter : IPdfExporter
     {
         private Document doc;
