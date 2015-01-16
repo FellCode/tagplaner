@@ -67,7 +67,7 @@
             this.seminarOrtComboBox.Size = new System.Drawing.Size(168, 21);
             this.seminarOrtComboBox.TabIndex = 3;
             this.seminarOrtComboBox.Text = "bitte Seminarort wählen!";
-            this.seminarOrtComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.seminarOrtComboBox.SelectedIndexChanged += new System.EventHandler(this.SeminarOrtComboBox_SelectedIndexChanged);
             // 
             // seminarortLabel
             // 
@@ -96,7 +96,7 @@
             this.raeumeComboBox.Name = "raeumeComboBox";
             this.raeumeComboBox.Size = new System.Drawing.Size(177, 21);
             this.raeumeComboBox.TabIndex = 0;
-            this.raeumeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.raeumeComboBox.SelectedIndexChanged += new System.EventHandler(this.RaeumeComboBox_SelectedIndexChanged);
             // 
             // raumBearbeiten
             // 
@@ -112,7 +112,7 @@
             this.raumBearbeiten.TabIndex = 1;
             this.raumBearbeiten.TabStop = false;
             this.raumBearbeiten.Text = "Raum bearbeiten";
-            this.raumBearbeiten.Enter += new System.EventHandler(this.groupBox2_Enter);
+            
             // 
             // zuruecksetzenButton
             // 
@@ -122,7 +122,7 @@
             this.zuruecksetzenButton.TabIndex = 5;
             this.zuruecksetzenButton.Text = "Zurücksetzen";
             this.zuruecksetzenButton.UseVisualStyleBackColor = true;
-            this.zuruecksetzenButton.Click += new System.EventHandler(this.button3_Click);
+            this.zuruecksetzenButton.Click += new System.EventHandler(this.ZuruecksetzenButton_Click);
             // 
             // loeschenButton
             // 
@@ -132,7 +132,7 @@
             this.loeschenButton.TabIndex = 4;
             this.loeschenButton.Text = "Löschen";
             this.loeschenButton.UseVisualStyleBackColor = true;
-            this.loeschenButton.Click += new System.EventHandler(this.button3_Click_1);
+            this.loeschenButton.Click += new System.EventHandler(this.LoeschenButton_Click);
             // 
             // speichernButton
             // 
@@ -142,7 +142,7 @@
             this.speichernButton.TabIndex = 2;
             this.speichernButton.Text = "Speichern";
             this.speichernButton.UseVisualStyleBackColor = true;
-            this.speichernButton.Click += new System.EventHandler(this.button1_Click);
+            this.speichernButton.Click += new System.EventHandler(this.SpeichernButton_Click);
             // 
             // raumTextBox
             // 
@@ -168,7 +168,6 @@
             this.Controls.Add(this.raumAnzeigen);
             this.Name = "RaumVerwaltenUserControl";
             this.Size = new System.Drawing.Size(640, 341);
-            this.Load += new System.EventHandler(this.RaumVerwaltenUserControl_Load);
             this.raumAnzeigen.ResumeLayout(false);
             this.raumAnzeigen.PerformLayout();
             this.raumBearbeiten.ResumeLayout(false);

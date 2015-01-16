@@ -58,7 +58,6 @@
             this.seminarAuswaehlen.TabIndex = 0;
             this.seminarAuswaehlen.TabStop = false;
             this.seminarAuswaehlen.Text = "Seminar auswählen";
-            this.seminarAuswaehlen.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // seminarLabel
             // 
@@ -68,7 +67,6 @@
             this.seminarLabel.Size = new System.Drawing.Size(48, 13);
             this.seminarLabel.TabIndex = 1;
             this.seminarLabel.Text = "Seminar:";
-            this.seminarLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // seminarComboBox
             // 
@@ -79,7 +77,7 @@
             this.seminarComboBox.Name = "seminarComboBox";
             this.seminarComboBox.Size = new System.Drawing.Size(404, 21);
             this.seminarComboBox.TabIndex = 0;
-            this.seminarComboBox.SelectedIndexChanged += new System.EventHandler(this.seminarBox_SelectedIndexChanged);
+            this.seminarComboBox.SelectedIndexChanged += new System.EventHandler(this.SeminarComboBox_SelectedIndexChanged);
             // 
             // seminarVerwalten
             // 
@@ -101,7 +99,6 @@
             this.seminarVerwalten.TabIndex = 1;
             this.seminarVerwalten.TabStop = false;
             this.seminarVerwalten.Text = "Seminar verwalten";
-            this.seminarVerwalten.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // loeschenButton
             // 
@@ -111,7 +108,7 @@
             this.loeschenButton.TabIndex = 8;
             this.loeschenButton.Text = "Löschen";
             this.loeschenButton.UseVisualStyleBackColor = true;
-            this.loeschenButton.Click += new System.EventHandler(this.button3_Click);
+            this.loeschenButton.Click += new System.EventHandler(this.LoeschenButton_Click);
             // 
             // zuruecksetzenButton
             // 
@@ -121,7 +118,7 @@
             this.zuruecksetzenButton.TabIndex = 9;
             this.zuruecksetzenButton.Text = "Zurücksetzen";
             this.zuruecksetzenButton.UseVisualStyleBackColor = true;
-            this.zuruecksetzenButton.Click += new System.EventHandler(this.button2_Click);
+            this.zuruecksetzenButton.Click += new System.EventHandler(this.ZuruecksetzenButton_Click);
             // 
             // speichernButton
             // 
@@ -131,7 +128,7 @@
             this.speichernButton.TabIndex = 6;
             this.speichernButton.Text = "Speichern";
             this.speichernButton.UseVisualStyleBackColor = true;
-            this.speichernButton.Click += new System.EventHandler(this.button1_Click);
+            this.speichernButton.Click += new System.EventHandler(this.SpeichernButton_Click);
             // 
             // technikTextBox
             // 
@@ -196,7 +193,6 @@
             this.titelLabel.Size = new System.Drawing.Size(30, 13);
             this.titelLabel.TabIndex = 0;
             this.titelLabel.Text = "Titel:";
-            this.titelLabel.Click += new System.EventHandler(this.label2_Click);
             // 
             // SeminarVerwaltenUserControl
             // 

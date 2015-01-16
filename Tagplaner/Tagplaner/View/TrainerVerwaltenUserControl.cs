@@ -10,6 +10,11 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Autor: Isabella Pfeuster
+    /// Datum: 116.01.2015
+    /// In dieser Klasse werden alle Aufrufe der View TrainerVerwalten gesteuert
+    /// </summary>
     public partial class TrainerVerwaltenUserControl : UserControl
     {
         CDatabase db;
@@ -18,34 +23,11 @@ namespace Tagplaner
         public TrainerVerwaltenUserControl()
         {
             db = CDatabase.GetInstance();
-
             InitializeComponent();
             db.FillTrainerComboBox(trainerComboBox);
-
-
         }
 
-        private void TrainerVerwaltenUserControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
             speichernButton.Enabled = true;
             trainerComboBox.Text = "";
@@ -56,17 +38,7 @@ namespace Tagplaner
             externRadioButton.Checked = false;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TrainerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             speichernButton.Enabled = false;
 
@@ -89,19 +61,17 @@ namespace Tagplaner
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SpeichernButton_Click(object sender, EventArgs e)
         {
             bool erg = false;
             MTrainer trainer = null;
             if (internRadioButton.Checked == true)
             {
                 trainer = new MTrainer(nachnameTextBox.Text, vornameTextBox.Text, kuerzelTextBox.Text, true);
-
             }
             else if (externRadioButton.Checked == true)
             {
                 trainer = new MTrainer(nachnameTextBox.Text, vornameTextBox.Text, kuerzelTextBox.Text, false);
-
             }
 
             erg = db.InsertTrainer(trainer);
@@ -114,7 +84,7 @@ namespace Tagplaner
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void LoeschenButton_Click(object sender, EventArgs e)
         {
             MTrainer trainer = (MTrainer)trainerComboBox.SelectedItem;
             bool erg = db.DeleteTrainer(trainer);
@@ -134,11 +104,6 @@ namespace Tagplaner
                 trainerComboBox.Text = "";
                 db.FillTrainerComboBox(trainerComboBox);
             }
-        }
-
-        private void comboBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
