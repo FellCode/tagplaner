@@ -18,7 +18,9 @@ namespace Tagplaner
     public partial class RaumVerwaltenUserControl : UserControl
     {
         CDatabase db;
-
+        /// <summary>
+        /// Datenbank Instanz wird geholt und die SeminarOrtCombobox wird gefüllt.
+        /// </summary>
         public RaumVerwaltenUserControl()
         {
             db = CDatabase.GetInstance();
@@ -26,7 +28,7 @@ namespace Tagplaner
             db.FillPlaceComboBox(seminarOrtComboBox);
         }
         /// <summary>
-        /// Bei klicken auf den Zurücksetzen 
+        /// Bei klicken auf den Zurücksetzen wird der Speichern Button eingeblendet und die Felder geleert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -37,7 +39,8 @@ namespace Tagplaner
             raeumeComboBox.Text = "";
         }
         /// <summary>
-        /// 
+        ///  Wenn in der RäumeComboBox ein Objekt ausgewählt wird, wird die Raumnummer in das
+        ///  Textfeld geschrieben. Ebenfalls wird der Speichern Button gesperrt.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -49,7 +52,8 @@ namespace Tagplaner
             raumTextBox.Text = room.Number;
         }
         /// <summary>
-        /// 
+        ///  Wenn der Speichern Button betätigt wird, werden die Inhalte der Textfelder in ein neues MRoom
+        ///  Objekt geschrieben. Anschliessend wird das Objekt in die Datenbank geschrieben und alle Felder geleert und die Combobox aktualisiert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -67,7 +71,7 @@ namespace Tagplaner
             }
         }
         /// <summary>
-        /// Wenn bei 
+        /// Wenn bei der SeminarOrt ComboBox ein neues Item ausgewählt wird, die RäumeComboBox befüllt.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -81,7 +85,8 @@ namespace Tagplaner
 
         }
         /// <summary>
-        /// 
+        /// Wenn der Löschen button betätigt wird, wird der ausgewählte Raum aus der RäumeCombobox entfernt
+        /// und alle Felder werden geleert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
