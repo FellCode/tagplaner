@@ -25,14 +25,22 @@ namespace Tagplaner
             InitializeComponent();
             db.FillPlaceComboBox(seminarOrtComboBox);
         }
-
+        /// <summary>
+        /// Bei klicken auf den Zurücksetzen 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
             speichernButton.Enabled = true;
             raumTextBox.Clear();
             raeumeComboBox.Text = "";
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RaeumeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MRoom room = (MRoom)raeumeComboBox.SelectedItem;
@@ -40,7 +48,11 @@ namespace Tagplaner
             speichernButton.Enabled = false;
             raumTextBox.Text = room.Number;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SpeichernButton_Click(object sender, EventArgs e)
         {
             MPlace place = (MPlace)seminarOrtComboBox.SelectedItem;
@@ -54,7 +66,11 @@ namespace Tagplaner
                 db.FillRoomComboBox(raeumeComboBox, place.Id);
             }
         }
-
+        /// <summary>
+        /// Wenn bei 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SeminarOrtComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             raeumeComboBox.Text = "";
@@ -64,7 +80,11 @@ namespace Tagplaner
             db.FillRoomComboBox(raeumeComboBox, place.Id);
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoeschenButton_Click(object sender, EventArgs e)
         {
             MRoom room = (MRoom)raeumeComboBox.SelectedItem;
@@ -79,7 +99,7 @@ namespace Tagplaner
 
                 raeumeComboBox.Items.Clear();
                 raeumeComboBox.Text = "";
-                db.FillRoomComboBox(raeumeComboBox, place.Id);
+
             }
         }
     }
