@@ -56,6 +56,7 @@ namespace Tagplaner
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
             MSeminar seminar = new MSeminar("SEMINARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR", "Subtitel", "SAP", "false", "commment");
+            MPractice practice = new MPractice("Praxis");
             List<MRoom> room = new List<MRoom>();
             room.Add(new MRoom("209"));
             MPlace ort = new MPlace("Koeln", "Arnold", room);
@@ -85,7 +86,11 @@ namespace Tagplaner
                     //Durchläuft jede Spalte der Tabelle
                     for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                     {
-                        mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
+                        if (columnCounter > 100)
+                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(practice));
+                        else
+                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
+                        
                         dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
                         dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
                         dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
