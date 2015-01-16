@@ -250,6 +250,7 @@ namespace Tagplaner
 
                 TabPage tabPageBearbeiten = new TabPage();
                 tabPageBearbeiten.Text = "Tagplan bearbeiten";
+                tagplanBearbeitenUC.Dock = DockStyle.Fill;
                 tabPageBearbeiten.Controls.Add(tagplanBearbeitenUC);
 
                 tabControl1.TabPages.Insert(1, tabPageBearbeiten);

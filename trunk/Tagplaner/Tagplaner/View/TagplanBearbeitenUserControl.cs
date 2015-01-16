@@ -35,7 +35,7 @@ namespace Tagplaner {
             //dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             //dGV.TabIndex = 0;
             //dGV.ColumnCount = 4;
-
+            panel1.Controls.Add(new TagplanChangepanelUserControl());
         }
 
         /// <summary>
