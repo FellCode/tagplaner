@@ -86,7 +86,7 @@ namespace Tagplaner
                     //Durchläuft jede Spalte der Tabelle
                     for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                     {
-                        if (columnCounter > 100)
+                        if (columnCounter % 2 == 0)
                             mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(practice));
                         else
                             mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
