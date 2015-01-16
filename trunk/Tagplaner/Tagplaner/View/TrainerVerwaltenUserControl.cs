@@ -101,8 +101,16 @@ namespace Tagplaner
             {
                 trainerComboBox.Text = "";
                 trainerComboBox.Items.Clear();
+                
                 db.FillTrainerComboBox(trainerComboBox);
+                nachnameTextBox.Clear();
+                vornameTextBox.Clear();
+                kuerzelTextBox.Clear();
+                internRadioButton.Checked = false;
+                externRadioButton.Checked = false;
             }
+
+
 
         }
         /// <summary>

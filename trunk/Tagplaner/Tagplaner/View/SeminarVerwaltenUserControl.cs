@@ -61,6 +61,10 @@ namespace Tagplaner
                 seminarComboBox.Items.Clear();
                 seminarComboBox.Text = "";
                 db.FillSeminarComboBox(seminarComboBox);
+                titelTextBox.Clear();
+                untertitelTextBox.Clear();
+                kuerzelTextBox.Clear();
+                technikTextBox.Clear();
             }
         }
         /// <summary>
