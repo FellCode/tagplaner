@@ -210,7 +210,7 @@ namespace Tagplaner
             tagplanBearbeitenUC.CreateDataGridViews(MCalendar.getInstance().Speciality.Count());
             tagplanBearbeitenUC.FillGrids(MCalendar.getInstance().CalendarList);
             EnableBearbeitenStatistikTabPage();
-            tagplanAnlegenUC.nextTabPage();
+            tagplanAnlegenUC.NextTabPage();
         }
 
         /// <summary>
