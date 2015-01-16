@@ -58,7 +58,6 @@
             this.trainerAnzeigen.TabIndex = 0;
             this.trainerAnzeigen.TabStop = false;
             this.trainerAnzeigen.Text = "Trainer anzeigen";
-            this.trainerAnzeigen.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // trainerComboBox
             // 
@@ -69,7 +68,7 @@
             this.trainerComboBox.Name = "trainerComboBox";
             this.trainerComboBox.Size = new System.Drawing.Size(179, 21);
             this.trainerComboBox.TabIndex = 1;
-            this.trainerComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.trainerComboBox.SelectedIndexChanged += new System.EventHandler(this.TrainerComboBox_SelectedIndexChanged);
             // 
             // trainerLabel
             // 
@@ -113,7 +112,7 @@
             this.externRadioButton.TabStop = true;
             this.externRadioButton.Text = "Extern";
             this.externRadioButton.UseVisualStyleBackColor = true;
-            this.externRadioButton.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+          
             // 
             // internRadioButton
             // 
@@ -134,7 +133,7 @@
             this.zuerucksetzenButton.TabIndex = 11;
             this.zuerucksetzenButton.Text = "Zurücksetzen";
             this.zuerucksetzenButton.UseVisualStyleBackColor = true;
-            this.zuerucksetzenButton.Click += new System.EventHandler(this.button3_Click);
+            this.zuerucksetzenButton.Click += new System.EventHandler(this.ZuruecksetzenButton_Click);
             // 
             // loeschenButton
             // 
@@ -144,7 +143,7 @@
             this.loeschenButton.TabIndex = 10;
             this.loeschenButton.Text = "Löschen";
             this.loeschenButton.UseVisualStyleBackColor = true;
-            this.loeschenButton.Click += new System.EventHandler(this.button2_Click);
+            this.loeschenButton.Click += new System.EventHandler(this.LoeschenButton_Click);
             // 
             // speichernButton
             // 
@@ -154,7 +153,7 @@
             this.speichernButton.TabIndex = 9;
             this.speichernButton.Text = "Speichern";
             this.speichernButton.UseVisualStyleBackColor = true;
-            this.speichernButton.Click += new System.EventHandler(this.button1_Click);
+            this.speichernButton.Click += new System.EventHandler(this.SpeichernButton_Click);
             // 
             // kuerzelLabel
             // 
@@ -164,7 +163,6 @@
             this.kuerzelLabel.Size = new System.Drawing.Size(36, 13);
             this.kuerzelLabel.TabIndex = 6;
             this.kuerzelLabel.Text = "Kürzel";
-            this.kuerzelLabel.Click += new System.EventHandler(this.label4_Click);
             // 
             // vornameLabel
             // 
@@ -213,7 +211,6 @@
             this.Controls.Add(this.trainerAnzeigen);
             this.Name = "TrainerVerwaltenUserControl";
             this.Size = new System.Drawing.Size(481, 344);
-            this.Load += new System.EventHandler(this.TrainerVerwaltenUserControl_Load);
             this.trainerAnzeigen.ResumeLayout(false);
             this.trainerAnzeigen.PerformLayout();
             this.trainerVerwalten.ResumeLayout(false);

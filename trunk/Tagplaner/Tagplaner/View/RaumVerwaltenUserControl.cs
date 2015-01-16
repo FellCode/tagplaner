@@ -19,29 +19,16 @@ namespace Tagplaner
             db = CDatabase.GetInstance();
             InitializeComponent();
             db.FillPlaceComboBox(seminarOrtComboBox);
-
-
         }
 
-        private void RaumVerwaltenUserControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
             speichernButton.Enabled = true;
             raumTextBox.Clear();
             raeumeComboBox.Text = "";
-
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void RaeumeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MRoom room = (MRoom)raeumeComboBox.SelectedItem;
 
@@ -49,35 +36,31 @@ namespace Tagplaner
             raumTextBox.Text = room.Number;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SpeichernButton_Click(object sender, EventArgs e)
         {
             MPlace place = (MPlace)seminarOrtComboBox.SelectedItem;
             MRoom room = new MRoom(raumTextBox.Text, place.Id);
 
-
             bool erg = db.InsertRoom(room);
-
             if (erg == true)
             {
                 raeumeComboBox.Text = "";
                 raeumeComboBox.Items.Clear();
                 db.FillRoomComboBox(raeumeComboBox, place.Id);
             }
-
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void SeminarOrtComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             raeumeComboBox.Text = "";
             raeumeComboBox.Items.Clear();
-
 
             MPlace place = (MPlace)seminarOrtComboBox.SelectedItem;
             db.FillRoomComboBox(raeumeComboBox, place.Id);
 
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void LoeschenButton_Click(object sender, EventArgs e)
         {
             MRoom room = (MRoom)raeumeComboBox.SelectedItem;
             bool erg = db.DeleteRoom(room);
@@ -86,6 +69,7 @@ namespace Tagplaner
                 speichernButton.Enabled = true;
                 raumTextBox.Clear();
                 raeumeComboBox.Text = "";
+                seminarOrtComboBox.Text = "bitte Seminarort wählen!";
 
                 raeumeComboBox.Items.Clear();
                 raeumeComboBox.Text = "";
