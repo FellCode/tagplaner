@@ -10,6 +10,11 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Autor: Isabella Pfeuster
+    /// Datum: 16.01.2015
+    /// In dieser Klasse werden alle Aufrufe der View RaumVerwalten gesteuert
+    /// </summary>
     public partial class RaumVerwaltenUserControl : UserControl
     {
         CDatabase db;
@@ -70,10 +75,11 @@ namespace Tagplaner
                 raumTextBox.Clear();
                 raeumeComboBox.Text = "";
                 seminarOrtComboBox.Text = "bitte Seminarort wählen!";
+                MPlace place = (MPlace) seminarOrtComboBox.SelectedItem;
 
                 raeumeComboBox.Items.Clear();
                 raeumeComboBox.Text = "";
-                db.FillTrainerComboBox(raeumeComboBox);
+                db.FillRoomComboBox(raeumeComboBox, place.Id);
             }
         }
     }
