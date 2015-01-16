@@ -499,7 +499,10 @@ namespace Tagplaner
             }
         }
         #endregion
-        //Für die erst Installation der Datenbank
+
+        /// <summary>
+        /// Für die erste Installation der Datenbank
+        /// </summary>
         public void CreateDB()
         {
             SQLiteConnection.CreateFile(url);
@@ -1099,6 +1102,10 @@ namespace Tagplaner
         #endregion
 
         #region new_combobox
+        /// <summary>
+        /// Füllt Combobox mit allen Trainern
+        /// </summary>
+        /// <param name="combobox"></param>
         public void FillTrainerComboBox(ComboBox combobox)
         {
             combobox.Items.Clear();
@@ -1108,6 +1115,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Füllt Combobox mit allen Bundesländern
+        /// </summary>
+        /// <param name="combobox"></param>
         public void FillFederalStateComboBox(ComboBox combobox)
         {
             combobox.Items.Clear();
@@ -1117,6 +1128,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Füllt Combobox mit allen Seminarorten
+        /// </summary>
+        /// <param name="combobox"></param>
         public void FillPlaceComboBox(ComboBox combobox)
         {
             combobox.Items.Clear();
@@ -1126,6 +1141,11 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Füllt Combobox mit Räumen zu einem Seminarort
+        /// </summary>
+        /// <param name="combobox"></param>
+        /// <param name="location"></param>
         public void FillRoomComboBox(ComboBox combobox, int location)
         {
             combobox.Items.Clear();
@@ -1138,6 +1158,10 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Füllt Combobox mit allen Seminaren
+        /// </summary>
+        /// <param name="combobox"></param>
         public void FillSeminarComboBox(ComboBox combobox)
         {
             combobox.Items.Clear();
