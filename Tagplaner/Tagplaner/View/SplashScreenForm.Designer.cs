@@ -37,9 +37,9 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.Location = new System.Drawing.Point(0, 435);
+            this.button1.Location = new System.Drawing.Point(0, 438);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(587, 23);
+            this.button1.Size = new System.Drawing.Size(588, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Überspringen nur zum Testen";
             this.button1.UseVisualStyleBackColor = true;
@@ -48,7 +48,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Tagplaner.Properties.Resources.splashScreen;
-            this.pictureBox1.Location = new System.Drawing.Point(-20, -11);
+            this.pictureBox1.Location = new System.Drawing.Point(0, -1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(585, 440);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -69,7 +69,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(587, 458);
+            this.ClientSize = new System.Drawing.Size(588, 461);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
