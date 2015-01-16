@@ -13,7 +13,7 @@ namespace Tagplaner
     public partial class TagplanChangepanelUserControl : UserControl
     {
         CDatabase cdb = CDatabase.GetInstance();
-        CChangepanel ccp = new CChangepanel();
+     //   CChangepanel ccp = new CChangepanel();
 
         public TagplanChangepanelUserControl()
         {
@@ -40,7 +40,7 @@ namespace Tagplaner
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            ccp.ChangeVisibility(Tagart, Seminarpanel);
+//            ccp.ChangeVisibility(Tagart, Seminarpanel);
 
         }
     }
