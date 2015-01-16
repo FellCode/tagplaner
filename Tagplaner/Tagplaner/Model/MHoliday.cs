@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+   /// Autor: Niklas Wazal, Felix Smuda
+   /// <summary>
+   /// Model Klasse die einen Feiertag beschreibt
+   /// </summary>
+  
     [Serializable()]
     public class MHoliday
     {
@@ -14,6 +19,9 @@ namespace Tagplaner
         private string holidayName;
         private string comment;
 
+        /// <summary>
+        /// Implementation der Getter und Setter der Klasse
+        /// </summary>
         #region getter
         public int Id
         {
@@ -40,6 +48,12 @@ namespace Tagplaner
         }
         #endregion
         #region constructor
+        /// <summary>
+        /// Konstruktor des MHoliday Models
+        /// </summary>
+        /// <param name="holidayDate"></param>
+        /// <param name="holidayName"></param>
+        /// <param name="comment"></param>
         public MHoliday( DateTime holidayDate, string holidayName, string comment)
         {
           
@@ -47,6 +61,13 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.comment = comment;
         }
+        /// <summary>
+        /// Konstruktor des MHoliday Models
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="holidayDate"></param>
+        /// <param name="holidayName"></param>
+        /// <param name="comment"></param>
         public MHoliday(int id, DateTime holidayDate, string holidayName, string comment)
         {
             this.id = id;
@@ -54,12 +75,24 @@ namespace Tagplaner
             this.holidayName = holidayName;
             this.comment = comment;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="holidayDate"></param>
+        /// <param name="holidayName"></param>
         public MHoliday( DateTime holidayDate, string holidayName)
         {
          
             this.holidayDate = holidayDate;
             this.holidayName = holidayName;
         }
+
+        /// <summary>
+        /// Konstruktor des MHoliday Models
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="holidayDate"></param>
+        /// <param name="holidayName"></param>
         public MHoliday(int id, DateTime holidayDate, string holidayName)
         {
             this.id = id;
