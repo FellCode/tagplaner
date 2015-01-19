@@ -22,11 +22,20 @@ namespace Tagplaner
         TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
         int x_Coord = 0;
         int y_Coord = 0;
+        private static TagplanBearbeitenUserControl instance;
 
 
         /// <summary>
         /// Malt alle Elemente auf das UserControl
         /// </summary>
+        /// 
+        public static TagplanBearbeitenUserControl getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new TagplanBearbeitenUserControl();
+            } return instance;
+        }
         public TagplanBearbeitenUserControl()
         {
             InitializeComponent();
