@@ -25,12 +25,17 @@ namespace Tagplaner
         {
             get { return specialityName; }
         }
+
+        public string Apprenticeship
+        {
+            get { return apprenticeship; }
+        }
         #endregion
 
         #region constructor
         public MSpeciality(string specialityName, string apprenticeship)
         {
-            
+
             this.specialityName = specialityName;
             this.apprenticeship = apprenticeship;
         }
@@ -40,6 +45,7 @@ namespace Tagplaner
             this.specialityName = specialityName;
             this.apprenticeship = apprenticeship;
         }
+
         #endregion
     }
 }
