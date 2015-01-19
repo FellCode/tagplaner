@@ -6,37 +6,32 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
-    /// <summary>
-    /// Diese Klasse bildet eine Fachrichtung des Jahrgangs ab.
-    /// </summary>
     [Serializable()]
     public class MSpeciality
     {
         private int id;
         private string apprenticeship;
         private string specialityName;
+        private string identifierOfYear;
 
         #region getter
-        /// <summary>
-        /// Getter und Setter für ID
-        /// </summary>
+
         public int Id
         {
             get { return id; }
             set { this.id = value; }
         }
 
-        /// <summary>
-        /// Getter für Fachrichtung.
-        /// </summary>
         public string SpecialityName
         {
             get { return specialityName; }
         }
 
-        /// <summary>
-        /// Getter für Jahrgang
-        /// </summary>
+        public string IdentifierOfYear
+        {
+            get { return identifierOfYear; }
+        }
+
         public string Apprenticeship
         {
             get { return apprenticeship; }
@@ -44,26 +39,13 @@ namespace Tagplaner
         #endregion
 
         #region constructor
-
-        /// <summary>
-        /// Konstruktor für die Klasse MSpeciality
-        /// </summary>
-        /// <param name="specialityName">Fachrichtung</param>
-        /// <param name="apprenticeship">Jahrgang</param>
-        public MSpeciality(string specialityName, string apprenticeship)
+        public MSpeciality(string specialityName, string identifierOfYear, string apprenticeship)
         {
-
+            this.identifierOfYear = identifierOfYear;
             this.specialityName = specialityName;
             this.apprenticeship = apprenticeship;
         }
-
-        /// <summary>
-        /// Konstruktor für ein Objekt der Klasse MSpeciality aus der Datenbank. 
-        /// </summary>
-        /// <param name="id">ID des Objektes aus der Datenbank</param>
-        /// <param name="specialityName"></param>
-        /// <param name="apprenticeship"></param>
-        public MSpeciality(int id, string specialityName, string apprenticeship)
+        public MSpeciality(int id, string specialityName, string identifierOfYear, string apprenticeship)
         {
             this.id = id;
             this.specialityName = specialityName;
