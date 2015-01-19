@@ -137,6 +137,24 @@ namespace Tagplaner
             // Durchläuft jeden Kalendertag
             for (int rowCounter = 0; rowCounter < calendarDays.Count; rowCounter++)
             {
+
+                trainer = new MTrainer("Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, false);
+                trainer_co = new MTrainer("CO-Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, true);
+                seminar = new MSeminar("SEMINARR - " + rowCounter.ToString(), "Subtitel", "SAP", "false", "commment");
+                practice = new MPractice("Praxis - " + rowCounter.ToString());
+
+                room.Add(new MRoom("209 - " + rowCounter.ToString()));
+                ort = new MPlace("Koeln - " + rowCounter.ToString(), "Arnold", room);
+
+
+
+
+
+
+
+
+
+
                 dGV.Rows.Add();
 
                 dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek.ToString();
@@ -166,7 +184,7 @@ namespace Tagplaner
                         }
                         else
                         {
-                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(new MSchool("HAUPTSCHULEEEEEEEEEEEEEE")));
+                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(new MSchool("HAUPTSCHULEE - " + rowCounter.ToString())));
                         }
 
 
@@ -251,10 +269,6 @@ namespace Tagplaner
             for (int i = 0; i < applyIteration; i++)
             {
                 //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
-                dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Place.Place.ToString();
-                dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number.ToString();
-                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name.ToString();
-                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name.ToString();
 
                 if (entry.School != null)
                 {
@@ -268,6 +282,10 @@ namespace Tagplaner
                 }
                 if (entry.Seminar != null)
                 {
+                    dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Place.Place.ToString();
+                    dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number.ToString();
+                    dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name.ToString();
+                    dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name.ToString();
                     dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Comment.ToString();
                     dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Comment.ToString();
                 }
