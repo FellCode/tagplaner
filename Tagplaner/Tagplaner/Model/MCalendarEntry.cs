@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Diese Klasse bildet einen Kalendereintrag ab. Dieser Kann z. B. einen Seminartag, einen Praxistag oder einen Schultag abbilden.
+    /// </summary>
     [Serializable()]
     public class MCalendarEntry
     {
