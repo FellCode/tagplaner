@@ -21,29 +21,53 @@ namespace Tagplaner
         private List<MCalendarEntry> calendarEntry;
         
         #region getter
+
+        /// <summary>
+        /// Getter und Setter für ID
+        /// </summary>
         public int Id
         {
             get { return id; }
             set { this.id = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für VacationName
+        /// </summary>
         public string VacationName
         {
             get { return vacationName; }
             set { vacationName = value; }
         }
+
+        /// <summary>
+        /// Getter für CalendarDate
+        /// </summary>
         public DateTime CalendarDate
         {
             get { return calendarDate; }
         }
+
+        /// <summary>
+        /// Getter und Setter für HolidayName
+        /// </summary>
         public string HolidayName
         {
             get { return holidayName; }
             set { holidayName = value; }
         }
+
+        /// <summary>
+        /// Getter für CalendarWeek
+        /// </summary>
         public string CalendarWeek
         {
             get { return calendarWeek; }
         }
+
+        /// <summary>
+        /// Getter und Setter für CalendarEntry
+        /// </summary>
         public List<MCalendarEntry> CalendarEntry
         {
             get { return calendarEntry; }
