@@ -24,81 +24,46 @@ namespace Tagplaner
         private DateTime lastModified;
 
         #region getter
-        /// <summary>
-        /// Getter und Setter für ID
-        /// </summary>
         public int Id
         {
             get { return id; }
             set { this.id = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das Startdatum
-        /// </summary>
         public DateTime Startdate
         {
             get { return startdate; }
             set { startdate = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das Enddatum
-        /// </summary>
         public DateTime Enddate
         {
             get { return enddate; }
             set { enddate = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das Startdatum als string
-        /// </summary>
         public string StartdateString
         {
             get { return startdateString; }
             set { startdateString = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das Enddatum als string
-        /// </summary>
         public string EnddateString
         {
             get { return enddateString; }
             set { enddateString = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für die CalendarList
-        /// </summary>
         public List<MCalendarDay> CalendarList
         {
             get { return calendarList; }
             set { calendarList = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für die Speciality Liste
-        /// </summary>
         public List<MSpeciality> Speciality
         {
             get { return speciality; }
             set { speciality = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das Saved-Flag
-        /// </summary>
         public bool Saved
         {
             get { return saved; }
             set { saved = value; }
         }
-
-        /// <summary>
-        /// Getter und Setter für das ZuletztBearbeitet-Datum
-        /// </summary>
         public DateTime LastModified
         {
             get { return lastModified; }
@@ -106,9 +71,6 @@ namespace Tagplaner
         }
         #endregion
 
-        /// <summary>
-        /// Standartkonstruktor für MCalender
-        /// </summary>
         private MCalendar()
         {
 
@@ -135,7 +97,7 @@ namespace Tagplaner
         /// <param name="vacationNextYearUrl">Pfad zur Datei die die Ferientage des zweiten Kalenderjahres enthält.</param>
         /// <param name="holidayCurrentYearUrl">Pfad zur Datei die die Feiertage des ersten Kalenderjahres enthält.</param>
         /// <param name="holidayNextYearUrl">Pfad zur Datei die die Feiertage des zweiten Kalenderjahres enthält.</param>
-        public void FillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
+        public void FillCalendarInitial(DateTime start, DateTime end, int numberOfYears, List<String> identifierOfYears, List<String> typesOfClasses, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             startdate = start;
             enddate = end;
@@ -152,7 +114,7 @@ namespace Tagplaner
             //Befüllen der Ferientagen
             CalendarList = CCalendar.FillHolidaysInitial(start, end, CalendarList, holidayCurrentYearUrl, holidayNextYearUrl);
             //Befüllen der Speciality
-            Speciality = CCalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses);
+            Speciality = CCalendar.FillSpeziallityInitial(Speciality, numberOfYears, typesOfClasses, identifierOfYears);
         }
         /// <summary>
         /// Ersetzt die vorhandene Instanz des Kalenders durch die, in der Parameterliste angegebene.
