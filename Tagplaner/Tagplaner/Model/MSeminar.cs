@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Klasse mit dem Model für die Attribute eines Seminars
+    /// </summary>
     [Serializable()]
     public class MSeminar
     {
@@ -16,7 +19,11 @@ namespace Tagplaner
         private string hasTechnology;
         private string comment;
 
-        
+        /// <summary>
+        /// Überschreibt die ToString Methode zur Darstellung des Titels eines Seminars in 
+        /// den ComboBoxen
+        /// </summary>
+        /// <returns>Titel des Seminars</returns>
         public override String ToString()
         {
             return title;
@@ -58,6 +65,14 @@ namespace Tagplaner
         #endregion
 
         #region constructor
+        /// <summary>
+        /// Konstruktor mit Titel, Untertitel, Abkürzung und Technik und Kommentar
+        /// </summary>
+        /// <param name="title">Titel des Seminars</param>
+        /// <param name="subtitle">Untertitel des Seminars</param>
+        /// <param name="abbreviation">Abkürzung des Seminars</param>
+        /// <param name="hasTechnology">Anmerkungen zur benötigten Technik</param>
+        /// <param name="comment">Kommentare</param>
         public MSeminar( string title, string subtitle, string abbreviation, string hasTechnology, string comment)
         {
             this.title = title;
@@ -66,6 +81,13 @@ namespace Tagplaner
             this.hasTechnology = hasTechnology;
             this.comment = comment;
         }
+        /// <summary>
+        /// Konstruktor mit Titel, Untertitel, Abkürzung und Technik
+        /// </summary>
+        /// <param name="title">Titel des Seminars</param>
+        /// <param name="subtitle">Untertitel des Seminars</param>
+        /// <param name="abbreviation">Abkürzung des Seminars</param>
+        /// <param name="hasTechnology">Anmerkungen zur benötigten Technik</param>
         public MSeminar(string title, string subtitle, string abbreviation, string hasTechnology)
         {
             this.title = title;
@@ -74,6 +96,15 @@ namespace Tagplaner
             this.hasTechnology = hasTechnology;
           
         }
+        /// <summary>
+        /// Konstruktor mit Id, Titel, Untertitel, Kürzel, Technik  und Bermerkung
+        /// </summary>
+        /// <param name="id">Datenbank ID</param>
+        /// <param name="title">Titel des Seminars</param>
+        /// <param name="subtitle">Untertitel des Seminars</param>
+        /// <param name="abbreviation">Abkürzung des Seminars</param>
+        /// <param name="hasTechnology">Anmerkungen zur benötigten Technik</param>
+        /// <param name="comment">Kommentare</param>
         public MSeminar(int id, string title, string subtitle, string abbreviation, string hasTechnology, string comment)
         {
             this.id = id;
@@ -83,7 +114,9 @@ namespace Tagplaner
             this.hasTechnology = hasTechnology;
             this.comment = comment;
         }
-
+        /// <summary>
+        /// Standardkonstruktor
+        /// </summary>
         public MSeminar()
         {
 
