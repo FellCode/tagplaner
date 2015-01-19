@@ -257,7 +257,7 @@ namespace Tagplaner
 
             for (int i = 0; i < applyIteration; i++)
             {
-                MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
+                MCalendar.getInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
                 
 
                 if (entry.School != null)
