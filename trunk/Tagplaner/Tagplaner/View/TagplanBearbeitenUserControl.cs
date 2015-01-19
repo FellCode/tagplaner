@@ -22,13 +22,14 @@ namespace Tagplaner
         TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
         int x_Coord = 0;
         int y_Coord = 0;
+        MCalendar mCalendar = MCalendar.getInstance();
         private static TagplanBearbeitenUserControl instance;
 
 
       /// <summary>
       /// Erstellt eine Instanz der Klasse
       /// </summary>
-      /// <returns>instance</returns>
+      /// <returns></returns>
         public static TagplanBearbeitenUserControl getInstance()
         {
             if (instance == null)
@@ -57,14 +58,71 @@ namespace Tagplaner
 
 
         /// <summary>
+        /// Diese Methode fügt dem DataGridView alle benötigten Columns hinzu entsprechend der gewählten
+        /// Optionen im TagplanAnlegen-Fenster.
+        /// Dazu erwartet sie einen Int-Wert als Parameter.
+        /// </summary>
+        /// <param name="countGrid"></param>
+        public void CreateDataGridViews(int countGrid)
+        {
+            int columnCount = 6 * countGrid + 4;
+
+
+
+            dGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            dGV.ColumnCount = columnCount;
+            dGV.Columns[0].Name = "KW";
+            dGV.Columns[1].Name = "Datum";
+            dGV.Columns[2].Name = "Ferien";
+            dGV.Columns[3].Name = "Feiertage";
+
+            dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dGV.Columns[0].ReadOnly = true;
+            dGV.Columns[1].ReadOnly = true;
+            dGV.Columns[2].ReadOnly = true;
+            dGV.Columns[3].ReadOnly = true;
+
+            for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
+            {
+                dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort";
+                dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum";
+                dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer";
+                dGV.Columns[7 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Co-Trainer";
+                dGV.Columns[8 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität";
+                dGV.Columns[9 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität";
+
+                dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                dGV.Columns[4 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[5 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[6 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
+            }
+        }
+
+        /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
         /// </summary>
         /// <param name="calendarDays"></param>
         public void FillGrids(List<MCalendarDay> calendarDays)
         {
-            MCalendar mCalendar = MCalendar.getInstance();
 
-            //TEST
+            dGV.DataSource = null;
+            dGV.Rows.Clear();
+
+           //TEST
             int columnCount = dGV.ColumnCount;
             MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
             MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
@@ -214,7 +272,7 @@ namespace Tagplaner
                     dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Comment.ToString();
                 }
 
-                if (entry.Practice.Id != 0 && entry.Seminar != null)
+                if (entry.Practice != null && entry.Seminar != null)
                 {
                     dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Practice.Comment.ToString();
                     dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Comment.ToString();
@@ -222,56 +280,7 @@ namespace Tagplaner
             }
         }
 
-        /// <summary>
-        /// Diese Methode fügt dem DataGridView alle benötigten Columns hinzu entsprechend der gewählten
-        /// Optionen im TagplanAnlegen-Fenster.
-        /// Dazu erwartet sie einen Int-Wert als Parameter.
-        /// </summary>
-        /// <param name="countGrid"></param>
-        public void CreateDataGridViews(int countGrid)
-        {
-            int columnCount = 6 * countGrid + 4;
 
-            dGV.ColumnCount = columnCount;
-            dGV.Columns[0].Name = "KW";
-            dGV.Columns[1].Name = "Datum";
-            dGV.Columns[2].Name = "Ferien";
-            dGV.Columns[3].Name = "Feiertage";
-
-            dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-            dGV.Columns[0].ReadOnly = true;
-            dGV.Columns[1].ReadOnly = true;
-            dGV.Columns[2].ReadOnly = true;
-            dGV.Columns[3].ReadOnly = true;
-
-            for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
-            {
-                dGV.Columns[4 + 6 * columnCounter].Name = "Ort";
-                dGV.Columns[5 + 6 * columnCounter].Name = "Raum";
-                dGV.Columns[6 + 6 * columnCounter].Name = "Trainer";
-                dGV.Columns[7 + 6 * columnCounter].Name = "Co-Trainer";
-                dGV.Columns[8 + 6 * columnCounter].Name = "Aktivität";
-                dGV.Columns[9 + 6 * columnCounter].Name = "Aktivität";
-
-                dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                dGV.Columns[4 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[5 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[6 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
-            }
-        }
         /// <summary>
         /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
         /// entsprechend und es werden Methoden zum Bearbeiten der Einträge aufgerufen.
@@ -280,9 +289,6 @@ namespace Tagplaner
         /// <param name="e"></param>
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            int x_Coord = 0;
-            int y_Coord = 0;
             int x_Cell = e.ColumnIndex;
             x_Coord = Convert.ToInt32(Math.Floor((Convert.ToDouble(e.ColumnIndex) - 4d) / 6));
             y_Coord = e.RowIndex;

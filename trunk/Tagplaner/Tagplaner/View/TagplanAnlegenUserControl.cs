@@ -255,10 +255,27 @@ namespace Tagplaner
         public int CountCheckedCheckboxes()
         {
             int checkedBoxesCount = 0;
-            if (checkBox_ErsterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBox_ErsterJahrgangSI.Checked) checkedBoxesCount++;
-            if (checkBox_ZweiterJahrgangAE.Checked) checkedBoxesCount++;
-            if (checkBox_ZweiterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_ErsterJahrgangAE.Checked)
+            {
+                checkedBoxesCount++;
+                MCalendar.getInstance().Speciality.Add(new MSpeciality("AE", MCalendar.getInstance().Startdate.Year.ToString()));
+            }
+            if (checkBox_ErsterJahrgangSI.Checked)
+            {
+                checkedBoxesCount++;
+                MCalendar.getInstance().Speciality.Add(new MSpeciality("SI", MCalendar.getInstance().Startdate.Year.ToString()));
+            }
+            if (checkBox_ZweiterJahrgangAE.Checked)
+            {
+                checkedBoxesCount++;
+                MCalendar.getInstance().Speciality.Add(new MSpeciality("AE", MCalendar.getInstance().Enddate.Year.ToString()));
+            }
+
+            if (checkBox_ZweiterJahrgangSI.Checked)
+            {
+                checkedBoxesCount++;
+                MCalendar.getInstance().Speciality.Add(new MSpeciality("SI", MCalendar.getInstance().Enddate.Year.ToString()));
+            }
             if (checkBox_DritterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBox_DritterJahrgangSI.Checked) checkedBoxesCount++;
             if (checkBox_VierterJahrgangAE.Checked) checkedBoxesCount++;
