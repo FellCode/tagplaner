@@ -12,10 +12,15 @@ using System.Collections.Generic;
 namespace Tagplaner
 {
 	/// <summary>
-	/// Description of Interface1.
+	/// Erzeugt eine Liste von MCalendarDay-Objekten für den gewählten Zeitraum (inklusiv)
+	/// <seealso cref="CCalendarUtilitys"></seealso>
 	/// </summary>
-    public interface ICalendarUtilitys
+	public interface ICalendarUtility
 	{
-		List<MCalendarDay> generateCalenderDayEntrys();
+		/// <summary>
+		/// Die Schnittstelle für die Klasse CCalendarUtilitys
+		/// <returns>Liste von DateTime-Objekten</returns>
+		/// </summary>
+		List<MCalendarDay> GenerateCalenderDayEntrys();
 	}
 }
