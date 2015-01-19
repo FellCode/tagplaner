@@ -75,36 +75,96 @@ namespace Tagplaner
         /// <param name="classes">Die Anzahl der Jahrgänge des Kalenders.</param>
         /// <param name="typeOfClasses">Enthält die selektierten Fachrichtungen</param>
         /// <returns>Enthält die befüllte Liste der Fachrichtungen.</returns>
-        public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses)
+        public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses, List<String> identifierOfYears)
         {
             switch (classes)
             {
                 case 1:
                     if (!String.IsNullOrEmpty(typeOfClasses[0]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[0], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[0], identifierOfYears[0], ""));
                     }
                     if (!String.IsNullOrEmpty(typeOfClasses[1]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[1], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[1], identifierOfYears[0], ""));
                     }
                     break;
                 case 2:
                     if (!String.IsNullOrEmpty(typeOfClasses[0]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[0], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[0], identifierOfYears[0], ""));
                     }
                     if (!String.IsNullOrEmpty(typeOfClasses[1]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[1], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[1], identifierOfYears[0], ""));
                     }
                     if (!String.IsNullOrEmpty(typeOfClasses[2]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[2], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[2], identifierOfYears[1], ""));
                     }
                     if (!String.IsNullOrEmpty(typeOfClasses[3]))
                     {
-                        speciality.Add(new MSpeciality(typeOfClasses[3], ""));
+                        speciality.Add(new MSpeciality(typeOfClasses[3], identifierOfYears[1], ""));
+                    }
+                    break;
+                case 3:
+                    if (!String.IsNullOrEmpty(typeOfClasses[0]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[0], identifierOfYears[0], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[1]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[1], identifierOfYears[0], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[2]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[2], identifierOfYears[1], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[3]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[3], identifierOfYears[1], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[4]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[4], identifierOfYears[2], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[5]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[5], identifierOfYears[2], ""));
+                    }
+                    break;
+                case 4:
+                    if (!String.IsNullOrEmpty(typeOfClasses[0]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[0], identifierOfYears[0], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[1]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[1], identifierOfYears[0], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[2]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[2], identifierOfYears[1], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[3]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[3], identifierOfYears[1], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[4]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[4], identifierOfYears[2], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[5]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[5], identifierOfYears[2], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[6]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[6], identifierOfYears[3], ""));
+                    }
+                    if (!String.IsNullOrEmpty(typeOfClasses[7]))
+                    {
+                        speciality.Add(new MSpeciality(typeOfClasses[7], identifierOfYears[3], ""));
                     }
                     break;
             }
