@@ -141,6 +141,14 @@ namespace Tagplaner
             this.id = id;
             this.school = school;
         }
+
+        /// <summary>
+        /// Kunstruktur zur befüllung eines Leeren Entrys aus dem Changepanel
+        /// </summary>
+        public MCalendarEntry()
+        {
+
+        }
         #endregion
 
 
