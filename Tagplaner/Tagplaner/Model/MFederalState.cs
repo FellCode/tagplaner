@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Diese Klasse bildet ein Bundesland ab.
+    /// </summary>
     [Serializable()]
     public class MFederalState
     {   
@@ -33,6 +36,12 @@ namespace Tagplaner
         }
         #endregion
 
+        /// <summary>
+        /// Erzeugt ein Objekt vom Typ MFederalState
+        /// </summary>
+        /// <param name="id">ID für die Datenbank</param>
+        /// <param name="name">Name des Bundeslandes</param>
+        /// <param name="abbreviation">Abkürzung/Kürzel des Names des Bundeslandes</param>
         public MFederalState(int id, string name, string abbreviation)
         {
             this.id = id;
@@ -40,6 +49,10 @@ namespace Tagplaner
             this.abbreviation = abbreviation;
         }
 
+        /// <summary>
+        /// Gibt den Namen des Bundeslandes zurück
+        /// </summary>
+        /// <returns>Name des Bundelandes</returns>
         public override string ToString()
         {
             return name;
