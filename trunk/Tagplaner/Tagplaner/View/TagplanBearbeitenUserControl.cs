@@ -22,7 +22,7 @@ namespace Tagplaner
         TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
         int x_Coord = 0;
         int y_Coord = 0;
-        MCalendar mCalendar = MCalendar.getInstance();
+        MCalendar mCalendar;
         private static TagplanBearbeitenUserControl instance;
 
 
@@ -65,14 +65,17 @@ namespace Tagplaner
         /// <param name="countGrid"></param>
         public void CreateDataGridViews(int countGrid)
         {
-//            for (int i = 0; i < dGV.Columns.Count - 1; i++)
-//            {
-//                dGV.Columns.Clear();
-//                Console.WriteLine(i);
-//            }
-
+            mCalendar = MCalendar.getInstance();
             int columnCount = 6 * countGrid + 4;
 
+
+            dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            dGV.Location = new System.Drawing.Point(0, 0);
+            dGV.Name = "dGV";
+            dGV.Size = new System.Drawing.Size(502, 63);
+            dGV.TabIndex = 2;
+            dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             dGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             dGV.ColumnCount = columnCount;
@@ -115,6 +118,7 @@ namespace Tagplaner
                 dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
                 dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
             }
+          
         }
 
         /// <summary>
