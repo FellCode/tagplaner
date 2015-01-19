@@ -23,7 +23,7 @@ namespace Tagplaner
         public static List<MCalendarDay> FillDaysInitial(DateTime startdate, DateTime enddate, List<MCalendarDay> listDays, String vacationCurrentYearUrl, String vacationNextYearUrl)
         {
             CCalendarUtilitys calendarUtilitys = new CCalendarUtilitys(startdate, enddate, listDays);
-            calendarUtilitys.generateCalenderDayEntrys();
+            calendarUtilitys.GenerateCalenderDayEntrys();
 
             CICalCSVConverter iCalCSVConverter = new CICalCSVConverter(vacationCurrentYearUrl, vacationNextYearUrl);
             foreach (MVacation vacation in iCalCSVConverter.GetICalEntrys(startdate, enddate))

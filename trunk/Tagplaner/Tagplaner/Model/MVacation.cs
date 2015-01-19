@@ -12,34 +12,42 @@ using System.Collections.Generic;
 namespace Tagplaner
 {
 	/// <summary>
-	/// Description of MVacation.
+	/// Die Klasse repräsentiert die Ferien-Einträge in den ICS-Dateien
 	/// </summary>
-    /// 
-    [Serializable()]
 	public class MVacation
     {
-        private int id;
-        private String vacationName;
-        private DateTime vacationDate;
+		/// <summary>
+		/// Name des Ferieneintrags
+		/// </summary>
+        public String vacationName;
+        /// <summary>
+		/// Datum des Ferieneintrags
+		/// </summary>
+        public DateTime vacationDate;
 
-
-        public int Id
-        {
-            get { return id; }
-            set { this.id = value; }
-        }
-
+        /// <summary>
+		/// Konstruktor der MVacation-Klasse
+ 		/// <para name="vacationName">Beschreibender Name eines Ferieneintrags in der ICS-Datei</para>
+ 		/// <para name="vacationDate">Datum des Ferientags</para>
+ 		/// <seealso cref="CICalCSVConverter"></seealso>
+    	/// </summary>
         public MVacation(String vacationName, DateTime vacationDate)
         {
             this.vacationName = vacationName;
             this.vacationDate = vacationDate;
         }
         
+        /// <summary>
+		/// Property für das Feld vacationName
+    	/// </summary>
 		public string VacationName {
 			get { return vacationName; }
 			set { vacationName = value; }
 		}
         
+    	/// <summary>
+		/// Property für das Feld vacationDate
+    	/// </summary>
         public DateTime VacationDate {
 			get { return vacationDate; }
 			set { vacationDate = value; }
