@@ -65,9 +65,13 @@ namespace Tagplaner
         /// <param name="countGrid"></param>
         public void CreateDataGridViews(int countGrid)
         {
+//            for (int i = 0; i < dGV.Columns.Count - 1; i++)
+//            {
+//                dGV.Columns.Clear();
+//                Console.WriteLine(i);
+//            }
+
             int columnCount = 6 * countGrid + 4;
-
-
 
             dGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
@@ -89,6 +93,7 @@ namespace Tagplaner
 
             for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
             {
+                //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
                 dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort";
                 dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum";
                 dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer";
@@ -119,8 +124,9 @@ namespace Tagplaner
         public void FillGrids(List<MCalendarDay> calendarDays)
         {
 
-            dGV.DataSource = null;
-            dGV.Rows.Clear();
+
+            //dGV.DataSource = null;
+            //dGV.Rows.Clear();
 
            //TEST
             int columnCount = dGV.ColumnCount;
@@ -137,23 +143,12 @@ namespace Tagplaner
             // Durchläuft jeden Kalendertag
             for (int rowCounter = 0; rowCounter < calendarDays.Count; rowCounter++)
             {
-
                 trainer = new MTrainer("Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, false);
                 trainer_co = new MTrainer("CO-Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, true);
                 seminar = new MSeminar("SEMINARR - " + rowCounter.ToString(), "Subtitel", "SAP", "false", "commment");
                 practice = new MPractice("Praxis - " + rowCounter.ToString());
-
                 room.Add(new MRoom("209 - " + rowCounter.ToString()));
                 ort = new MPlace("Koeln - " + rowCounter.ToString(), "Arnold", room);
-
-
-
-
-
-
-
-
-
 
                 dGV.Rows.Add();
 
@@ -262,13 +257,13 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-            MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
             double bereich = 0;
             bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
 
             for (int i = 0; i < applyIteration; i++)
             {
-                //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
+                MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
+                
 
                 if (entry.School != null)
                 {
