@@ -335,15 +335,15 @@ namespace Tagplaner
                 else if (calendarEntry.School != null)
                 {
                     pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                     pdfTable.AddCell(this.CreateBodyTableCellSchool());
                 }
                 else if (calendarEntry.Practice != null)
                 {
                     pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                     pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
                 }
 
@@ -351,7 +351,7 @@ namespace Tagplaner
                 pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                 pdfTable.AddCell(this.CreateBodyTableCell("", 1));
                 pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCellPratice("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
 
                 // Year one  - FIAE
                 pdfTable.AddCell(this.CreateBodyTableCell("", 1));
