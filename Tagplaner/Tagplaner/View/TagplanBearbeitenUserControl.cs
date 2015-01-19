@@ -25,10 +25,10 @@ namespace Tagplaner
         private static TagplanBearbeitenUserControl instance;
 
 
-        /// <summary>
-        /// Malt alle Elemente auf das UserControl
-        /// </summary>
-        /// 
+      /// <summary>
+      /// Erstellt eine Instanz der Klasse
+      /// </summary>
+      /// <returns></returns>
         public static TagplanBearbeitenUserControl getInstance()
         {
             if (instance == null)
@@ -36,7 +36,11 @@ namespace Tagplaner
                 instance = new TagplanBearbeitenUserControl();
             } return instance;
         }
-        public TagplanBearbeitenUserControl()
+        /// <summary>
+        /// Malt alle Elemente auf das UserControl
+        /// </summary>
+        /// 
+        private TagplanBearbeitenUserControl()
         {
             InitializeComponent();
         }
@@ -56,7 +60,7 @@ namespace Tagplaner
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
         /// </summary>
         /// <param name="calendarDays"></param>
-        public void FillGrids(List<MCalendarDay> calendarDays)
+        private void FillGrids(List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
@@ -168,7 +172,7 @@ namespace Tagplaner
         /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
         /// </summary>
         /// <returns>calendarEntry</returns>
-        public MCalendarEntry GetSelectedEntryModel()
+        private MCalendarEntry GetSelectedEntryModel()
         {
             MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
@@ -180,7 +184,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="applyIteration"></param>
-        public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
+        private void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
             MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
             double bereich = 0;
@@ -224,7 +228,7 @@ namespace Tagplaner
         /// Dazu erwartet sie einen Int-Wert als Parameter.
         /// </summary>
         /// <param name="countGrid"></param>
-        public void CreateDataGridViews(int countGrid)
+        private void CreateDataGridViews(int countGrid)
         {
             int columnCount = 6 * countGrid + 4;
 
