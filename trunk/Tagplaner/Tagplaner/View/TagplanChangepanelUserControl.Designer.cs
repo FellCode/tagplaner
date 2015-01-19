@@ -108,7 +108,6 @@
             this.Raum.Name = "Raum";
             this.Raum.Size = new System.Drawing.Size(121, 21);
             this.Raum.TabIndex = 5;
-            this.Raum.SelectedIndexChanged += new System.EventHandler(this.Raum_SelectedIndexChanged);
             // 
             // Kommentar
             // 
@@ -224,7 +223,6 @@
             this.Seminarpanel.Name = "Seminarpanel";
             this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
             this.Seminarpanel.TabIndex = 24;
-            this.Seminarpanel.Paint += new System.Windows.Forms.PaintEventHandler(this.Seminarpanel_Paint);
             // 
             // TagplanChangepanelUserControl
             // 
