@@ -50,7 +50,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
+        public void TagplanBearbeitenUserControl_Load(object sender, EventArgs e)
         {
             panel1.Controls.Add(tagplanChangePanelUserControl);
         }
@@ -60,7 +60,7 @@ namespace Tagplaner
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
         /// </summary>
         /// <param name="calendarDays"></param>
-        private void FillGrids(List<MCalendarDay> calendarDays)
+        public void FillGrids(List<MCalendarDay> calendarDays)
         {
             MCalendar mCalendar = MCalendar.getInstance();
 
@@ -172,7 +172,7 @@ namespace Tagplaner
         /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
         /// </summary>
         /// <returns>calendarEntry</returns>
-        private MCalendarEntry GetSelectedEntryModel()
+        public MCalendarEntry GetSelectedEntryModel()
         {
             MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
@@ -184,7 +184,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="applyIteration"></param>
-        private void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
+        public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
             MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord] = entry;
             double bereich = 0;
@@ -228,7 +228,7 @@ namespace Tagplaner
         /// Dazu erwartet sie einen Int-Wert als Parameter.
         /// </summary>
         /// <param name="countGrid"></param>
-        private void CreateDataGridViews(int countGrid)
+        public void CreateDataGridViews(int countGrid)
         {
             int columnCount = 6 * countGrid + 4;
 
@@ -278,7 +278,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
             int x_Coord = 0;
