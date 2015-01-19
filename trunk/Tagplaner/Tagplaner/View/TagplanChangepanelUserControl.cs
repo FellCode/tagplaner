@@ -36,7 +36,6 @@ namespace Tagplaner
 
         }
 
-
         /// <summary>
         /// Prüft ob der Einfügen Button geklickt wurde
         /// </summary>
@@ -132,11 +131,11 @@ namespace Tagplaner
 
         }
 
-       /// <summary>
-       /// Nimmt den Ort und füllt die ComboBox Raum mit den zum Ort entsprechenden Räumen
-       /// </summary>
-       /// <param name="Ort"></param>
-       /// <param name="Raum"></param>
+        /// <summary>
+        /// Nimmt den Ort und füllt die ComboBox Raum mit den zum Ort entsprechenden Räumen
+        /// </summary>
+        /// <param name="Ort"></param>
+        /// <param name="Raum"></param>
         public void FillRoom(ComboBox Ort, ComboBox Raum)
         {
 
@@ -307,18 +306,17 @@ namespace Tagplaner
             {
                 if (calendarentry.School == null)
                 {
-                    kommentarb.SelectedItem = calendarentry.Seminar;
+                    kommentarb.Text = calendarentry.Seminar.Comment;
                 }
                 if (calendarentry.Seminar == null)
                 {
-                    kommentarb.SelectedItem = calendarentry.School;
+                    kommentarb.Text = calendarentry.School.Comment;
                 }
-                kommentarb.SelectedIndex = -1;
-                kommentarb.Text = "";
+                kommentarb.Text = " ";            
             }
             else
             {
-                kommentarb.SelectedItem = calendarentry.Practice;
+                kommentarb.Text = calendarentry.Practice.Comment;
             }
             kommentarb.Refresh();
         }
