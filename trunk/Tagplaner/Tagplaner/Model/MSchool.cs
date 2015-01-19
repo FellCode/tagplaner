@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Klasse mit dem Model zu einem Schultag
+    /// </summary>
     [Serializable()]
     public class MSchool
     {
@@ -27,11 +30,20 @@ namespace Tagplaner
         #endregion
 
         #region constructor
+        /// <summary>
+        /// Konstruktor mit Bermerkung
+        /// </summary>
+        /// <param name="comment">Bemerkung zu einem Schultag</param>
         public MSchool( string comment)
         {
             
             this.comment = comment;
         }
+        /// <summary>
+        /// Konstruktor mit Id und Bermerkung
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <param name="comment">Bemerkung zu einem Schultag</param>
         public MSchool(int id, string comment)
         {
             this.id = id;
