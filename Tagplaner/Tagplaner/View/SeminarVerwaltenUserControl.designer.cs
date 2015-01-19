@@ -78,6 +78,7 @@
             this.seminarComboBox.Size = new System.Drawing.Size(404, 21);
             this.seminarComboBox.TabIndex = 0;
             this.seminarComboBox.SelectedIndexChanged += new System.EventHandler(this.SeminarComboBox_SelectedIndexChanged);
+            this.seminarComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.seminarComboBox_KeyPress);
             // 
             // seminarVerwalten
             // 
@@ -157,6 +158,7 @@
             this.titelTextBox.Name = "titelTextBox";
             this.titelTextBox.Size = new System.Drawing.Size(405, 20);
             this.titelTextBox.TabIndex = 1;
+            this.titelTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.titelTextBox_KeyPress);
             // 
             // technikLabel
             // 

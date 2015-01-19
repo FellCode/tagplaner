@@ -26,6 +26,9 @@ namespace Tagplaner
             InitializeComponent();
             db = CDatabase.GetInstance();
             db.FillSeminarComboBox(seminarComboBox);
+            loeschenButton.Enabled = false;
+            speichernButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;
         }
         /// <summary>
         ///  Wenn in der Combobox ein Objekt ausgewählt wird, wird der Speichern Button ausgeblendet.
@@ -36,7 +39,9 @@ namespace Tagplaner
         private void SeminarComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MSeminar seminar = (MSeminar)seminarComboBox.SelectedItem;
+            zuruecksetzenButton.Enabled = true;
             speichernButton.Enabled = false;
+            loeschenButton.Enabled = true;
 
             titelTextBox.Text = seminar.Title;
             untertitelTextBox.Text = seminar.Subtitle;
@@ -65,22 +70,25 @@ namespace Tagplaner
                 untertitelTextBox.Clear();
                 kuerzelTextBox.Clear();
                 technikTextBox.Clear();
+                speichernButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
             }
         }
         /// <summary>
-        /// Wenn der zurücksetzen Button gedrückt wird, wird der Speichern Button wieder eingeblendet
-        /// Ebenfalls werden alle Felder geleert.
+        /// Wenn der zurücksetzen Button gedrückt wird,werden alle Felder geleert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
-            speichernButton.Enabled = true;
+            speichernButton.Enabled = false;
             seminarComboBox.Text = "";
             titelTextBox.Clear();
             untertitelTextBox.Clear();
             kuerzelTextBox.Clear();
             technikTextBox.Clear();
+            loeschenButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;
         }
         /// <summary>
         ///  Wenn der Löschen Button betätigt wird, wird das ausgewählte Objekt aus der Combobox gelöscht
@@ -94,7 +102,7 @@ namespace Tagplaner
             bool erg = db.DeleteSeminar(seminar);
             if (erg == true)
             {
-                speichernButton.Enabled = true;
+                speichernButton.Enabled = false;
                 seminarComboBox.Text = "";
                 titelTextBox.Clear();
                 untertitelTextBox.Clear();
@@ -104,7 +112,31 @@ namespace Tagplaner
                 seminarComboBox.Text = "";
                 seminarComboBox.Items.Clear();
                 db.FillSeminarComboBox(seminarComboBox);
+                loeschenButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Wenn in die Textbox geschrieben wird, wird der Speichern und der Zurücksetzen Button 
+        /// wieder aktiv geschaltet.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void titelTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            speichernButton.Enabled = true;
+            zuruecksetzenButton.Enabled = true;
+        }
+
+        /// <summary>
+        /// Wenn in die ComboBox getippt wird, wird der zurücksetzen Button wieder aktiv geschaltet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void seminarComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            zuruecksetzenButton.Enabled = true;
         }
     }
 }
