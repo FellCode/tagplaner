@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Diese Klasse bildet einen Kalendertag ab. Der Kalendertag enthält das Datum, eventuell den Ferien und/oder den Feiertagsnamen des Tages sowie eine
+    /// Liste mit Kalendereinträgen.
+    /// </summary>
     [Serializable()]
     public class MCalendarDay
     {
@@ -54,6 +58,13 @@ namespace Tagplaner
         #endregion
 
         #region constructor
+        /// <summary>
+        /// Konstruktor zum anlegen eines neuen Kalendertages.
+        /// </summary>
+        /// <param name="calenderDate">Datum des Kalendertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
+        /// <param name="vacationName">Name des Ferientages</param>
+        /// <param name="calenderWeek">Kalenderwoche</param>
         public MCalendarDay(DateTime calenderDate, String holidayName, String vacationName, String calenderWeek)
         {
             this.calendarDate = calenderDate;
@@ -64,6 +75,14 @@ namespace Tagplaner
 
         }
 
+        /// <summary>
+        /// Konstruktor zum anlegen eines bereits existierenden Kalendertages aus der Datenbank.
+        /// </summary>
+        /// <param name="id">ID des Objektes aus der Datenbank</param>
+        /// <param name="calenderDate">Datum des Kalendertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
+        /// <param name="vacationName">Name des Ferientages</param>
+        /// <param name="calenderWeek">Kalenderwoche</param>
         public MCalendarDay(int id, DateTime calenderDate, String holidayName, String vacationName, String calenderWeek)
         {
             this.id = id;
