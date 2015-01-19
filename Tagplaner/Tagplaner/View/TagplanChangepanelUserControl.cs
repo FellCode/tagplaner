@@ -10,24 +10,27 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Autor: Matthias Ohm
+    /// Datum: 14.01.15
+    /// Dieser Controler dient dazu um ein MCalenderEntry Objekt anzunehmen und in die Comboboxen zu schreiben.
+    /// Dazu gibt er die gewählten Daten wieder an das Grid zurück
+    /// </summary>
     public partial class TagplanChangepanelUserControl : UserControl
     {
-        /// <summary>
-        /// Autor: Matthias Ohm
-        /// Datum: 14.01.15
-        /// Dieser Controler dient dazu um ein MCalenderEntry Objekt anzunehmen und in die Comboboxen zu schreiben.
-        /// Dazu gibt er die gewählten Daten wieder an das Grid zurück
-        /// </summary>
 
-        CDatabase cdb = CDatabase.GetInstance();
-        private TagplanBearbeitenUserControl tagplanBearbeitenUserControl;
+        private CDatabase cdb = CDatabase.GetInstance();
+        //TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
 
-        private int ortid;
-        private MCalendarEntry ccalendarentry;
+        private MCalendarEntry ccalendarentry = new MCalendarEntry();
 
         public TagplanChangepanelUserControl()
         {
             InitializeComponent();
+
+            FillDayType(Tagart);
+
+
         }
 
         private void TagplanChangepanelUserControl_Load(object sender, EventArgs e)
@@ -35,48 +38,46 @@ namespace Tagplaner
 
         }
 
+        //Prüft ob der Einfügen Button geklickt wurde
         private void Einfügen_Click(object sender, EventArgs e)
         {
 
             PasteEntry();
 
         }
-
-        private void Raum_SelectedIndexChanged(object sender, EventArgs e)
+        //Prüft ob die Auswahl des Ortes geändert wurde und ändert dementsprechend die auswählbaren Räume
+        private void Ort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MRoom sraum = (MRoom)Raum.SelectedItem;
-
-            cdb.FillRoomComboBox(Raum, sraum.Id);
+            FillRoom(Ort, Raum);
         }
 
+        //Prüft ob die Auswahl der Tagart geändert wurde
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-           ChangeVisibility(Tagart, Seminarpanel);
-            
+            ChangeVisibility(Tagart, Seminarpanel);
+
 
         }
-        
+
         /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
         /// </summary>
         /// <param name="calendarentry"></param>
         public void ChangeCalendarEntry(MCalendarEntry calendarentry)
         {
-            ccalendarentry = calendarentry;
 
-            FillDayType(Tagart);
-            FillSeminar(Seminar);
-            FillTrainer(Trainer);
-            FillCoTrainer(CoTrainer);
-            FillLocation(Ort);
+            cdb.FillSeminarComboBox(Seminar);
+            cdb.FillTrainerComboBox(Trainer);
+            cdb.FillTrainerComboBox(CoTrainer);
+            cdb.FillPlaceComboBox(Ort);
 
-            SetDayTyp(ccalendarentry, Tagart);
-            SetSeminar(ccalendarentry, Seminar);
-            SetTrainer(ccalendarentry, Trainer);
-            SetCoTrainer(ccalendarentry, CoTrainer);
-            SetLocation(ccalendarentry, Ort);
-            SetRoom(ccalendarentry, Raum);
+            SetDayTyp(calendarentry, Tagart);
+            SetSeminar(calendarentry, Seminar);
+            SetTrainer(calendarentry, Trainer);
+            SetCoTrainer(calendarentry, CoTrainer);
+            SetLocation(calendarentry, Ort);
+            SetRoom(calendarentry, Raum);
 
         }
 
@@ -94,12 +95,12 @@ namespace Tagplaner
             GetComment(ccalendarentry, Kommentar, Tagart);
             GetInterationNumber(Weiterführung, AnzahlTage);
 
-
+            TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
             tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(Weiterführung, AnzahlTage), ccalendarentry);
 
         }
 
-
+        //Füllt die ComboBox Tagart mit den Werten Smeinar, Berufsschule und Praxis
         public bool FillDayType(ComboBox Tagart)
         {
             try
@@ -117,94 +118,15 @@ namespace Tagplaner
 
         }
 
-        public bool FillSeminar(ComboBox Seminar)
-        {
-            try
-            {
-                cdb.FillSeminarComboBox(Seminar);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        public bool FillTrainer(ComboBox Trainer)
-        {
-            try
-            {
-                cdb.FillTrainerComboBox(Trainer);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        public bool FillCoTrainer(ComboBox CoTrainer)
-        {
-            try
-            {
-                cdb.FillTrainerComboBox(CoTrainer);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        public bool FillLocation(ComboBox Ort)
-        {
-            try
-            {
-                cdb.FillPlaceComboBox(Ort);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        public bool FillRoom(ComboBox Ort, ComboBox Raum)
+        //Nimmt den Ort und füllt die ComboBox Raum mit den zum Ort entsprechenden Räumen
+        public void FillRoom(ComboBox Ort, ComboBox Raum)
         {
 
-            try
-            {
-
-                string idort = Convert.ToString(Ort.SelectedValue);
-                ortid = Convert.ToInt32(idort);
-                cdb.FillRoomComboBox(Raum, ortid);
-
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-
+            MPlace mort = (MPlace)Ort.SelectedItem;
+            cdb.FillRoomComboBox(Raum, mort.Id);
         }
 
-        public void UpdateCalenderEntry(ComboBox Tagart, TextBox Kommentar)
-        {
-
-            switch (Convert.ToString(Tagart.SelectedValue))
-            {
-                case "Seminar":
-                    break;
-                case "Berufsschule":
-                    break;
-                case "Praxis":
-                    break;
-            }
-        }
-
+        //Verädert die Sichtbarkeit des Panels anhand der Tagart
         public void ChangeVisibility(ComboBox Tagart, Panel Seminarpanel)
         {
 
@@ -223,84 +145,101 @@ namespace Tagplaner
 
         }
 
+        //Setzt die Tagart anhand der im CalenderEntry enhaltenen Objekte
         public void SetDayTyp(MCalendarEntry calendarentry, ComboBox tagartb)
         {
             if (calendarentry.Practice == null)
             {
                 if (calendarentry.School == null)
                 {
-                    tagartb.SelectedIndex = 1;
+                    tagartb.SelectedIndex = 0;
                 }
                 if (calendarentry.Seminar == null)
                 {
-                    tagartb.SelectedIndex = 2;
+                    tagartb.SelectedIndex = 1;
                 }
-
+                tagartb.SelectedIndex = -1;
+                tagartb.Text = "";
             }
             else
             {
-                tagartb.SelectedIndex = 3;
+                tagartb.SelectedIndex = 2;
             }
+            tagartb.Refresh();
         }
 
+        //Setzt das Semianr anhand der im CalenderEntry befindenen Seminar 
         public void SetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
         {
             if (calendarentry.Seminar == null)
             {
-
+                seminarb.SelectedIndex = -1;
+                seminarb.Text = "";
             }
             else
             {
                 seminarb.SelectedItem = calendarentry.Seminar;
             }
+            seminarb.Refresh();
         }
 
+        //Setzt den Trainer anhand des im CalenderEntry befindenen Trainer
         public void SetTrainer(MCalendarEntry calendarentry, ComboBox trainerb)
         {
             if (calendarentry.Trainer == null)
             {
-
+                trainerb.SelectedIndex = -1;
+                trainerb.Text = "";
             }
             else
             {
                 trainerb.SelectedItem = calendarentry.Trainer;
             }
+            trainerb.Refresh();
         }
 
+        //Setzt den CoTrainer anhand des im CalenderEntry befindenen CoTrainer
         public void SetCoTrainer(MCalendarEntry calendarentry, ComboBox cotrainerb)
         {
             if (calendarentry.Cotrainer == null)
             {
-
+                cotrainerb.SelectedIndex = -1;
+                cotrainerb.Text = "";
             }
             else
             {
                 cotrainerb.SelectedItem = calendarentry.Cotrainer;
             }
+            cotrainerb.Refresh();
         }
 
+        //Setzt die Location anahnd der im CalenderEntry vorhanden Location
         public void SetLocation(MCalendarEntry calendarentry, ComboBox ortb)
         {
             if (calendarentry.Room == null)
             {
-
+                ortb.SelectedIndex = -1;
+                ortb.Text = "";
             }
             else
             {
-
+                ortb.SelectedItem = calendarentry.Room;
             }
+            ortb.Refresh();
         }
 
         public void SetRoom(MCalendarEntry calendarentry, ComboBox raumb)
         {
             if (calendarentry.Room == null)
             {
-
+                raumb.SelectedIndex = -1;
+                raumb.Text = "";
             }
             else
             {
                 raumb.SelectedItem = calendarentry.Room;
             }
+            raumb.Refresh();
         }
 
         public void SetComment(MCalendarEntry calendarentry, ComboBox kommentarb)
@@ -315,11 +254,14 @@ namespace Tagplaner
                 {
                     kommentarb.SelectedItem = calendarentry.School;
                 }
+                kommentarb.SelectedIndex = -1;
+                kommentarb.Text = "";
             }
             else
             {
                 kommentarb.SelectedItem = calendarentry.Practice;
             }
+            kommentarb.Refresh();
         }
 
         public void GetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
@@ -351,14 +293,16 @@ namespace Tagplaner
         {
             switch (tagartb.SelectedIndex)
             {
+                case 0:
+                    calendarentry.Seminar.Comment = kommentarb.Text;
+                    break;
                 case 1:
-                    calendarentry.Seminar.Comment = kommentarb.SelectedText;
+                    MSchool mschool = new MSchool(kommentarb.Text);
+                    calendarentry.School = mschool;
                     break;
                 case 2:
-                    calendarentry.School.Comment = kommentarb.SelectedText;
-                    break;
-                case 3:
-                    calendarentry.Practice.Comment = kommentarb.SelectedText;
+                    MPractice mpractice = new MPractice(kommentarb.Text);
+                    calendarentry.Practice = mpractice;
                     break;
             }
         }
@@ -367,17 +311,19 @@ namespace Tagplaner
         {
             if (weitercheck.Checked == true)
             {
-                return Convert.ToInt32(anzahltage.Value);
+                if (Convert.ToInt32(anzahltage.Value) >= 1)
+                {
+                    return Convert.ToInt32(anzahltage.Value);
+                }
+                else
+                {
+                    return 1;
+                }
             }
             else
             {
                 return 1;
             }
-
-        }
-
-        private void Seminarpanel_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
