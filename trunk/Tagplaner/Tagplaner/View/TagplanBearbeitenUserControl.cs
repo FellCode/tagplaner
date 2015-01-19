@@ -69,15 +69,6 @@ namespace Tagplaner
             int columnCount = 6 * countGrid + 4;
 
 
-            dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV.Dock = System.Windows.Forms.DockStyle.Fill;
-            dGV.Location = new System.Drawing.Point(0, 0);
-            dGV.Name = "dGV";
-            dGV.Size = new System.Drawing.Size(502, 63);
-            dGV.TabIndex = 2;
-            dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            dGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
             dGV.ColumnCount = columnCount;
             dGV.Columns[0].Name = "KW";
             dGV.Columns[1].Name = "Datum";
