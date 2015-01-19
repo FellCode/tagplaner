@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Die Klasse bildet Orte ab, an denen Veranstaltungen stattfinden können 
+    /// </summary>
     [Serializable()]
     public class MPlace
     {
@@ -39,7 +42,14 @@ namespace Tagplaner
         }
         #endregion
 
+        
         #region constructor
+        /// <summary>
+        /// Erzeugt ein Objekt vom Typ MPlace
+        /// </summary>
+        /// <param name="place">Name des Ortes</param>
+        /// <param name="contact">Kontaktinformationen zum Ort</param>
+        /// <param name="rooms">Liste von Räumen</param>
         public MPlace(string place, string contact, List<MRoom> rooms)
         {
            
@@ -47,12 +57,25 @@ namespace Tagplaner
             this.contact = contact;
             this.rooms = rooms;
         }
+        /// <summary>
+        /// Erzeugt ein Objekt vom Typ MPlace
+        /// </summary>
+        /// <param name="place">Name des Ortes</param>
+        /// <param name="contact">Kontaktinformationen zum Ort</param>
+        /// <param name="rooms">Liste von Räumen</param>
         public MPlace(int id, string place, string contact)
         {
             this.id = id;
             this.place = place;
             this.contact = contact;
         }
+        /// <summary>
+        /// Erzeugt ein Objekt vom Typ MPlace
+        /// </summary>
+        /// <param name="id">ID für die Datenbank</param>
+        /// <param name="place">Bezeichnung des Ortes</param>
+        /// <param name="contact">Kontaktinformationen</param>
+        /// <param name="federalstate_id">ID aus Datenbank für das Bundesland</param>
         public MPlace(int id, string place, string contact, int federalstate_id)
         {
             this.id = id;
@@ -62,6 +85,10 @@ namespace Tagplaner
         }
         #endregion
 
+        /// <summary>
+        /// Gibt die Bezeichnung des Ortes zurück
+        /// </summary>
+        /// <returns>Bezeichnung des Ortes</returns>
         public override string ToString()
         {
             return place;
