@@ -17,18 +17,26 @@ namespace Tagplaner
         private string specialityName;
 
         #region getter
-
+        /// <summary>
+        /// Getter und Setter für ID
+        /// </summary>
         public int Id
         {
             get { return id; }
             set { this.id = value; }
         }
 
+        /// <summary>
+        /// Getter für Fachrichtung.
+        /// </summary>
         public string SpecialityName
         {
             get { return specialityName; }
         }
 
+        /// <summary>
+        /// Getter für Jahrgang
+        /// </summary>
         public string Apprenticeship
         {
             get { return apprenticeship; }

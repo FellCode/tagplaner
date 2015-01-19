@@ -22,41 +22,73 @@ namespace Tagplaner
         private MRoom room;
 
         #region getter
+
+        /// <summary>
+        /// Getter und Setter für ID
+        /// </summary>
         public int Id
         {
             get { return id; }
             set { this.id = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Trainer
+        /// </summary>
         public MTrainer Trainer
         {
             get { return trainer; }
             set { this.trainer = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Container
+        /// </summary>
         public MTrainer Cotrainer
         {
             get { return cotrainer; }
             set { this.cotrainer = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Seminar
+        /// </summary>
         public MSeminar Seminar
         {
             get { return seminar; }
             set { this.seminar = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Practice
+        /// </summary>
         public MPractice Practice
         {
             get { return practice; }
             set { this.practice = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für School
+        /// </summary>
         public MSchool School
         {
             get { return school; }
             set { this.school = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Place
+        /// </summary>
         public MPlace Place
         {
             get { return place; }
             set { this.place = value; }
         }
+
+        /// <summary>
+        /// Getter und Setter für Room
+        /// </summary>
         public MRoom Room
         {
             get { return room; }
@@ -150,12 +182,6 @@ namespace Tagplaner
 
         }
         #endregion
-
-
-
-
-
-
 
 
     }
