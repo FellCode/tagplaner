@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Die Klasse stellt das Model dar, dass die Attribute des Trainers enthält.
+    /// </summary>
     [Serializable()]
     public class MTrainer
     {
@@ -77,6 +80,11 @@ namespace Tagplaner
         }
         #endregion
 
+        /// <summary>
+        /// Hier wird die ToString Methode überschrieben um für die ComboBox den Namen des Trainers
+        /// anzuzeigen.
+        /// </summary>
+        /// <returns>Vorname und Nachname des Trainers zur Ansicht in der Combobox</returns>
         public override string ToString()
         {
             return name + " " + surname;
