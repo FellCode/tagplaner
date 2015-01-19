@@ -42,7 +42,7 @@ namespace Tagplaner
             panel1.Controls.Add(tagplanChangePanelUserControl);
         }
 
-  
+
         /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
         /// </summary>
@@ -86,18 +86,27 @@ namespace Tagplaner
                     //Durchläuft jede Spalte der Tabelle
                     for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                     {
-                   //     if (columnCounter % 2 == 0)
-                     //       mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(practice));
-                      //  else
-                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
-                        
-                        
+                        if (rowCounter < 100)
+                        {
+                            if (columnCounter % 2 == 0)
+                                mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(practice));
+                            else
+                                mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
+                        }
+                        else
+                        {
+                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(new MSchool("HAUPTSCHULEEEEEEEEEEEEEE")));
+                        }
+
 
                         //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School.Comment.ToString();
+                            dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = Color.Blue;
+                            dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = Color.Blue;
+
                         }
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                         {
@@ -107,18 +116,29 @@ namespace Tagplaner
                             dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+
+                            dGV[4 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+                            dGV[5 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+                            dGV[6 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+                            dGV[7 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+                            dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+                            dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = Color.LightSkyBlue;
+
                         }
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+
+                            dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = Color.Gold;
+                            dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = Color.Gold;
+
                         }
                         //Case: Sowohl Seminar als auch Praxis Objekt existieren
                         if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                         {
                             dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
                             dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
-
                         }
                     }
                 }
@@ -128,6 +148,8 @@ namespace Tagplaner
                     {
                         dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                         dGV[columnCounter, rowCounter].ReadOnly = true;
+
+                        dGV[columnCounter, rowCounter].Style.BackColor = Color.GreenYellow;
                     }
                 }
             }
