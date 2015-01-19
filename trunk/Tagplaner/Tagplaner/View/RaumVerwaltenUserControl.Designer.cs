@@ -97,6 +97,7 @@
             this.raeumeComboBox.Size = new System.Drawing.Size(177, 21);
             this.raeumeComboBox.TabIndex = 0;
             this.raeumeComboBox.SelectedIndexChanged += new System.EventHandler(this.RaeumeComboBox_SelectedIndexChanged);
+            this.raeumeComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.raeumeComboBox_KeyPress);
             // 
             // raumBearbeiten
             // 
@@ -112,7 +113,6 @@
             this.raumBearbeiten.TabIndex = 1;
             this.raumBearbeiten.TabStop = false;
             this.raumBearbeiten.Text = "Raum bearbeiten";
-            
             // 
             // zuruecksetzenButton
             // 
@@ -150,6 +150,7 @@
             this.raumTextBox.Name = "raumTextBox";
             this.raumTextBox.Size = new System.Drawing.Size(168, 20);
             this.raumTextBox.TabIndex = 1;
+            this.raumTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.raumTextBox_KeyPress);
             // 
             // raumLabel
             // 

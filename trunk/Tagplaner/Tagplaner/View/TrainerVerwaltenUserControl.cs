@@ -27,22 +27,26 @@ namespace Tagplaner
             db = CDatabase.GetInstance();
             InitializeComponent();
             db.FillTrainerComboBox(trainerComboBox);
+            loeschenButton.Enabled = false;
+            speichernButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;
         }
         /// <summary>
-        /// Wenn der Zurücksetzen Button geklickt wird, wird der Speichern Button wieder eingeblendet
-        /// und alle vorhandenen Felder leer gemacht. 
+        /// Wenn der Zurücksetzen Button geklickt wird, werden alle vorhandenen Felder leer gemacht. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
-            speichernButton.Enabled = true;
+            speichernButton.Enabled = false;
             trainerComboBox.Text = "";
             nachnameTextBox.Clear();
             vornameTextBox.Clear();
             kuerzelTextBox.Clear();
             internRadioButton.Checked = false;
             externRadioButton.Checked = false;
+            loeschenButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;        
         }
         /// <summary>
         /// Wenn ein Trainer in der ComboBox ausgewählt wird, wird der Speichern Button ausgeblendet
@@ -52,14 +56,15 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void TrainerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            zuruecksetzenButton.Enabled = true;
             speichernButton.Enabled = false;
+            loeschenButton.Enabled = true;
 
             MTrainer trainer = (MTrainer)trainerComboBox.SelectedItem;
             nachnameTextBox.Text = trainer.Name;
             vornameTextBox.Text = trainer.Surname;
             kuerzelTextBox.Text = trainer.Abbreviation;
 
-            speichernButton.Enabled = false;
             //  Trainer intern
             if (trainer.IsInternal == true)
             {
@@ -108,6 +113,8 @@ namespace Tagplaner
                 kuerzelTextBox.Clear();
                 internRadioButton.Checked = false;
                 externRadioButton.Checked = false;
+                speichernButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
             }
 
 
@@ -127,8 +134,6 @@ namespace Tagplaner
 
             if (erg == true)
             {
-
-                speichernButton.Enabled = true;
                 trainerComboBox.Text = "";
                 nachnameTextBox.Clear();
                 vornameTextBox.Clear();
@@ -139,7 +144,30 @@ namespace Tagplaner
                 trainerComboBox.Items.Clear();
                 trainerComboBox.Text = "";
                 db.FillTrainerComboBox(trainerComboBox);
+                loeschenButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
             }
+        }
+        /// <summary>
+        /// Wenn in die Textbox geschrieben wird, wird der Speichern und der Zurücksetzen Button 
+        /// wieder aktiv geschaltet.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nachnameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            speichernButton.Enabled = true;
+            zuruecksetzenButton.Enabled = true;
+        }
+
+        /// <summary>
+        /// Wenn in die ComboBox getippt wird, wird der zurücksetzen Button wieder aktiv geschaltet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trainerComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            zuruecksetzenButton.Enabled = true;
         }
     }
 }

@@ -34,7 +34,7 @@
             this.trainerVerwalten = new System.Windows.Forms.GroupBox();
             this.externRadioButton = new System.Windows.Forms.RadioButton();
             this.internRadioButton = new System.Windows.Forms.RadioButton();
-            this.zuerucksetzenButton = new System.Windows.Forms.Button();
+            this.zuruecksetzenButton = new System.Windows.Forms.Button();
             this.loeschenButton = new System.Windows.Forms.Button();
             this.speichernButton = new System.Windows.Forms.Button();
             this.kuerzelLabel = new System.Windows.Forms.Label();
@@ -69,6 +69,7 @@
             this.trainerComboBox.Size = new System.Drawing.Size(179, 21);
             this.trainerComboBox.TabIndex = 1;
             this.trainerComboBox.SelectedIndexChanged += new System.EventHandler(this.TrainerComboBox_SelectedIndexChanged);
+            this.trainerComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.trainerComboBox_KeyPress);
             // 
             // trainerLabel
             // 
@@ -83,7 +84,7 @@
             // 
             this.trainerVerwalten.Controls.Add(this.externRadioButton);
             this.trainerVerwalten.Controls.Add(this.internRadioButton);
-            this.trainerVerwalten.Controls.Add(this.zuerucksetzenButton);
+            this.trainerVerwalten.Controls.Add(this.zuruecksetzenButton);
             this.trainerVerwalten.Controls.Add(this.loeschenButton);
             this.trainerVerwalten.Controls.Add(this.speichernButton);
             this.trainerVerwalten.Controls.Add(this.kuerzelLabel);
@@ -100,7 +101,6 @@
             this.trainerVerwalten.TabIndex = 1;
             this.trainerVerwalten.TabStop = false;
             this.trainerVerwalten.Text = "Trainer verwalten";
-          
             // 
             // externRadioButton
             // 
@@ -112,7 +112,6 @@
             this.externRadioButton.TabStop = true;
             this.externRadioButton.Text = "Extern";
             this.externRadioButton.UseVisualStyleBackColor = true;
-          
             // 
             // internRadioButton
             // 
@@ -125,15 +124,15 @@
             this.internRadioButton.Text = "Intern";
             this.internRadioButton.UseVisualStyleBackColor = true;
             // 
-            // zuerucksetzenButton
+            // zuruecksetzenButton
             // 
-            this.zuerucksetzenButton.Location = new System.Drawing.Point(171, 155);
-            this.zuerucksetzenButton.Name = "zuerucksetzenButton";
-            this.zuerucksetzenButton.Size = new System.Drawing.Size(84, 23);
-            this.zuerucksetzenButton.TabIndex = 11;
-            this.zuerucksetzenButton.Text = "Zurücksetzen";
-            this.zuerucksetzenButton.UseVisualStyleBackColor = true;
-            this.zuerucksetzenButton.Click += new System.EventHandler(this.ZuruecksetzenButton_Click);
+            this.zuruecksetzenButton.Location = new System.Drawing.Point(171, 155);
+            this.zuruecksetzenButton.Name = "zuruecksetzenButton";
+            this.zuruecksetzenButton.Size = new System.Drawing.Size(84, 23);
+            this.zuruecksetzenButton.TabIndex = 11;
+            this.zuruecksetzenButton.Text = "Zurücksetzen";
+            this.zuruecksetzenButton.UseVisualStyleBackColor = true;
+            this.zuruecksetzenButton.Click += new System.EventHandler(this.ZuruecksetzenButton_Click);
             // 
             // loeschenButton
             // 
@@ -193,6 +192,7 @@
             this.nachnameTextBox.Name = "nachnameTextBox";
             this.nachnameTextBox.Size = new System.Drawing.Size(163, 20);
             this.nachnameTextBox.TabIndex = 1;
+            this.nachnameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nachnameTextBox_KeyPress);
             // 
             // nachnameLabel
             // 
@@ -232,7 +232,7 @@
         private System.Windows.Forms.TextBox nachnameTextBox;
         private System.Windows.Forms.Label nachnameLabel;
         private System.Windows.Forms.Button speichernButton;
-        private System.Windows.Forms.Button zuerucksetzenButton;
+        private System.Windows.Forms.Button zuruecksetzenButton;
         private System.Windows.Forms.Button loeschenButton;
         private System.Windows.Forms.RadioButton externRadioButton;
         private System.Windows.Forms.RadioButton internRadioButton;

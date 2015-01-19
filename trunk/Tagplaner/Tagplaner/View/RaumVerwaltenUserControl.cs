@@ -26,17 +26,23 @@ namespace Tagplaner
             db = CDatabase.GetInstance();
             InitializeComponent();
             db.FillPlaceComboBox(seminarOrtComboBox);
+            loeschenButton.Enabled = false;
+            speichernButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;
+
         }
         /// <summary>
-        /// Bei klicken auf den Zurücksetzen wird der Speichern Button eingeblendet und die Felder geleert.
+        /// Bei klicken auf den Zurücksetzen werden die Felder geleert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ZuruecksetzenButton_Click(object sender, EventArgs e)
         {
-            speichernButton.Enabled = true;
+            speichernButton.Enabled = false;
             raumTextBox.Clear();
             raeumeComboBox.Text = "";
+            loeschenButton.Enabled = false;
+            zuruecksetzenButton.Enabled = false;    
         }
         /// <summary>
         ///  Wenn in der RäumeComboBox ein Objekt ausgewählt wird, wird die Raumnummer in das
@@ -48,7 +54,9 @@ namespace Tagplaner
         {
             MRoom room = (MRoom)raeumeComboBox.SelectedItem;
 
+            zuruecksetzenButton.Enabled = true;
             speichernButton.Enabled = false;
+            loeschenButton.Enabled = true;
             raumTextBox.Text = room.Number;
         }
         /// <summary>
@@ -69,6 +77,8 @@ namespace Tagplaner
                 raeumeComboBox.Items.Clear();
                 raumTextBox.Clear();
                 db.FillRoomComboBox(raeumeComboBox, place.Id);
+                speichernButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
             }
         }
         /// <summary>
@@ -97,7 +107,6 @@ namespace Tagplaner
             bool erg = db.DeleteRoom(room);
             if (erg == true)
             {
-                speichernButton.Enabled = true;
                 raumTextBox.Clear();
                 raeumeComboBox.Text = "";
                 seminarOrtComboBox.Text = "bitte Seminarort wählen!";
@@ -105,8 +114,31 @@ namespace Tagplaner
 
                 raeumeComboBox.Items.Clear();
                 raeumeComboBox.Text = "";
+                loeschenButton.Enabled = false;
+                zuruecksetzenButton.Enabled = false;
 
             }
+        }
+        /// <summary>
+        /// Wenn in die ComboBox getippt wird, wird der zurücksetzen Button wieder aktiv geschaltet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void raeumeComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            zuruecksetzenButton.Enabled = true;
+        }
+
+        /// <summary>
+        /// Wenn in die Textbox geschrieben wird, wird der Speichern und der Zurücksetzen Button 
+        /// wieder aktiv geschaltet.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void raumTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            speichernButton.Enabled = true;
+            zuruecksetzenButton.Enabled = true;
         }
     }
 }
