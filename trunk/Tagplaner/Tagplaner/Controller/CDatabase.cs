@@ -26,6 +26,11 @@ namespace Tagplaner
         private Dictionary<int, MRoom> AllRoom = new Dictionary<int, MRoom>();
         private Dictionary<int, MSeminar> AllSeminar = new Dictionary<int, MSeminar>();
 
+        private string insertError = "Fehler beim Einfügen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+        private string deleteError = "Fehler beim Löschen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+        private string updateError = "Fehler beim Ändern der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+        private string brokenDatabaseError = "Datenbank kaputt oder nicht vorhanden";
+
         /// <summary>
         /// Verbindungsmethode zur Datenbank
         /// </summary>
@@ -48,7 +53,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Methode zum schließen der verbindung zu Datenbank
+        /// Methode zum schließen der Verbindung zur Datenbank
         /// </summary>
         /// <returns></returns>
         private bool CloseDatabase()
@@ -112,6 +117,7 @@ namespace Tagplaner
             }
             catch (SQLiteException e)
             {
+                //insertError
                 DebugUserControl uc = DebugUserControl.GetInstance();
                 uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
@@ -150,6 +156,7 @@ namespace Tagplaner
             }
             catch (SQLiteException e)
             {
+                //insertError
                 DebugUserControl uc = DebugUserControl.GetInstance();
                 uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
@@ -177,6 +184,7 @@ namespace Tagplaner
             }
             catch (SQLiteException e)
             {
+                //insertError
                 DebugUserControl uc = DebugUserControl.GetInstance();
                 uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
@@ -205,6 +213,7 @@ namespace Tagplaner
             }
             catch (SQLiteException e)
             {
+                //insertError
                 DebugUserControl uc = DebugUserControl.GetInstance();
                 uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
@@ -233,6 +242,7 @@ namespace Tagplaner
             }
             catch (SQLiteException e)
             {
+                //insertError
                 DebugUserControl uc = DebugUserControl.GetInstance();
                 uc.AddDebugMessage(e.ToString());
                 CloseDatabase();
@@ -265,6 +275,8 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //updateError
+                CloseDatabase();
                 return false;
             }
         }
@@ -302,6 +314,7 @@ namespace Tagplaner
             }
             catch(SQLiteException)
             {
+                //updateError
                 CloseDatabase();
                 return false;
             }
@@ -329,6 +342,7 @@ namespace Tagplaner
                 return true;
             }catch(SQLiteException)
             {
+                //updateError
                 CloseDatabase();
                 return false;
             }
@@ -357,6 +371,7 @@ namespace Tagplaner
             }
             catch(SQLiteException)
             {
+                //updateError
                 CloseDatabase();
                 return false;
             }
@@ -385,6 +400,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //updateError
                 CloseDatabase();
                 return false;
             }
@@ -410,6 +426,7 @@ namespace Tagplaner
             }
             catch(SQLiteException)
             {
+                //deleteError
                 CloseDatabase();
                 return false;
             }
@@ -433,6 +450,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //deleteError
                 CloseDatabase();
                 return false;
             }
@@ -456,6 +474,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //deleteError
                 CloseDatabase();
                 return false;
             }
@@ -479,6 +498,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //deleteError
                 CloseDatabase();
                 return false;
             }
@@ -502,6 +522,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
+                //deleteError
                 CloseDatabase();
                 return false;
             }
@@ -763,7 +784,7 @@ namespace Tagplaner
             SQLiteCommand command = new SQLiteCommand("PRAGMA foreign_keys=ON", connect);
             command.ExecuteNonQuery();
 
-            command.CommandText = "insert into seminarort(ort,ansprechpartner,fk_bundesland_id) values(\"Wiesbaden Berufsschule\",\"Gerhand Ganz, Abdreas Kirschner\",2)";
+            command.CommandText = "insert into seminarort(ort,ansprechpartner,fk_bundesland_id) values(\"Wiesbaden Berufsschule\",\"Gerhand Ganz, Andreas Kirschner\",2)";
             command.ExecuteNonQuery();
 
             command.CommandText = "insert into seminarort(ort,ansprechpartner,fk_bundesland_id) values(\"Wiesbaden BCRM\",\"Markus Rossberg\",2)";
@@ -1220,7 +1241,14 @@ namespace Tagplaner
         /// </summary>
         private void RestoreDB()
         {
-            System.IO.File.Copy(backup, url, true);
+            if (System.IO.File.Exists(backup))
+            {
+                System.IO.File.Copy(backup, url, true);
+            }
+            else
+            {
+                //noDatabaseError
+            }        
         }
 
         /// <summary>
