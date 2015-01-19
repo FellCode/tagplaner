@@ -98,6 +98,7 @@
             this.Ort.Name = "Ort";
             this.Ort.Size = new System.Drawing.Size(121, 21);
             this.Ort.TabIndex = 4;
+            this.Ort.SelectedIndexChanged += new System.EventHandler(this.Ort_SelectedIndexChanged);
             // 
             // Raum
             // 
@@ -219,7 +220,7 @@
             // 
             // Seminarpanel
             // 
-            this.Seminarpanel.Location = new System.Drawing.Point(183, 22);
+            this.Seminarpanel.Location = new System.Drawing.Point(184, 23);
             this.Seminarpanel.Name = "Seminarpanel";
             this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
             this.Seminarpanel.TabIndex = 24;
@@ -249,7 +250,6 @@
             this.Controls.Add(this.Tagart);
             this.Name = "TagplanChangepanelUserControl";
             this.Size = new System.Drawing.Size(1073, 155);
-            this.Load += new System.EventHandler(this.TagplanChangepanelUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -24,6 +24,9 @@ namespace Tagplaner
 
         private MCalendarEntry ccalendarentry = new MCalendarEntry();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TagplanChangepanelUserControl()
         {
             InitializeComponent();
@@ -33,25 +36,33 @@ namespace Tagplaner
 
         }
 
-        private void TagplanChangepanelUserControl_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        //Prüft ob der Einfügen Button geklickt wurde
+        /// <summary>
+        /// Prüft ob der Einfügen Button geklickt wurde
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Einfügen_Click(object sender, EventArgs e)
         {
 
             PasteEntry();
 
         }
-        //Prüft ob die Auswahl des Ortes geändert wurde und ändert dementsprechend die auswählbaren Räume
+        /// <summary>
+        /// Prüft ob die Auswahl der Tagart geändert wurde
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Ort_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillRoom(Ort, Raum);
         }
 
-        //Prüft ob die Auswahl der Tagart geändert wurde
+        /// <summary>
+        /// Prüft ob die Auswahl der Tagart geändert wurde
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -99,8 +110,11 @@ namespace Tagplaner
             tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(Weiterführung, AnzahlTage), ccalendarentry);
 
         }
-
-        //Füllt die ComboBox Tagart mit den Werten Smeinar, Berufsschule und Praxis
+        /// <summary>
+        /// Füllt die ComboBox Tagart mit den Werten Smeinar, Berufsschule und Praxis
+        /// </summary>
+        /// <param name="Tagart"></param>
+        /// <returns></returns>
         public bool FillDayType(ComboBox Tagart)
         {
             try
@@ -118,15 +132,23 @@ namespace Tagplaner
 
         }
 
-        //Nimmt den Ort und füllt die ComboBox Raum mit den zum Ort entsprechenden Räumen
+       /// <summary>
+       /// Nimmt den Ort und füllt die ComboBox Raum mit den zum Ort entsprechenden Räumen
+       /// </summary>
+       /// <param name="Ort"></param>
+       /// <param name="Raum"></param>
         public void FillRoom(ComboBox Ort, ComboBox Raum)
         {
 
             MPlace mort = (MPlace)Ort.SelectedItem;
             cdb.FillRoomComboBox(Raum, mort.Id);
-        }
+        } 
 
-        //Verädert die Sichtbarkeit des Panels anhand der Tagart
+        /// <summary>
+        /// Verädert die Sichtbarkeit des Panels anhand der Tagart
+        /// </summary>
+        /// <param name="Tagart"></param>
+        /// <param name="Seminarpanel"></param>
         public void ChangeVisibility(ComboBox Tagart, Panel Seminarpanel)
         {
 
@@ -145,21 +167,31 @@ namespace Tagplaner
 
         }
 
-        //Setzt die Tagart anhand der im CalenderEntry enhaltenen Objekte
+        /// <summary>
+        /// Setzt die Tagart anhand der im CalenderEntry enhaltenen Objekte
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="tagartb"></param>
         public void SetDayTyp(MCalendarEntry calendarentry, ComboBox tagartb)
         {
             if (calendarentry.Practice == null)
             {
                 if (calendarentry.School == null)
                 {
-                    tagartb.SelectedIndex = 0;
+                    if (calendarentry.Seminar == null)
+                    {
+                        tagartb.SelectedIndex = -1;
+                        tagartb.Text = "";
+                    }
+                    else
+                    {
+                        tagartb.SelectedIndex = 0;
+                    }
                 }
-                if (calendarentry.Seminar == null)
+                else
                 {
                     tagartb.SelectedIndex = 1;
                 }
-                tagartb.SelectedIndex = -1;
-                tagartb.Text = "";
             }
             else
             {
@@ -168,7 +200,12 @@ namespace Tagplaner
             tagartb.Refresh();
         }
 
-        //Setzt das Semianr anhand der im CalenderEntry befindenen Seminar 
+        /// <summary>
+        /// Setzt das Semianr anhand der im CalenderEntry befindenen Seminar 
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="seminarb"></param>
+
         public void SetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
         {
             if (calendarentry.Seminar == null)
@@ -183,7 +220,11 @@ namespace Tagplaner
             seminarb.Refresh();
         }
 
-        //Setzt den Trainer anhand des im CalenderEntry befindenen Trainer
+        /// <summary>
+        /// Setzt den Trainer anhand des im CalenderEntry befindenen Trainer
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="trainerb"></param>
         public void SetTrainer(MCalendarEntry calendarentry, ComboBox trainerb)
         {
             if (calendarentry.Trainer == null)
@@ -198,7 +239,11 @@ namespace Tagplaner
             trainerb.Refresh();
         }
 
-        //Setzt den CoTrainer anhand des im CalenderEntry befindenen CoTrainer
+        /// <summary>
+        /// Setzt den CoTrainer anhand des im CalenderEntry befindenen CoTrainer
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="cotrainerb"></param>
         public void SetCoTrainer(MCalendarEntry calendarentry, ComboBox cotrainerb)
         {
             if (calendarentry.Cotrainer == null)
@@ -213,7 +258,11 @@ namespace Tagplaner
             cotrainerb.Refresh();
         }
 
-        //Setzt die Location anahnd der im CalenderEntry vorhanden Location
+        /// <summary>
+        /// Setzt die Location anahnd der im CalenderEntry vorhanden Location
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="ortb"></param>
         public void SetLocation(MCalendarEntry calendarentry, ComboBox ortb)
         {
             if (calendarentry.Room == null)
@@ -223,11 +272,16 @@ namespace Tagplaner
             }
             else
             {
-                ortb.SelectedItem = calendarentry.Room;
+                ortb.SelectedItem = calendarentry.Place;
             }
             ortb.Refresh();
         }
 
+        /// <summary>
+        /// Setzt den Raum aus dem CalenderEntry in die ComboBox des Raumes
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="raumb"></param>
         public void SetRoom(MCalendarEntry calendarentry, ComboBox raumb)
         {
             if (calendarentry.Room == null)
@@ -242,6 +296,11 @@ namespace Tagplaner
             raumb.Refresh();
         }
 
+        /// <summary>
+        /// Setzt das Kommentar aus der entsprechenden Tagart aus der CalenderEntry in das Kommentarfeld
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="kommentarb"></param>
         public void SetComment(MCalendarEntry calendarentry, ComboBox kommentarb)
         {
             if (calendarentry.Practice == null)
@@ -264,31 +323,62 @@ namespace Tagplaner
             kommentarb.Refresh();
         }
 
+        /// <summary>
+        /// Holt das Seminar aus der ComboBox und schiebt es in den CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="seminarb"></param>
         public void GetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
         {
             calendarentry.Seminar = (MSeminar)seminarb.SelectedItem;
         }
 
+        /// <summary>
+        /// Holt den Trainer aus der ComboBox und schiebt es in den CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="trainerb"></param>
         public void GetTrainer(MCalendarEntry calendarentry, ComboBox trainerb)
         {
             calendarentry.Trainer = (MTrainer)trainerb.SelectedItem;
         }
 
+        /// <summary>
+        /// Holt den CoTrainer aus der ComBobox und schiebt es in den CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="cotrainerb"></param>
         public void GetCoTrainer(MCalendarEntry calendarentry, ComboBox cotrainerb)
         {
             calendarentry.Cotrainer = (MTrainer)cotrainerb.SelectedItem;
         }
 
+        /// <summary>
+        /// Holt den Ort aus der ComboBox und schiebt es in den CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="ortb"></param>
         public void GetLocation(MCalendarEntry calendarentry, ComboBox ortb)
         {
             calendarentry.Place = (MPlace)ortb.SelectedItem;
         }
 
+        /// <summary>
+        /// Holt sich den Raum aus der ComboBox und schiebt es in den CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="raumb"></param>
         public void GetRoom(MCalendarEntry calendarentry, ComboBox raumb)
         {
             calendarentry.Room = (MRoom)raumb.SelectedItem;
         }
 
+        /// <summary>
+        /// Holt sich das Kommentar und schiebt es in die entsprechenden Tagart im CalenderEntry
+        /// </summary>
+        /// <param name="calendarentry"></param>
+        /// <param name="kommentarb"></param>
+        /// <param name="tagartb"></param>
         public void GetComment(MCalendarEntry calendarentry, TextBox kommentarb, ComboBox tagartb)
         {
             switch (tagartb.SelectedIndex)
@@ -307,11 +397,17 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Prüft ob die CheckBox Weiterführen gesetzt ist und nimmt dann den dahinter gewählten zahlenwert und returnt einen int
+        /// </summary>
+        /// <param name="weitercheck"></param>
+        /// <param name="anzahltage"></param>
+        /// <returns></returns>
         public int GetInterationNumber(CheckBox weitercheck, NumericUpDown anzahltage)
         {
             if (weitercheck.Checked == true)
             {
-                if (Convert.ToInt32(anzahltage.Value) >= 1)
+                if (Convert.ToInt32(anzahltage.Value) >= 0)
                 {
                     return Convert.ToInt32(anzahltage.Value);
                 }
@@ -326,6 +422,7 @@ namespace Tagplaner
             }
 
         }
+
 
     }
 }
