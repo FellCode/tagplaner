@@ -22,8 +22,6 @@ namespace Tagplaner
         private CDatabase cdb = CDatabase.GetInstance();
         //TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
 
-        private MCalendarEntry ccalendarentry = new MCalendarEntry();
-
         /// <summary>
         /// 
         /// </summary>
@@ -71,6 +69,23 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// Prüft ob die CheckBoc Weiterführen gesetzt ist und verändert dementsprechend die Sichtbarkeit der Anzahl Tage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Weiterführung_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Weiterführung.Checked == true)
+            {
+                AnzahlTage.Visible = true;
+            }
+            else
+            {
+                AnzahlTage.Visible = false;
+            }
+        }
+
+        /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
         /// </summary>
         /// <param name="calendarentry"></param>
@@ -96,6 +111,7 @@ namespace Tagplaner
         /// </summary>
         public void PasteEntry()
         {
+            MCalendarEntry ccalendarentry = new MCalendarEntry();
 
             GetSeminar(ccalendarentry, Seminar);
             GetTrainer(ccalendarentry, Trainer);
@@ -108,7 +124,10 @@ namespace Tagplaner
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
             tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(Weiterführung, AnzahlTage), ccalendarentry);
 
+            Weiterführung.Checked = false;
+            AnzahlTage.Value = 0;
         }
+
         /// <summary>
         /// Füllt die ComboBox Tagart mit den Werten Smeinar, Berufsschule und Praxis
         /// </summary>
@@ -204,7 +223,6 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendarentry"></param>
         /// <param name="seminarb"></param>
-
         public void SetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
         {
             if (calendarentry.Seminar == null)
@@ -312,7 +330,7 @@ namespace Tagplaner
                 {
                     kommentarb.Text = calendarentry.School.Comment;
                 }
-                kommentarb.Text = " ";            
+                kommentarb.Text = " ";
             }
             else
             {
@@ -420,7 +438,6 @@ namespace Tagplaner
             }
 
         }
-
 
     }
 }
