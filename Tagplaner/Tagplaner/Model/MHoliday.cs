@@ -64,9 +64,9 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor des MHoliday Models
         /// </summary>
-        /// <param name="holidayDate"></param>
-        /// <param name="holidayName"></param>
-        /// <param name="comment"></param>
+        /// <param name="holidayDate">Datum des Feiertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
+        /// <param name="comment">Kommentar zu diesem Tag</param>
         public MHoliday( DateTime holidayDate, string holidayName, string comment)
         {
           
@@ -77,10 +77,10 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor des MHoliday Models
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="holidayDate"></param>
-        /// <param name="holidayName"></param>
-        /// <param name="comment"></param>
+        /// <param name="id">ID für die Datenbank</param>
+        /// <param name="holidayDate">Datum des Feiertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
+        /// <param name="comment">Kommentar zu diesem Tag</param>
         public MHoliday(int id, DateTime holidayDate, string holidayName, string comment)
         {
             this.id = id;
@@ -89,11 +89,11 @@ namespace Tagplaner
             this.comment = comment;
         }
         /// <summary>
-        /// 
+        /// Konstruktor des MHoliday Models
         /// </summary>
-        /// <param name="holidayDate"></param>
-        /// <param name="holidayName"></param>
-        public MHoliday( DateTime holidayDate, string holidayName)
+        /// <param name="holidayDate">Datum des Feiertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
+        public MHoliday(DateTime holidayDate, string holidayName)
         {
          
             this.holidayDate = holidayDate;
@@ -103,9 +103,9 @@ namespace Tagplaner
         /// <summary>
         /// Konstruktor des MHoliday Models
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="holidayDate"></param>
-        /// <param name="holidayName"></param>
+        /// <param name="id">ID für Datenbank</param>
+        /// <param name="holidayDate">Datum des Feiertages</param>
+        /// <param name="holidayName">Name des Feiertages</param>
         public MHoliday(int id, DateTime holidayDate, string holidayName)
         {
             this.id = id;
