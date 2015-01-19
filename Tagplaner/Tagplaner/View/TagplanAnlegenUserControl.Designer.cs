@@ -55,6 +55,11 @@
             this.checkBox_VierterJahrgangSI = new System.Windows.Forms.CheckBox();
             this.checkBox_VierterJahrgangAE = new System.Windows.Forms.CheckBox();
             this.groupBox_AnzahlJahrgaenge = new System.Windows.Forms.GroupBox();
+            this.textBox_ErsterJahrgangBezeichnung = new System.Windows.Forms.TextBox();
+            this.textBox_ZweiterJahrgangBezeichnung = new System.Windows.Forms.TextBox();
+            this.textBox_DritterJahrgangBezeichnung = new System.Windows.Forms.TextBox();
+            this.textBox_VierterJahrgangBezeichnung = new System.Windows.Forms.TextBox();
+            this.label_Bezeichnung = new System.Windows.Forms.Label();
             this.groupBox_Jahrgang1.SuspendLayout();
             this.groupBox_Jahrgang2.SuspendLayout();
             this.groupBox_FerienFeiertageOeffnen.SuspendLayout();
@@ -187,9 +192,9 @@
             // 
             this.groupBox_Jahrgang1.Controls.Add(this.checkBox_ErsterJahrgangSI);
             this.groupBox_Jahrgang1.Controls.Add(this.checkBox_ErsterJahrgangAE);
-            this.groupBox_Jahrgang1.Location = new System.Drawing.Point(88, 163);
+            this.groupBox_Jahrgang1.Location = new System.Drawing.Point(88, 188);
             this.groupBox_Jahrgang1.Name = "groupBox_Jahrgang1";
-            this.groupBox_Jahrgang1.Size = new System.Drawing.Size(94, 65);
+            this.groupBox_Jahrgang1.Size = new System.Drawing.Size(198, 65);
             this.groupBox_Jahrgang1.TabIndex = 10;
             this.groupBox_Jahrgang1.TabStop = false;
             this.groupBox_Jahrgang1.Text = "Jahrgang 1";
@@ -198,9 +203,9 @@
             // 
             this.groupBox_Jahrgang2.Controls.Add(this.checkBox_ZweiterJahrgangSI);
             this.groupBox_Jahrgang2.Controls.Add(this.checkBox_ZweiterJahrgangAE);
-            this.groupBox_Jahrgang2.Location = new System.Drawing.Point(194, 163);
+            this.groupBox_Jahrgang2.Location = new System.Drawing.Point(292, 188);
             this.groupBox_Jahrgang2.Name = "groupBox_Jahrgang2";
-            this.groupBox_Jahrgang2.Size = new System.Drawing.Size(94, 65);
+            this.groupBox_Jahrgang2.Size = new System.Drawing.Size(198, 65);
             this.groupBox_Jahrgang2.TabIndex = 11;
             this.groupBox_Jahrgang2.TabStop = false;
             this.groupBox_Jahrgang2.Text = "Jahrgang 2";
@@ -229,9 +234,9 @@
             // button_Weiter
             // 
             this.button_Weiter.Enabled = false;
-            this.button_Weiter.Location = new System.Drawing.Point(429, 353);
+            this.button_Weiter.Location = new System.Drawing.Point(700, 428);
             this.button_Weiter.Name = "button_Weiter";
-            this.button_Weiter.Size = new System.Drawing.Size(73, 23);
+            this.button_Weiter.Size = new System.Drawing.Size(198, 23);
             this.button_Weiter.TabIndex = 14;
             this.button_Weiter.Text = "Weiter";
             this.button_Weiter.UseVisualStyleBackColor = true;
@@ -241,9 +246,9 @@
             // 
             this.groupBox_FerienFeiertageOeffnen.Controls.Add(this.label_GeoeffneteDateienAnzeigen);
             this.groupBox_FerienFeiertageOeffnen.Controls.Add(this.button_FerienFeiertageOeffnen);
-            this.groupBox_FerienFeiertageOeffnen.Location = new System.Drawing.Point(12, 234);
+            this.groupBox_FerienFeiertageOeffnen.Location = new System.Drawing.Point(22, 311);
             this.groupBox_FerienFeiertageOeffnen.Name = "groupBox_FerienFeiertageOeffnen";
-            this.groupBox_FerienFeiertageOeffnen.Size = new System.Drawing.Size(490, 111);
+            this.groupBox_FerienFeiertageOeffnen.Size = new System.Drawing.Size(876, 111);
             this.groupBox_FerienFeiertageOeffnen.TabIndex = 17;
             this.groupBox_FerienFeiertageOeffnen.TabStop = false;
             this.groupBox_FerienFeiertageOeffnen.Text = "Ferien- und Feiertagedatei öffnen";
@@ -272,9 +277,9 @@
             // 
             this.groupBox_Jahrgang3.Controls.Add(this.checkBox_DritterJahrgangSI);
             this.groupBox_Jahrgang3.Controls.Add(this.checkBox_DritterJahrgangAE);
-            this.groupBox_Jahrgang3.Location = new System.Drawing.Point(301, 163);
+            this.groupBox_Jahrgang3.Location = new System.Drawing.Point(496, 188);
             this.groupBox_Jahrgang3.Name = "groupBox_Jahrgang3";
-            this.groupBox_Jahrgang3.Size = new System.Drawing.Size(94, 65);
+            this.groupBox_Jahrgang3.Size = new System.Drawing.Size(198, 65);
             this.groupBox_Jahrgang3.TabIndex = 12;
             this.groupBox_Jahrgang3.TabStop = false;
             this.groupBox_Jahrgang3.Text = "Jahrgang 3";
@@ -304,9 +309,9 @@
             // 
             this.groupBox_Jahrgang4.Controls.Add(this.checkBox_VierterJahrgangSI);
             this.groupBox_Jahrgang4.Controls.Add(this.checkBox_VierterJahrgangAE);
-            this.groupBox_Jahrgang4.Location = new System.Drawing.Point(408, 163);
+            this.groupBox_Jahrgang4.Location = new System.Drawing.Point(700, 188);
             this.groupBox_Jahrgang4.Name = "groupBox_Jahrgang4";
-            this.groupBox_Jahrgang4.Size = new System.Drawing.Size(94, 65);
+            this.groupBox_Jahrgang4.Size = new System.Drawing.Size(198, 65);
             this.groupBox_Jahrgang4.TabIndex = 18;
             this.groupBox_Jahrgang4.TabStop = false;
             this.groupBox_Jahrgang4.Text = "Jahrgang 4";
@@ -338,23 +343,68 @@
             this.groupBox_AnzahlJahrgaenge.Controls.Add(this.radioButton_3Jahrgaenge);
             this.groupBox_AnzahlJahrgaenge.Controls.Add(this.radioButton_2Jahrgaenge);
             this.groupBox_AnzahlJahrgaenge.Controls.Add(this.radioButton_1Jahrgang);
-            this.groupBox_AnzahlJahrgaenge.Location = new System.Drawing.Point(88, 107);
+            this.groupBox_AnzahlJahrgaenge.Location = new System.Drawing.Point(88, 132);
             this.groupBox_AnzahlJahrgaenge.Name = "groupBox_AnzahlJahrgaenge";
-            this.groupBox_AnzahlJahrgaenge.Size = new System.Drawing.Size(414, 50);
+            this.groupBox_AnzahlJahrgaenge.Size = new System.Drawing.Size(810, 50);
             this.groupBox_AnzahlJahrgaenge.TabIndex = 19;
             this.groupBox_AnzahlJahrgaenge.TabStop = false;
             this.groupBox_AnzahlJahrgaenge.Text = "Anzahl der Jahrgänge";
+            // 
+            // textBox_ErsterJahrgangBezeichnung
+            // 
+            this.textBox_ErsterJahrgangBezeichnung.Location = new System.Drawing.Point(88, 259);
+            this.textBox_ErsterJahrgangBezeichnung.Name = "textBox_ErsterJahrgangBezeichnung";
+            this.textBox_ErsterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
+            this.textBox_ErsterJahrgangBezeichnung.TabIndex = 20;
+            // 
+            // textBox_ZweiterJahrgangBezeichnung
+            // 
+            this.textBox_ZweiterJahrgangBezeichnung.Location = new System.Drawing.Point(292, 259);
+            this.textBox_ZweiterJahrgangBezeichnung.Name = "textBox_ZweiterJahrgangBezeichnung";
+            this.textBox_ZweiterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
+            this.textBox_ZweiterJahrgangBezeichnung.TabIndex = 21;
+            this.textBox_ZweiterJahrgangBezeichnung.Visible = false;
+            // 
+            // textBox_DritterJahrgangBezeichnung
+            // 
+            this.textBox_DritterJahrgangBezeichnung.Location = new System.Drawing.Point(496, 259);
+            this.textBox_DritterJahrgangBezeichnung.Name = "textBox_DritterJahrgangBezeichnung";
+            this.textBox_DritterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
+            this.textBox_DritterJahrgangBezeichnung.TabIndex = 22;
+            this.textBox_DritterJahrgangBezeichnung.Visible = false;
+            // 
+            // textBox_VierterJahrgangBezeichnung
+            // 
+            this.textBox_VierterJahrgangBezeichnung.Location = new System.Drawing.Point(700, 259);
+            this.textBox_VierterJahrgangBezeichnung.Name = "textBox_VierterJahrgangBezeichnung";
+            this.textBox_VierterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
+            this.textBox_VierterJahrgangBezeichnung.TabIndex = 23;
+            this.textBox_VierterJahrgangBezeichnung.Visible = false;
+            // 
+            // label_Bezeichnung
+            // 
+            this.label_Bezeichnung.AutoSize = true;
+            this.label_Bezeichnung.Location = new System.Drawing.Point(13, 262);
+            this.label_Bezeichnung.Name = "label_Bezeichnung";
+            this.label_Bezeichnung.Size = new System.Drawing.Size(69, 13);
+            this.label_Bezeichnung.TabIndex = 24;
+            this.label_Bezeichnung.Text = "Bezeichnung";
             // 
             // TagplanAnlegenUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_Bezeichnung);
+            this.Controls.Add(this.textBox_VierterJahrgangBezeichnung);
+            this.Controls.Add(this.textBox_DritterJahrgangBezeichnung);
+            this.Controls.Add(this.textBox_ZweiterJahrgangBezeichnung);
+            this.Controls.Add(this.textBox_ErsterJahrgangBezeichnung);
             this.Controls.Add(this.groupBox_AnzahlJahrgaenge);
             this.Controls.Add(this.groupBox_Jahrgang4);
+            this.Controls.Add(this.groupBox_Jahrgang2);
             this.Controls.Add(this.groupBox_Jahrgang3);
             this.Controls.Add(this.groupBox_FerienFeiertageOeffnen);
             this.Controls.Add(this.button_Weiter);
-            this.Controls.Add(this.groupBox_Jahrgang2);
             this.Controls.Add(this.groupBox_Jahrgang1);
             this.Controls.Add(this.label_Bundesland);
             this.Controls.Add(this.comboBox_Bundesland);
@@ -363,7 +413,7 @@
             this.Controls.Add(this.label_Bis);
             this.Controls.Add(this.label_Von);
             this.Name = "TagplanAnlegenUserControl";
-            this.Size = new System.Drawing.Size(516, 393);
+            this.Size = new System.Drawing.Size(929, 510);
             this.groupBox_Jahrgang1.ResumeLayout(false);
             this.groupBox_Jahrgang1.PerformLayout();
             this.groupBox_Jahrgang2.ResumeLayout(false);
@@ -410,5 +460,10 @@
         private System.Windows.Forms.RadioButton radioButton_4Jahrgaenge;
         private System.Windows.Forms.RadioButton radioButton_3Jahrgaenge;
         private System.Windows.Forms.GroupBox groupBox_AnzahlJahrgaenge;
+        private System.Windows.Forms.TextBox textBox_ErsterJahrgangBezeichnung;
+        private System.Windows.Forms.TextBox textBox_ZweiterJahrgangBezeichnung;
+        private System.Windows.Forms.TextBox textBox_DritterJahrgangBezeichnung;
+        private System.Windows.Forms.TextBox textBox_VierterJahrgangBezeichnung;
+        private System.Windows.Forms.Label label_Bezeichnung;
     }
 }

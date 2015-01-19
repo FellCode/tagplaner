@@ -27,6 +27,7 @@ namespace Tagplaner
 
         private int numberOfYears;
         private List<String> typeOfClasses;
+        private List<String> identifierOfYears;
 
         private TagplanBearbeitenUserControl tagplanBearbeitenUC;
 
@@ -49,6 +50,7 @@ namespace Tagplaner
             this.tagplanBearbeitenUC = tagplanBearbeitenUC;
             serializer = new CSerialize();
             typeOfClasses = new List<String>();
+            identifierOfYears = new List<String>();
             numberOfYears = 1;
             InitializeComponent();
 
@@ -70,6 +72,15 @@ namespace Tagplaner
             groupBox_Jahrgang2.Visible = false;
             groupBox_Jahrgang3.Visible = false;
             groupBox_Jahrgang4.Visible = false;
+
+            textBox_ErsterJahrgangBezeichnung.Visible = true;
+            textBox_ZweiterJahrgangBezeichnung.Visible = false;
+            textBox_DritterJahrgangBezeichnung.Visible = false;
+            textBox_VierterJahrgangBezeichnung.Visible = false;
+
+            textBox_ZweiterJahrgangBezeichnung.Text = "";
+            textBox_DritterJahrgangBezeichnung.Text = "";
+            textBox_VierterJahrgangBezeichnung.Text = "";
 
             checkBox_ZweiterJahrgangAE.Checked = false;
             checkBox_ZweiterJahrgangSI.Checked = false;
@@ -95,6 +106,14 @@ namespace Tagplaner
             groupBox_Jahrgang3.Visible = false;
             groupBox_Jahrgang4.Visible = false;
 
+            textBox_ErsterJahrgangBezeichnung.Visible = true;
+            textBox_ZweiterJahrgangBezeichnung.Visible = true;
+            textBox_DritterJahrgangBezeichnung.Visible = false;
+            textBox_VierterJahrgangBezeichnung.Visible = false;
+
+            textBox_DritterJahrgangBezeichnung.Text = "";
+            textBox_VierterJahrgangBezeichnung.Text = "";
+
             checkBox_DritterJahrgangAE.Checked = false;
             checkBox_DritterJahrgangSI.Checked = false;
 
@@ -116,6 +135,13 @@ namespace Tagplaner
             groupBox_Jahrgang3.Visible = true;
             groupBox_Jahrgang4.Visible = false;
 
+            textBox_ErsterJahrgangBezeichnung.Visible = true;
+            textBox_ZweiterJahrgangBezeichnung.Visible = true;
+            textBox_DritterJahrgangBezeichnung.Visible = true;
+            textBox_VierterJahrgangBezeichnung.Visible = false;
+
+            textBox_VierterJahrgangBezeichnung.Text = "";
+
             checkBox_VierterJahrgangAE.Checked = false;
             checkBox_VierterJahrgangSI.Checked = false;
 
@@ -133,6 +159,12 @@ namespace Tagplaner
             groupBox_Jahrgang2.Visible = true;
             groupBox_Jahrgang3.Visible = true;
             groupBox_Jahrgang4.Visible = true;
+
+            textBox_ErsterJahrgangBezeichnung.Visible = true;
+            textBox_ZweiterJahrgangBezeichnung.Visible = true;
+            textBox_DritterJahrgangBezeichnung.Visible = true;
+            textBox_VierterJahrgangBezeichnung.Visible = true;
+
             numberOfYears = 4;
         }
 
@@ -150,22 +182,24 @@ namespace Tagplaner
         public void CreateCalendarWithDates()
         {
             //Ausbildungsgänge erster Jahrgang checken
-            CeckCheckboxes(checkBox_ErsterJahrgangAE);
-            CeckCheckboxes(checkBox_ErsterJahrgangSI);
+            CheckCheckboxes(checkBox_ErsterJahrgangAE);
+            CheckCheckboxes(checkBox_ErsterJahrgangSI);
 
             //Ausbildungsgänge zweiter Jahrgang checken
-            CeckCheckboxes(checkBox_ZweiterJahrgangAE);
-            CeckCheckboxes(checkBox_ZweiterJahrgangSI);
+            CheckCheckboxes(checkBox_ZweiterJahrgangAE);
+            CheckCheckboxes(checkBox_ZweiterJahrgangSI);
 
             //Ausbildungsgänge dritter Jahrgang checken
-            CeckCheckboxes(checkBox_DritterJahrgangAE);
-            CeckCheckboxes(checkBox_DritterJahrgangSI);
+            CheckCheckboxes(checkBox_DritterJahrgangAE);
+            CheckCheckboxes(checkBox_DritterJahrgangSI);
 
             //Ausbildungsgänge dritter Jahrgang checken
-            CeckCheckboxes(checkBox_VierterJahrgangAE);
-            CeckCheckboxes(checkBox_VierterJahrgangSI);
+            CheckCheckboxes(checkBox_VierterJahrgangAE);
+            CheckCheckboxes(checkBox_VierterJahrgangSI);
 
-            MCalendar.getInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
+            FillIdentifierOfYearsList();
+
+            MCalendar.getInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.getInstance();
         }
 
@@ -238,11 +272,12 @@ namespace Tagplaner
         /// Überprüft ob eine Checkbox ausgewählt ist. Fügt der Liste typeOfClasses Werte hinzu
         /// </summary>
         /// <param name="checkBox">Zu überprüfende Checkbox</param>
-        public void CeckCheckboxes(CheckBox checkBox)
+        public void CheckCheckboxes(CheckBox checkBox)
         {
             if (checkBox.Checked)
             {
                 typeOfClasses.Add(checkBox.Text);
+
             }
             else
                 typeOfClasses.Add("");
@@ -258,23 +293,19 @@ namespace Tagplaner
             if (checkBox_ErsterJahrgangAE.Checked)
             {
                 checkedBoxesCount++;
-                MCalendar.getInstance().Speciality.Add(new MSpeciality("AE", MCalendar.getInstance().Startdate.Year.ToString()));
             }
             if (checkBox_ErsterJahrgangSI.Checked)
             {
                 checkedBoxesCount++;
-                MCalendar.getInstance().Speciality.Add(new MSpeciality("SI", MCalendar.getInstance().Startdate.Year.ToString()));
             }
             if (checkBox_ZweiterJahrgangAE.Checked)
             {
                 checkedBoxesCount++;
-                MCalendar.getInstance().Speciality.Add(new MSpeciality("AE", MCalendar.getInstance().Enddate.Year.ToString()));
             }
 
             if (checkBox_ZweiterJahrgangSI.Checked)
             {
                 checkedBoxesCount++;
-                MCalendar.getInstance().Speciality.Add(new MSpeciality("SI", MCalendar.getInstance().Enddate.Year.ToString()));
             }
             if (checkBox_DritterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBox_DritterJahrgangSI.Checked) checkedBoxesCount++;
@@ -282,6 +313,36 @@ namespace Tagplaner
             if (checkBox_VierterJahrgangSI.Checked) checkedBoxesCount++;
 
             return checkedBoxesCount;
+        }
+
+        /// <summary>
+        /// Füllt die Liste der Jahrgangsbezeichnungen
+        /// </summary>
+        public void FillIdentifierOfYearsList()
+        {
+            if (radioButton_1Jahrgang.Checked)
+            {
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+            }
+            if (radioButton_2Jahrgaenge.Checked)
+            {
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+            }
+            if (radioButton_3Jahrgaenge.Checked)
+            {
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+            }
+
+            if (radioButton_4Jahrgaenge.Checked)
+            {
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_VierterJahrgangBezeichnung.Text);
+            }
         }
 
         // 
