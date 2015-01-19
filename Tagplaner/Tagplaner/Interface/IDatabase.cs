@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    /// <summary>
+    /// Interface fü die Databaseklasse.
+    /// </summary>
     public interface IDatabase
     {
         /// <summary>
@@ -76,6 +79,9 @@ namespace Tagplaner
         /// <param name="location"></param>
         void FillRoomComboBox(ComboBox combobox, int location);
 
+        /// <summary>
+        /// Thread um alle Objektlisten zu füllen
+        /// </summary>
         void ThreadFillAll();
 
     }
