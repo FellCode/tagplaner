@@ -201,6 +201,7 @@
             this.Weiterführung.TabIndex = 21;
             this.Weiterführung.Text = "Weiterführen für";
             this.Weiterführung.UseVisualStyleBackColor = true;
+            this.Weiterführung.CheckedChanged += new System.EventHandler(this.Weiterführung_CheckedChanged);
             // 
             // AnzahlTage
             // 
