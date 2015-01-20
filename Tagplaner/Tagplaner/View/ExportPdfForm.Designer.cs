@@ -143,6 +143,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExportPdfForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PDF-Dokument exportieren";
             this.Load += new System.EventHandler(this.ExportPdfForm_Load);
