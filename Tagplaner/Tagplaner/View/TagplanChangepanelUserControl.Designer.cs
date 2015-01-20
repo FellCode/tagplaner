@@ -53,6 +53,7 @@
             // 
             // Tagart
             // 
+            this.Tagart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Tagart.DropDownWidth = 140;
             this.Tagart.FormattingEnabled = true;
             this.Tagart.Location = new System.Drawing.Point(35, 39);
