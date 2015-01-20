@@ -47,11 +47,13 @@
             this.AnzahlTage = new System.Windows.Forms.NumericUpDown();
             this.tagel = new System.Windows.Forms.Label();
             this.Seminarpanel = new System.Windows.Forms.Panel();
+            this.ZweiterTrainer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
             // Tagart
             // 
+            this.Tagart.DropDownWidth = 140;
             this.Tagart.FormattingEnabled = true;
             this.Tagart.Location = new System.Drawing.Point(35, 39);
             this.Tagart.Name = "Tagart";
@@ -63,6 +65,7 @@
             // 
             this.Seminar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Seminar.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Seminar.DropDownWidth = 250;
             this.Seminar.FormattingEnabled = true;
             this.Seminar.Location = new System.Drawing.Point(184, 39);
             this.Seminar.Name = "Seminar";
@@ -73,6 +76,7 @@
             // 
             this.Trainer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Trainer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Trainer.DropDownWidth = 150;
             this.Trainer.FormattingEnabled = true;
             this.Trainer.Location = new System.Drawing.Point(330, 39);
             this.Trainer.Name = "Trainer";
@@ -83,6 +87,7 @@
             // 
             this.CoTrainer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CoTrainer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CoTrainer.DropDownWidth = 150;
             this.CoTrainer.FormattingEnabled = true;
             this.CoTrainer.Location = new System.Drawing.Point(330, 90);
             this.CoTrainer.Name = "CoTrainer";
@@ -93,6 +98,7 @@
             // 
             this.Ort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Ort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Ort.DropDownWidth = 180;
             this.Ort.FormattingEnabled = true;
             this.Ort.Location = new System.Drawing.Point(479, 39);
             this.Ort.Name = "Ort";
@@ -104,6 +110,7 @@
             // 
             this.Raum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Raum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Raum.DropDownWidth = 140;
             this.Raum.FormattingEnabled = true;
             this.Raum.Location = new System.Drawing.Point(479, 90);
             this.Raum.Name = "Raum";
@@ -226,6 +233,15 @@
             this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
             this.Seminarpanel.TabIndex = 24;
             // 
+            // ZweiterTrainer
+            // 
+            this.ZweiterTrainer.AutoSize = true;
+            this.ZweiterTrainer.Location = new System.Drawing.Point(309, 97);
+            this.ZweiterTrainer.Name = "ZweiterTrainer";
+            this.ZweiterTrainer.Size = new System.Drawing.Size(15, 14);
+            this.ZweiterTrainer.TabIndex = 25;
+            this.ZweiterTrainer.UseVisualStyleBackColor = true;
+            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,6 +265,7 @@
             this.Controls.Add(this.Trainer);
             this.Controls.Add(this.Seminar);
             this.Controls.Add(this.Tagart);
+            this.Controls.Add(this.ZweiterTrainer);
             this.Name = "TagplanChangepanelUserControl";
             this.Size = new System.Drawing.Size(1073, 155);
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).EndInit();
@@ -278,5 +295,6 @@
         public System.Windows.Forms.NumericUpDown AnzahlTage;
         public System.Windows.Forms.Label tagel;
         private System.Windows.Forms.Panel Seminarpanel;
+        private System.Windows.Forms.CheckBox ZweiterTrainer;
     }
 }
