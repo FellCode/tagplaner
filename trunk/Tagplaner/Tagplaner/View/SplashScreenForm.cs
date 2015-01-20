@@ -23,8 +23,8 @@ namespace Tagplaner
         public SplashScreenForm()
         {
             InitializeComponent();
-
             CDatabase.GetInstance().CheckDBForBug();
+
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
@@ -44,14 +44,6 @@ namespace Tagplaner
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            timer.Stop();
-            FormInit formInit = new FormInit();
-            formInit.Show();
-            this.Hide();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
         {
             timer.Stop();
             FormInit formInit = new FormInit();
