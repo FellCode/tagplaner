@@ -257,5 +257,14 @@ namespace Tagplaner
             }
             tabsAlreadyAdded = true;
         }
+
+        /// <summary>
+        /// Gibt das ToolStripLabel der Form zurück
+        /// </summary>
+        /// <returns>Das zurückgegebene ToolStripLabel</returns>
+        public ToolStripLabel GetToolStripLabel()
+        {
+            return this.toolStripStatusLabel_FormInit;
+        }
     }
 }

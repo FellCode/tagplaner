@@ -126,18 +126,22 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.ShowHelp = true;
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
+            this.openFileDialog2.ShowHelp = true;
             // 
             // openFileDialog3
             // 
             this.openFileDialog3.FileName = "openFileDialog3";
+            this.openFileDialog3.ShowHelp = true;
             // 
             // openFileDialog4
             // 
             this.openFileDialog4.FileName = "openFileDialog4";
+            this.openFileDialog4.ShowHelp = true;
             // 
             // button_OK
             // 

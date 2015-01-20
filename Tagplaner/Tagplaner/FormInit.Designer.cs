@@ -47,6 +47,8 @@
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripStatusLabel_FormInit = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +64,8 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel_FormInit});
             this.statusStrip1.Location = new System.Drawing.Point(0, 359);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(586, 22);
@@ -187,6 +191,12 @@
             this.openFileDialog1.Filter = "Tagplan|*.tp";
             this.openFileDialog1.Title = "Tagplan öffnen";
             // 
+            // toolStripStatusLabel_FormInit
+            // 
+            this.toolStripStatusLabel_FormInit.Name = "toolStripStatusLabel_FormInit";
+            this.toolStripStatusLabel_FormInit.Size = new System.Drawing.Size(17, 17);
+            this.toolStripStatusLabel_FormInit.Text = "\"\"";
+            // 
             // FormInit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +213,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormInit_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormInit_FormClosed);
             this.Load += new System.EventHandler(this.Init_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -230,6 +242,7 @@
         private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_FormInit;
     }
 }
 
