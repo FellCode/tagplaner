@@ -76,6 +76,7 @@ namespace Tagplaner
             dGV.DataSource = null;
             dGV.Rows.Clear();
             int columnCount = 6 * countGrid + 4;
+            dGV.MultiSelect = false;
 
 
             dGV.ColumnCount = columnCount;
@@ -366,7 +367,12 @@ namespace Tagplaner
             y_Coord = e.RowIndex;
             if (CheckCellValidation(x_Cell))
             {
+                panel1.Show();
                 tagplanChangePanelUserControl.ChangeCalendarEntry(GetSelectedEntryModel());
+            }
+            else
+            {
+                panel1.Hide();
             }
         }
 
