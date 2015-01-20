@@ -12,9 +12,9 @@ using Tagplaner;
 namespace Tagplaner
 {
     // TODO:
-    // - Farbe der Seminarinfos
+    // - Farbe der Seminarinfos -> Teilweise fertig
     // - Variablen für die Objekte anlegen um den Code zu verkleinern
-    // - Beruffsschule einfüge Bugfix?
+    // - Beruffsschule einfüge Bugfix? (Fehler bei Matthias gefunden ~.~)
 
     /// <summary>
     /// Autor: Niklas Wazal, Felix Smuda
