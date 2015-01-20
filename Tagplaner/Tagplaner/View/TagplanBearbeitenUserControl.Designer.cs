@@ -44,7 +44,7 @@ namespace Tagplaner
             this.dGV.Name = "dGV";
             this.dGV.Size = new System.Drawing.Size(502, 63);
             this.dGV.TabIndex = 2;
-            this.dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
             
             // 
             // panel1

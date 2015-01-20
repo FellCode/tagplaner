@@ -331,7 +331,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int x_Cell = e.ColumnIndex;
             x_Coord = Convert.ToInt32(Math.Floor((Convert.ToDouble(e.ColumnIndex) - 4d) / 6));
