@@ -71,6 +71,7 @@
             this.Seminar.Name = "Seminar";
             this.Seminar.Size = new System.Drawing.Size(121, 21);
             this.Seminar.TabIndex = 1;
+            this.Seminar.SelectedIndexChanged += new System.EventHandler(this.Seminar_SelectedIndexChanged);
             // 
             // Trainer
             // 
@@ -82,6 +83,7 @@
             this.Trainer.Name = "Trainer";
             this.Trainer.Size = new System.Drawing.Size(121, 21);
             this.Trainer.TabIndex = 2;
+            this.Trainer.SelectedIndexChanged += new System.EventHandler(this.Trainer_SelectedIndexChanged);
             // 
             // CoTrainer
             // 
@@ -93,6 +95,7 @@
             this.CoTrainer.Name = "CoTrainer";
             this.CoTrainer.Size = new System.Drawing.Size(121, 21);
             this.CoTrainer.TabIndex = 3;
+            this.CoTrainer.SelectedIndexChanged += new System.EventHandler(this.CoTrainer_SelectedIndexChanged);
             // 
             // Ort
             // 
@@ -116,6 +119,7 @@
             this.Raum.Name = "Raum";
             this.Raum.Size = new System.Drawing.Size(121, 21);
             this.Raum.TabIndex = 5;
+            this.Raum.SelectedIndexChanged += new System.EventHandler(this.Raum_SelectedIndexChanged);
             // 
             // Kommentar
             // 
@@ -228,7 +232,7 @@
             // 
             // Seminarpanel
             // 
-            this.Seminarpanel.Location = new System.Drawing.Point(184, 23);
+            this.Seminarpanel.Location = new System.Drawing.Point(183, 139);
             this.Seminarpanel.Name = "Seminarpanel";
             this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
             this.Seminarpanel.TabIndex = 24;
@@ -236,11 +240,12 @@
             // ZweiterTrainer
             // 
             this.ZweiterTrainer.AutoSize = true;
-            this.ZweiterTrainer.Location = new System.Drawing.Point(309, 97);
+            this.ZweiterTrainer.Location = new System.Drawing.Point(309, 93);
             this.ZweiterTrainer.Name = "ZweiterTrainer";
             this.ZweiterTrainer.Size = new System.Drawing.Size(15, 14);
             this.ZweiterTrainer.TabIndex = 25;
             this.ZweiterTrainer.UseVisualStyleBackColor = true;
+            this.ZweiterTrainer.CheckedChanged += new System.EventHandler(this.ZweiterTrainer_CheckedChanged);
             // 
             // TagplanChangepanelUserControl
             // 
@@ -276,24 +281,24 @@
 
         #endregion
 
-        public System.Windows.Forms.ComboBox Tagart;
-        public System.Windows.Forms.ComboBox Seminar;
-        public System.Windows.Forms.ComboBox Trainer;
-        public System.Windows.Forms.ComboBox CoTrainer;
-        public System.Windows.Forms.ComboBox Ort;
-        public System.Windows.Forms.ComboBox Raum;
-        public System.Windows.Forms.TextBox Kommentar;
-        public System.Windows.Forms.Button Einfügen;
-        public System.Windows.Forms.Label tagartl;
-        public System.Windows.Forms.Label seminarl;
-        public System.Windows.Forms.Label trainerl;
-        public System.Windows.Forms.Label cotrainerl;
-        public System.Windows.Forms.Label ortl;
-        public System.Windows.Forms.Label rauml;
-        public System.Windows.Forms.Label kommentarl;
-        public System.Windows.Forms.CheckBox Weiterführung;
-        public System.Windows.Forms.NumericUpDown AnzahlTage;
-        public System.Windows.Forms.Label tagel;
+        private System.Windows.Forms.ComboBox Tagart;
+        private System.Windows.Forms.ComboBox Seminar;
+        private System.Windows.Forms.ComboBox Trainer;
+        private System.Windows.Forms.ComboBox CoTrainer;
+        private System.Windows.Forms.ComboBox Ort;
+        private System.Windows.Forms.ComboBox Raum;
+        private System.Windows.Forms.TextBox Kommentar;
+        private System.Windows.Forms.Button Einfügen;
+        private System.Windows.Forms.Label tagartl;
+        private System.Windows.Forms.Label seminarl;
+        private System.Windows.Forms.Label trainerl;
+        private System.Windows.Forms.Label cotrainerl;
+        private System.Windows.Forms.Label ortl;
+        private System.Windows.Forms.Label rauml;
+        private System.Windows.Forms.Label kommentarl;
+        private System.Windows.Forms.CheckBox Weiterführung;
+        private System.Windows.Forms.NumericUpDown AnzahlTage;
+        private System.Windows.Forms.Label tagel;
         private System.Windows.Forms.Panel Seminarpanel;
         private System.Windows.Forms.CheckBox ZweiterTrainer;
     }
