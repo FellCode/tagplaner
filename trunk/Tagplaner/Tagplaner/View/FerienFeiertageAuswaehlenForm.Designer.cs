@@ -195,7 +195,12 @@
             this.Controls.Add(this.button_VacationCurrentYear);
             this.Controls.Add(this.button_HolidayNextYear);
             this.Controls.Add(this.button_HolidayCurrentYear);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FerienFeiertageAuswaehlenForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ferien- und Feiertagedateien auswählen";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
