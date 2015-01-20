@@ -358,7 +358,7 @@ namespace Tagplaner
                                 dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name +" "+ entry.Trainer.Surname;
                             if (entry.Cotrainer != null)
                                 dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
-                            if (entry.Seminar != null)
+                            if (entry.Seminar.Title != null)
                             {
                                 dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
                                 dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
