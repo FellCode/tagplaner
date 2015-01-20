@@ -17,14 +17,14 @@ namespace Tagplaner
     /// </summary>
     public partial class FormInit : Form
     {
-        Boolean tabsAlreadyAdded = false;
+        private bool tabsAlreadyAdded = false;
 
-        TagplanAnlegenUserControl tagplanAnlegenUC;
-        TagplanBearbeitenUserControl tagplanBearbeitenUC;
-        SeminarVerwaltenUserControl seminarVerwaltenUC;
-        StatistikUserControl statistikUC;
-        RaumVerwaltenUserControl raumVerwaltenUC;
-        TrainerVerwaltenUserControl trainerVerwaltenUC;
+        private TagplanAnlegenUserControl tagplanAnlegenUC;
+        private TagplanBearbeitenUserControl tagplanBearbeitenUC;
+        private SeminarVerwaltenUserControl seminarVerwaltenUC;
+        private StatistikUserControl statistikUC;
+        private RaumVerwaltenUserControl raumVerwaltenUC;
+        private TrainerVerwaltenUserControl trainerVerwaltenUC;
 
         /// <summary>
         /// Erzeugt eine neue Instanz von FormInit
@@ -189,7 +189,7 @@ namespace Tagplaner
 
         private void excelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //exportExcel();
+            exportExcel();
         }
 
         private void pDFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -235,6 +235,12 @@ namespace Tagplaner
         
             //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
             MCalendar.GetInstance().Speciality.Clear();
+        }
+
+        private void exportExcel()
+        {
+            WorksheetGenerator wc = new WorksheetGenerator();
+            wc.WriteFile(MCalendar.GetInstance());
         }
 
         /// <summary>
