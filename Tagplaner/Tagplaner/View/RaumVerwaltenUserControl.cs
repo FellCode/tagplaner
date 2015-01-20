@@ -109,7 +109,7 @@ namespace Tagplaner
             {
                 raumTextBox.Clear();
                 raeumeComboBox.Text = "";
-                seminarOrtComboBox.Text = "bitte Seminarort wählen!";
+                seminarOrtComboBox.Text = "Bitte Seminarort wählen!";
                 MPlace place = (MPlace) seminarOrtComboBox.SelectedItem;
 
                 raeumeComboBox.Items.Clear();

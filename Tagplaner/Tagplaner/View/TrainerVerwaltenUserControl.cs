@@ -30,6 +30,7 @@ namespace Tagplaner
             loeschenButton.Enabled = false;
             speichernButton.Enabled = false;
             zuruecksetzenButton.Enabled = false;
+            internRadioButton.Checked = true;
         }
         /// <summary>
         /// Wenn der Zurücksetzen Button geklickt wird, werden alle vorhandenen Felder leer gemacht. 
@@ -43,7 +44,7 @@ namespace Tagplaner
             nachnameTextBox.Clear();
             vornameTextBox.Clear();
             kuerzelTextBox.Clear();
-            internRadioButton.Checked = false;
+            internRadioButton.Checked = true;
             externRadioButton.Checked = false;
             loeschenButton.Enabled = false;
             zuruecksetzenButton.Enabled = false;        
@@ -111,7 +112,7 @@ namespace Tagplaner
                 nachnameTextBox.Clear();
                 vornameTextBox.Clear();
                 kuerzelTextBox.Clear();
-                internRadioButton.Checked = false;
+                internRadioButton.Checked = true;
                 externRadioButton.Checked = false;
                 speichernButton.Enabled = false;
                 zuruecksetzenButton.Enabled = false;
@@ -138,7 +139,7 @@ namespace Tagplaner
                 nachnameTextBox.Clear();
                 vornameTextBox.Clear();
                 kuerzelTextBox.Clear();
-                internRadioButton.Checked = false;
+                internRadioButton.Checked = true;
                 externRadioButton.Checked = false;
 
                 trainerComboBox.Items.Clear();
@@ -169,5 +170,6 @@ namespace Tagplaner
         {
             zuruecksetzenButton.Enabled = true;
         }
+
     }
 }
