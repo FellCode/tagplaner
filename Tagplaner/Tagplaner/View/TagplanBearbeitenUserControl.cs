@@ -71,7 +71,7 @@ namespace Tagplaner
         /// <param name="countGrid"></param>
         public void CreateDataGridViews(int countGrid)
         {
-            mCalendar = MCalendar.getInstance();
+            mCalendar = MCalendar.GetInstance();
 
             dGV.DataSource = null;
             dGV.Rows.Clear();
@@ -273,7 +273,7 @@ namespace Tagplaner
         /// <returns>calendarEntry</returns>
         public MCalendarEntry GetSelectedEntryModel()
         {
-            MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
+            MCalendarEntry calendarEntry = MCalendar.GetInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
             return calendarEntry;
         }
@@ -291,9 +291,9 @@ namespace Tagplaner
             {
                 for (int i = 0; i < applyIteration; i++)
                 {
-                    if (MCalendar.getInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.getInstance().CalendarList[y_Coord + i].CalendarDate))
+                    if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
-                        MCalendar.getInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
+                        MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
                         if (entry.School != null)
                         {
                             dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Berufschule";
@@ -377,8 +377,8 @@ namespace Tagplaner
                     && dGV[x_Cell, y_Coord].ReadOnly == true)
                     || x_Cell <= 3
                     || y_Coord < 0
-                    || (!CheckWeekend(MCalendar.getInstance().CalendarList[y_Coord].CalendarDate))
-                    || MCalendar.getInstance().CalendarList[y_Coord].HolidayName != null))
+                    || (!CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord].CalendarDate))
+                    || MCalendar.GetInstance().CalendarList[y_Coord].HolidayName != null))
             {
                 return true;
             }
