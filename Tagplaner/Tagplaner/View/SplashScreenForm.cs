@@ -22,7 +22,9 @@ namespace Tagplaner
         /// </summary>
         public SplashScreenForm()
         {
-            InitializeComponent();          
+            InitializeComponent();
+
+            CDatabase.GetInstance().CheckDBForBug();
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
