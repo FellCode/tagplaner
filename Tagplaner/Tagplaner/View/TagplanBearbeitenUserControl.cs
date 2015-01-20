@@ -158,12 +158,12 @@ namespace Tagplaner
 
                     dGV.Rows.Add();
 
-                    dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek.ToString();
+                    dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek;
                     dGV[1, rowCounter].Value = calendarDays[rowCounter].GetCalendarDatePrintDate();
                     if (calendarDays[rowCounter].HolidayName != null)
-                        dGV[2, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
+                        dGV[2, rowCounter].Value = calendarDays[rowCounter].HolidayName;
                     if (calendarDays[rowCounter].VacationName != null)
-                        dGV[3, rowCounter].Value = calendarDays[rowCounter].VacationName.ToString();
+                        dGV[3, rowCounter].Value = calendarDays[rowCounter].VacationName;
 
                     dGV.Columns[0].ReadOnly = true;
                     dGV.Columns[1].ReadOnly = true;
@@ -202,17 +202,17 @@ namespace Tagplaner
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                             {
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place != null)
-                                    dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place.ToString();
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number != null)
-                                    dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number.ToString();
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name != null)
-                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name.ToString();
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name != null)
-                                    dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name.ToString();
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title != null)
+                                    dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place;
+                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room != null)
+                                    dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number;
+                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer != null)
+                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
+                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer != null)
+                                    dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Surname;
+                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                                 {
-                                    dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
-                                    dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
+                                    dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
+                                    dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
                                 }
 
                                 dGV[4 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
@@ -235,8 +235,8 @@ namespace Tagplaner
                             //Case: Sowohl Seminar als auch Praxis Objekt existieren
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
-                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title.ToString();
-                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment.ToString();
+                                dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
+                                dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment;
                                 dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
                                 dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorPractice;
                             }
@@ -311,18 +311,18 @@ namespace Tagplaner
                         }
                         if (entry.Seminar != null)
                         {
-                            if (entry.Place.Place != null)
-                                dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Place.Place.ToString();
-                            if (entry.Room.Number != null)
-                                dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number.ToString();
-                            if (entry.Trainer.Name != null)
-                                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name.ToString();
-                            if (entry.Cotrainer.Name != null)
-                                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name.ToString();
-                            if (entry.Seminar.Title != null)
+                            if (entry.Place != null)
+                                dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Place.Place;
+                            if (entry.Room != null)
+                                dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number;
+                            if (entry.Trainer  != null)
+                                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name + entry.Trainer.Surname;
+                            if (entry.Cotrainer != null)
+                                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name + entry.Cotrainer.Surname;
+                            if (entry.Seminar != null)
                             {
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title.ToString();
-                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title.ToString();
+                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
+                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
 
                                 dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
                                 dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
@@ -330,7 +330,7 @@ namespace Tagplaner
 
                             if (entry.Practice != null && entry.Seminar != null)
                             {
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title.ToString();
+                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
                                 dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Praxis";
 
                                 dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
