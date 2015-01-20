@@ -41,8 +41,8 @@ namespace Tagplaner
 
             listView1.Items.Add(GetAllDaysListViewItem());
             listView1.Items.Add(GetApprenticeshipDaysListViewItem());
-            listView1.Items.Add(GetWeekendDaysListViewItem());
-            listView1.Items.Add(GetHolidayDaysListViewItem());
+            //listView1.Items.Add(GetWeekendDaysListViewItem());
+            //listView1.Items.Add(GetHolidayDaysListViewItem());
             listView1.Items.Add(GetSeminarDaysListViewItem());
             listView1.Items.Add(GetSchoolDaysListViewItem());
             listView1.Items.Add(GetPraticeDaysListViewItem());
@@ -147,7 +147,7 @@ namespace Tagplaner
         /// <returns>ListViewItem für die Anzahl der Praxistage</returns>
         private ListViewItem GetPraticeDaysListViewItem()
         {
-            int praticeDays = CStatisticUtilitys.CountSchoolDays();
+            int praticeDays = CStatisticUtilitys.CountPraticeDays();
 
             ListViewItem lvPraticeDays = new ListViewItem();
             lvPraticeDays.Text = "Praxistage";
