@@ -217,6 +217,9 @@ namespace Tagplaner
             tagplanBearbeitenUC.FillGrids(MCalendar.GetInstance().CalendarList);
             EnableBearbeitenStatistikTabPage();
             tagplanAnlegenUC.NextTabPage();
+
+            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
+            MCalendar.GetInstance().Speciality.Clear();
         }
 
         /// <summary>
@@ -229,6 +232,8 @@ namespace Tagplaner
             MCalendar.GetInstance().LastModified = DateTime.Now;
             serializer.SerializeObject(MCalendar.GetInstance(), filename);
             MCalendar.GetInstance().Saved = true;
+        
+            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
             MCalendar.GetInstance().Speciality.Clear();
         }
 
