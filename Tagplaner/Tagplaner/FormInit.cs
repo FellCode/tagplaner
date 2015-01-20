@@ -97,13 +97,13 @@ namespace Tagplaner
             string date = DateTime.Now.ToShortDateString();
 
 
-            if (MCalendar.getInstance().LastModified.Year.ToString().Equals("1"))
+            if (MCalendar.GetInstance().LastModified.Year.ToString().Equals("1"))
             {
                 this.Text = "Tagplaner | " + date + " - " + time;
             }
             else
             {
-                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.getInstance().LastModified.ToShortDateString() + " " + MCalendar.getInstance().LastModified.ToShortTimeString();
+                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.GetInstance().LastModified.ToShortDateString() + " " + MCalendar.GetInstance().LastModified.ToShortTimeString();
             }
         }
 
@@ -121,7 +121,7 @@ namespace Tagplaner
         private void FormInit_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Prüfen, ob der Tagplan bereits gespeichert wurde
-            if (!MCalendar.getInstance().Saved)
+            if (!MCalendar.GetInstance().Saved)
             {
                 e.Cancel = true;
 
@@ -144,7 +144,7 @@ namespace Tagplaner
                     if (fileSaveResult == DialogResult.OK && saveFileDialog1.FileName != null)
                     {
                         CSerialize serialize = new CSerialize();
-                        MCalendar calendarWithDays = MCalendar.getInstance();
+                        MCalendar calendarWithDays = MCalendar.GetInstance();
                         serialize.SerializeObject(calendarWithDays, saveFileDialog1.FileName);
                         e.Cancel = false;
                     }
@@ -213,8 +213,8 @@ namespace Tagplaner
             MCalendar.SetInstance(calendarWithDays);
 
             //Füllt die GridView mit Daten
-            tagplanBearbeitenUC.CreateDataGridViews(MCalendar.getInstance().Speciality.Count());
-            tagplanBearbeitenUC.FillGrids(MCalendar.getInstance().CalendarList);
+            tagplanBearbeitenUC.CreateDataGridViews(MCalendar.GetInstance().Speciality.Count());
+            tagplanBearbeitenUC.FillGrids(MCalendar.GetInstance().CalendarList);
             EnableBearbeitenStatistikTabPage();
             tagplanAnlegenUC.NextTabPage();
         }
@@ -226,9 +226,9 @@ namespace Tagplaner
         private void SaveTagplan(string filename)
         {
             CSerialize serializer = new CSerialize();
-            MCalendar.getInstance().LastModified = DateTime.Now;
-            serializer.SerializeObject(MCalendar.getInstance(), filename);
-            MCalendar.getInstance().Saved = true;
+            MCalendar.GetInstance().LastModified = DateTime.Now;
+            serializer.SerializeObject(MCalendar.GetInstance(), filename);
+            MCalendar.GetInstance().Saved = true;
         }
 
         /// <summary>

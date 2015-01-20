@@ -200,8 +200,8 @@ namespace Tagplaner
             //Liste mit Jahrgangsbezeichnungen füllen
             FillIdentifierOfYearsList();
 
-            MCalendar.getInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
-            calendarWithDays = MCalendar.getInstance();
+            MCalendar.GetInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
+            calendarWithDays = MCalendar.GetInstance();
         }
 
         /// <summary>
