@@ -138,7 +138,6 @@ namespace Tagplaner
 			foreach (Occurrence occurrence in occurrences)
 			{
 				IEvent evt = occurrence.Source as IEvent;
-				Console.WriteLine(evt.Summary);
 				GenerateMVacationCurrentYear(evt.Start.Local, evt.End.Local, evt.Summary);
 			}
 			return true;
@@ -168,7 +167,6 @@ namespace Tagplaner
 			foreach (Occurrence occurrence in occurrences)
 			{
 				IEvent evt = occurrence.Source as IEvent;
-				Console.WriteLine(evt.Summary);
 				GenerateMVacationNextYear(evt.Start.Local, evt.End.Local, evt.Summary);
 				
 			}
