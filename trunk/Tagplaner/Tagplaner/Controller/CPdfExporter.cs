@@ -307,29 +307,30 @@ namespace Tagplaner
             pdfTable.WidthPercentage = 100;
             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
-            // Meta informations
-            pdfTable.AddCell(this.CreateBodyTableCell(dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()], 1));
-            pdfTable.AddCell(this.CreateBodyTableCell(calendarDay.CalendarDate.Date.ToShortDateString(), 2));
+            pdfTable.AddCell(this.CreateBodyTableCell(dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()], 1));    // Wochentag
+            pdfTable.AddCell(this.CreateBodyTableCell(calendarDay.CalendarDate.Date.ToShortDateString(), 2));               // Datum
             
             
-            // Ferien
+            // Prüfen ob aktueller Tag ein Ferientag ist
             if (!String.IsNullOrEmpty(calendarDay.VacationName))
             {
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCellHoliday("", 1));                                                   // Ferien
             }
             else
             {
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                                          // Leere Zelle
             }
 
             // Prüfen, ob der aktuelle Tag ein Feiertag ist
             if (!String.IsNullOrEmpty(calendarDay.HolidayName))
             {
+                #region Feiertag
                 for (int i = 0; i < numberOfApprenticeships; i++)
                 {
                     pdfTable.AddCell(
-                        this.CreateBodyTableCellHoliday(calendarDay.HolidayName, calculateNumberOfCells() / numberOfApprenticeships));     
-                }  
+                        this.CreateBodyTableCellHoliday(calendarDay.HolidayName, calculateNumberOfCells() / numberOfApprenticeships));
+                }
+                #endregion
             }
             // Regulären Tagplan erzeugen
             else
@@ -337,135 +338,91 @@ namespace Tagplaner
                 // Year two - FIAE
                 MCalendarEntry calendarEntry = calendarDay.CalendarEntry[0];
 
+                // Durchlauf pro anzahl der Ausbildungsjahrgänge
                 for (int i = 0; i < numberOfApprenticeships; i++)
                 {
-                    #region Tabelle für FIAE
-
-                    // Prüfen, ob der aktuelle Tag ein Seminartag ist
-                    if (calendarEntry.Seminar != null)
+                    for (int j = 0; j < 2 * numberOfApprenticeships; j++)
                     {
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+                        // Prüfen, ob der aktuelle Tag ein Seminartag ist
+                        if (calendarEntry.Seminar != null)
+                        {
+                            #region Seminar
+                            pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));             // Technik
+                            pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));                       // RaumNr.
+                            pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));              // Trainer
 
-                        if (nextDayIsSeminar(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
-                        }
-                        else
-                        {
-                            if (showComments)
+                            if (nextDayIsSeminar(calendarDay, nextCalendarDay))
                             {
-                                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
-                                    calendarEntry.Seminar.Comment, 4));
-                            } 
-                            else 
-                            {
-                                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
-                            }
-
-                        }
-                    }
-                    // Prüfen, ob der aktuelle Tag ein Schultag ist
-                    else if (calendarEntry.School != null)
-                    {
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                  
-                        if (nextDayIsSchool(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
-                        }
-                        else
-                        {
-                            if (showComments)
-                            {
-                                pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
-                            }
-                            else 
-                            {
-                                pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
-                            }
-                        }
-                    }
-                    // Prüfen, ob der aktuelle Tag ein Praxistag ist
-                    else if (calendarEntry.Practice != null)
-                    {
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-
-                        if (nextDayIsPratice(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
-                        }
-                        else
-                        {
-                            if (showComments) {
-                                 pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
+                                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));          // Seminar
                             }
                             else
                             {
-                                 pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
+                                if (showComments)
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +   // Seminar + Kommentar
+                                        calendarEntry.Seminar.Comment, 4));
+                                }
+                                else
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));      // Seminar
+                                }
                             }
-                           
+                            #endregion
+                        }
+                        // Prüfen, ob der aktuelle Tag ein Schultag ist
+                        
+                        else if (calendarEntry.School != null)
+                        {
+                            #region Schule
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle Technik
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle RaumNr
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle Trainer
+
+                            if (nextDayIsSchool(calendarDay, nextCalendarDay))
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellSchool(""));                                       // Schule
+                            }
+                            else
+                            {
+                                if (showComments)
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));         // Schule + Kommentar
+                                }
+                                else
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellSchool(""));                                   // Schule
+                                }
+                            }
+                            #endregion
+                        }
+                       
+                        // Prüfen, ob der aktuelle Tag ein Praxistag ist
+                        else if (calendarEntry.Practice != null)
+                        {
+                            #region Praxis
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle Technik
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle RaumNr
+                            pdfTable.AddCell(this.CreateBodyTableCell("", 1));                                              // Leere Zelle Trainer
+                                
+                            if (nextDayIsPratice(calendarDay, nextCalendarDay))
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));                                   // Seminar
+                            }
+                            else
+                            {
+                                if (showComments)
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));   // Seminar + Kommentar
+                                }
+                                else
+                                {
+                                    pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));                               // Seminar
+                                }
+
+                            }
+                            #endregion
                         }
                     }
-                    #endregion
-
-                    #region Tabelle für FISI
-                    // Prüfen, ob der aktuelle Tag ein Seminartag ist
-                    if (calendarEntry.Seminar != null)
-                    {
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
-
-                        if (nextDayIsSeminar(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
-                        }
-                        else
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
-                                calendarEntry.Seminar.Comment, 4));
-                        }
-                    }
-                    // Prüfen, ob der aktuelle Tag ein Schultag ist
-                    else if (calendarEntry.School != null)
-                    {
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-
-                        if (nextDayIsSchool(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
-                        }
-                        else
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
-                        }
-                    }
-                    // Prüfen, ob der aktuelle Tag ein Praxistag ist
-                    else if (calendarEntry.Practice != null)
-                    {
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-
-                        if (nextDayIsPratice(calendarDay, nextCalendarDay))
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
-                        }
-                        else
-                        {
-                            pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
-                        }
-
-                    }
-                    #endregion
                 }
             }
 
