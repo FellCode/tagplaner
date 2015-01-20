@@ -271,15 +271,6 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Gibt das ToolStripLabel der Form zurück
-        /// </summary>
-        /// <returns>Das zurückgegebene ToolStripLabel</returns>
-        public ToolStripLabel GetToolStripLabel()
-        {
-            return this.toolStripStatusLabel_FormInit;
-        }
-
-        /// <summary>
         /// Zeigt die angegebene Nachticht mit Datum und Uhrzeit in der Statusleiste an
         /// </summary>
         /// <param name="message">Anzuzeigende Nachricht</param>
