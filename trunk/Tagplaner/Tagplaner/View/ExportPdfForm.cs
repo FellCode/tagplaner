@@ -51,8 +51,11 @@ namespace Tagplaner
                 List<MTrainer> trainerList = new List<MTrainer>();
                 trainerList.Add(new MTrainer("Alexander", "Theis", "AT", true, true));
 
-                CPdfExporter pdfExporter = new CPdfExporter(MCalendar.GetInstance(),
-                    Convert.ToInt32(comboBox1.Text), trainerList);
+                CPdfExporter pdfExporter = new CPdfExporter(
+                    MCalendar.GetInstance(),
+                    Convert.ToInt32(comboBox1.Text), 
+                    checkBox2.Checked,
+                    trainerList);
                 pdfExporter.ExportPdf(saveFileDialog1.FileName);
             }
 

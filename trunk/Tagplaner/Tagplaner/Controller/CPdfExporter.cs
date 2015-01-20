@@ -21,6 +21,7 @@ namespace Tagplaner
         private MCalendar calendar;
         private Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
         private int numberOfApprenticeships;
+        private bool showComments;
 
         String ort = "Koeln/Bonn";
         String jahrgang = "2014/1";
@@ -38,17 +39,21 @@ namespace Tagplaner
         // Font for Unuiqday
         readonly Font FONT_UNIQUE = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.NORMAL, BaseColor.WHITE);
 
+
         /// <summary>
         /// Erstellt eine neue Instanz von CPdfExporter
         /// </summary>
         /// <param name="calendar">Instanz vom MCalendar</param>
-        /// <param name="trainerList">Instanz von List mit MTrainer Instanzen</param>
-        public CPdfExporter(MCalendar calendar, int j, List<MTrainer> trainerList)
+        /// <param name="numberOfApprenticeships">Anzahl der Ausbildungsjahrgänge</param>
+        /// <param name="showComments">Information, ob Kommentare angezeigt werden soll</param>
+        /// <param name="trainerList">Instanz von Liste mit MTrainer Instanzen</param>
+        public CPdfExporter(MCalendar calendar, int numberOfApprenticeships, bool showComments, List<MTrainer> trainerList)
         {
             this.calendar = calendar;
-            this.numberOfApprenticeships = j;
+            this.numberOfApprenticeships = numberOfApprenticeships;
+            this.showComments = showComments;
             this.trainerList = trainerList;
-
+            
             FillDayDictionary();
         }
 
@@ -471,7 +476,7 @@ namespace Tagplaner
         private PdfPCell CreateBodyTableCellSeminar(string seminarName, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
-            pdfcell.BackgroundColor = BaseColor.CYAN;
+            pdfcell.BackgroundColor = new BaseColor(135, 206, 250);
             pdfcell.Phrase = new Phrase(seminarName, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -489,7 +494,7 @@ namespace Tagplaner
         private PdfPCell CreateBodyTableCellPratice(string comment, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
-            pdfcell.BackgroundColor = BaseColor.YELLOW;
+            pdfcell.BackgroundColor = new BaseColor(255, 215, 0);
             pdfcell.Phrase = new Phrase(comment, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -507,7 +512,7 @@ namespace Tagplaner
         private PdfPCell CreateBodyTableCellHoliday(string holidayName, int colspan)
         {
             PdfPCell pdfcell = new PdfPCell();
-            pdfcell.BackgroundColor = BaseColor.GREEN;
+            pdfcell.BackgroundColor = new BaseColor(173, 255, 47);
             pdfcell.Phrase = new Phrase(holidayName, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -621,7 +626,11 @@ namespace Tagplaner
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsSeminar(MCalendarDay currentDay, MCalendarDay nextDay) 
         {
-            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].Seminar != null)
+            if (currentDay != null &&
+                nextDay != null &&
+                dayIsntWeekendOrHoliday(currentDay) &&
+                dayIsntWeekendOrHoliday(nextDay) &&
+                currentDay.CalendarEntry[0].Seminar != null)
             {
                 if (currentDay.CalendarEntry[0].Seminar != nextDay.CalendarEntry[0].Seminar)
                 {
@@ -646,7 +655,11 @@ namespace Tagplaner
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsSchool(MCalendarDay currentDay, MCalendarDay nextDay)
         {
-            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].School != null)
+            if (currentDay != null &&
+                nextDay != null &&
+                dayIsntWeekendOrHoliday(currentDay) &&
+                dayIsntWeekendOrHoliday(nextDay) &&
+                currentDay.CalendarEntry[0].School != null)
             {
                 if (currentDay.CalendarEntry[0].School != nextDay.CalendarEntry[0].School)
                 {
@@ -671,7 +684,11 @@ namespace Tagplaner
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsPratice(MCalendarDay currentDay, MCalendarDay nextDay)
         {
-            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].Practice != null)
+            if (currentDay != null && 
+                nextDay != null && 
+                dayIsntWeekendOrHoliday(currentDay) && 
+                dayIsntWeekendOrHoliday(nextDay) && 
+                currentDay.CalendarEntry[0].Practice != null)
             {
                 if (currentDay.CalendarEntry[0].Practice != nextDay.CalendarEntry[0].Practice)
                 {
@@ -685,6 +702,16 @@ namespace Tagplaner
             }
 
             return true;
+        }
+
+        private bool dayIsntWeekendOrHoliday(MCalendarDay currentDay)
+        {
+            if (currentDay.CalendarEntry.Count != 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 }
