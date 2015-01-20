@@ -20,7 +20,7 @@ namespace Tagplaner
     {
 
         private CDatabase cdb = CDatabase.GetInstance();
-        //TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
+        //TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
 
         /// <summary>
         /// 
@@ -121,7 +121,7 @@ namespace Tagplaner
             GetComment(ccalendarentry, Kommentar, Tagart);
             GetInterationNumber(Weiterführung, AnzahlTage);
 
-            TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.getInstance();
+            TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
             tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(Weiterführung, AnzahlTage), ccalendarentry);
 
             Weiterführung.Checked = false;

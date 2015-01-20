@@ -24,7 +24,7 @@ namespace Tagplaner
             List<MRoom> rooms = new List<MRoom>();
             rooms.Add(new MRoom("109"));
 
-            MCalendar calendar = MCalendar.getInstance();
+            MCalendar calendar = MCalendar.GetInstance();
             List<String> liste = new List<String>();
             liste.Add("blala");
             liste.Add("blala2");

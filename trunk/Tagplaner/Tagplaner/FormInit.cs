@@ -32,7 +32,7 @@ namespace Tagplaner
         public FormInit()
         {
             InitializeComponent();
-            tagplanBearbeitenUC = TagplanBearbeitenUserControl.getInstance();
+            tagplanBearbeitenUC = TagplanBearbeitenUserControl.GetInstance();
             tagplanAnlegenUC = new TagplanAnlegenUserControl(this, tagplanBearbeitenUC);
             seminarVerwaltenUC = new SeminarVerwaltenUserControl();
             statistikUC = new StatistikUserControl();
