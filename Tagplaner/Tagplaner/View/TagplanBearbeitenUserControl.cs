@@ -36,7 +36,7 @@ namespace Tagplaner
         /// Erstellt eine Instanz der Klasse
         /// </summary>
         /// <returns></returns>
-        public static TagplanBearbeitenUserControl getInstance()
+        public static TagplanBearbeitenUserControl GetInstance()
         {
             if (instance == null)
             {
@@ -351,7 +351,7 @@ namespace Tagplaner
             }
 
         }
-
+    
 
         /// <summary>
         /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
@@ -359,7 +359,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int x_Cell = e.ColumnIndex;
             x_Coord = Convert.ToInt32(Math.Floor((Convert.ToDouble(e.ColumnIndex) - 4d) / 6));
@@ -387,6 +387,7 @@ namespace Tagplaner
                 return false;
             }
         }
+        
         public bool CheckWeekend(DateTime date)
         {
             if (!(date.DayOfWeek.ToString() == "Saturday" || date.DayOfWeek.ToString() == "Sunday"))
