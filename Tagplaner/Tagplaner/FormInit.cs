@@ -278,5 +278,15 @@ namespace Tagplaner
         {
             return this.toolStripStatusLabel_FormInit;
         }
+
+        /// <summary>
+        /// Zeigt die angegebene Nachticht mit Datum und Uhrzeit in der Statusleiste an
+        /// </summary>
+        /// <param name="message">Anzuzeigende Nachricht</param>
+        public void showMessageInStatusbar(string message)
+        {
+            DateTime datetime = DateTime.Now;
+            statusStrip1.Items[0].Text = "[" + datetime.ToString() + "] - " + message;
+        }
     }
 }
