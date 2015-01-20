@@ -325,8 +325,7 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-            double bereich = 0;
-            bereich = (Math.Floor(Convert.ToDouble(x_Coord) / 6));
+            
             if (dGV.Rows.Count >= y_Coord + applyIteration)
             {
                 for (int i = 0; i < applyIteration; i++)
@@ -336,44 +335,44 @@ namespace Tagplaner
                         MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
                         if (entry.School != null)
                         {
-                            dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Berufschule";
-                            dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Berufschule";
-                            dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSchool;
-                            dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSchool;
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
                         }
                         if (entry.Practice != null)
                         {
-                            dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Praxis";
-                            dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Praxis";
-                            dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorPractice;
-                            dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorPractice;
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
                         }
                         if (entry.Seminar != null)
                         {
                             if (entry.Place != null)
-                                dGV[4 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Place.Place;
+                                dGV[4 + 6 * x_Coord, y_Coord + i].Value = entry.Place.Place;
                             if (entry.Room != null)
-                                dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number;
+                                dGV[5 + 6 * x_Coord, y_Coord + i].Value = entry.Room.Number;
                             if (entry.Trainer  != null)
-                                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name +" "+ entry.Trainer.Surname;
+                                dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name +" "+ entry.Trainer.Surname;
                             if (entry.Cotrainer != null)
-                                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
+                                dGV[7 + 6 * x_Coord, y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
                             if (entry.Seminar.Title != null)
                             {
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
-                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
+                                dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
+                                dGV[9 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
 
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
-                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
                             }
 
                             if (entry.Practice != null && entry.Seminar != null)
                             {
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
-                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = "Praxis";
+                                dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
+                                dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
 
-                                dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorSeminar;
-                                dGV[9 + 6 * Convert.ToInt32(bereich), y_Coord + i].Style.BackColor = colorPractice;
+                                dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
                             }
                         }
                     }
