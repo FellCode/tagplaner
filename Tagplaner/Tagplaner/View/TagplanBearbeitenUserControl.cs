@@ -37,7 +37,7 @@ namespace Tagplaner
       /// Erstellt eine Instanz der Klasse
       /// </summary>
       /// <returns></returns>
-        public static TagplanBearbeitenUserControl getInstance()
+        public static TagplanBearbeitenUserControl GetInstance()
         {
             if (instance == null)
             {
