@@ -45,7 +45,6 @@ namespace Tagplaner
             this.dGV.Size = new System.Drawing.Size(502, 63);
             this.dGV.TabIndex = 2;
             this.dGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
-            
             // 
             // panel1
             // 
@@ -54,6 +53,7 @@ namespace Tagplaner
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(502, 258);
             this.panel1.TabIndex = 0;
+            this.panel1.Visible = false;
             // 
             // splitter1
             // 
