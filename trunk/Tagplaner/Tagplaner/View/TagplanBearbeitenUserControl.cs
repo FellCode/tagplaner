@@ -14,7 +14,7 @@ namespace Tagplaner
     /// <summary>
     /// Autor: Niklas Wazal, Felix Smuda
     /// Datum: 13.01.15
-    /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen
+    /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen.
     /// innerhalb der Tabelle
     /// </summary>
     public partial class TagplanBearbeitenUserControl : UserControl
@@ -63,6 +63,32 @@ namespace Tagplaner
         }
 
 
+        //------------------------------------------------------------------------------------------------------------
+        // Im folgenden Bereich wird mehrfach eine Rechnung angewendet um für jede Zelle das entsprechende Objekt zu ermitteln.
+        // Die ersten 4 Spalten sind für Kalender-Daten reserviert: Kalenderwoche, Datum, Ferien, Feiertage
+        // Durch die folgenden Zahlen (4-9) werden die einzelnen Spalten für einen Jahrgang für eine Fachausrichtung belegt
+        // Die Zahl 6 legt konstant fest, wie viele Zellen eine Fachrichtung besitzt, sprich zB ein Jahrgang AE.
+        // Der ColumnCounter iteriert mit der Schleife durch jede Spalte durch und gewährleistet eine dynamische Menge von Jahrgängen.
+        // Dieser wird dafür mit der Festgelegten Zahl, hier: 6, multipliziert.
+        //
+        // Verwendung in: 
+        // - CreateDataGridViews()
+        // - FillDataGrids()
+        // - ApplyChangesToGrid()
+        //------------------------------------------------------------------------------------------------------------------
+        
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Diese Methode fügt dem DataGridView alle benötigten Columns hinzu entsprechend der gewählten
         /// Optionen im TagplanAnlegen-Fenster.
@@ -75,10 +101,13 @@ namespace Tagplaner
 
             dGV.DataSource = null;
             dGV.Rows.Clear();
-            int columnCount = 6 * countGrid + 4;
             dGV.MultiSelect = false;
 
+            //ermittelt dynamisch die anzahl der benötigten Fachrichtungsblöcke
+            int columnCount = 6 * countGrid + 4;
+            
 
+            //Diese werden fest am Index 0-3 angelegt.
             dGV.ColumnCount = columnCount;
             dGV.Columns[0].Name = "KW";
             dGV.Columns[1].Name = "Datum";
@@ -95,9 +124,12 @@ namespace Tagplaner
             dGV.Columns[2].ReadOnly = true;
             dGV.Columns[3].ReadOnly = true;
 
+
+            // Header-Configuration
+            // Beschriftet alle ColumnHeader und setzt sie auf nicht-Sortierbar und ReadOnly
             for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
             {
-                //Die Rechnung ermittelt für jede Fachausrichtung alle 6 Spalten, um diese einzeln ansteuern zu können
+                
                 dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
                 dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
                 dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
@@ -118,8 +150,10 @@ namespace Tagplaner
                 dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
                 dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
                 dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
-            }
-        }
+            }// End-Header-Configuration
+
+        }//End CreateDataGridViews
+
 
         /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
@@ -144,7 +178,7 @@ namespace Tagplaner
 
 
 
-            // Durchläuft jeden Kalendertag
+            // Durchläuft jeden Kalendertag und schreibt jeden Entry in die DataGridView
             for (int rowCounter = 0; rowCounter < calendarDays.Count; rowCounter++)
             {
                 if (calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Saturday" && calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Sunday")
@@ -173,9 +207,11 @@ namespace Tagplaner
                     if (calendarDays[rowCounter].HolidayName == null)
                     {
 
-                        //Durchläuft jede Spalte der Tabelle
+                        //Durchläuft alle Spalten der Tabelle und trägt alle Werte ein
                         for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
+                         
+                            //Testdaten
                             if (rowCounter < 100)
                             {
                                 if (columnCounter % 2 == 0)
@@ -187,7 +223,7 @@ namespace Tagplaner
                             {
                                 mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(new MSchool("HAUPTSCHULEE - " + rowCounter.ToString())));
                             }
-
+                            //END Testdaten
 
                             //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
@@ -199,6 +235,7 @@ namespace Tagplaner
                                 dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorSchool;
 
                             }
+                            //Case: Ist ein Seminarobjekt vorhanden?
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                             {
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place != null)
@@ -206,9 +243,9 @@ namespace Tagplaner
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room != null)
                                     dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer != null)
-                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
+                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name +" " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer != null)
-                                    dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Surname;
+                                    dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name + " " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Surname;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
                                 {
                                     dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
@@ -223,6 +260,7 @@ namespace Tagplaner
                                 dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
 
                             }
+                            //Case: Ist ein Practice-Objekt vorhanden?
                             if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                             {
                                 dGV[8 + 6 * columnCounter, rowCounter].Value = "Praxis";
@@ -240,17 +278,18 @@ namespace Tagplaner
                                 dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
                                 dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorPractice;
                             }
-                        }
+                        }//END Durchlaufen aller Spalten
                     }
                     else
                     {
+                        //Schreibt den Feiertag quer in alle Spalten und färbt sie grün
                         for (int columnCounter = 4; columnCounter <= columnCount - 1; columnCounter++)
                         {
                             dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                             dGV[columnCounter, rowCounter].ReadOnly = true;
 
                             dGV[columnCounter, rowCounter].Style.BackColor = colorHoliday;
-                        }
+                        } //END for
 
                     }
                 }
@@ -263,10 +302,10 @@ namespace Tagplaner
                         dGV[columnCounter, rowCounter].ReadOnly = true;
 
                         dGV[columnCounter, rowCounter].Style.BackColor = colorWeekend;
-                    }
-                }
-            }
-        }
+                    }//END Einfärben des Wochenendes
+                }// END else
+            }// END Schreiben der Calendar Entrys
+        }// END-FillGrids
 
         /// <summary>
         /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
@@ -316,9 +355,9 @@ namespace Tagplaner
                             if (entry.Room != null)
                                 dGV[5 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Room.Number;
                             if (entry.Trainer  != null)
-                                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name + entry.Trainer.Surname;
+                                dGV[6 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Trainer.Name +" "+ entry.Trainer.Surname;
                             if (entry.Cotrainer != null)
-                                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name + entry.Cotrainer.Surname;
+                                dGV[7 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
                             if (entry.Seminar != null)
                             {
                                 dGV[8 + 6 * Convert.ToInt32(bereich), y_Coord + i].Value = entry.Seminar.Title;
@@ -375,7 +414,14 @@ namespace Tagplaner
                 panel1.Hide();
             }
         }
-
+        /// <summary>
+        /// Diese Methode prüft, ob eine Zelle valide ist. D.h ob dort hinter ein Calendar Entry liegen kann.
+        /// Feiertage, Wochenende, Header und Footer(Index out of Range) werden als Invalide ausgewertet und ignoriert.
+        /// Mit der x_Cell Variablen, fangen wir das Klicken auf einer der ersten vier Spalten ab, da dort keine Calendar Entrys liegen,
+        /// sondern nur Informationen bzgl. des Datums und der Freien Tage.
+        /// </summary>
+        /// <param name="x_Cell"></param>
+        /// <returns></returns>
         public bool CheckCellValidation(int x_Cell)
         {
             if (!(((x_Coord == dGV.ColumnCount - 1
