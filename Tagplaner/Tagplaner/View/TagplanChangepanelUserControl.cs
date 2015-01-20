@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
+    // breite der drop down, auto complete ohne kommplett reinschreiben, fall Seminar/Praxis einbauen, 
+
     /// <summary>
     /// Autor: Matthias Ohm
     /// Datum: 14.01.15
@@ -77,11 +79,30 @@ namespace Tagplaner
         {
             if (Weiterführung.Checked == true)
             {
-                AnzahlTage.Visible = true;
+                AnzahlTage.ReadOnly = false;
             }
             else
             {
-                AnzahlTage.Visible = false;
+                AnzahlTage.ReadOnly = true;
+            }
+        }
+
+        /// <summary>
+        /// Prüft ob die CheckBox neben dem Cotrainer gesetzt ist und Enabled dementsprechend den Cotrainer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ZweiterTrainer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ZweiterTrainer.Checked == false)
+            {
+                CoTrainer.SelectedIndex = -1;
+                CoTrainer.Text = "";
+                CoTrainer.Enabled = false;
+            }
+            else
+            {
+                CoTrainer.Enabled = true;
             }
         }
 
@@ -140,6 +161,7 @@ namespace Tagplaner
                 Tagart.Items.Add("Seminar");
                 Tagart.Items.Add("Berufsschule");
                 Tagart.Items.Add("Praxis");
+                Tagart.Items.Add("Seminar/Praxis");
 
                 return true;
             }
@@ -160,7 +182,9 @@ namespace Tagplaner
 
             MPlace mort = (MPlace)Ort.SelectedItem;
             cdb.FillRoomComboBox(Raum, mort.Id);
-        } 
+            Raum.Text = "";
+            Raum.Refresh();
+        }
 
         /// <summary>
         /// Verädert die Sichtbarkeit des Panels anhand der Tagart
@@ -181,6 +205,9 @@ namespace Tagplaner
                 case "Praxis":
                     Seminarpanel.Visible = true;
                     break;
+                case "Semianr/Praxis":
+                    Seminarpanel.Visible = false;
+                    break;
             }
 
         }
@@ -192,28 +219,35 @@ namespace Tagplaner
         /// <param name="tagartb"></param>
         public void SetDayTyp(MCalendarEntry calendarentry, ComboBox tagartb)
         {
-            if (calendarentry.Practice == null)
+            if (calendarentry.Seminar != null && calendarentry.Practice != null)
             {
-                if (calendarentry.School == null)
+                tagartb.SelectedIndex = 3;
+            }
+            else
+            {
+                if (calendarentry.Practice == null)
                 {
-                    if (calendarentry.Seminar == null)
+                    if (calendarentry.School == null)
                     {
-                        tagartb.SelectedIndex = -1;
-                        tagartb.Text = "";
+                        if (calendarentry.Seminar == null)
+                        {
+                            tagartb.SelectedIndex = -1;
+                            tagartb.Text = "";
+                        }
+                        else
+                        {
+                            tagartb.SelectedIndex = 0;
+                        }
                     }
                     else
                     {
-                        tagartb.SelectedIndex = 0;
+                        tagartb.SelectedIndex = 1;
                     }
                 }
                 else
                 {
-                    tagartb.SelectedIndex = 1;
+                    tagartb.SelectedIndex = 2;
                 }
-            }
-            else
-            {
-                tagartb.SelectedIndex = 2;
             }
             tagartb.Refresh();
         }
@@ -265,11 +299,13 @@ namespace Tagplaner
         {
             if (calendarentry.Cotrainer == null)
             {
+                ZweiterTrainer.Checked = false;
                 cotrainerb.SelectedIndex = -1;
                 cotrainerb.Text = "";
             }
             else
             {
+                ZweiterTrainer.Checked = true;
                 cotrainerb.SelectedItem = calendarentry.Cotrainer;
             }
             cotrainerb.Refresh();
@@ -320,21 +356,31 @@ namespace Tagplaner
         /// <param name="kommentarb"></param>
         public void SetComment(MCalendarEntry calendarentry, ComboBox kommentarb)
         {
-            if (calendarentry.Practice == null)
+            kommentarb.Text = " ";
+            if (calendarentry.Seminar != null && calendarentry.Practice != null)
             {
-                if (calendarentry.School == null)
-                {
-                    kommentarb.Text = calendarentry.Seminar.Comment;
-                }
-                if (calendarentry.Seminar == null)
-                {
-                    kommentarb.Text = calendarentry.School.Comment;
-                }
-                kommentarb.Text = " ";
+                kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
             }
             else
             {
-                kommentarb.Text = calendarentry.Practice.Comment;
+                if (calendarentry.Practice == null)
+                {
+                    if (calendarentry.School == null)
+                    {
+                        kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
+                    }
+                    if (calendarentry.Seminar == null)
+                    {
+                        kommentarb.Text = Convert.ToString(calendarentry.School.Comment);
+                    }
+
+                }
+                else
+                {
+                    kommentarb.Text = Convert.ToString(calendarentry.Practice.Comment);
+                }
+
+
             }
             kommentarb.Refresh();
         }
@@ -346,7 +392,14 @@ namespace Tagplaner
         /// <param name="seminarb"></param>
         public void GetSeminar(MCalendarEntry calendarentry, ComboBox seminarb)
         {
-            calendarentry.Seminar = (MSeminar)seminarb.SelectedItem;
+            try
+            {
+                calendarentry.Seminar = (MSeminar)seminarb.SelectedItem;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -356,7 +409,14 @@ namespace Tagplaner
         /// <param name="trainerb"></param>
         public void GetTrainer(MCalendarEntry calendarentry, ComboBox trainerb)
         {
-            calendarentry.Trainer = (MTrainer)trainerb.SelectedItem;
+            try
+            {
+                calendarentry.Trainer = (MTrainer)trainerb.SelectedItem;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -366,7 +426,17 @@ namespace Tagplaner
         /// <param name="cotrainerb"></param>
         public void GetCoTrainer(MCalendarEntry calendarentry, ComboBox cotrainerb)
         {
-            calendarentry.Cotrainer = (MTrainer)cotrainerb.SelectedItem;
+            try
+            {
+                if (ZweiterTrainer.Checked == true)
+                {
+                    calendarentry.Cotrainer = (MTrainer)cotrainerb.SelectedItem;
+                }
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -376,7 +446,14 @@ namespace Tagplaner
         /// <param name="ortb"></param>
         public void GetLocation(MCalendarEntry calendarentry, ComboBox ortb)
         {
-            calendarentry.Place = (MPlace)ortb.SelectedItem;
+            try
+            {
+                calendarentry.Place = (MPlace)ortb.SelectedItem;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -386,7 +463,14 @@ namespace Tagplaner
         /// <param name="raumb"></param>
         public void GetRoom(MCalendarEntry calendarentry, ComboBox raumb)
         {
-            calendarentry.Room = (MRoom)raumb.SelectedItem;
+            try
+            {
+                calendarentry.Room = (MRoom)raumb.SelectedItem;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -397,19 +481,30 @@ namespace Tagplaner
         /// <param name="tagartb"></param>
         public void GetComment(MCalendarEntry calendarentry, TextBox kommentarb, ComboBox tagartb)
         {
-            switch (tagartb.SelectedIndex)
+            try
             {
-                case 0:
-                    calendarentry.Seminar.Comment = kommentarb.Text;
-                    break;
-                case 1:
-                    MSchool mschool = new MSchool(kommentarb.Text);
-                    calendarentry.School = mschool;
-                    break;
-                case 2:
-                    MPractice mpractice = new MPractice(kommentarb.Text);
-                    calendarentry.Practice = mpractice;
-                    break;
+                switch (tagartb.SelectedIndex)
+                {
+                    case 0:
+                        calendarentry.Seminar.Comment = kommentarb.Text;
+                        break;
+                    case 1:
+                        MSchool mschool = new MSchool(kommentarb.Text);
+                        calendarentry.School = mschool;
+                        break;
+                    case 2:
+                        MPractice mpractice = new MPractice(kommentarb.Text);
+                        calendarentry.Practice = mpractice;
+                        break;
+                    case 3:
+                        calendarentry.Seminar.Comment = kommentarb.Text;
+                        calendarentry.Practice.Comment = "";
+                        break;
+                }
+            }
+            catch (NullReferenceException)
+            {
+
             }
         }
 
