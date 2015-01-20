@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInit));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_FormInit = new System.Windows.Forms.ToolStripStatusLabel();
@@ -114,7 +115,7 @@
             // 
             this.tagplanÖffnenToolStripMenuItem.Name = "tagplanÖffnenToolStripMenuItem";
             this.tagplanÖffnenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tagplanÖffnenToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.tagplanÖffnenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.tagplanÖffnenToolStripMenuItem.Text = "Tagplan öffnen";
             this.tagplanÖffnenToolStripMenuItem.Click += new System.EventHandler(this.tagplanÖffnenToolStripMenuItem_Click);
             // 
@@ -122,14 +123,14 @@
             // 
             this.tagplanSpeichernToolStripMenuItem.Name = "tagplanSpeichernToolStripMenuItem";
             this.tagplanSpeichernToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.tagplanSpeichernToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.tagplanSpeichernToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.tagplanSpeichernToolStripMenuItem.Text = "Tagplan speichern";
             this.tagplanSpeichernToolStripMenuItem.Click += new System.EventHandler(this.tagplanSpeichernToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(210, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(208, 6);
             // 
             // exportierenToolStripMenuItem
             // 
@@ -137,32 +138,32 @@
             this.excelToolStripMenuItem,
             this.pDFToolStripMenuItem});
             this.exportierenToolStripMenuItem.Name = "exportierenToolStripMenuItem";
-            this.exportierenToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.exportierenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.exportierenToolStripMenuItem.Text = "Exportieren";
             // 
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.excelToolStripMenuItem.Text = "Excel";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
             // 
             // pDFToolStripMenuItem
             // 
             this.pDFToolStripMenuItem.Name = "pDFToolStripMenuItem";
-            this.pDFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pDFToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.pDFToolStripMenuItem.Text = "PDF";
             this.pDFToolStripMenuItem.Click += new System.EventHandler(this.pDFToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(210, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 6);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -206,6 +207,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormInit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
