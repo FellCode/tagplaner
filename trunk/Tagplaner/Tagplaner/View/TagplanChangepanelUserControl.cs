@@ -43,10 +43,18 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Einfügen_Click(object sender, EventArgs e)
         {
+            if (Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
+                && Ort.SelectedItem == null && Raum.SelectedItem == null)
+            {
 
-            PasteEntry();
+            }
+            else
+            {
+                PasteEntry();
+            }
 
         }
+
         /// <summary>
         /// Prüft ob die Auswahl der Tagart geändert wurde
         /// </summary>
@@ -71,12 +79,6 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Tagart.SelectedItem == Tagart.Items)
-            {
-                Tagart.SelectedIndex = -1;
-                Tagart.Text = "";
-                Tagart.Refresh();
-            }
             ChangeVisibility(Tagart, Seminarpanel);
         }
 
@@ -135,6 +137,7 @@ namespace Tagplaner
             SetCoTrainer(calendarentry, CoTrainer);
             SetLocation(calendarentry, Ort);
             SetRoom(calendarentry, Raum);
+            SetComment(calendarentry, Kommentar);
 
         }
 
@@ -367,9 +370,9 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendarentry"></param>
         /// <param name="kommentarb"></param>
-        public void SetComment(MCalendarEntry calendarentry, ComboBox kommentarb)
+        public void SetComment(MCalendarEntry calendarentry, TextBox kommentarb)
         {
-            kommentarb.Text = " ";
+            kommentarb.Clear();
             if (calendarentry.Seminar != null && calendarentry.Practice != null)
             {
                 kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
@@ -407,7 +410,14 @@ namespace Tagplaner
         {
             try
             {
-                calendarentry.Seminar = (MSeminar)seminarb.SelectedItem;
+                if (seminarb.SelectedItem == null)
+                {
+                    
+                }
+                else
+                {
+                    calendarentry.Seminar = (MSeminar)seminarb.SelectedItem;
+                }
             }
             catch (NullReferenceException)
             {
@@ -424,7 +434,14 @@ namespace Tagplaner
         {
             try
             {
-                calendarentry.Trainer = (MTrainer)trainerb.SelectedItem;
+                if (trainerb.SelectedItem == null)
+                {
+
+                }
+                else
+                {
+                    calendarentry.Trainer = (MTrainer)trainerb.SelectedItem;
+                }
             }
             catch (NullReferenceException)
             {
@@ -443,7 +460,14 @@ namespace Tagplaner
             {
                 if (ZweiterTrainer.Checked == true)
                 {
-                    calendarentry.Cotrainer = (MTrainer)cotrainerb.SelectedItem;
+                    if (cotrainerb.SelectedItem == null)
+                    {
+
+                    }
+                    else
+                    {
+                        calendarentry.Cotrainer = (MTrainer)cotrainerb.SelectedItem;
+                    }
                 }
             }
             catch (NullReferenceException)
@@ -461,7 +485,14 @@ namespace Tagplaner
         {
             try
             {
-                calendarentry.Place = (MPlace)ortb.SelectedItem;
+                if (ortb.SelectedItem == null)
+                {
+
+                }
+                else
+                {
+                    calendarentry.Place = (MPlace)ortb.SelectedItem;
+                }
             }
             catch (NullReferenceException)
             {
@@ -478,7 +509,14 @@ namespace Tagplaner
         {
             try
             {
-                calendarentry.Room = (MRoom)raumb.SelectedItem;
+                if (raumb.SelectedItem == null)
+                {
+
+                }
+                else
+                {
+                    calendarentry.Room = (MRoom)raumb.SelectedItem;
+                }
             }
             catch (NullReferenceException)
             {
