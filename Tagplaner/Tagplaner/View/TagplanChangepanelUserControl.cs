@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    // breite der drop down, auto complete ohne kommplett reinschreiben, fall Seminar/Praxis einbauen, 
+    // breite der drop down, auto complete ohne das man reinschreiben kann, fall Seminar/Praxis einbauen, 
 
     /// <summary>
     /// Autor: Matthias Ohm
@@ -54,6 +54,13 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Ort_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Ort.SelectedItem == Ort.Items)
+            {
+                Ort.SelectedIndex = -1;
+                Ort.Text = "";
+                Ort.Refresh();
+            }
+
             FillRoom(Ort, Raum);
         }
 
@@ -64,10 +71,13 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(Tagart.SelectedItem == Tagart.Items)
+            {
+                Tagart.SelectedIndex = -1;
+                Tagart.Text = "";
+                Tagart.Refresh();
+            }
             ChangeVisibility(Tagart, Seminarpanel);
-
-
         }
 
         /// <summary>
@@ -79,11 +89,11 @@ namespace Tagplaner
         {
             if (Weiterführung.Checked == true)
             {
-                AnzahlTage.ReadOnly = false;
+                AnzahlTage.Enabled = true;
             }
             else
             {
-                AnzahlTage.ReadOnly = true;
+                AnzahlTage.Enabled = false;
             }
         }
 
@@ -112,6 +122,7 @@ namespace Tagplaner
         /// <param name="calendarentry"></param>
         public void ChangeCalendarEntry(MCalendarEntry calendarentry)
         {
+            AnzahlTage.Enabled = false;
 
             cdb.FillSeminarComboBox(Seminar);
             cdb.FillTrainerComboBox(Trainer);
@@ -205,7 +216,7 @@ namespace Tagplaner
                 case "Praxis":
                     Seminarpanel.Visible = true;
                     break;
-                case "Semianr/Praxis":
+                case "Seminar/Praxis":
                     Seminarpanel.Visible = false;
                     break;
             }
@@ -302,9 +313,11 @@ namespace Tagplaner
                 ZweiterTrainer.Checked = false;
                 cotrainerb.SelectedIndex = -1;
                 cotrainerb.Text = "";
+                cotrainerb.Enabled = false;
             }
             else
             {
+                cotrainerb.Enabled = true;
                 ZweiterTrainer.Checked = true;
                 cotrainerb.SelectedItem = calendarentry.Cotrainer;
             }
@@ -533,6 +546,9 @@ namespace Tagplaner
             }
 
         }
+
+       
+
 
     }
 }
