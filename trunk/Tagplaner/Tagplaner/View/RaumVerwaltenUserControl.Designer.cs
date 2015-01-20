@@ -66,7 +66,7 @@
             this.seminarOrtComboBox.Name = "seminarOrtComboBox";
             this.seminarOrtComboBox.Size = new System.Drawing.Size(168, 21);
             this.seminarOrtComboBox.TabIndex = 3;
-            this.seminarOrtComboBox.Text = "bitte Seminarort wählen!";
+            this.seminarOrtComboBox.Text = "Bitte Seminarort wählen!";
             this.seminarOrtComboBox.SelectedIndexChanged += new System.EventHandler(this.SeminarOrtComboBox_SelectedIndexChanged);
             // 
             // seminarortLabel
