@@ -408,6 +408,11 @@ namespace Tagplaner
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Überprüft ob die aktuelle Zelle ein Wochenend Tag ist.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public bool CheckWeekend(DateTime date)
         {
             if ((date.DayOfWeek.ToString() == "Saturday" || date.DayOfWeek.ToString() == "Sunday"))
@@ -422,6 +427,10 @@ namespace Tagplaner
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Diese Methode erstellt initial alle benötigten Columns mit Headerbeschriftung und korrekten Propertys
+        /// </summary>
+        /// <param name="countGrid"></param>
         public void ConfigureColumnHeader(int countGrid)
         {
 
