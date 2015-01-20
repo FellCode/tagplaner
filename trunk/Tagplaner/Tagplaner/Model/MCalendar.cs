@@ -93,6 +93,7 @@ namespace Tagplaner
         /// <param name="end">Ende des Kalenders.</param>
         /// <param name="numberOfYears">Anzahl an Jahrgängen für die der Kalender erstellt wird.</param>
         /// <param name="typesOfClasses">Gibt die Fachrichtungen der Jahrgänge an.</param>
+        /// <param name="identifierOfYears">nthält die Jahrgangsbezeichnung.</param>
         /// <param name="vacationCurrentYearUrl">Pfad zur Datei die die Ferientage des ersten Kalenderjahres enthält.</param>
         /// <param name="vacationNextYearUrl">Pfad zur Datei die die Ferientage des zweiten Kalenderjahres enthält.</param>
         /// <param name="holidayCurrentYearUrl">Pfad zur Datei die die Feiertage des ersten Kalenderjahres enthält.</param>

@@ -197,6 +197,7 @@ namespace Tagplaner
             CheckCheckboxes(checkBox_VierterJahrgangAE);
             CheckCheckboxes(checkBox_VierterJahrgangSI);
 
+            //Liste mit Jahrgangsbezeichnungen füllen
             FillIdentifierOfYearsList();
 
             MCalendar.getInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
@@ -230,13 +231,17 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void button_Weiter_Click(object sender, EventArgs e)
         {
-            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null)
+            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckDateTimePickerValues())
             {
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 CreateCalendarWithDates();
 
                 //DataGridview wird erstellt, befüllt und übergeben
                 FillFormWithDataGridView(calendarWithDays.CalendarList);
+
+                //Liste mit Jahrgangsbezeichnungen und Klassenarten leeren
+                identifierOfYears.Clear();
+                typeOfClasses.Clear();
             }
         }
 
@@ -277,7 +282,6 @@ namespace Tagplaner
             if (checkBox.Checked)
             {
                 typeOfClasses.Add(checkBox.Text);
-
             }
             else
                 typeOfClasses.Add("");
@@ -290,23 +294,11 @@ namespace Tagplaner
         public int CountCheckedCheckboxes()
         {
             int checkedBoxesCount = 0;
-            if (checkBox_ErsterJahrgangAE.Checked)
-            {
-                checkedBoxesCount++;
-            }
-            if (checkBox_ErsterJahrgangSI.Checked)
-            {
-                checkedBoxesCount++;
-            }
-            if (checkBox_ZweiterJahrgangAE.Checked)
-            {
-                checkedBoxesCount++;
-            }
-
-            if (checkBox_ZweiterJahrgangSI.Checked)
-            {
-                checkedBoxesCount++;
-            }
+            
+            if (checkBox_ErsterJahrgangAE.Checked)checkedBoxesCount++;
+            if (checkBox_ErsterJahrgangSI.Checked) checkedBoxesCount++;
+            if (checkBox_ZweiterJahrgangAE.Checked) checkedBoxesCount++;
+            if (checkBox_ZweiterJahrgangSI.Checked) checkedBoxesCount++;
             if (checkBox_DritterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBox_DritterJahrgangSI.Checked) checkedBoxesCount++;
             if (checkBox_VierterJahrgangAE.Checked) checkedBoxesCount++;
@@ -316,32 +308,35 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Füllt die Liste der Jahrgangsbezeichnungen
+        /// Füllt die Liste der Jahrgangsbezeichnungen und überprüft ob die nötigen Textfelder gesetzt wurden
         /// </summary>
         public void FillIdentifierOfYearsList()
         {
             if (radioButton_1Jahrgang.Checked)
             {
-                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                
             }
+
             if (radioButton_2Jahrgaenge.Checked)
             {
-                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
             }
+
             if (radioButton_3Jahrgaenge.Checked)
             {
-                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
             }
 
             if (radioButton_4Jahrgaenge.Checked)
             {
-                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
-                identifierOfYears.Add(textBox_VierterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+                    identifierOfYears.Add(textBox_VierterJahrgangBezeichnung.Text);
             }
         }
 
@@ -358,17 +353,36 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Überprüfen ob End- vor Anfangsdatum liegt
+        /// Überprüfen ob End- vor Anfangsdatum liegt beim Verändern des Datums über einen DateTimePicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dateTimePicker_Bis_ValueChanged(object sender, EventArgs e)
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (this.dateTimePicker_Bis.Value < this.dateTimePicker_Von.Value)
             {
                 MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
-                this.dateTimePicker_Bis.Value = this.dateTimePicker_Von.Value;
             }
+        }
+
+        /// <summary>
+        /// Überprüfen ob End- vor Anfangsdatum liegt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private bool CheckDateTimePickerValues()
+        {
+            if (this.dateTimePicker_Von.Value > this.dateTimePicker_Bis.Value)
+            {
+                MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
+                return false;
+            }
+            else return true;
+        }
+
+        private void textBox_Entered(object sender, EventArgs e)
+        {
+            formInit.GetToolStripLabel().Text = "Bitte geben Sie eine Jahrgangsbezeichnung ein.";
         }
     }
 }

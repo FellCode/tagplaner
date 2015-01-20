@@ -71,9 +71,10 @@ namespace Tagplaner
         /// <summary>
         /// Füllt die übergebene Liste mit den selektierten Fachrichtungen der angegebenen Jahrgänge.
         /// </summary>
-        /// <param name="speciality">Die Liste der Fcahrichtungen des MCalendar-Objektes.</param>
+        /// <param name="speciality">Die Liste der Fachrichtungen des MCalendar-Objektes.</param>
         /// <param name="classes">Die Anzahl der Jahrgänge des Kalenders.</param>
-        /// <param name="typeOfClasses">Enthält die selektierten Fachrichtungen</param>
+        /// <param name="typeOfClasses">Enthält die selektierten Fachrichtungen.</param>
+        /// <param name="identifierOfYears">Enthält die Jahrgangsbezeichnung.</param>
         /// <returns>Enthält die befüllte Liste der Fachrichtungen.</returns>
         public static List<MSpeciality> FillSpeziallityInitial(List<MSpeciality> speciality, int classes, List<string> typeOfClasses, List<String> identifierOfYears)
         {

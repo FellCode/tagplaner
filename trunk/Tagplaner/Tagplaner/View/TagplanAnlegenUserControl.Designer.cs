@@ -34,8 +34,8 @@
             this.radioButton_3Jahrgaenge = new System.Windows.Forms.RadioButton();
             this.radioButton_2Jahrgaenge = new System.Windows.Forms.RadioButton();
             this.radioButton_1Jahrgang = new System.Windows.Forms.RadioButton();
-            this.dateTimePicker_Von = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_Bis = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_Von = new System.Windows.Forms.DateTimePicker();
             this.checkBox_ErsterJahrgangSI = new System.Windows.Forms.CheckBox();
             this.checkBox_ErsterJahrgangAE = new System.Windows.Forms.CheckBox();
             this.comboBox_Bundesland = new System.Windows.Forms.ComboBox();
@@ -141,6 +141,7 @@
             this.dateTimePicker_Von.Name = "dateTimePicker_Von";
             this.dateTimePicker_Von.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker_Von.TabIndex = 4;
+            //this.dateTimePicker_Von.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // dateTimePicker_Bis
             // 
@@ -148,7 +149,7 @@
             this.dateTimePicker_Bis.Name = "dateTimePicker_Bis";
             this.dateTimePicker_Bis.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker_Bis.TabIndex = 5;
-            this.dateTimePicker_Bis.ValueChanged += new System.EventHandler(this.dateTimePicker_Bis_ValueChanged);
+            //this.dateTimePicker_Bis.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
             // 
             // checkBox_ErsterJahrgangSI
             // 
@@ -356,6 +357,7 @@
             this.textBox_ErsterJahrgangBezeichnung.Name = "textBox_ErsterJahrgangBezeichnung";
             this.textBox_ErsterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
             this.textBox_ErsterJahrgangBezeichnung.TabIndex = 20;
+            this.textBox_ErsterJahrgangBezeichnung.Enter += new System.EventHandler(this.textBox_Entered); 
             // 
             // textBox_ZweiterJahrgangBezeichnung
             // 
@@ -364,6 +366,7 @@
             this.textBox_ZweiterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
             this.textBox_ZweiterJahrgangBezeichnung.TabIndex = 21;
             this.textBox_ZweiterJahrgangBezeichnung.Visible = false;
+            this.textBox_ZweiterJahrgangBezeichnung.Enter += new System.EventHandler(this.textBox_Entered);
             // 
             // textBox_DritterJahrgangBezeichnung
             // 
@@ -372,6 +375,7 @@
             this.textBox_DritterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
             this.textBox_DritterJahrgangBezeichnung.TabIndex = 22;
             this.textBox_DritterJahrgangBezeichnung.Visible = false;
+            this.textBox_DritterJahrgangBezeichnung.Enter += new System.EventHandler(this.textBox_Entered);
             // 
             // textBox_VierterJahrgangBezeichnung
             // 
@@ -380,6 +384,7 @@
             this.textBox_VierterJahrgangBezeichnung.Size = new System.Drawing.Size(198, 20);
             this.textBox_VierterJahrgangBezeichnung.TabIndex = 23;
             this.textBox_VierterJahrgangBezeichnung.Visible = false;
+            this.textBox_VierterJahrgangBezeichnung.Enter += new System.EventHandler(this.textBox_Entered);
             // 
             // label_Bezeichnung
             // 
@@ -428,7 +433,6 @@
             this.groupBox_AnzahlJahrgaenge.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
