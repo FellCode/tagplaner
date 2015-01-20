@@ -19,7 +19,9 @@ namespace Tagplaner
         private Document doc;
         private List<MTrainer> trainerList;
         private MCalendar calendar;
-        Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
+        private Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
+        private int numberOfApprenticeships;
+
         String ort = "Koeln/Bonn";
         String jahrgang = "2014/1";
 
@@ -41,9 +43,10 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendar">Instanz vom MCalendar</param>
         /// <param name="trainerList">Instanz von List mit MTrainer Instanzen</param>
-        public CPdfExporter(MCalendar calendar, List<MTrainer> trainerList)
+        public CPdfExporter(MCalendar calendar, int j, List<MTrainer> trainerList)
         {
             this.calendar = calendar;
+            this.numberOfApprenticeships = j;
             this.trainerList = trainerList;
 
             FillDayDictionary();
@@ -58,7 +61,7 @@ namespace Tagplaner
         {
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
-                iTextSharp.text.PageSize.A2,
+                getFormatByNumberOfApprenticeships(),
                 margin,
                 margin,
                 margin,
@@ -108,7 +111,7 @@ namespace Tagplaner
         /// </summary>
         private void CreatePdfHeader()
         {
-            PdfPTable headerTable = new PdfPTable(32);
+            PdfPTable headerTable = new PdfPTable(calculateNumberOfCells());
             headerTable.WidthPercentage = 100;
 
             PdfPCell pdfHeaderCellLeft = new PdfPCell(new Phrase("Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\nLegende:\n", FONT_BOLD)) { Colspan = 14 };
@@ -171,7 +174,7 @@ namespace Tagplaner
             legendTable.AddCell(pdfLegendHolidayCell);
             legendTable.AddCell(new PdfPCell(new Phrase("Ferien/Feiertage", FONT_NORMAL)) { Colspan = 13 });
 
-            legendTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = 32 });
+            legendTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = calculateNumberOfCells() });
 
             return legendTable;
         }
@@ -182,7 +185,7 @@ namespace Tagplaner
         /// <returns>Tabelle mit überschriften für den Tagplan</returns>
         public PdfPTable CreateTopRow()
         {
-            PdfPTable topRowTable = new PdfPTable(32);
+            PdfPTable topRowTable = new PdfPTable(calculateNumberOfCells());
             topRowTable.WidthPercentage = 100;
 
             topRowTable.AddCell(new PdfPCell(new Phrase("Tag", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
@@ -190,25 +193,18 @@ namespace Tagplaner
 
             topRowTable.AddCell(new PdfPCell(new Phrase("Ferien", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nAnwendungsentwickler", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
+            for (int i = 0; i < numberOfApprenticeships; i++)
+            {
+                topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nAnwendungsentwickler", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nSystemintegratoren", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
-
-            topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nAnwendungsentwickler", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
-
-            topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nSystemintegratoren", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+                topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nSystemintegratoren", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });               
+            }
 
             return topRowTable;
         }
@@ -221,6 +217,12 @@ namespace Tagplaner
             for (int i = 0; i < calendar.CalendarList.Count; i++)
             {
                 MCalendarDay calendarDay = calendar.CalendarList.ElementAt(i);
+                MCalendarDay nextCalendarDay = null;
+
+                if (calendar.CalendarList.Count - 1 > i)
+                {
+                    nextCalendarDay = calendar.CalendarList.ElementAt(i + 1);
+                }
 
                 switch (dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()])
                 {
@@ -230,7 +232,7 @@ namespace Tagplaner
                         CreateBodyTableRowWeekend(calendarDay.CalendarWeek);
                         break;
                     default:
-                        CreateBodyTableRow(calendarDay);
+                        CreateBodyTableRow(calendarDay, nextCalendarDay);
                         break;
                 }
             }
@@ -292,10 +294,11 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Tabellenreihe mit den eigentlichen Tagplan Informationen
         /// </summary>
-        /// <param name="calendarDay">CalendatTag aus der Liste von MCalendar</param>
-        private void CreateBodyTableRow(MCalendarDay calendarDay)
+        /// <param name="calendarDay">Nächster Kalendertag aus der Liste von MCalendar<</param>
+        /// <param name="position">Aktuelle Position in CalendarList</param>
+        private void CreateBodyTableRow(MCalendarDay calendarDay, MCalendarDay nextCalendarDay)
         {
-            PdfPTable pdfTable = new PdfPTable(32);
+            PdfPTable pdfTable = new PdfPTable(calculateNumberOfCells());
             pdfTable.WidthPercentage = 100;
             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
@@ -314,61 +317,130 @@ namespace Tagplaner
                 pdfTable.AddCell(this.CreateBodyTableCell("", 1));
             }
 
-            // Feiertag
+            // Prüfen, ob der aktuelle Tag ein Feiertag ist
             if (!String.IsNullOrEmpty(calendarDay.HolidayName))
             {
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.HolidayName, 14));
-                pdfTable.AddCell(this.CreateBodyTableCellHoliday(calendarDay.HolidayName, 14));
+                for (int i = 0; i < numberOfApprenticeships; i++)
+                {
+                    pdfTable.AddCell(
+                        this.CreateBodyTableCellHoliday(calendarDay.HolidayName, calculateNumberOfCells() / numberOfApprenticeships));     
+                }  
             }
+            // Regulären Tagplan erzeugen
             else
             {
                 // Year two - FIAE
-                MCalendarEntry calendarEntry = calendarDay.CalendarEntry.ElementAt(0);
-               
-                if (calendarEntry.Seminar != null)
-                {
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
-                    pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
-                }
-                else if (calendarEntry.School != null)
-                {
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCellSchool());
-                }
-                else if (calendarEntry.Practice != null)
-                {
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                    pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
-                }
+                MCalendarEntry calendarEntry = calendarDay.CalendarEntry[0];
 
-                // Year two  - FISI
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
+                for (int i = 0; i < numberOfApprenticeships; i++)
+                {
+                    #region Tabelle für FIAE
 
-                // Year one  - FIAE
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCellSchool());
+                    // Prüfen, ob der aktuelle Tag ein Seminartag ist
+                    if (calendarEntry.Seminar != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
 
-                // Year one  - FISI
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCell("", 1));
-                pdfTable.AddCell(this.CreateBodyTableCellSchool());
+                        if (nextDayIsSeminar(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
+                                calendarEntry.Seminar.Comment, 4));
+                        }
+                    }
+                    // Prüfen, ob der aktuelle Tag ein Schultag ist
+                    else if (calendarEntry.School != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                  
+                        if (nextDayIsSchool(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
+                        }
+                    }
+                    // Prüfen, ob der aktuelle Tag ein Praxistag ist
+                    else if (calendarEntry.Practice != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+
+                        if (nextDayIsPratice(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
+                        }
+                    }
+                    #endregion
+
+                    #region Tabelle für FISI
+                    // Prüfen, ob der aktuelle Tag ein Seminartag ist
+                    if (calendarEntry.Seminar != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Seminar.HasTechnology, 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Room.Number, 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell(calendarEntry.Trainer.Abbreviation, 1));
+
+                        if (nextDayIsSeminar(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
+                                calendarEntry.Seminar.Comment, 4));
+                        }
+                    }
+                    // Prüfen, ob der aktuelle Tag ein Schultag ist
+                    else if (calendarEntry.School != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+
+                        if (nextDayIsSchool(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
+                        }
+                    }
+                    // Prüfen, ob der aktuelle Tag ein Praxistag ist
+                    else if (calendarEntry.Practice != null)
+                    {
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+                        pdfTable.AddCell(this.CreateBodyTableCell("", 1));
+
+                        if (nextDayIsPratice(calendarDay, nextCalendarDay))
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
+                        }
+                        else
+                        {
+                            pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
+                        }
+
+                    }
+                    #endregion
+                }
             }
-
-
-
-            // pdfTable.AddCell(this.CreateBodyTableCellHoliday("Alexander-ferien", 14));
 
             doc.Add(pdfTable);
         }
@@ -376,12 +448,13 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Zelle für einen Schultag
         /// </summary>
+        /// <param name="comment">Kommentar der in der Zelle angezeigt wird</param>
         /// <returns>Zelle mit Formatierung für Schultage</returns>
-        private PdfPCell CreateBodyTableCellSchool()
+        private PdfPCell CreateBodyTableCellSchool(string comment)
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.BLUE;
-            pdfcell.Phrase = new Phrase("");
+            pdfcell.Phrase = new Phrase(comment, FONT_NORMAL);
             pdfcell.Colspan = 4;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
             pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -417,7 +490,7 @@ namespace Tagplaner
         {
             PdfPCell pdfcell = new PdfPCell();
             pdfcell.BackgroundColor = BaseColor.YELLOW;
-            pdfcell.Phrase = new Phrase(comment);
+            pdfcell.Phrase = new Phrase(comment, FONT_NORMAL);
             pdfcell.Colspan = colspan;
             pdfcell.HorizontalAlignment = Element.ALIGN_CENTER;
             pdfcell.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -442,7 +515,6 @@ namespace Tagplaner
 
             return pdfcell;
         }
-
         
         /// <summary>
         /// Erstellt eine Zelle für einen besonderen Tag wie zum Beispiel 
@@ -489,7 +561,7 @@ namespace Tagplaner
             int calendarWeekTmp = Convert.ToInt16(calenderWeek) + 1;
 
             PdfPCell pdfCell = new PdfPCell();
-            PdfPTable pdfTable = new PdfPTable(32);
+            PdfPTable pdfTable = new PdfPTable(calculateNumberOfCells());
             pdfTable.WidthPercentage = 100;
             pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
@@ -506,6 +578,113 @@ namespace Tagplaner
             pdfTable.AddCell(pdfCell);
 
             doc.Add(pdfTable);
+        }
+
+        /// <summary>
+        /// Entscheidet anhand der Anzahl der Jahrgänge die größe des DIN-Formats
+        /// </summary>
+        /// <returns>Größe des DIN-Formats</returns>
+        private Rectangle getFormatByNumberOfApprenticeships()
+        {
+            Rectangle format = null;
+
+            switch (this.numberOfApprenticeships)
+            {
+                case 1:
+                    format = iTextSharp.text.PageSize.A4.Rotate();
+                    break;
+                case 2:
+                    format = iTextSharp.text.PageSize.A3.Rotate();
+                    break;
+                default:
+                    break;
+            }
+
+            return format;
+        }
+
+        /// <summary>
+        /// Berechnet die Anzahl der Zellen die zur Darstellung benötigt werden
+        /// </summary>
+        /// <returns>Anzahl der Zellen</returns>
+        private int calculateNumberOfCells()
+        {
+            return 4 + (14 * this.numberOfApprenticeships);
+        }
+
+        /// <summary>
+        /// Prüft, ob der aktuelle Tag ein Seminartag ist und ob auf diesen ein weiterer Seminartag mit dem selben
+        /// Seminar folgt
+        /// </summary>
+        /// <param name="currentDay">Aktueller Tag</param>
+        /// <param name="nextDay">Nächster Tag</param>
+        /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
+        private bool nextDayIsSeminar(MCalendarDay currentDay, MCalendarDay nextDay) 
+        {
+            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].Seminar != null)
+            {
+                if (currentDay.CalendarEntry[0].Seminar != nextDay.CalendarEntry[0].Seminar)
+                {
+                    return false;
+                }
+            }
+
+            if (nextDay == null) {
+                return false;
+            }
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// Prüft, ob der aktuelle Tag ein Schultag ist und ob auf diesen ein weiterer Schultag mit dem selben
+        /// Schul Objekt folgt
+        /// </summary>
+        /// <param name="currentDay">Aktueller Tag</param>
+        /// <param name="nextDay">Nächster Tag</param>
+        /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
+        private bool nextDayIsSchool(MCalendarDay currentDay, MCalendarDay nextDay)
+        {
+            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].School != null)
+            {
+                if (currentDay.CalendarEntry[0].School != nextDay.CalendarEntry[0].School)
+                {
+                    return false;
+                }
+            }
+
+            if (nextDay == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Prüft, ob der aktuelle Tag ein Praxistag ist und ob auf diesen ein weiterer Praxistag mit dem selben
+        /// Praxis Objekt folgt
+        /// </summary>
+        /// <param name="currentDay">Aktueller Tag</param>
+        /// <param name="nextDay">Nächster Tag</param>
+        /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
+        private bool nextDayIsPratice(MCalendarDay currentDay, MCalendarDay nextDay)
+        {
+            if (currentDay != null && nextDay != null && currentDay.CalendarEntry[0].Practice != null)
+            {
+                if (currentDay.CalendarEntry[0].Practice != nextDay.CalendarEntry[0].Practice)
+                {
+                    return false;
+                }
+            }
+
+            if (nextDay == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
