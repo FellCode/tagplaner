@@ -20,7 +20,7 @@ namespace Tagplaner
         /// <returns></returns>
         public static int CountAllApprenticeshipDays()
         {
-            return MCalendar.getInstance().CalendarList.Count();
+            return MCalendar.GetInstance().CalendarList.Count();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Tagplaner
         {
             int weekendCounter = 0;
 
-            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList) {
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList) {
                 if (calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday") ||
                     calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
                 {
@@ -52,7 +52,7 @@ namespace Tagplaner
         {
             int holidayCounter = 0;
 
-            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList) {
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList) {
                 if (!String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     holidayCounter++;
@@ -71,7 +71,7 @@ namespace Tagplaner
         {
             int seminarCounter = 0;
             
-            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
                 if (calendarDay.CalendarEntry.Count > 0) { 
                     if (calendarDay.CalendarEntry.ElementAt(0).Seminar != null)
@@ -93,7 +93,7 @@ namespace Tagplaner
         {
             int schoolCounter = 0;
 
-            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
                 if (calendarDay.CalendarEntry.Count > 0)
                 {
@@ -116,7 +116,7 @@ namespace Tagplaner
         {
             int praticeCounter = 0;
 
-            foreach (MCalendarDay calendarDay in MCalendar.getInstance().CalendarList)
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
                 if (calendarDay.CalendarEntry.Count > 0)
                 {

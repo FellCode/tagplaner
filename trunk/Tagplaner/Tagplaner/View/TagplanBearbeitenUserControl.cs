@@ -72,7 +72,7 @@ namespace Tagplaner
         /// <param name="countGrid"></param>
         public void CreateDataGridViews(int countGrid)
         {
-            mCalendar = MCalendar.getInstance();
+            mCalendar = MCalendar.GetInstance();
 
             dGV.DataSource = null;
             dGV.Rows.Clear();
@@ -259,7 +259,7 @@ namespace Tagplaner
         /// <returns>calendarEntry</returns>
         public MCalendarEntry GetSelectedEntryModel()
         {
-            MCalendarEntry calendarEntry = MCalendar.getInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
+            MCalendarEntry calendarEntry = MCalendar.GetInstance().CalendarList[y_Coord].CalendarEntry[x_Coord];
 
             return calendarEntry;
         }
@@ -276,7 +276,7 @@ namespace Tagplaner
 
             for (int i = 0; i < applyIteration; i++)
             {
-                MCalendar.getInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
+                MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
 
 
                 if (entry.School != null)

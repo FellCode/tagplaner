@@ -79,7 +79,7 @@ namespace Tagplaner
         /// Prüft, ob bereits eine Instanz der Klasse existiert. Diese wird zurück gegeben bzw. zuvor eine neue Instanz erzeugt.
         /// </summary>
         /// <returns>Enthält die Instanz der Klasse</returns>
-        public static MCalendar getInstance()
+        public static MCalendar GetInstance()
         {
             if (instance == null)
             {
