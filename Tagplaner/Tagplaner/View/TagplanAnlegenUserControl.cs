@@ -200,6 +200,9 @@ namespace Tagplaner
             //Liste mit Jahrgangsbezeichnungen füllen
             FillIdentifierOfYearsList();
 
+            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
+            MCalendar.GetInstance().Speciality.Clear();
+            
             MCalendar.GetInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.GetInstance();
         }
@@ -233,6 +236,7 @@ namespace Tagplaner
         {
             if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckDateTimePickerValues())
             {
+
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 CreateCalendarWithDates();
 
@@ -258,10 +262,10 @@ namespace Tagplaner
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
-                    holidayCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2015.csv";
-                    holidayNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Feiertage\\Nordrhein-Westfalen2016.csv";
-                    vacationCurrentYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2015.ics";
-                    vacationNextYearUrl = AppDomain.CurrentDomain.BaseDirectory + "Ferien\\Ferien_Hessen_2016.ics";
+                    holidayCurrentYearUrl = ferienFeiertageAuswaehlenForm.TextForBox1;
+                    holidayNextYearUrl = ferienFeiertageAuswaehlenForm.TextForBox2;
+                    vacationCurrentYearUrl = ferienFeiertageAuswaehlenForm.TextForBox3;
+                    vacationNextYearUrl = ferienFeiertageAuswaehlenForm.TextForBox4;
 
                     this.label_GeoeffneteDateienAnzeigen.Text = "Feriendatei (Von): " + SplitUrl(holidayCurrentYearUrl) + "\n" +
                                        "Feriendatei (Bis): " + SplitUrl(holidayNextYearUrl) + "\n" +
@@ -294,8 +298,8 @@ namespace Tagplaner
         public int CountCheckedCheckboxes()
         {
             int checkedBoxesCount = 0;
-            
-            if (checkBox_ErsterJahrgangAE.Checked)checkedBoxesCount++;
+
+            if (checkBox_ErsterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBox_ErsterJahrgangSI.Checked) checkedBoxesCount++;
             if (checkBox_ZweiterJahrgangAE.Checked) checkedBoxesCount++;
             if (checkBox_ZweiterJahrgangSI.Checked) checkedBoxesCount++;
@@ -314,29 +318,29 @@ namespace Tagplaner
         {
             if (radioButton_1Jahrgang.Checked)
             {
-                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+
             }
 
             if (radioButton_2Jahrgaenge.Checked)
             {
-                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
             }
 
             if (radioButton_3Jahrgaenge.Checked)
             {
-                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
             }
 
             if (radioButton_4Jahrgaenge.Checked)
             {
-                    identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
-                    identifierOfYears.Add(textBox_VierterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ErsterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_ZweiterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_DritterJahrgangBezeichnung.Text);
+                identifierOfYears.Add(textBox_VierterJahrgangBezeichnung.Text);
             }
         }
 
@@ -353,19 +357,6 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Überprüfen ob End- vor Anfangsdatum liegt beim Verändern des Datums über einen DateTimePicker
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            if (this.dateTimePicker_Bis.Value < this.dateTimePicker_Von.Value)
-            {
-                MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
-            }
-        }
-
-        /// <summary>
         /// Überprüfen ob End- vor Anfangsdatum liegt
         /// </summary>
         /// <param name="sender"></param>
@@ -378,11 +369,6 @@ namespace Tagplaner
                 return false;
             }
             else return true;
-        }
-
-        private void textBox_Entered(object sender, EventArgs e)
-        {
-            formInit.GetToolStripLabel().Text = "Bitte geben Sie eine Jahrgangsbezeichnung ein.";
         }
     }
 }

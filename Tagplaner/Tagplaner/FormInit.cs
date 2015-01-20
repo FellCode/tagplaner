@@ -229,6 +229,7 @@ namespace Tagplaner
             MCalendar.GetInstance().LastModified = DateTime.Now;
             serializer.SerializeObject(MCalendar.GetInstance(), filename);
             MCalendar.GetInstance().Saved = true;
+            MCalendar.GetInstance().Speciality.Clear();
         }
 
         /// <summary>
