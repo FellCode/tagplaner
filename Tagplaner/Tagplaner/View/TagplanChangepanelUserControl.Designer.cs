@@ -71,7 +71,6 @@
             this.Seminar.Name = "Seminar";
             this.Seminar.Size = new System.Drawing.Size(121, 21);
             this.Seminar.TabIndex = 1;
-            this.Seminar.SelectedIndexChanged += new System.EventHandler(this.Seminar_SelectedIndexChanged);
             // 
             // Trainer
             // 
@@ -83,7 +82,6 @@
             this.Trainer.Name = "Trainer";
             this.Trainer.Size = new System.Drawing.Size(121, 21);
             this.Trainer.TabIndex = 2;
-            this.Trainer.SelectedIndexChanged += new System.EventHandler(this.Trainer_SelectedIndexChanged);
             // 
             // CoTrainer
             // 
@@ -95,7 +93,6 @@
             this.CoTrainer.Name = "CoTrainer";
             this.CoTrainer.Size = new System.Drawing.Size(121, 21);
             this.CoTrainer.TabIndex = 3;
-            this.CoTrainer.SelectedIndexChanged += new System.EventHandler(this.CoTrainer_SelectedIndexChanged);
             // 
             // Ort
             // 
@@ -119,7 +116,6 @@
             this.Raum.Name = "Raum";
             this.Raum.Size = new System.Drawing.Size(121, 21);
             this.Raum.TabIndex = 5;
-            this.Raum.SelectedIndexChanged += new System.EventHandler(this.Raum_SelectedIndexChanged);
             // 
             // Kommentar
             // 
