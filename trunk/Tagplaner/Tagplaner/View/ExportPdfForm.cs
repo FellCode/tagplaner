@@ -24,6 +24,11 @@ namespace Tagplaner
             InitializeComponent();
         }
 
+        private void ExportPdfForm_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 0;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             exportPdf();
@@ -46,7 +51,8 @@ namespace Tagplaner
                 List<MTrainer> trainerList = new List<MTrainer>();
                 trainerList.Add(new MTrainer("Alexander", "Theis", "AT", true, true));
 
-                CPdfExporter pdfExporter = new CPdfExporter(MCalendar.GetInstance(), trainerList);
+                CPdfExporter pdfExporter = new CPdfExporter(MCalendar.GetInstance(),
+                    Convert.ToInt32(comboBox1.Text), trainerList);
                 pdfExporter.ExportPdf(saveFileDialog1.FileName);
             }
 
