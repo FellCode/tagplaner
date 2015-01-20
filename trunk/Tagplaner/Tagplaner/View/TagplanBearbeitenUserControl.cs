@@ -11,12 +11,18 @@ using Tagplaner;
 
 namespace Tagplaner
 {
+    // TODO:
+    // - Farbe der Seminarinfos
+    // - Variablen für die Objekte anlegen um den Code zu verkleinern
+    // - Beruffsschule einfüge Bugfix?
+
     /// <summary>
     /// Autor: Niklas Wazal, Felix Smuda
     /// Datum: 13.01.15
     /// Diese Klasse enthält alle nötigen Methoden zum Erstellen der DatenTabelle und zum füllen, lesen und ändern von Einträgen.
     /// innerhalb der Tabelle
     /// </summary>
+    /// 
     public partial class TagplanBearbeitenUserControl : UserControl
     {
         TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
@@ -31,6 +37,7 @@ namespace Tagplaner
         MCalendar mCalendar;
         private static TagplanBearbeitenUserControl instance;
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Erstellt eine Instanz der Klasse
@@ -43,6 +50,9 @@ namespace Tagplaner
                 instance = new TagplanBearbeitenUserControl();
             } return instance;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         /// Malt alle Elemente auf das UserControl
         /// </summary>
@@ -51,6 +61,8 @@ namespace Tagplaner
         {
             InitializeComponent();
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Fügt dem Panel das TagplanChangepanelUserControl hinzu
@@ -62,6 +74,7 @@ namespace Tagplaner
             panel1.Controls.Add(tagplanChangePanelUserControl);
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //------------------------------------------------------------------------------------------------------------
         // Im folgenden Bereich wird mehrfach eine Rechnung angewendet um für jede Zelle das entsprechende Objekt zu ermitteln.
@@ -76,17 +89,8 @@ namespace Tagplaner
         // - FillDataGrids()
         // - ApplyChangesToGrid()
         //------------------------------------------------------------------------------------------------------------------
-        
 
-
-
-
-
-
-
-
-
-
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         /// <summary>
@@ -98,62 +102,20 @@ namespace Tagplaner
         public void CreateDataGridViews(int countGrid)
         {
             mCalendar = MCalendar.GetInstance();
+            int columnCount = 6 * countGrid + 4;
 
             dGV.DataSource = null;
             dGV.Rows.Clear();
             dGV.MultiSelect = false;
-
-            //ermittelt dynamisch die anzahl der benötigten Fachrichtungsblöcke
-            int columnCount = 6 * countGrid + 4;
-            
-
-            //Diese werden fest am Index 0-3 angelegt.
             dGV.ColumnCount = columnCount;
-            dGV.Columns[0].Name = "KW";
-            dGV.Columns[1].Name = "Datum";
-            dGV.Columns[2].Name = "Ferien";
-            dGV.Columns[3].Name = "Feiertage";
-
-            dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-            dGV.Columns[0].ReadOnly = true;
-            dGV.Columns[1].ReadOnly = true;
-            dGV.Columns[2].ReadOnly = true;
-            dGV.Columns[3].ReadOnly = true;
 
 
-            // Header-Configuration
             // Beschriftet alle ColumnHeader und setzt sie auf nicht-Sortierbar und ReadOnly
-            for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
-            {
-                
-                dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-                dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-                dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-                dGV.Columns[7 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Co-Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-                dGV.Columns[8 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-                dGV.Columns[9 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
-
-                dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                dGV.Columns[4 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[5 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[6 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
-                dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
-            }// End-Header-Configuration
+            ConfigureColumnHeader(countGrid);
 
         }//End CreateDataGridViews
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Diese Methode befüllt die Tabelle Initial mit allen Werten die im MCalendar Objekt stehen
@@ -161,10 +123,6 @@ namespace Tagplaner
         /// <param name="calendarDays"></param>
         public void FillGrids(List<MCalendarDay> calendarDays)
         {
-
-
-            //dGV.DataSource = null;
-            //dGV.Rows.Clear();
 
             //TEST
             int columnCount = dGV.ColumnCount;
@@ -199,10 +157,7 @@ namespace Tagplaner
                     if (calendarDays[rowCounter].VacationName != null)
                         dGV[3, rowCounter].Value = calendarDays[rowCounter].VacationName;
 
-                    dGV.Columns[0].ReadOnly = true;
-                    dGV.Columns[1].ReadOnly = true;
-                    dGV.Columns[2].ReadOnly = true;
-                    dGV.Columns[3].ReadOnly = true;
+
 
                     if (calendarDays[rowCounter].HolidayName == null)
                     {
@@ -210,7 +165,7 @@ namespace Tagplaner
                         //Durchläuft alle Spalten der Tabelle und trägt alle Werte ein
                         for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
-                         
+
                             //Testdaten
                             if (rowCounter < 100)
                             {
@@ -243,7 +198,7 @@ namespace Tagplaner
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room != null)
                                     dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer != null)
-                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name +" " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
+                                    dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name + " " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer != null)
                                     dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name + " " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Surname;
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
@@ -307,6 +262,9 @@ namespace Tagplaner
             }// END Schreiben der Calendar Entrys
         }// END-FillGrids
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         /// Diese Methode ermittelt das Model zu dem das gewählte Element gehört
         /// </summary>
@@ -318,6 +276,9 @@ namespace Tagplaner
             return calendarEntry;
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         /// Hier werden die Änderungen übergeben und wieder in das DataGrid geschrieben
         /// </summary>
@@ -325,7 +286,7 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-            
+
             if (dGV.Rows.Count >= y_Coord + applyIteration)
             {
                 for (int i = 0; i < applyIteration; i++)
@@ -351,12 +312,16 @@ namespace Tagplaner
                         {
                             if (entry.Place != null)
                                 dGV[4 + 6 * x_Coord, y_Coord + i].Value = entry.Place.Place;
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
                             if (entry.Room != null)
                                 dGV[5 + 6 * x_Coord, y_Coord + i].Value = entry.Room.Number;
-                            if (entry.Trainer  != null)
-                                dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name +" "+ entry.Trainer.Surname;
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                            if (entry.Trainer != null)
+                                dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
                             if (entry.Cotrainer != null)
                                 dGV[7 + 6 * x_Coord, y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
                             if (entry.Seminar.Title != null)
                             {
                                 dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
@@ -390,7 +355,9 @@ namespace Tagplaner
             }
 
         }
-    
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         /// <summary>
         /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
@@ -413,6 +380,8 @@ namespace Tagplaner
                 panel1.Hide();
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Diese Methode prüft, ob eine Zelle valide ist. D.h ob dort hinter ein Calendar Entry liegen kann.
         /// Feiertage, Wochenende, Header und Footer(Index out of Range) werden als Invalide ausgewertet und ignoriert.
@@ -423,12 +392,10 @@ namespace Tagplaner
         /// <returns></returns>
         public bool CheckCellValidation(int x_Cell)
         {
-            if (!(((x_Coord == dGV.ColumnCount - 1
-                    || y_Coord == dGV.RowCount - 1)
-                    && dGV[x_Cell, y_Coord].ReadOnly == true)
+            if (!(((x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1) && dGV[x_Cell, y_Coord].ReadOnly == true)
                     || x_Cell <= 3
                     || y_Coord < 0
-                    || (!CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord].CalendarDate))
+                    || !(CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord].CalendarDate))
                     || MCalendar.GetInstance().CalendarList[y_Coord].HolidayName != null))
             {
                 return true;
@@ -438,17 +405,68 @@ namespace Tagplaner
                 return false;
             }
         }
-        
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public bool CheckWeekend(DateTime date)
         {
-            if (!(date.DayOfWeek.ToString() == "Saturday" || date.DayOfWeek.ToString() == "Sunday"))
-            {
-                return true;
-            }
-            else
+            if ((date.DayOfWeek.ToString() == "Saturday" || date.DayOfWeek.ToString() == "Sunday"))
             {
                 return false;
             }
+            else
+            {
+                return true;
+            }
         }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public void ConfigureColumnHeader(int countGrid)
+        {
+
+
+            dGV.Columns[0].Name = "KW";
+            dGV.Columns[1].Name = "Datum";
+            dGV.Columns[2].Name = "Ferien";
+            dGV.Columns[3].Name = "Feiertage";
+
+            dGV.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dGV.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dGV.Columns[0].ReadOnly = true;
+            dGV.Columns[1].ReadOnly = true;
+            dGV.Columns[2].ReadOnly = true;
+            dGV.Columns[3].ReadOnly = true;
+
+            for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
+            {
+
+                dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+                dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+                dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+                dGV.Columns[7 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Co-Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+                dGV.Columns[8 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+                dGV.Columns[9 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Aktivität " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
+
+                dGV.Columns[4 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[5 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[6 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[7 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[8 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dGV.Columns[9 + 6 * columnCounter].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                dGV.Columns[4 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[5 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[6 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[7 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[8 + 6 * columnCounter].ReadOnly = true;
+                dGV.Columns[9 + 6 * columnCounter].ReadOnly = true;
+            }// End-Header-Configuration
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
