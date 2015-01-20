@@ -354,8 +354,16 @@ namespace Tagplaner
                         }
                         else
                         {
-                            pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
-                                calendarEntry.Seminar.Comment, 4));
+                            if (showComments)
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title + "\n" +
+                                    calendarEntry.Seminar.Comment, 4));
+                            } 
+                            else 
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellSeminar(calendarEntry.Seminar.Title, 4));
+                            }
+
                         }
                     }
                     // Prüfen, ob der aktuelle Tag ein Schultag ist
@@ -371,7 +379,14 @@ namespace Tagplaner
                         }
                         else
                         {
-                            pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
+                            if (showComments)
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellSchool(calendarEntry.School.Comment));
+                            }
+                            else 
+                            {
+                                pdfTable.AddCell(this.CreateBodyTableCellSchool(""));
+                            }
                         }
                     }
                     // Prüfen, ob der aktuelle Tag ein Praxistag ist
@@ -387,7 +402,14 @@ namespace Tagplaner
                         }
                         else
                         {
-                            pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
+                            if (showComments) {
+                                 pdfTable.AddCell(this.CreateBodyTableCellPratice(calendarEntry.Practice.Comment, 4));
+                            }
+                            else
+                            {
+                                 pdfTable.AddCell(this.CreateBodyTableCellPratice("", 4));
+                            }
+                           
                         }
                     }
                     #endregion
