@@ -123,7 +123,10 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void btRaumadd_Click(object sender, EventArgs e)
         {
-            ltRaeume.Items.Add(Raum.SelectedItem);
+            if (Raum.SelectedItem != null)
+            {
+                ltRaeume.Items.Add(Raum.SelectedItem);
+            }
         }
 
         /// <summary>

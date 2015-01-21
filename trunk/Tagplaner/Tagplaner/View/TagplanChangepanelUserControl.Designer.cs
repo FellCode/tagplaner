@@ -236,7 +236,7 @@
             // 
             this.Seminarpanel.Location = new System.Drawing.Point(184, 3);
             this.Seminarpanel.Name = "Seminarpanel";
-            this.Seminarpanel.Size = new System.Drawing.Size(460, 152);
+            this.Seminarpanel.Size = new System.Drawing.Size(606, 152);
             this.Seminarpanel.TabIndex = 24;
             // 
             // ZweiterTrainer
