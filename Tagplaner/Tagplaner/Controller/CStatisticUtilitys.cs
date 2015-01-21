@@ -78,7 +78,8 @@ namespace Tagplaner
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
                     || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
                 {
-                    if(calendarDay.CalendarEntry.ElementAt(position).Seminar != null)
+                    if(calendarDay.CalendarEntry.ElementAt(position).Seminar != null
+                    && calendarDay.CalendarEntry.ElementAt(position).Practice == null)
                     {
                         seminarCounter++;
                     }
@@ -130,7 +131,8 @@ namespace Tagplaner
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
                     || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
                 {
-                    if (calendarDay.CalendarEntry.ElementAt(position).Practice != null)
+                    if (calendarDay.CalendarEntry.ElementAt(position).Practice != null
+                     && calendarDay.CalendarEntry.ElementAt(position).Seminar == null)
                     {
                         praticeCounter++;
                     }
@@ -138,6 +140,28 @@ namespace Tagplaner
             }
 
             return praticeCounter;
+        }
+
+        public static int CountPraticeAndSeminarDays(int position)
+        {
+            int praticeAndSeminarCounter = 0;
+
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
+            {
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                if (calendarDay.CalendarEntry.Count > 0
+                    && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                {
+                    if (calendarDay.CalendarEntry.ElementAt(position).Practice != null
+                     && calendarDay.CalendarEntry.ElementAt(position).Seminar != null)
+                    {
+                        praticeAndSeminarCounter++;
+                    }
+                }
+            }
+
+            return praticeAndSeminarCounter;
         }
     }
 }
