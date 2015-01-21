@@ -41,9 +41,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Einfügen_Click(object sender, EventArgs e)
         {
-            if (Tagart.SelectedIndex == 0 && Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
-                && Ort.SelectedItem == null && Raum.SelectedItem == null ||Tagart.SelectedIndex == 3 && Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
-                && Ort.SelectedItem == null && Raum.SelectedItem == null)
+            if (Tagart.SelectedItem == null)
             {
 
             }
@@ -78,6 +76,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Tagart_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClearBoxes();
             ChangeVisibility(Tagart, Seminarpanel);
         }
 
@@ -118,6 +117,38 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btRaumadd_Click(object sender, EventArgs e)
+        {
+            ltRaeume.Items.Add(Raum.SelectedItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            ltRaeume.Items.Remove(ltRaeume.SelectedItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btReset_Click(object sender, EventArgs e)
+        {
+            ClearBoxes();
+            Tagart.SelectedIndex = -1;
+            Tagart.Text = " ";
+        }
+
+        /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
         /// </summary>
         /// <param name="calendarentry"></param>
@@ -145,7 +176,10 @@ namespace Tagplaner
         /// </summary>
         public void PasteEntry()
         {
+            MCalendar.GetInstance().Saved = false;
+            
             MCalendarEntry ccalendarentry = new MCalendarEntry();
+            
 
             GetSeminar(ccalendarentry, Seminar);
             GetTrainer(ccalendarentry, Trainer);
@@ -160,6 +194,28 @@ namespace Tagplaner
 
             Weiterführung.Checked = false;
             AnzahlTage.Value = 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ClearBoxes()
+        {
+            Seminar.SelectedIndex = -1;
+            Seminar.Text = " ";
+            Trainer.SelectedIndex = -1;
+            Trainer.Text = " ";
+            ZweiterTrainer.Checked = false;
+            CoTrainer.SelectedIndex = -1;
+            CoTrainer.Text = " ";
+            Ort.SelectedIndex = -1;
+            Ort.Text = " ";
+            Raum.SelectedIndex = -1;
+            Raum.Text = " ";
+            ltRaeume.SelectedItems.Clear();
+            Kommentar.Clear();
+            Weiterführung.Checked = false;
+            AnzahlTage.Enabled = false;
         }
 
         /// <summary>
@@ -194,7 +250,13 @@ namespace Tagplaner
         {
 
             MPlace mort = (MPlace)Ort.SelectedItem;
-            cdb.FillRoomComboBox(Raum, mort.Id);
+            try
+            {
+                cdb.FillRoomComboBox(Raum, mort.Id);
+            }
+            catch(NullReferenceException)
+            {
+            }
             Raum.Text = "";
             Raum.Refresh();
         }
@@ -384,6 +446,10 @@ namespace Tagplaner
                     {
                         if (calendarentry.Seminar == null)
                         {
+                           
+                        }
+                        else
+                        {
                             kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
                         }
                     }
@@ -539,7 +605,15 @@ namespace Tagplaner
                 switch (tagartb.SelectedIndex)
                 {
                     case 0:
-                        calendarentry.Seminar.Comment = kommentarb.Text;
+                        if(Seminar.SelectedItem == null)
+                        {
+                            MSeminar mseminar = new MSeminar(kommentarb.Text);
+                            calendarentry.Seminar = mseminar;
+                        }
+                        else
+                        {
+                            calendarentry.Seminar.Comment = kommentarb.Text;
+                        }
                         break;
                     case 1:
                         MSchool mschool = new MSchool(kommentarb.Text);
@@ -550,7 +624,15 @@ namespace Tagplaner
                         calendarentry.Practice = mpractice;
                         break;
                     case 3:
-                        calendarentry.Seminar.Comment = kommentarb.Text;
+                        if (Seminar.SelectedItem == null)
+                        {
+                            MSeminar mseminar2 = new MSeminar(kommentarb.Text);
+                            calendarentry.Seminar = mseminar2;
+                        }
+                        else
+                        {
+                            calendarentry.Seminar.Comment = kommentarb.Text;
+                        }
                         MPractice mpractice2 = new MPractice("");
                         calendarentry.Practice = mpractice2;
                         break;
@@ -587,9 +669,5 @@ namespace Tagplaner
             }
 
         }
-
-       
-
-
     }
 }
