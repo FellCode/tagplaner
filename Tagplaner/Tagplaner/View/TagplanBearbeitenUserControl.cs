@@ -125,7 +125,7 @@ namespace Tagplaner
 
             //TEST
             int columnCount = dGV.ColumnCount;
-//Testdaten
+            //Testdaten
             /*                MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
                         MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
                         MSeminar seminar = new MSeminar("SEMINARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR", "Subtitel", "SAP", "false", "commment");
@@ -141,13 +141,13 @@ namespace Tagplaner
             {
                 if (calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Saturday" && calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Sunday")
                 {
-//Testdaten
-                /*                      trainer = new MTrainer("Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, false);
-                                        trainer_co = new MTrainer("CO-Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, true);
-                                        seminar = new MSeminar("SEMINARR - " + rowCounter.ToString(), "Subtitel", "SAP", "false", "commment");
-                                        practice = new MPractice("Praxis - " + rowCounter.ToString());
-                                        room.Add(new MRoom("209 - " + rowCounter.ToString()));
-                                        ort = new MPlace("Koeln - " + rowCounter.ToString(), "Arnold", room);*/
+                    //Testdaten
+                    /*                      trainer = new MTrainer("Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, false);
+                                            trainer_co = new MTrainer("CO-Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, true);
+                                            seminar = new MSeminar("SEMINARR - " + rowCounter.ToString(), "Subtitel", "SAP", "false", "commment");
+                                            practice = new MPractice("Praxis - " + rowCounter.ToString());
+                                            room.Add(new MRoom("209 - " + rowCounter.ToString()));
+                                            ort = new MPlace("Koeln - " + rowCounter.ToString(), "Arnold", room);*/
 
                     dGV.Rows.Add();
 
@@ -166,7 +166,7 @@ namespace Tagplaner
                         //Durchläuft alle Spalten der Tabelle und trägt alle Werte ein
                         for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
                         {
-//Testdaten
+                            //Testdaten
                             /*
                                                         if (rowCounter < 100)
                                                         {
@@ -185,55 +185,23 @@ namespace Tagplaner
                                 //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
                                 {
-                                    dGV[8 + 6 * columnCounter, rowCounter].Value = "Schule";
-                                    dGV[9 + 6 * columnCounter, rowCounter].Value = "Schule";
-
-                                    dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorSchool;
-                                    dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-                                }
-                                //Case: Ist ein Seminarobjekt vorhanden?
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
-                                {
-                                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place != null)
-                                        dGV[4 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Place.Place;
-                                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room != null)
-                                        dGV[5 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Room.Number;
-                                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer != null)
-                                        dGV[6 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Name + " " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Trainer.Surname;
-                                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer != null)
-                                        dGV[7 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Name + " " + mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Cotrainer.Surname;
-                                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
-                                    {
-                                        dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
-                                        dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
-                                    }
-
-                                    dGV[4 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[5 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[6 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[7 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-
+                                    FillSchool(columnCounter, rowCounter);
                                 }
                                 //Case: Ist ein Practice-Objekt vorhanden?
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                                 {
-                                    dGV[8 + 6 * columnCounter, rowCounter].Value = "Praxis";
-                                    dGV[9 + 6 * columnCounter, rowCounter].Value = "Praxis";
-
-                                    dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorPractice;
-                                    dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorPractice;
+                                    FillPractice(columnCounter, rowCounter);
+                                }
+                                //Case: Ist ein Seminarobjekt vorhanden?
+                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
+                                {
+                                    FillSeminar(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
 
                                 }
                                 //Case: Sowohl Seminar als auch Praxis Objekt existieren
                                 if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
                                 {
-                                    dGV[8 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar.Title;
-                                    dGV[9 + 6 * columnCounter, rowCounter].Value = mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice.Comment;
-                                    dGV[8 + 6 * columnCounter, rowCounter].Style.BackColor = colorSeminar;
-                                    dGV[9 + 6 * columnCounter, rowCounter].Style.BackColor = colorPractice;
+                                    FillSeminarAndPractice(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
                                 }
                             }//END Eintrag vorhanden
                             else
@@ -304,77 +272,20 @@ namespace Tagplaner
                         MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
                         if (entry.School != null)
                         {
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
-
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
-                            
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
-                            
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
-
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
-
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+                            FillSchool(i);
                         }
                         if (entry.Practice != null)
                         {
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
-
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
-
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
-                            
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
-
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
-                            
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+                            FillPractice(i);
                         }
 
                         if (entry.Seminar != null)
                         {
-                            if (entry.Place != null)
-                                dGV[4 + 6 * x_Coord, y_Coord + i].Value = entry.Place.Place;
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                            if (entry.Room != null)
-                                dGV[5 + 6 * x_Coord, y_Coord + i].Value = entry.Room.Number;
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                            if (entry.Trainer != null)
-                                dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                            
-                            if (entry.Cotrainer != null)
-                                dGV[7 + 6 * x_Coord, y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                        
-                            if (entry.Seminar.Title != null)
-                            {
-                                dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
-                                dGV[9 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
-                            }
-                                dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                                dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                            
+                            FillSeminar(i, entry);
 
                             if (entry.Practice != null && entry.Seminar != null)
                             {
-                                dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
-                                dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
-
-                                dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                                dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+                                FillSeminarAndPractice(i, entry);
                             }
                         }
                     }
@@ -395,6 +306,175 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        private void FillSchool(int day)
+        {
+            dGV[4 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[4 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+            dGV[5 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[5 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+            dGV[6 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[6 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+            dGV[7 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[7 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+            dGV[8 + 6 * x_Coord, y_Coord + day].Value = "Berufschule";
+            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Berufschule";
+            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        private void FillPractice(int day)
+        {
+            dGV[4 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[4 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
+            dGV[5 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[5 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
+            dGV[6 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[6 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
+            dGV[7 + 6 * x_Coord, y_Coord + day].Value = "";
+            dGV[7 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
+            dGV[8 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
+            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
+            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
+            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FillSeminar(int day, MCalendarEntry entry)
+        {
+            if (entry.Place != null)
+                dGV[4 + 6 * x_Coord, y_Coord + day].Value = entry.Place.Place;
+            dGV[4 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+            if (entry.Room != null)
+                dGV[5 + 6 * x_Coord, y_Coord + day].Value = entry.Room.Number;
+            dGV[5 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+            if (entry.Trainer != null)
+                dGV[6 + 6 * x_Coord, y_Coord + day].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
+            dGV[6 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+
+            if (entry.Cotrainer != null)
+                dGV[7 + 6 * x_Coord, y_Coord + day].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
+            dGV[7 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+
+            if (entry.Seminar.Title != null)
+            {
+                dGV[8 + 6 * x_Coord, y_Coord + day].Value = entry.Seminar.Title;
+                dGV[9 + 6 * x_Coord, y_Coord + day].Value = entry.Seminar.Title;
+            }
+            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FillSeminarAndPractice(int day, MCalendarEntry entry)
+        {
+            dGV[8 + 6 * x_Coord, y_Coord + day].Value = entry.Seminar.Title;
+            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
+
+            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FillSchool(int columnCounter, int rowCounter)
+        {
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "Berufschule";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "Berufschule";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        private void FillPractice(int columnCounter, int rowCounter)
+        {
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "Praxis";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "Praxis";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FillSeminar(MCalendarEntry entry, int columnCounter, int rowCounter)
+        {
+            if (entry.Place != null)
+                dGV[columnCounter, rowCounter].Value = entry.Place.Place;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            if (entry.Room != null)
+                dGV[columnCounter, rowCounter].Value = entry.Room.Number;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            if (entry.Trainer != null)
+                dGV[columnCounter, rowCounter].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+
+            if (entry.Cotrainer != null)
+                dGV[columnCounter, rowCounter].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+
+            if (entry.Seminar.Title != null)
+            {
+                dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
+                dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
+            }
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void FillSeminarAndPractice(MCalendarEntry entry, int columnCounter, int rowCounter)
+        {
+            dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
+            dGV[columnCounter, rowCounter].Value = "Praxis";
+
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
@@ -432,7 +512,7 @@ namespace Tagplaner
         /// <returns></returns>
         public bool CheckCellValidation(int x_Cell)
         {
-            if (!((x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1) 
+            if (!((x_Coord == dGV.ColumnCount - 1 || y_Coord == dGV.RowCount - 1)
                     || x_Cell <= 3
                     || y_Coord < 0
                     || !(CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord].CalendarDate))
