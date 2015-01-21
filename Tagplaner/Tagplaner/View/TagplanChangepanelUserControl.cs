@@ -43,7 +43,8 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void Einfügen_Click(object sender, EventArgs e)
         {
-            if (Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
+            if (Tagart.SelectedIndex == 0 && Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
+                && Ort.SelectedItem == null && Raum.SelectedItem == null ||Tagart.SelectedIndex == 3 && Seminar.SelectedItem == null && Trainer.SelectedItem == null && CoTrainer.SelectedItem == null
                 && Ort.SelectedItem == null && Raum.SelectedItem == null)
             {
 
@@ -549,7 +550,8 @@ namespace Tagplaner
                         break;
                     case 3:
                         calendarentry.Seminar.Comment = kommentarb.Text;
-                        calendarentry.Practice.Comment = "";
+                        MPractice mpractice2 = new MPractice("");
+                        calendarentry.Practice = mpractice2;
                         break;
                 }
             }
