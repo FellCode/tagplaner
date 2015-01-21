@@ -154,6 +154,17 @@ namespace Tagplaner
             return lvPraticeDays;
         }
 
+        private ListViewItem GetPraticeAndSeminarDaysListViewItem(int position)
+        {
+            int praticeAndSeminarDays = CStatisticUtilitys.CountPraticeAndSeminarDays(position);
+
+            ListViewItem lvPraticeDays = new ListViewItem();
+            lvPraticeDays.Text = "Seminare mit Praxis";
+            lvPraticeDays.SubItems.Add(Convert.ToString(praticeAndSeminarDays));
+
+            return lvPraticeDays;
+        }
+
         /// <summary>
         /// Diese Funktion fügt in der ListView1 für alle Jahrgänge die Anzahl  Seminartage, Praxistage und Schultage hinzu. 
         /// </summary>
@@ -171,6 +182,7 @@ namespace Tagplaner
                 listView1.Items.Add(GetSeminarDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetSchoolDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetPraticeDaysListViewItem(counterSpecialities));
+                listView1.Items.Add(GetPraticeAndSeminarDaysListViewItem(counterSpecialities));
                
            };
         }
