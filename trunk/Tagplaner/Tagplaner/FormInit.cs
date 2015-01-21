@@ -102,7 +102,7 @@ namespace Tagplaner
             }
             else
             {
-                this.Text = "Tagplaner | " + date + " - " + time + " | stand vom: " + MCalendar.GetInstance().LastModified.ToShortDateString() + " " + MCalendar.GetInstance().LastModified.ToShortTimeString();
+                this.Text = "Tagplaner | " + date + " - " + time + " | Stand vom: " + MCalendar.GetInstance().LastModified.ToShortDateString() + " " + MCalendar.GetInstance().LastModified.ToShortTimeString();
             }
         }
 
