@@ -142,6 +142,11 @@ namespace Tagplaner
             return praticeCounter;
         }
 
+        /// <summary>
+        /// Zählt alle Seminare mit Praxistagen zwischen dem Start- und Enddatum der MCalendar Instanz
+        /// und gibt diese zurück
+        /// </summary>
+        /// <returns></returns>
         public static int CountPraticeAndSeminarDays(int position)
         {
             int praticeAndSeminarCounter = 0;
