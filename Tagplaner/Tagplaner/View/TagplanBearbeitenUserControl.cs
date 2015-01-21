@@ -319,17 +319,25 @@ namespace Tagplaner
                         if (entry.Seminar != null)
                         {
                             if (entry.Place != null)
+                            {
                                 dGV[4 + 6 * x_Coord, y_Coord + i].Value = entry.Place.Place;
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                            }
                             if (entry.Room != null)
+                            {
                                 dGV[5 + 6 * x_Coord, y_Coord + i].Value = entry.Room.Number;
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                            }
                             if (entry.Trainer != null)
+                            {
+                                dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
                                 dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
+                            }
                             if (entry.Cotrainer != null)
+                            {
                                 dGV[7 + 6 * x_Coord, y_Coord + i].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                                dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSeminar;
+                            }
                             if (entry.Seminar.Title != null)
                             {
                                 dGV[8 + 6 * x_Coord, y_Coord + i].Value = entry.Seminar.Title;
