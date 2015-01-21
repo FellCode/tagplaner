@@ -27,11 +27,29 @@ namespace Tagplaner
         private void ExportPdfForm_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 0;
+
+            addSpecialitiesToCheckedListBox();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            exportPdf();
+            if (checkedListBox1.CheckedItems.Count == Convert.ToInt32(comboBox1.Text)) {
+                exportPdf();
+            }
+            else if (checkedListBox1.CheckedItems.Count < Convert.ToInt32(comboBox1.Text))
+            {
+                MessageBox.Show(MMessage.WARNING_SELECTED_TO_FEW_ENTRIES,
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show(MMessage.WARNING_SELECTED_TO_MANY_ENTRIES,
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -53,7 +71,7 @@ namespace Tagplaner
 
                 CPdfExporter pdfExporter = new CPdfExporter(
                     MCalendar.GetInstance(),
-                    Convert.ToInt32(comboBox1.Text), 
+                    Convert.ToInt32(comboBox1.Text),
                     checkBox2.Checked,
                     trainerList);
                 pdfExporter.ExportPdf(saveFileDialog1.FileName);
@@ -61,11 +79,44 @@ namespace Tagplaner
 
             if (checkBox1.Checked && File.Exists(saveFileDialog1.FileName))
             {
-                this.Close();
                 System.Diagnostics.Process.Start(saveFileDialog1.FileName);
             }
+        }
 
+        /// <summary>
+        /// Liest die SpecialityListe der MCalendar Instanz aus und fügt einen Eintrag pro
+        /// Speciality in die checkedListbox ein (gleiche IdentifierOfYear werden gruppiert)
+        /// </summary>
+        private void addSpecialitiesToCheckedListBox()
+        {
+            checkedListBox1.Items.Clear();
+
+            MCalendar calendar = MCalendar.GetInstance();
+            for (int i = 0; i < MCalendar.GetInstance().Speciality.Count; i++)
+            {
+                MSpeciality currentSpecialityItem = calendar.Speciality[i];
+                MSpeciality nextSpecialityItem = null;
+
+                if (calendar.Speciality.Count - 1 > i)
+                {
+                    nextSpecialityItem = calendar.Speciality[i + 1];
+
+                    if (!currentSpecialityItem.IdentifierOfYear.Equals(nextSpecialityItem.IdentifierOfYear))
+                    {
+                        checkedListBox1.Items.Add(currentSpecialityItem.IdentifierOfYear);
+                    }
+                }
+                else
+                {
+                    checkedListBox1.Items.Add(currentSpecialityItem.IdentifierOfYear);
+                }
+            }
+        }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
             this.Close();
         }
+
     }
 }
