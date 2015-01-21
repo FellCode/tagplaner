@@ -279,5 +279,10 @@ namespace Tagplaner
             DateTime datetime = DateTime.Now;
             statusStrip1.Items[0].Text = "[" + datetime.ToString() + "] - " + message;
         }
+
+        private void HelpOnMouseClicked(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "Hilfe für Tagplaner.chm", HelpNavigator.KeywordIndex, tabControl1.SelectedTab.Text);
+        }
     }
 }
