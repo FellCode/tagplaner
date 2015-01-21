@@ -66,7 +66,7 @@
             // 
             this.Seminar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Seminar.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.Seminar.DropDownWidth = 250;
+            this.Seminar.DropDownWidth = 300;
             this.Seminar.FormattingEnabled = true;
             this.Seminar.Location = new System.Drawing.Point(184, 39);
             this.Seminar.Name = "Seminar";
@@ -99,7 +99,7 @@
             // 
             this.Ort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.Ort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.Ort.DropDownWidth = 180;
+            this.Ort.DropDownWidth = 200;
             this.Ort.FormattingEnabled = true;
             this.Ort.Location = new System.Drawing.Point(479, 39);
             this.Ort.Name = "Ort";
