@@ -153,12 +153,10 @@ namespace Tagplaner
 
                     dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek;
                     dGV[1, rowCounter].Value = calendarDays[rowCounter].GetCalendarDatePrintDate();
-                    if (calendarDays[rowCounter].HolidayName != null)
-                        dGV[2, rowCounter].Value = calendarDays[rowCounter].HolidayName;
                     if (calendarDays[rowCounter].VacationName != null)
-                        dGV[3, rowCounter].Value = calendarDays[rowCounter].VacationName;
-
-
+                        dGV[2, rowCounter].Value = calendarDays[rowCounter].VacationName;
+                    if (calendarDays[rowCounter].HolidayName != null)
+                        dGV[3, rowCounter].Value = calendarDays[rowCounter].HolidayName;
 
                     if (calendarDays[rowCounter].HolidayName == null)
                     {
@@ -252,7 +250,6 @@ namespace Tagplaner
             return calendarEntry;
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
@@ -306,6 +303,10 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Füllt die DataGridView mit leeren Felder bzw. Berufsschule für den entsprechenden Tag
+        /// </summary>
+        /// <param name="day"></param>
         private void FillSchool(int day)
         {
             dGV[4 + 6 * x_Coord, y_Coord + day].Value = "";
@@ -329,7 +330,38 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Füllt die DataGridView mit leeren Felder bzw. Berufsschule für den entsprechenden Tag
+        /// </summary>
+        /// <param name="columnCounter"></param>
+        /// <param name="rowCounter"></param>
+        private void FillSchool(int columnCounter, int rowCounter)
+        {
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
 
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "Berufschule";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+
+            dGV[columnCounter, rowCounter].Value = "Berufschule";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Füllt die DataGridView mit leeren Felder bzw. Praxis für den entsprechenden Tag
+        /// </summary>
+        /// <param name="day"></param>
         private void FillPractice(int day)
         {
             dGV[4 + 6 * x_Coord, y_Coord + day].Value = "";
@@ -353,6 +385,39 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Füllt die DataGridView mit leeren Felder bzw. Praxis für den entsprechenden Tag
+        /// </summary>
+        /// <param name="columnCounter"></param>
+        /// <param name="rowCounter"></param>
+        private void FillPractice(int columnCounter, int rowCounter)
+        {
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "Praxis";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+
+            dGV[columnCounter, rowCounter].Value = "Praxis";
+            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Füllt die DataGridView mit den entsprechenden Daten für einen Seminartag
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="entry"></param>
         private void FillSeminar(int day, MCalendarEntry entry)
         {
             if (entry.Place != null)
@@ -377,66 +442,15 @@ namespace Tagplaner
             dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
             dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private void FillSeminarAndPractice(int day, MCalendarEntry entry)
-        {
-            dGV[8 + 6 * x_Coord, y_Coord + day].Value = entry.Seminar.Title;
-            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
-
-            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
-            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
-        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void FillSchool(int columnCounter, int rowCounter)
-        {
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-            dGV[columnCounter, rowCounter].Value = "Berufschule";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-
-            dGV[columnCounter, rowCounter].Value = "Berufschule";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        private void FillPractice(int columnCounter, int rowCounter)
-        {
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-
-            dGV[columnCounter, rowCounter].Value = "Praxis";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-
-            dGV[columnCounter, rowCounter].Value = "Praxis";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        /// <summary>
+        /// Füllt die DataGridView mit den entsprechenden Daten für einen Seminartag
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="columnCounter"></param>
+        /// <param name="rowCounter"></param>
         private void FillSeminar(MCalendarEntry entry, int columnCounter, int rowCounter)
         {
             if (entry.Place != null)
@@ -461,8 +475,32 @@ namespace Tagplaner
             dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
             dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
         }
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Füllt die DataGridView mit den entsprechenden Daten für einen Seminar an welchem parallel ein Praxis ist
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="entry"></param>
+        private void FillSeminarAndPractice(int day, MCalendarEntry entry)
+        {
+            dGV[8 + 6 * x_Coord, y_Coord + day].Value = entry.Seminar.Title;
+            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
+
+            dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSeminar;
+            dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Füllt die DataGridView mit den entsprechenden Daten für einen Seminar an welchem parallel ein Praxis ist
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="columnCounter"></param>
+        /// <param name="rowCounter"></param>
         private void FillSeminarAndPractice(MCalendarEntry entry, int columnCounter, int rowCounter)
         {
             dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
@@ -471,10 +509,8 @@ namespace Tagplaner
             dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
             dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
         }
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Wird eine Zelle angeklickt werden die Koordinaten der Zelle ausgelesen, die auch den Indizies der Objekte 
