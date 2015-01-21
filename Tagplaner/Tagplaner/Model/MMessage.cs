@@ -72,5 +72,15 @@ namespace Tagplaner
         /// Warnung: Die im Raumfeld angegebene Wert existiert nicht
         /// </summary>
         public static string WARNING_NO_ROOM_SET = "Der für Raum angegebene Wert ist existiert nicht";
+
+        /// <summary>
+        /// Warnung: Sie haben zuwenig Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden.
+        /// </summary>
+        public static string WARNING_SELECTED_TO_FEW_ENTRIES = "Sie haben zuwenig Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden.";
+
+        /// <summary>
+        /// Sie haben zuviele Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden
+        /// </summary>
+        public static string WARNING_SELECTED_TO_MANY_ENTRIES = "Sie haben zuviele Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden";
     }
 }
