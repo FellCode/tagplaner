@@ -529,6 +529,12 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Überprüft ob zwei TextBoxes den gleichen Text enthalten
+        /// </summary>
+        /// <param name="textBoxA">Erste TextBox</param>
+        /// <param name="textBoxB">Zweite TextBox</param>
+        /// <returns></returns>
         public bool CheckIdentifierOfYearsNotEqual(TextBox textBoxA, TextBox textBoxB)
         {
             if (String.Equals(textBoxA.Text.ToUpper(), textBoxB.Text.ToUpper()))
