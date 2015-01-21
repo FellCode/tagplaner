@@ -32,6 +32,11 @@ namespace Tagplaner
         /// Warnung: Keine Klassenbezeichnung angegeben!
         /// </summary>
         public static string WARNING_NO_IDENTIFICATION_SET = "Keine Klassenbezeichnung angegeben!";
+        
+        /// <summary>
+        /// Warnung: Jahrgangsbezeichnungen stimmen überein!
+        /// </summary>
+        public static string WARNING_IDENTIFICATION_IS_EQUAL = "Jahrgangsbezeichnungen stimmen überein!";
 
         /// <summary>
         /// Fehler: Keine Klasse in Jahrgang gewählt!
