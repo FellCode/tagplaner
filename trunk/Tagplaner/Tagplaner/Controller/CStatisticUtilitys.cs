@@ -67,14 +67,18 @@ namespace Tagplaner
         /// und gibt diese zurück
         /// </summary>
         /// <returns></returns>
-        public static int CountSeminarDays()
+        public static int CountSeminarDays(int position)
         {
             int seminarCounter = 0;
             
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                if (calendarDay.CalendarEntry.Count > 0) { 
-                    if (calendarDay.CalendarEntry.ElementAt(0).Seminar != null)
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                if (calendarDay.CalendarEntry.Count > 0
+                    && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                {
+                    if(calendarDay.CalendarEntry.ElementAt(position).Seminar != null)
                     {
                         seminarCounter++;
                     }
@@ -89,15 +93,18 @@ namespace Tagplaner
         /// und gibt diese zurück 
         /// </summary>
         /// <returns></returns>
-        public static int CountSchoolDays()
+        public static int CountSchoolDays(int position)
         {
             int schoolCounter = 0;
 
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                if (calendarDay.CalendarEntry.Count > 0)
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                if (calendarDay.CalendarEntry.Count > 0
+                    && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
                 {
-                    if (calendarDay.CalendarEntry.ElementAt(0).School != null)
+                    if (calendarDay.CalendarEntry.ElementAt(position).School != null)
                     {
                         schoolCounter++;
                     }
@@ -112,15 +119,18 @@ namespace Tagplaner
         /// und gibt diese zurück
         /// </summary>
         /// <returns></returns>
-        public static int CountPraticeDays()
+        public static int CountPraticeDays(int position)
         {
             int praticeCounter = 0;
 
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                if (calendarDay.CalendarEntry.Count > 0)
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                if (calendarDay.CalendarEntry.Count > 0
+                    && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
                 {
-                    if (calendarDay.CalendarEntry.ElementAt(0).Practice != null)
+                    if (calendarDay.CalendarEntry.ElementAt(position).Practice != null)
                     {
                         praticeCounter++;
                     }
