@@ -299,23 +299,25 @@ namespace Tagplaner
                     dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()],
                     FONT_NORMAL,
                     COLOR_BLANK,
-                    1));                                                                                                             // Wochentag
+                    1));                                                                        // Wochentag
             pdfTable.AddCell(
                 CreateTabeCell(
                     calendarDay.CalendarDate.Date.ToShortDateString(),
                     FONT_NORMAL,
                     COLOR_BLANK,
-                    2));                                                                                                             // Datum                  
+                    2));                                                                        // Datum                  
 
             // Prüfen ob aktueller Tag ein Ferientag ist
+            #region Ferien
             if (!String.IsNullOrEmpty(calendarDay.VacationName))
             {
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1));                                            // Ferien
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1));            // Ferien
             }
             else
             {
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                              // Leere Zelle
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));              // Leere Zelle
             }
+            #endregion
 
             // Prüfen, ob der aktuelle Tag ein Feiertag ist
             if (!String.IsNullOrEmpty(calendarDay.HolidayName))
@@ -334,9 +336,10 @@ namespace Tagplaner
                 // Year two - FIAE
                 MCalendarEntry calendarEntry = calendarDay.CalendarEntry[0];
 
-                // Durchlauf pro anzahl der Ausbildungsjahrgänge
+                // Durchlauf pro Anzahl der Ausbildungsjahrgänge
                 for (int i = 0; i < numberOfApprenticeships; i++)
                 {
+                    // Spalte für Anzahl der Fachrichtungen (2) pro Anzahl der Ausbildungsjahrgänge erstellen
                     for (int j = 0; j < 2 * numberOfApprenticeships; j++)
                     {
                         // Prüfen, ob der aktuelle Tag ein Seminartag ist
@@ -345,12 +348,10 @@ namespace Tagplaner
                             CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
                         }
                         // Prüfen, ob der aktuelle Tag ein Schultag ist
-
                         else if (calendarEntry.School != null)
                         {
                             CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
                         }
-
                         // Prüfen, ob der aktuelle Tag ein Praxistag ist
                         else if (calendarEntry.Practice != null)
                         {
