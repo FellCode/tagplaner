@@ -46,5 +46,10 @@ namespace Tagplaner
             DateTime datetime = DateTime.Now;
             this.listBox1.Items.Add("[" + datetime.ToString() + "] - " + debugMessage);
         }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+        }
     }
 }
