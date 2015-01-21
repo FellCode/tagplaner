@@ -10,8 +10,6 @@ using System.Windows.Forms;
 
 namespace Tagplaner
 {
-    // breite der drop down, auto complete ohne das man reinschreiben kann, fall Seminar/Praxis einbauen, 
-
     /// <summary>
     /// Autor: Matthias Ohm
     /// Datum: 14.01.15
@@ -384,9 +382,12 @@ namespace Tagplaner
                 {
                     if (calendarentry.School == null)
                     {
-                        kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
+                        if (calendarentry.Seminar == null)
+                        {
+                            kommentarb.Text = Convert.ToString(calendarentry.Seminar.Comment);
+                        }
                     }
-                    if (calendarentry.Seminar == null)
+                    else
                     {
                         kommentarb.Text = Convert.ToString(calendarentry.School.Comment);
                     }
