@@ -39,6 +39,9 @@ namespace Tagplaner
         private String holidayCurrentYearUrl;
         private String holidayNextYearUrl;
 
+        List<TextBox> listOfTextBoxes;
+        List<CheckBox> listOfCheckBoxes;
+
         /// <summary>
         /// Erzeugt ein Objekt vom Typ TagplanAnlegenUserControl
         /// </summary>
@@ -62,6 +65,11 @@ namespace Tagplaner
             vacationNextYearUrl = "";
             holidayCurrentYearUrl = "";
             holidayNextYearUrl = "";
+
+            listOfCheckBoxes = new List<CheckBox>();
+            listOfTextBoxes = new List<TextBox>();
+
+            FillCheckBoxTextBoxLists();
         }
 
         /// <summary>
@@ -374,24 +382,32 @@ namespace Tagplaner
         /// <returns>Wahrheitswert ob alle nötigen Auswahlen vorgenommen wurden</returns>
         private bool CheckIdentificationAndClassesChoosen()
         {
+            //TextBoxes und CheckBoxes werden weiß
+            WhitenControls();
+
             switch (numberOfYears)
             {
+                //Es wird überprüft ob mindestens eine entsprechende CheckBox angewählt ist und ob die zugehörige TextBox gefüllt ist
                 case 1:
+                    //Überprüfung erster Jahrgang
                     if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
                     {
                         return false;
                     }
                     else return true;
                 case 2:
+                    //Überprüfung erster Jahrgang
                     if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung zweiter Jahrgang
                     else if
                         (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Vergleich erster mit zweitem Jahrgang
                     else if
                         (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung))
                     {
@@ -399,20 +415,24 @@ namespace Tagplaner
                     }
                     else return true;
                 case 3:
+                    //Überprüfung erster Jahrgang
                     if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung zweiter Jahrgang
                     else if
                         (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung dritter Jahrgang
                     else if
                         (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Vergleich erster mit zweitem/erster mit drittem/zweiter mit drittem Jahrgang
                     else if
                         (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung)
                         ||
@@ -424,25 +444,30 @@ namespace Tagplaner
                     }
                     else return true;
                 case 4:
+                    //Überprüfung erster Jahrgang
                     if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung zweiter Jahrgang
                     else if
                         (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung dritter Jahrgang
                     else if
                         (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Überprüfung vierter Jahrgang
                     else if
                     (!CheckClassesChoosen(checkBox_VierterJahrgangAE, checkBox_VierterJahrgangSI) || !CheckIdentifierSet(textBox_VierterJahrgangBezeichnung))
                     {
                         return false;
                     }
+                    //Vergleich erster mit zweitem/erster mit drittem/erster mit viertem/zweiter mit drittem/zweiter mit viertem/dritter mit viertem Jahrgang
                     else if
                         (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung)
                         ||
@@ -481,8 +506,6 @@ namespace Tagplaner
             }
             else
             {
-                checkBoxAE.BackColor = Color.White;
-                checkBoxSI.BackColor = Color.White;
                 return true;
             }
         }
@@ -502,14 +525,13 @@ namespace Tagplaner
             }
             else
             {
-                textBox.BackColor = Color.White;
                 return true;
             }
         }
 
         public bool CheckIdentifierOfYearsNotEqual(TextBox textBoxA, TextBox textBoxB)
         {
-            if (String.Equals(textBoxA.Text, textBoxB.Text))
+            if (String.Equals(textBoxA.Text.ToUpper(), textBoxB.Text.ToUpper()))
             {
                 textBoxA.BackColor = Color.FromArgb(255, 127, 80);
                 textBoxB.BackColor = Color.FromArgb(255, 127, 80);
@@ -518,10 +540,48 @@ namespace Tagplaner
             }
             else
             {
-                textBoxA.BackColor = Color.White;
-                textBoxB.BackColor = Color.White;
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Weist den Controls die Hintergrundfarbe Weiß zu
+        /// </summary>
+        public void WhitenControls()
+        {
+            foreach (TextBox textBox in listOfTextBoxes)
+            {
+                textBox.BackColor = Color.White;
+            }
+            foreach (CheckBox checkBox in listOfCheckBoxes)
+            {
+                checkBox.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// Füllt die Liste der Checkboxes und die Liste der Textboxes
+        /// </summary>
+        public void FillCheckBoxTextBoxLists()
+        {
+            //Liste wird mit allen Checkboxes gefüllt - Dient der Farbgestaltung bei Fehleingaben
+            listOfCheckBoxes.Add(checkBox_ErsterJahrgangAE);
+            listOfCheckBoxes.Add(checkBox_ErsterJahrgangSI);
+
+            listOfCheckBoxes.Add(checkBox_ZweiterJahrgangAE);
+            listOfCheckBoxes.Add(checkBox_ZweiterJahrgangSI);
+
+            listOfCheckBoxes.Add(checkBox_DritterJahrgangAE);
+            listOfCheckBoxes.Add(checkBox_DritterJahrgangSI);
+
+            listOfCheckBoxes.Add(checkBox_VierterJahrgangAE);
+            listOfCheckBoxes.Add(checkBox_VierterJahrgangSI);
+
+            //Liste wird mit allen Textboxes gefüllt - Dient der Farbgestaltung bei Fehleingaben
+            listOfTextBoxes.Add(textBox_ErsterJahrgangBezeichnung);
+            listOfTextBoxes.Add(textBox_ZweiterJahrgangBezeichnung);
+            listOfTextBoxes.Add(textBox_DritterJahrgangBezeichnung);
+            listOfTextBoxes.Add(textBox_VierterJahrgangBezeichnung);
         }
     }
 }
