@@ -207,6 +207,9 @@ namespace Tagplaner
         /// <param name="filename">Dateipfad und Name zur Datei die geöffnet werden soll</param>
         private void OpenTagplan(string filename)
         {
+            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
+            MCalendar.GetInstance().Speciality.Clear();
+            
             CSerialize serializer = new CSerialize();
             MCalendar calendarWithDays = (MCalendar)serializer.DeserializeObject(filename);
             MCalendar.SetInstance(calendarWithDays);
@@ -216,9 +219,6 @@ namespace Tagplaner
             tagplanBearbeitenUC.FillGrids(MCalendar.GetInstance().CalendarList);
             EnableBearbeitenStatistikTabPage();
             tagplanAnlegenUC.NextTabPage();
-
-            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
-            MCalendar.GetInstance().Speciality.Clear();
         }
 
         /// <summary>
@@ -231,9 +231,6 @@ namespace Tagplaner
             MCalendar.GetInstance().LastModified = DateTime.Now;
             serializer.SerializeObject(MCalendar.GetInstance(), filename);
             MCalendar.GetInstance().Saved = true;
-
-            //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
-            MCalendar.GetInstance().Speciality.Clear();
         }
 
         private void exportExcel()

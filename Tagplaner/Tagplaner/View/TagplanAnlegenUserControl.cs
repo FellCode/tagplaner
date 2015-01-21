@@ -392,6 +392,16 @@ namespace Tagplaner
                     {
                         return false;
                     }
+                    else if
+                        (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                        (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
                     else return true;
                 case 3:
                     if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
@@ -404,7 +414,16 @@ namespace Tagplaner
                         return false;
                     }
                     else if
-                    (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                        (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                        (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_DritterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ZweiterJahrgangBezeichnung, textBox_DritterJahrgangBezeichnung))
                     {
                         return false;
                     }
@@ -425,7 +444,17 @@ namespace Tagplaner
                         return false;
                     }
                     else if
-                    (!CheckClassesChoosen(checkBox_VierterJahrgangAE, checkBox_VierterJahrgangSI) || !CheckIdentifierSet(textBox_VierterJahrgangBezeichnung))
+                        (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_DritterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_VierterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ZweiterJahrgangBezeichnung, textBox_DritterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_ZweiterJahrgangBezeichnung, textBox_VierterJahrgangBezeichnung)
+                        ||
+                        !CheckIdentifierOfYearsNotEqual(textBox_DritterJahrgangBezeichnung, textBox_VierterJahrgangBezeichnung))
                     {
                         return false;
                     }
@@ -474,6 +503,23 @@ namespace Tagplaner
             else
             {
                 textBox.BackColor = Color.White;
+                return true;
+            }
+        }
+
+        public bool CheckIdentifierOfYearsNotEqual(TextBox textBoxA, TextBox textBoxB)
+        {
+            if (String.Equals(textBoxA.Text, textBoxB.Text))
+            {
+                textBoxA.BackColor = Color.FromArgb(255, 127, 80);
+                textBoxB.BackColor = Color.FromArgb(255, 127, 80);
+                formInit.ShowMessageInStatusbar(MMessage.WARNING_IDENTIFICATION_IS_EQUAL);
+                return false;
+            }
+            else
+            {
+                textBoxA.BackColor = Color.White;
+                textBoxB.BackColor = Color.White;
                 return true;
             }
         }
