@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using Tagplaner.View;
 
 namespace Tagplaner
 {
@@ -19,6 +18,7 @@ namespace Tagplaner
     public partial class TagplanAnlegenUserControl : UserControl
     {
         private FerienFeiertageAuswaehlenForm ferienFeiertageAuswaehlenForm;
+
         private DataGridView dGV;
 
         private FormInit formInit;
@@ -54,11 +54,14 @@ namespace Tagplaner
             numberOfYears = 1;
             InitializeComponent();
 
-            databaseController = CDatabase.GetInstance();
-            databaseController.FillAllList();
-            databaseController.FillFederalStateComboBox(comboBox_Bundesland);
+            CDatabase.GetInstance().FillFederalStateComboBox(comboBox_Bundesland);
 
             dGV = new DataGridView();
+
+            vacationCurrentYearUrl = "";
+            vacationNextYearUrl = "";
+            holidayCurrentYearUrl = "";
+            holidayNextYearUrl = "";
         }
 
         /// <summary>
@@ -202,7 +205,7 @@ namespace Tagplaner
 
             //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
             MCalendar.GetInstance().Speciality.Clear();
-            
+
             MCalendar.GetInstance().FillCalendarInitial(this.dateTimePicker_Von.Value, this.dateTimePicker_Bis.Value, numberOfYears, identifierOfYears, typeOfClasses, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl);
             calendarWithDays = MCalendar.GetInstance();
         }
@@ -213,18 +216,10 @@ namespace Tagplaner
         /// <param name="calendarDayList">Liste mit Kalendertagen in Zeitraum</param>
         public void FillFormWithDataGridView(List<MCalendarDay> calendarDayList)
         {
-            //Je nach Anzahl der ausgewählten Jahrgänge werden Spalten angelegt
-            if (CountCheckedCheckboxes() == 0)
-            {
-                MessageBox.Show("Bitte einen Jahrgang auswählen");
-            }
-            else
-            {
-                tagplanBearbeitenUC.CreateDataGridViews(CountCheckedCheckboxes());
-                tagplanBearbeitenUC.FillGrids(calendarDayList);
-                formInit.EnableBearbeitenStatistikTabPage();
-                NextTabPage();
-            }
+            tagplanBearbeitenUC.CreateDataGridViews(CountCheckedCheckboxes());
+            tagplanBearbeitenUC.FillGrids(calendarDayList);
+            formInit.EnableBearbeitenStatistikTabPage();
+            NextTabPage();
         }
 
         /// <summary>
@@ -234,9 +229,8 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void button_Weiter_Click(object sender, EventArgs e)
         {
-            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckDateTimePickerValues())
+            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckDateTimePickerValues() && CheckIdentificationAndClassesChoosen())
             {
-
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 CreateCalendarWithDates();
 
@@ -257,7 +251,7 @@ namespace Tagplaner
         private void button_Oeffnen_Click(object sender, EventArgs e)
         {
             //Modaler Dialog zum Laden der Dateien wird aufgerufen
-            using (ferienFeiertageAuswaehlenForm = new Tagplaner.View.FerienFeiertageAuswaehlenForm(dateTimePicker_Von.Value, dateTimePicker_Bis.Value))
+            using (ferienFeiertageAuswaehlenForm = new FerienFeiertageAuswaehlenForm(dateTimePicker_Von.Value, dateTimePicker_Bis.Value, vacationCurrentYearUrl, vacationNextYearUrl, holidayCurrentYearUrl, holidayNextYearUrl))
             {
                 DialogResult dr = ferienFeiertageAuswaehlenForm.ShowDialog();
                 if (dr == DialogResult.OK)
@@ -365,10 +359,123 @@ namespace Tagplaner
         {
             if (this.dateTimePicker_Von.Value > this.dateTimePicker_Bis.Value)
             {
-                MessageBox.Show("Das Enddatum kann nicht vor dem Anfangsdatum liegen");
+                formInit.ShowMessageInStatusbar(MMessage.ERROR_STARTDATE_BIGGER_ENDDATE);
                 return false;
             }
-            else return true;
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Überprüft ob für die ausgewählte Anzahl an Jahrgängen Klassen ausgewählt und Jahrgangsbezeichnungen eingetragen wurden
+        /// </summary>
+        /// <returns>Wahrheitswert ob alle nötigen Auswahlen vorgenommen wurden</returns>
+        private bool CheckIdentificationAndClassesChoosen()
+        {
+            switch (numberOfYears)
+            {
+                case 1:
+                    if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else return true;
+                case 2:
+                    if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                        (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else return true;
+                case 3:
+                    if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                        (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                    (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else return true;
+                case 4:
+                    if (!CheckClassesChoosen(checkBox_ErsterJahrgangAE, checkBox_ErsterJahrgangSI) || !CheckIdentifierSet(textBox_ErsterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                        (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                    (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                    (!CheckClassesChoosen(checkBox_VierterJahrgangAE, checkBox_VierterJahrgangSI) || !CheckIdentifierSet(textBox_VierterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else return true;
+                default:
+                    return true;
+            }
+        }
+
+        /// <summary>
+        /// Überprüft ob CheckBoxes ausgewählt sind
+        /// </summary>
+        /// <param name="checkBoxAE">Zu überprüfende CheckBox</param>
+        /// <param name="checkBoxSI">Zu überprüfende CheckBox</param>
+        /// <returns>Wahrheitswert ob eine der CheckBoxes ausgewählt ist </returns>
+        public bool CheckClassesChoosen(CheckBox checkBoxAE, CheckBox checkBoxSI)
+        {
+            if (!checkBoxAE.Checked && !checkBoxSI.Checked)
+            {
+                checkBoxAE.BackColor = Color.FromArgb(255, 127, 80);
+                checkBoxSI.BackColor = Color.FromArgb(255, 127, 80);
+                formInit.ShowMessageInStatusbar(MMessage.WARNING_NO_CLASSES_CHOOSEN);
+                return false;
+            }
+            else
+            {
+                checkBoxAE.BackColor = Color.White;
+                checkBoxSI.BackColor = Color.White;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Überprüft ob in einer TextBox ein Text steht
+        /// </summary>
+        /// <param name="textBox">Zu überprüfende TextBox</param>
+        /// <returns>Wahrheitswert ob ein Text in der TextBox steht</returns>
+        public bool CheckIdentifierSet(TextBox textBox)
+        {
+            if (String.IsNullOrEmpty(textBox.Text))
+            {
+                formInit.ShowMessageInStatusbar(MMessage.WARNING_NO_IDENTIFICATION_SET);
+                textBox.BackColor = Color.FromArgb(255, 127, 80);
+                return false;
+            }
+            else
+            {
+                textBox.BackColor = Color.White;
+                return true;
+            }
         }
     }
 }
