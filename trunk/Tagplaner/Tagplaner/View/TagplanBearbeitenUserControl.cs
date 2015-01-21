@@ -304,16 +304,42 @@ namespace Tagplaner
                         MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = entry;
                         if (entry.School != null)
                         {
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+                            
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+                            
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+
                             dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
                             dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
+
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Berufschule";
                             dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorSchool;
                         }
                         if (entry.Practice != null)
                         {
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+                            
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+
                             dGV[8 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
                             dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
+                            
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "Praxis";
                             dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorPractice;
                         }
 
@@ -379,7 +405,7 @@ namespace Tagplaner
         public void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int x_Cell = e.ColumnIndex;
-            x_Coord = Convert.ToInt32(Math.Floor(Convert.ToDouble(e.ColumnIndex) - 4d) / 6);
+            x_Coord = (Convert.ToInt32(Math.Floor(Convert.ToDouble(e.ColumnIndex) - 4d)) / 6);
             y_Coord = e.RowIndex;
             if (CheckCellValidation(x_Cell))
             {
@@ -458,8 +484,6 @@ namespace Tagplaner
         /// <param name="countGrid"></param>
         public void ConfigureColumnHeader(int countGrid)
         {
-
-
             dGV.Columns[0].Name = "KW";
             dGV.Columns[1].Name = "Datum";
             dGV.Columns[2].Name = "Ferien";
