@@ -24,7 +24,7 @@ namespace Tagplaner
         {
             InitializeComponent();
             CDatabase.GetInstance().CheckDBForBug();
-
+            CDatabase.GetInstance().FillAllList();
         }
 
         private void SplashScreenFormcs_Shown(object sender, EventArgs e)
@@ -71,7 +71,7 @@ namespace Tagplaner
                 + "Felix Smuda, Alexander Theis, Maximilian Thill,\n"
                 + "Daniel Valero Moreno, Niklas Wazal";
             label1.AutoSize = true;
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;  
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
         }
     }
 }
