@@ -179,14 +179,16 @@
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.infoToolStripMenuItem.Text = "Info";
             // 
             // hilfeToolStripMenuItem
             // 
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.hilfeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
+            this.hilfeToolStripMenuItem.Click += new System.EventHandler(this.HelpOnMouseClicked);
             // 
             // saveFileDialog1
             // 
