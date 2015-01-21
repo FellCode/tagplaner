@@ -43,9 +43,7 @@ namespace Tagplaner
             listView1.Items.Add(GetApprenticeshipDaysListViewItem());
             //listView1.Items.Add(GetWeekendDaysListViewItem());
             //listView1.Items.Add(GetHolidayDaysListViewItem());
-            listView1.Items.Add(GetSeminarDaysListViewItem());
-            listView1.Items.Add(GetSchoolDaysListViewItem());
-            listView1.Items.Add(GetPraticeDaysListViewItem());
+            ListViewAddSpecialityStatistiks();
         }
 
         /// <summary>
@@ -115,9 +113,9 @@ namespace Tagplaner
         /// Erstellt ein ListViewItem mit der Statistik-Informationen "Seminartage"
         /// </summary>
         /// <returns>ListViewItem für die Anzahl der Seminartage</returns>
-        private ListViewItem GetSeminarDaysListViewItem()
+        private ListViewItem GetSeminarDaysListViewItem(int position)
         {
-            int seminarDays = CStatisticUtilitys.CountSeminarDays();
+            int seminarDays = CStatisticUtilitys.CountSeminarDays(position);
 
             ListViewItem lvSeminarDays = new ListViewItem();
             lvSeminarDays.Text = "Seminartage";
@@ -130,9 +128,9 @@ namespace Tagplaner
         /// Erstellt ein ListViewItem mit der Statistik-Informationen "Schultage"
         /// </summary>
         /// <returns>ListViewItem für die Anzahl der Schultage</returns>
-        private ListViewItem GetSchoolDaysListViewItem()
+        private ListViewItem GetSchoolDaysListViewItem(int position)
         {
-            int schoolDays = CStatisticUtilitys.CountSchoolDays();
+            int schoolDays = CStatisticUtilitys.CountSchoolDays(position);
 
             ListViewItem lvSchoolDays = new ListViewItem();
             lvSchoolDays.Text = "Schultage";
@@ -145,15 +143,36 @@ namespace Tagplaner
         /// Erstellt ein ListViewItem mit der Statistik-Informationen "Praxistage"
         /// </summary>
         /// <returns>ListViewItem für die Anzahl der Praxistage</returns>
-        private ListViewItem GetPraticeDaysListViewItem()
+        private ListViewItem GetPraticeDaysListViewItem(int position)
         {
-            int praticeDays = CStatisticUtilitys.CountPraticeDays();
+            int praticeDays = CStatisticUtilitys.CountPraticeDays(position);
 
             ListViewItem lvPraticeDays = new ListViewItem();
             lvPraticeDays.Text = "Praxistage";
             lvPraticeDays.SubItems.Add(Convert.ToString(praticeDays));
 
             return lvPraticeDays;
+        }
+
+        /// <summary>
+        /// Diese Funktion fügt in der ListView1 für alle Jahrgänge die Anzahl  Seminartage, Praxistage und Schultage hinzu. 
+        /// </summary>
+        private void ListViewAddSpecialityStatistiks()
+        {
+            MCalendar calendar = MCalendar.GetInstance();
+            int numberOfSpecialities = calendar.Speciality.Count();
+
+            for (int counterSpecialities = 0; counterSpecialities < numberOfSpecialities; counterSpecialities++)
+            {
+                ListViewItem specialityName = new ListViewItem(calendar.Speciality.ElementAt(counterSpecialities).IdentifierOfYear
+                    + " "
+                    + calendar.Speciality.ElementAt(counterSpecialities).SpecialityName);
+                listView1.Items.Add(specialityName);
+                listView1.Items.Add(GetSeminarDaysListViewItem(counterSpecialities));
+                listView1.Items.Add(GetSchoolDaysListViewItem(counterSpecialities));
+                listView1.Items.Add(GetPraticeDaysListViewItem(counterSpecialities));
+               
+           };
         }
     }
 }
