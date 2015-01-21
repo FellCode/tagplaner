@@ -9,7 +9,9 @@ using System.Reflection;
 
 namespace Tagplaner
 {
-    //Author: Stefan, Arnold
+    /// <summary>
+    /// Diese Klasse generiert einen Tagplan mit Excel
+    /// </summary>
     public class WorksheetGenerator : IWorksheetGenerator
     {
         private Application xlApp = new Application();
@@ -33,6 +35,12 @@ namespace Tagplaner
         private int i_entry = 1;
         private int col = 1;
 
+        /// <summary>
+        /// Die Methode enthält die Logik, nach der entschieden wird, was in das Excel-Worksheet geschrieben wird.
+        /// Beschrieben wird das Worksheet durch die Methoden die in "WriteFile" aufgerufen werden.
+        /// </summary>
+        /// <param name="calendar"></param>
+        /// <returns></returns>
         public bool WriteFile(MCalendar calendar)
         {
             prepareGeneration();
