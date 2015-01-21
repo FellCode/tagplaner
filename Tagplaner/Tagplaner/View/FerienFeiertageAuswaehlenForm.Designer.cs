@@ -1,4 +1,4 @@
-﻿namespace Tagplaner.View
+﻿namespace Tagplaner
 {
     partial class FerienFeiertageAuswaehlenForm
     {
