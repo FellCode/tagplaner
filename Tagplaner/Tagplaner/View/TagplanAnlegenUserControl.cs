@@ -393,11 +393,6 @@ namespace Tagplaner
                         return false;
                     }
                     else if
-                        (!CheckClassesChoosen(checkBox_ZweiterJahrgangAE, checkBox_ZweiterJahrgangSI) || !CheckIdentifierSet(textBox_ZweiterJahrgangBezeichnung))
-                    {
-                        return false;
-                    }
-                    else if
                         (!CheckIdentifierOfYearsNotEqual(textBox_ErsterJahrgangBezeichnung, textBox_ZweiterJahrgangBezeichnung))
                     {
                         return false;
@@ -439,7 +434,12 @@ namespace Tagplaner
                         return false;
                     }
                     else if
-                    (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                        (!CheckClassesChoosen(checkBox_DritterJahrgangAE, checkBox_DritterJahrgangSI) || !CheckIdentifierSet(textBox_DritterJahrgangBezeichnung))
+                    {
+                        return false;
+                    }
+                    else if
+                    (!CheckClassesChoosen(checkBox_VierterJahrgangAE, checkBox_VierterJahrgangSI) || !CheckIdentifierSet(textBox_VierterJahrgangBezeichnung))
                     {
                         return false;
                     }
