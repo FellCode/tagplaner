@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tagplaner.View;
 
 namespace Tagplaner
 {
@@ -232,7 +231,7 @@ namespace Tagplaner
             MCalendar.GetInstance().LastModified = DateTime.Now;
             serializer.SerializeObject(MCalendar.GetInstance(), filename);
             MCalendar.GetInstance().Saved = true;
-        
+
             //Liste der Speciality muss geleert werden, damit es nicht zu Überschneidungen mit gespeicherten Kalendern kommt
             MCalendar.GetInstance().Speciality.Clear();
         }
@@ -274,15 +273,10 @@ namespace Tagplaner
         /// Zeigt die angegebene Nachticht mit Datum und Uhrzeit in der Statusleiste an
         /// </summary>
         /// <param name="message">Anzuzeigende Nachricht</param>
-        public void showMessageInStatusbar(string message)
+        public void ShowMessageInStatusbar(string message)
         {
             DateTime datetime = DateTime.Now;
             statusStrip1.Items[0].Text = "[" + datetime.ToString() + "] - " + message;
-        }
-
-        private void HelpOnMouseClicked(object sender, EventArgs e)
-        {
-            Help.ShowHelp(this, "Hilfe für Tagplaner.chm", HelpNavigator.KeywordIndex, tabControl1.SelectedTab.Text);
         }
     }
 }
