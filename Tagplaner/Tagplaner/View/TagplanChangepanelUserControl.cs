@@ -208,7 +208,7 @@ namespace Tagplaner
         /// <param name="Seminarpanel"></param>
         public void ChangeVisibility(ComboBox Tagart, Panel Seminarpanel)
         {
-
+            Kommentar.Clear();
             switch (Convert.ToString(Tagart.SelectedItem))
             {
                 case "Seminar":
