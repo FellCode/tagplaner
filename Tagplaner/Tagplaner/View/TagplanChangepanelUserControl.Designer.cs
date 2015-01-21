@@ -48,6 +48,11 @@
             this.tagel = new System.Windows.Forms.Label();
             this.Seminarpanel = new System.Windows.Forms.Panel();
             this.ZweiterTrainer = new System.Windows.Forms.CheckBox();
+            this.ltRaeume = new System.Windows.Forms.ListBox();
+            this.LBRaeume = new System.Windows.Forms.Label();
+            this.btRaumadd = new System.Windows.Forms.Button();
+            this.btDelete = new System.Windows.Forms.Button();
+            this.btReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,7 +126,7 @@
             // Kommentar
             // 
             this.Kommentar.AcceptsTab = true;
-            this.Kommentar.Location = new System.Drawing.Point(617, 39);
+            this.Kommentar.Location = new System.Drawing.Point(799, 39);
             this.Kommentar.Multiline = true;
             this.Kommentar.Name = "Kommentar";
             this.Kommentar.Size = new System.Drawing.Size(227, 83);
@@ -129,7 +134,7 @@
             // 
             // Einfügen
             // 
-            this.Einfügen.Location = new System.Drawing.Point(885, 99);
+            this.Einfügen.Location = new System.Drawing.Point(1042, 99);
             this.Einfügen.Name = "Einfügen";
             this.Einfügen.Size = new System.Drawing.Size(75, 23);
             this.Einfügen.TabIndex = 7;
@@ -194,7 +199,7 @@
             // kommentarl
             // 
             this.kommentarl.AutoSize = true;
-            this.kommentarl.Location = new System.Drawing.Point(614, 23);
+            this.kommentarl.Location = new System.Drawing.Point(796, 23);
             this.kommentarl.Name = "kommentarl";
             this.kommentarl.Size = new System.Drawing.Size(63, 13);
             this.kommentarl.TabIndex = 14;
@@ -203,7 +208,7 @@
             // Weiterführung
             // 
             this.Weiterführung.AutoSize = true;
-            this.Weiterführung.Location = new System.Drawing.Point(850, 39);
+            this.Weiterführung.Location = new System.Drawing.Point(1032, 39);
             this.Weiterführung.Name = "Weiterführung";
             this.Weiterführung.Size = new System.Drawing.Size(102, 17);
             this.Weiterführung.TabIndex = 21;
@@ -213,7 +218,7 @@
             // 
             // AnzahlTage
             // 
-            this.AnzahlTage.Location = new System.Drawing.Point(948, 36);
+            this.AnzahlTage.Location = new System.Drawing.Point(1130, 36);
             this.AnzahlTage.Name = "AnzahlTage";
             this.AnzahlTage.Size = new System.Drawing.Size(41, 20);
             this.AnzahlTage.TabIndex = 22;
@@ -221,7 +226,7 @@
             // tagel
             // 
             this.tagel.AutoSize = true;
-            this.tagel.Location = new System.Drawing.Point(995, 38);
+            this.tagel.Location = new System.Drawing.Point(1177, 38);
             this.tagel.Name = "tagel";
             this.tagel.Size = new System.Drawing.Size(32, 13);
             this.tagel.TabIndex = 23;
@@ -229,9 +234,9 @@
             // 
             // Seminarpanel
             // 
-            this.Seminarpanel.Location = new System.Drawing.Point(184, 23);
+            this.Seminarpanel.Location = new System.Drawing.Point(184, 3);
             this.Seminarpanel.Name = "Seminarpanel";
-            this.Seminarpanel.Size = new System.Drawing.Size(417, 112);
+            this.Seminarpanel.Size = new System.Drawing.Size(460, 152);
             this.Seminarpanel.TabIndex = 24;
             // 
             // ZweiterTrainer
@@ -244,10 +249,58 @@
             this.ZweiterTrainer.UseVisualStyleBackColor = true;
             this.ZweiterTrainer.CheckedChanged += new System.EventHandler(this.ZweiterTrainer_CheckedChanged);
             // 
+            // ltRaeume
+            // 
+            this.ltRaeume.FormattingEnabled = true;
+            this.ltRaeume.Location = new System.Drawing.Point(650, 38);
+            this.ltRaeume.Name = "ltRaeume";
+            this.ltRaeume.Size = new System.Drawing.Size(120, 82);
+            this.ltRaeume.TabIndex = 26;
+            // 
+            // LBRaeume
+            // 
+            this.LBRaeume.AutoSize = true;
+            this.LBRaeume.Location = new System.Drawing.Point(650, 22);
+            this.LBRaeume.Name = "LBRaeume";
+            this.LBRaeume.Size = new System.Drawing.Size(44, 13);
+            this.LBRaeume.TabIndex = 27;
+            this.LBRaeume.Text = "Räume:";
+            // 
+            // btRaumadd
+            // 
+            this.btRaumadd.Location = new System.Drawing.Point(606, 88);
+            this.btRaumadd.Name = "btRaumadd";
+            this.btRaumadd.Size = new System.Drawing.Size(38, 23);
+            this.btRaumadd.TabIndex = 28;
+            this.btRaumadd.Text = "+";
+            this.btRaumadd.UseVisualStyleBackColor = true;
+            this.btRaumadd.Click += new System.EventHandler(this.btRaumadd_Click);
+            // 
+            // btDelete
+            // 
+            this.btDelete.Location = new System.Drawing.Point(674, 126);
+            this.btDelete.Name = "btDelete";
+            this.btDelete.Size = new System.Drawing.Size(75, 23);
+            this.btDelete.TabIndex = 29;
+            this.btDelete.Text = "Entfernen";
+            this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
+            // 
+            // btReset
+            // 
+            this.btReset.Location = new System.Drawing.Point(1129, 99);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(93, 23);
+            this.btReset.TabIndex = 30;
+            this.btReset.Text = "Zurücksetzten";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
+            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.Seminarpanel);
             this.Controls.Add(this.tagel);
             this.Controls.Add(this.AnzahlTage);
@@ -268,8 +321,12 @@
             this.Controls.Add(this.Seminar);
             this.Controls.Add(this.Tagart);
             this.Controls.Add(this.ZweiterTrainer);
+            this.Controls.Add(this.btRaumadd);
+            this.Controls.Add(this.LBRaeume);
+            this.Controls.Add(this.ltRaeume);
+            this.Controls.Add(this.btDelete);
             this.Name = "TagplanChangepanelUserControl";
-            this.Size = new System.Drawing.Size(1073, 155);
+            this.Size = new System.Drawing.Size(1243, 155);
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -298,5 +355,10 @@
         private System.Windows.Forms.Label tagel;
         private System.Windows.Forms.Panel Seminarpanel;
         private System.Windows.Forms.CheckBox ZweiterTrainer;
+        private System.Windows.Forms.ListBox ltRaeume;
+        private System.Windows.Forms.Label LBRaeume;
+        private System.Windows.Forms.Button btRaumadd;
+        private System.Windows.Forms.Button btDelete;
+        private System.Windows.Forms.Button btReset;
     }
 }
