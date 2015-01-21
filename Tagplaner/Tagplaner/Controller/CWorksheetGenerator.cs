@@ -10,8 +10,6 @@ using System.Reflection;
 namespace Tagplaner
 {
     //Author: Stefan, Arnold
-
-
     public class WorksheetGenerator : IWorksheetGenerator
     {
         private Application xlApp = new Application();
@@ -19,15 +17,112 @@ namespace Tagplaner
         private Worksheet ws;
         private Range aRange;
         private Object[] data = new Object[1];
+        private bool test = true;
+        private int i_day = 1;
+        private int i_list = 0;
+        private string calendarWeek = "";
+        private string vacation = null;
+        private string[] mergecell = new string[9];
+        private Object[] entry = new Object[8];
+        private MSchool[] school = new MSchool[8];
+        private MSeminar[] seminar = new MSeminar[8];
+        private MPractice[] practice = new MPractice[8];
+        private Object[] secondentry = new Object[8];
+        private string day = null;
+        private System.Globalization.CultureInfo german = new System.Globalization.CultureInfo("de-DE");
+        private int i_entry = 1;
+        private int col = 1;
 
+        public bool WriteFile(MCalendar calendar)
+        {
+            prepareGeneration();
+            generateHeader();
+            //Schleife fuer jeden Tag in der calendarList
+            foreach (MCalendarDay calendarDay in calendar.CalendarList)
+            {
+                i_entry = 1;
+                col = 1;
 
-        public WorksheetGenerator() {
-        wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-        ws = (Worksheet)wb.Worksheets[1];
-        xlApp.Visible = true;
-        aRange = ws.get_Range("A1", "B1");
+                //Findet heraus, ob eine neue Kalenderwoche startet
+                if (calendarWeek != calendarDay.CalendarWeek)
+                {
+                    generateCalendarWeek(calendarDay);
+                }
+
+                //Wochentag
+                day = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
+                if (!(day.Equals("SA") || day.Equals("SO")))
+                {
+                    generateDate(day, calendarDay);
+
+                    //Generiert Urlaubstage
+                    if (calendar.CalendarList[i_list].VacationName != null)
+                    {
+                        generateVacation(calendar);
+                    }
+
+                    if (calendar.CalendarList[i_list].HolidayName != null)
+                    {
+                        generateHoliday(calendar,calendarDay);
+                    }
+                    else
+                    {
+                        //Schleife für jede Spalte des Tages          
+                        foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
+                        {
+
+                            if (calendarDay.CalendarEntry[i_entry - 1].School != null)
+                            {
+                                generateSchool(calendarDay);
+                            }
+                            else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
+                            {
+                                generatePractice(calendarDay);
+                                }
+                            else
+                            {
+                                generateSeminar(calendarDay);
+                            }
+                            i_entry++;
+                        }
+                    }
+                    i_day++;
+                }
+                else
+                {
+                    vacation = null;
+                    setNewWeek();
+                }
+                i_list++;
+            }
+
+            #region Abschluss
+            aRange = ws.get_Range("D1", "D" + (i_day - 1));
+            merge();
+            aRange = ws.get_Range("Q1", "Q" + (i_day - 1));
+            merge();
+            aRange = ws.get_Range("A1", "Q" + (i_day - 1));
+            setBorderColor(System.Drawing.Color.Black);
+
+            //wb.SaveCopyAs(@"C:\TAGPLAN1.xlsx");
+            wb.Close(true, Missing.Value, Missing.Value);
+            xlApp.Quit();
+            releaseObject(xlApp);
+            releaseObject(wb);
+            releaseObject(ws);
+            #endregion
+            //MessageBox.Show("File created !");
+            return true;
         }
 
+
+        public WorksheetGenerator()
+        {
+            wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            ws = (Worksheet)wb.Worksheets[1];
+            xlApp.Visible = true;
+            aRange = ws.get_Range("A1", "B1");
+        }
         private void releaseObject(object obj)
         {
             try
@@ -43,8 +138,13 @@ namespace Tagplaner
             {
                 GC.Collect();
             }
-        } 
-        private void setRange(string cell){
+        }
+        private Object getCell(string cells)
+        {
+            return ws.Cells[cells.Substring(cells.IndexOf(",") + 1, cells.Length), cells.Substring(0, cells.IndexOf(","))];
+        }
+        private void setRange(string cell)
+        {
             setRange(cell, cell);
         }
         private void setRange(string cell1, string cell2)
@@ -72,23 +172,16 @@ namespace Tagplaner
         {
             aRange.Merge(Missing.Value);
         }
-
-
-        public bool WriteFile(MCalendar calendar)
+        private void setNewWeek()
         {
-            #region setup
-            int i_day = 1;
-            int i_list = 0;
-            string calendarWeek = "";
-            string vacation = null;
-            string[] mergecell = new string[6];
-            Object[] entry = new Object[4];
-            MSchool[] school = new MSchool[4];
-            MSeminar[] seminar = new MSeminar[4];
-            MPractice[] practice = new MPractice[4];
-            string day = null;
-            var german = new System.Globalization.CultureInfo("de-DE");
+            school = new MSchool[8];
+            seminar = new MSeminar[8];
+            practice = new MPractice[8];
+            secondentry = new Object[8];
+        }
 
+        private void prepareGeneration()
+        {
             setRange("A1");
             aRange.EntireColumn.ColumnWidth = 4;
             setRange("B1");
@@ -98,9 +191,9 @@ namespace Tagplaner
             aRange.EntireColumn.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
             aRange.EntireColumn.WrapText = true;
             //aRange.EntireColumn.Font.Name = "Verdana";
-            #endregion
-
-            #region Dokumentkopf
+        }
+        private void generateHeader()
+        {
             setRange("D1");
             aRange.EntireColumn.ColumnWidth = 1;
             setBackgroundColor(System.Drawing.Color.White);
@@ -152,371 +245,347 @@ namespace Tagplaner
             merge();
             setBackgroundColor(System.Drawing.Color.Moccasin);
             i_day++;
+        }
+        private void generateCalendarWeek(MCalendarDay calendarDay)
+        {
+            setRange("A" + i_day, "B" + i_day);
+            merge();
+            setBackgroundColor(System.Drawing.Color.LightGray);
+            setValue("KW" + calendarDay.CalendarWeek);
 
-            #endregion
-            //Schleife fuer jeden Tag in der calendarList
-            foreach (MCalendarDay calendarDay in calendar.CalendarList)
+
+            setRange("E" + i_day, "P" + i_day);
+            merge();
+            setBackgroundColor(System.Drawing.Color.LightSeaGreen);
+
+
+            setRange("C" + i_day);
+            //setRange(cell1);
+            merge();
+            setBackgroundColor(System.Drawing.Color.LightSeaGreen);
+            i_day++;
+            calendarWeek = calendarDay.CalendarWeek;
+        }
+        private void generateDate(string day, MCalendarDay calendarDay)
+        {
+            setRange("A" + i_day);
+            setValue(day);
+            setBorderColor(System.Drawing.Color.Black);
+
+            setRange("B" + i_day);
+            setValue(calendarDay.CalendarDate.ToString().Substring(0, 10));
+        }
+        private void generateVacation(MCalendar calendar)
+        {
+            if (calendar.CalendarList[i_list].VacationName != vacation)
             {
-                //Findet heraus, ob eine neue Kalenderwoche startet
-                #region calendarWeek
-                if (calendarWeek != calendarDay.CalendarWeek)
+                vacation = calendar.CalendarList[i_list].VacationName;
+                mergecell[0] = "C" + i_day;
+                setRange(mergecell[0]);
+                setValue(vacation.Substring(0, vacation.IndexOf(" ")));
+                aRange.Orientation = 90;
+                aRange.EntireRow.RowHeight = 15;
+                setBackgroundColor(System.Drawing.Color.GreenYellow);
+                aRange.Font.Size = 8;
+            }
+            else
+            {
+                setRange(mergecell[0], "C" + i_day);
+                merge();
+            }
+        }
+        private void generateHoliday(MCalendar calendar, MCalendarDay calendarDay)
+        {
+            setRange("E" + i_day, "P" + i_day);
+            merge();
+            setValue(calendar.CalendarList[i_list].HolidayName);
+            setBackgroundColor(System.Drawing.Color.GreenYellow);
+            setNewWeek();
+        }
+        private void generateSchool(MCalendarDay calendarDay)
+        {
+            if (calendarDay.CalendarEntry[i_entry - 1].School.Comment == null)
+                calendarDay.CalendarEntry[i_entry - 1].School.Comment = "";
+            if (i_entry % 2 != 0)
+            {
+                if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
                 {
-                    setRange("A" + i_day, "B" + i_day);
+                    //ENTRY 1
+                    entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
+                    mergecell[i_entry] = "G" + i_day;
+                    setRange(mergecell[i_entry], "J" + i_day);
+                    school[i_entry - 1] = (MSchool)entry[i_entry - 1];
                     merge();
-                    setBackgroundColor(System.Drawing.Color.LightGray);
-                    setValue("KW" + calendarDay.CalendarWeek);
-
-
-                    setRange("E" + i_day, "P" + i_day);
-                    merge();
-                    setBackgroundColor(System.Drawing.Color.LightBlue);
-
-
-                    setRange("C" + i_day);
-                    //setRange(cell1);
-                    merge();
-                    setBackgroundColor(System.Drawing.Color.LightBlue);
-                    i_day++;
-                    calendarWeek = calendarDay.CalendarWeek;
-
-                }
-                #endregion
-
-                //Erstellt das Datum-Feld
-                setRange("A" + i_day);
-
-                //Wochentag
-                day = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
-
-                if (!(day.Equals("SA") || day.Equals("SO")))
-                {
-                    setValue(day);
-                    setBorderColor(System.Drawing.Color.Black);
-
-                    //setCell1("B" + i_day);
-                    setRange("B" + i_day);
-                    setValue(calendarDay.CalendarDate.ToString().Substring(0,10));
-
-                    #region Ferien
-                    if (calendar.CalendarList[i_list].VacationName != null)
+                    setBackgroundColor(System.Drawing.Color.Blue);
+                    if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
                     {
-                        if (calendar.CalendarList[i_list].VacationName != vacation)
-                        {
-                            vacation = calendar.CalendarList[i_list].VacationName;
-                            mergecell[0] = "C" + i_day;
-                            setRange(mergecell[0]);
-                            setValue(vacation.Substring(0, vacation.IndexOf(" ")));
-                            aRange.Orientation = 90;
-                            aRange.EntireRow.RowHeight = 15;
-                            setBackgroundColor(System.Drawing.Color.GreenYellow);
-                            aRange.Font.Size = 8;
-                        }
-                        else
-                        {
-                            setRange(mergecell[0], "C" + i_day);
-                            merge();
-                        }
+                        setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
                     }
-                    #endregion
-
-                    if (calendar.CalendarList[i_list].HolidayName != null)
-                    {
-                        #region Feiertag
-
-                        setRange("E" + i_day, "P" + i_day);
-                        merge();
-                        setValue(calendar.CalendarList[i_list].HolidayName);
-                        setBackgroundColor(System.Drawing.Color.GreenYellow);
-
-                        school = new MSchool[4];
-                        seminar = new MSeminar[4];
-                        practice = new MPractice[4];
-                        #endregion
-                    }
-                    else
-                    {
-                        int i_entry = 1;
-                        #region CalendarEntry
-                        //Schleife für jede Spalte des Tages (1 oder 2 Jahrgänge, FIA / FISI)
-                        //1-4 Durchläufe                        
-                        foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
-                        {
-                            if (calendarDay.CalendarEntry[i_entry - 1].School != null)
-                            {
-                                #region School
-                                if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
-                                {
-                                    if (i_entry == 1)
-                                    {
-                                        if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
-                                        {
-                                            //ENTRY 1
-                                            entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
-                                            mergecell[i_entry] = "G" + i_day;
-                                            setRange(mergecell[i_entry], "J" + i_day);
-                                            school[i_entry - 1] = (MSchool)entry[i_entry - 1];
-                                            merge();
-                                            setBackgroundColor(System.Drawing.Color.Blue);
-                                            if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
-                                            {
-                                                setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
-                                            }
-                                            setFontColor(System.Drawing.Color.White);
-                                        }
-                                        else
-                                        {
-                                            setRange(mergecell[i_entry], "J" + i_day);
-                                            merge();
-                                        }
-                                    }
-                                    else if (i_entry == 2)
-                                    {
-                                        //ENTRY 2
-                                        //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
-                                        {
-                                            if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
-                                            {
-
-                                                entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
-                                                mergecell[i_entry] = "M" + i_day;
-                                                setRange(mergecell[i_entry], "P" + i_day);
-                                                school[i_entry - 1] = (MSchool)entry[i_entry - 1];
-
-
-                                                if (school[i_entry - 2] != null && school[i_entry - 1].Comment != school[i_entry - 2].Comment)
-                                                {
-                                                    merge();
-                                                    setBackgroundColor(System.Drawing.Color.Blue);
-                                                    if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
-                                                    {
-                                                        setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
-                                                    }
-                                                    setFontColor(System.Drawing.Color.White);
-                                                }
-                                                else
-                                                {
-                                                    setRange(mergecell[i_entry], "P" + i_day);
-                                                    merge();
-                                                }
-                                            }
-                                            else
-                                            {
-                                                setRange(mergecell[i_entry], "P" + i_day);
-                                                merge();
-
-                                            }
-                                        }
-
-                                    }
-                                }
-                                #endregion
-                            }
-                            else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
-                            {
-
-                                if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
-                                {
-                                    #region Practice/Seminar
-                                    //BLABLA
-                                    #endregion
-
-                                }
-                                else
-                                {
-                                    #region Practice
-                                    if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
-                                    {
-                                        if (i_entry == 1)
-                                        {
-                                            if (practice[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != practice[i_entry - 1].Comment)
-                                            {
-                                                entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
-                                                mergecell[i_entry] = "G" + i_day;
-                                                setRange(mergecell[i_entry], "J" + i_day);
-                                                practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
-
-                                                if (practice[i_entry] != null)
-                                                {
-                                                    if (practice[i_entry - 1].Comment == practice[i_entry].Comment)
-                                                    {
-                                                        //setRange(mergecell[i_entry - 1], "P" + i_day);
-                                                        merge();
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    mergecell[i_entry] = "G" + i_day;
-                                                    setRange(mergecell[i_entry], "J" + i_day);
-                                                    merge();
-
-                                                    setBackgroundColor(System.Drawing.Color.Yellow);
-                                                    if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
-                                                    {
-                                                        setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-
-                                                setRange(mergecell[i_entry], "J" + i_day);
-                                                merge();
-                                            }
-                                        }
-                                        else if (i_entry == 2)
-                                        {
-                                            //ENTRY 2
-                                            //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
-                                            {
-                                                if (practice[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != practice[i_entry - 1].Comment)
-                                                {
-                                                    entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
-                                                    mergecell[i_entry] = "M" + i_day;
-                                                    setRange(mergecell[i_entry], "P" + i_day);
-                                                    practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
-
-                                                    if (practice[i_entry - 2] != null)
-                                                    {
-                                                        if (practice[i_entry - 1].Comment == practice[i_entry - 2].Comment)
-                                                        {
-                                                            setRange(mergecell[i_entry - 1], "P" + i_day);
-                                                            merge();
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        merge();
-
-                                                        setBackgroundColor(System.Drawing.Color.PaleTurquoise);
-                                                        if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
-                                                        {
-                                                            setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    setRange(mergecell[i_entry], "P" + i_day);
-                                                    merge();
-
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                    #endregion
-
-                                }
-
-                            }
-                            else
-                            {
-
-                                #region Seminar
-                                if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
-                                {
-                                    if (i_entry == 1)
-                                    {
-                                        if (seminar[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != seminar[i_entry - 1].Title)
-                                        {
-                                            //ENTRY 1
-                                            entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Seminar;
-                                            mergecell[i_entry] = "G" + i_day;
-                                            setRange(mergecell[i_entry], "J" + i_day);
-                                            seminar[i_entry - 1] = (MSeminar)entry[i_entry - 1];
-                                            merge();
-                                            setBackgroundColor(System.Drawing.Color.PaleTurquoise);
-                                            if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
-                                            {
-                                                setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            setRange(mergecell[i_entry], "J" + i_day);
-                                            merge();
-                                        }
-                                    }
-                                    else if (i_entry == 2)
-                                    {
-                                        //ENTRY 2
-                                        //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
-                                        {
-                                            if (seminar[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != seminar[i_entry - 1].Title)
-                                            {
-
-                                                entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Seminar;
-                                                mergecell[i_entry] = "M" + i_day;
-                                                setRange(mergecell[i_entry], "P" + i_day);
-                                                seminar[i_entry - 1] = (MSeminar)entry[i_entry - 1];
-
-                                                if (seminar[i_entry - 2] != null)
-                                                {
-                                                    if (seminar[i_entry - 1].Title == seminar[i_entry - 2].Title)
-                                                    {
-                                                        setRange(mergecell[i_entry - 1], "P" + i_day);
-                                                        merge();
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    merge();
-
-                                                    setBackgroundColor(System.Drawing.Color.PaleTurquoise);
-                                                    if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
-                                                    {
-                                                        setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                setRange(mergecell[i_entry], "P" + i_day);
-                                                merge();
-
-                                            }
-                                        }
-
-                                    }
-                                }
-                                #endregion
-                            }
-                            i_entry++;
-                        }
-                        #endregion
-                    }
-                    i_day++;
+                    setFontColor(System.Drawing.Color.White);
                 }
                 else
                 {
-                    //Wenn Wochentage SA/SO -> zuletzt erstelltes Feld -> Null ("Merk-Variable")
-                    vacation = null;
-                    school = new MSchool[4];
-                    seminar = new MSeminar[4];
-                    practice = new MPractice[4];
+                    setRange(mergecell[i_entry], "J" + i_day);
+                    merge();
                 }
-                i_list++;
             }
+            else
+            {
+                //ENTRY 2
+                //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
+                {
+                    if (school[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].School.Comment != school[i_entry - 1].Comment)
+                    {
 
-            #region Abschluss
-            aRange = ws.get_Range("D1", "D" + (i_day - 1));
-            merge();
-            aRange = ws.get_Range("Q1", "Q" + (i_day - 1));
-            merge();
-            aRange = ws.get_Range("A1", "Q" + (i_day - 1));
-            setBorderColor(System.Drawing.Color.Black);
+                        entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].School;
+                        mergecell[i_entry] = "M" + i_day;
+                        setRange(mergecell[i_entry], "P" + i_day);
+                        school[i_entry - 1] = (MSchool)entry[i_entry - 1];
 
-            //wb.SaveCopyAs(@"C:\TAGPLAN1.xlsx");
-            wb.Close(true, Missing.Value, Missing.Value);
-            xlApp.Quit();
-            releaseObject(xlApp);
-            releaseObject(wb);
-            releaseObject(ws);
-            #endregion
-            //MessageBox.Show("File created !");
-            return true;
+
+                        if (school[i_entry - 2] != null && school[i_entry - 1].Comment != school[i_entry - 2].Comment)
+                        {
+                            merge();
+                            setBackgroundColor(System.Drawing.Color.Blue);
+                            if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
+                            {
+                                setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
+                            }
+                            setFontColor(System.Drawing.Color.White);
+                        }
+                        else
+                        {
+                            setRange(mergecell[i_entry], "P" + i_day);
+                            merge();
+                        }
+                    }
+                    else
+                    {
+                        setRange(mergecell[i_entry], "P" + i_day);
+                        merge();
+                    }
+                }
+            }
         }
+        private void generateSeminar(MCalendarDay calendarDay)
+        {
+            if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
+            {
+                System.Console.WriteLine();
+                if (i_entry == 1)
+                {
+                    if (seminar[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != seminar[i_entry - 1].Title)
+                    {
+                        //ENTRY 1
+                        entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Seminar;
+                        mergecell[i_entry] = "G" + i_day;
+                        setRange(mergecell[i_entry], "J" + i_day);
+                        seminar[i_entry - 1] = (MSeminar)entry[i_entry - 1];
+                        merge();
+                        setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                        if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
+                        }
+                    }
+                    else
+                    {
+                        setRange(mergecell[i_entry], "J" + i_day);
+                        merge();
+                    }
+                }
+                else if (i_entry == 2)
+                {
+                    //ENTRY 2
+                    //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
+                    {
+                        if (seminar[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != seminar[i_entry - 1].Title)
+                        {
 
+                            entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Seminar;
+                            mergecell[i_entry] = "M" + i_day;
+                            setRange(mergecell[i_entry], "P" + i_day);
+                            seminar[i_entry - 1] = (MSeminar)entry[i_entry - 1];
+
+                            if (seminar[i_entry - 2] != null)
+                            {
+                                if (seminar[i_entry - 1].Title == seminar[i_entry - 2].Title)
+                                {
+                                    setRange(mergecell[i_entry - 1], "P" + i_day);
+                                    merge();
+                                }
+                            }
+                            else
+                            {
+                                merge();
+
+                                setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                                if (calendarDay.CalendarEntry[i_entry - 1].Seminar.Title != null)
+                                {
+                                    setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            setRange(mergecell[i_entry], "P" + i_day);
+                            merge();
+                        }
+                    }
+                }
+            }
+        }
+        private void generatePractice(MCalendarDay calendarDay)
+        {
+            if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
+            {
+                if (i_entry == 1)
+                {
+                    if (calendarDay.CalendarEntry[i_entry].Practice != null)
+                        secondentry[i_entry] = calendarDay.CalendarEntry[i_entry].Practice;
+                    else if (calendarDay.CalendarEntry[i_entry].School != null)
+                        secondentry[i_entry] = calendarDay.CalendarEntry[i_entry].School;
+                    else if (calendarDay.CalendarEntry[i_entry].Seminar != null)
+                        secondentry[i_entry] = calendarDay.CalendarEntry[i_entry].Seminar;
+
+
+                    if (practice[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != practice[i_entry - 1].Comment)
+                    {
+                        //Neuer Eintrag
+                        entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
+                        mergecell[i_entry] = "G" + i_day;
+                        setRange(mergecell[i_entry], "J" + i_day);
+                        practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
+
+                        if (practice[i_entry] != null)
+                        {
+                            if (practice[i_entry - 1].Comment == practice[i_entry].Comment)
+                            {
+
+                                merge();
+                            }
+                        }
+                        else
+                        {
+                            merge();
+
+                            setBackgroundColor(System.Drawing.Color.Yellow);
+                            if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
+                            {
+                                setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                            }
+                        }
+                        test = false;
+
+                    }
+                    else
+                    {
+                        //GLEICHER EINTRAG WIE VORHER
+
+                        if (!(practice[i_entry - 1] == (secondentry[i_entry])))
+                        {
+                            //Zweite Spalte enthält anderen Wert - Neue Mergecell setzen und Inhalt in das Feld schreiben
+
+
+                            /*entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
+                            mergecell[i_entry] = "G" + i_day;
+                            setRange(mergecell[i_entry], "J" + i_day);
+                            practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
+                            merge();
+                            setBackgroundColor(System.Drawing.Color.Yellow);
+                            if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
+                            {
+                                setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                            }*/
+
+
+                            //
+                            //TODO: FIX THIS SHIT
+                            //
+                            if (test)
+                            {
+                                entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
+                                mergecell[i_entry] = "G" + i_day;
+                                setRange(mergecell[i_entry], "J" + i_day);
+                                practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
+
+                                if (practice[i_entry] != null)
+                                {
+                                    if (practice[i_entry - 1].Comment == practice[i_entry].Comment)
+                                    {
+                                        merge();
+                                    }
+                                }
+                                else
+                                {
+                                    mergecell[i_entry] = "G" + i_day;
+                                    setRange(mergecell[i_entry], "J" + i_day);
+                                    merge();
+
+                                    setBackgroundColor(System.Drawing.Color.Yellow);
+                                    if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
+                                    {
+                                        setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                                    }
+                                }
+                                test = false;
+                            }
+                            else
+                            {
+                                setRange(mergecell[i_entry], "J" + i_day);
+                                merge();
+                            }
+                        } // Ende aufgespalteter kack
+                        else
+                        {
+                            //Merge von Oberster Blockzeile mit aktueller Zeile
+                            test = false;
+
+                            setRange(mergecell[i_entry], "J" + i_day);
+                            merge();
+                        }
+                    }
+                }
+                else if (i_entry == 2)
+                {
+                    //ENTRY 2
+                    //if (school[i_entry - 2] != null && school[i_entry - 1] != school[i_entry - 2])
+                    {
+                        if (practice[i_entry - 1] == null || calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != practice[i_entry - 1].Comment)
+                        {
+                            entry[i_entry - 1] = calendarDay.CalendarEntry[i_entry - 1].Practice;
+                            mergecell[i_entry] = "M" + i_day;
+                            setRange(mergecell[i_entry], "P" + i_day);
+                            practice[i_entry - 1] = (MPractice)entry[i_entry - 1];
+
+                            if (practice[i_entry - 2] != null)
+                            {
+                                if (practice[i_entry - 1].Comment == practice[i_entry - 2].Comment)
+                                {
+                                    setRange(mergecell[i_entry - 1], "P" + i_day);
+                                    merge();
+                                }
+                            }
+                            else
+                            {
+                                merge();
+
+                                setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                                if (calendarDay.CalendarEntry[i_entry - 1].Practice.Comment != null)
+                                {
+                                    setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            setRange(mergecell[i_entry], "P" + i_day);
+                            merge();
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }
