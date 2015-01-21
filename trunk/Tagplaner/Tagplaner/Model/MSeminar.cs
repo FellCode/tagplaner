@@ -114,6 +114,16 @@ namespace Tagplaner
             this.hasTechnology = hasTechnology;
             this.comment = comment;
         }
+
+        /// <summary>
+        /// Konstruktor nur mit dem Comment fals nur die Tagart Seminar ausgewählt wurde
+        /// </summary>
+        /// <param name="comment"></param>
+        public MSeminar(string comment)
+        {
+            this.comment = comment;
+        }
+
         /// <summary>
         /// Standardkonstruktor
         /// </summary>
