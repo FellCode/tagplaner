@@ -154,6 +154,11 @@ namespace Tagplaner
             return lvPraticeDays;
         }
 
+        /// <summary>
+        /// Erstellt ein ListViewItem mit den Statistik-Informationen "Seminare mit Praxis"
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private ListViewItem GetPraticeAndSeminarDaysListViewItem(int position)
         {
             int praticeAndSeminarDays = CStatisticUtilitys.CountPraticeAndSeminarDays(position);
