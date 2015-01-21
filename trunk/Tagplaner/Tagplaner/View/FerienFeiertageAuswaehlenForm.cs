@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tagplaner.View
+namespace Tagplaner
 {
     /// <summary>
     /// Form zum Auswählen von Dateien deren Inhalt Daten zu Ferien (.ics) und Feiertagen (.csv) enthält
@@ -46,18 +46,51 @@ namespace Tagplaner.View
         {
             get { return textFromTextBox4; }
         }
-        
+
         /// <summary>
         /// Erzeugt ein Objekt vom Typ FerienFeiertageAuswaehlenForm
         /// </summary>
         /// <param name="startDate">Gewähltes Startdatum</param>
         /// <param name="endDate">Gewähltes Enddatum</param>
-        public FerienFeiertageAuswaehlenForm(DateTime startDate, DateTime endDate)
+        /// <param name="vacationCurrentYearUrl">Url zu einer Feriendatei</param>
+        /// <param name="vacationNextYearUrl">Url zu einer Feriendatei</param>
+        /// <param name="holidayCurrentYearUrl">Url zu einer Feiertagedatei</param>
+        /// <param name="holidayNextYearUrl">Url zu einer Feiertagedatei</param>
+        public FerienFeiertageAuswaehlenForm(DateTime startDate, DateTime endDate, String vacationCurrentYearUrl, String vacationNextYearUrl, String holidayCurrentYearUrl, String holidayNextYearUrl)
         {
             InitializeComponent();
             this.startDate = startDate;
             this.endDate = endDate;
             csvComverter = new CICalCSVConverter();
+
+            if (!String.IsNullOrEmpty(holidayCurrentYearUrl))
+            {
+                this.textFromTextBox1 = holidayCurrentYearUrl;
+                file1Choosen = true;
+                textBox_HolidayCurrentYear.Text = SplitUrl(holidayCurrentYearUrl);
+                CheckAllFilesChoosen();
+            }
+            if (!String.IsNullOrEmpty(holidayNextYearUrl))
+            {
+                this.textFromTextBox2 = holidayNextYearUrl;
+                file2Choosen = true;
+                textBox_HolidayNextYear.Text = SplitUrl(holidayNextYearUrl);
+                CheckAllFilesChoosen();
+            }
+            if (!String.IsNullOrEmpty(vacationCurrentYearUrl))
+            {
+                this.textFromTextBox3 = vacationCurrentYearUrl;
+                file3Choosen = true;
+                textBox_VacationCurrentYear.Text = SplitUrl(vacationCurrentYearUrl);
+                CheckAllFilesChoosen();
+            }
+            if (!String.IsNullOrEmpty(vacationNextYearUrl))
+            {
+                this.textFromTextBox4 = vacationNextYearUrl;
+                file4Choosen = true;
+                textBox_VacationNextYear.Text = SplitUrl(vacationNextYearUrl);
+                CheckAllFilesChoosen();
+            }
         }
 
         /// <summary>
