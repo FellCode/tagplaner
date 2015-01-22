@@ -292,23 +292,23 @@ namespace Tagplaner
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
                         MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
-                        dGV[4 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[4 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
-                        dGV[5 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[5 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
-                        dGV[6 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[6 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
-                        dGV[7 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[7 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
-                        dGV[8 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[8 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[8 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
-                        dGV[9 + 6 * x_Coord, y_Coord].Value = "";
-                        dGV[9 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                        dGV[9 + 6 * x_Coord, y_Coord + i].Value = "";
+                        dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
                     }
                     else
                     {
