@@ -20,7 +20,7 @@ namespace Tagplaner
         private string startdateString;
         private string enddateString;
         private List<MSpeciality> speciality = new List<MSpeciality>();
-        private bool saved;
+        private bool saved = true;
         private DateTime lastModified;
 
         #region getter
