@@ -17,6 +17,7 @@ namespace Tagplaner
     {
         private Document doc;
         private List<MTrainer> trainerList;
+        private List<string> identifierOfYearList;
         private MCalendar calendar;
         private Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
         private int numberOfApprenticeships;
@@ -39,10 +40,10 @@ namespace Tagplaner
         readonly Font FONT_UNIQUE = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.NORMAL, BaseColor.WHITE);
 
         readonly BaseColor COLOR_BLANK = BaseColor.WHITE;
+        readonly BaseColor COLOR_HOLIDAY = new BaseColor(173, 255, 47);
         readonly BaseColor COLOR_SEMINAR = new BaseColor(135, 206, 250);
         readonly BaseColor COLOR_SCHOOL = BaseColor.BLUE;
         readonly BaseColor COLOR_PRATICE = new BaseColor(255, 215, 0);
-        readonly BaseColor COLOR_HOLIDAY = new BaseColor(173, 255, 47);
         readonly BaseColor COLOR_UNIQUEDAY = BaseColor.RED;
 
         /// <summary>
@@ -69,6 +70,9 @@ namespace Tagplaner
         /// <returns>Ist true wenn die Datei erfolgreich erstellt wurde</returns>
         public bool ExportPdf(string filename)
         {
+            this.test();
+            return true;
+            /*
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
                 getFormatByNumberOfApprenticeships(),
@@ -100,6 +104,7 @@ namespace Tagplaner
             {
                 return false;
             }
+            */
         }
 
         /// <summary>
@@ -662,6 +667,20 @@ namespace Tagplaner
             }
 
             return false;
+        }
+
+        private void test()
+        {
+            foreach (MSpeciality speciality in MCalendar.GetInstance().Speciality)
+            {
+                foreach (string identifierOfYear in identifierOfYearList)
+                {
+                    if (speciality.IdentifierOfYear.Equals(identifierOfYear))
+                    {
+                        DebugUserControl.GetInstance().AddDebugMessage(speciality.IdentifierOfYear);
+                    }
+                }       
+            }
         }
     }
 }
