@@ -258,7 +258,7 @@ namespace Tagplaner
             {
                 if (overriding == true)
                 {
-                    DialogResult result = MessageBox.Show("Mit dieser Aktion Sie überschreiben \n gefüllte Zellen?", "Überschreiben", MessageBoxButtons.YesNo);
+                    DialogResult result = MessageBox.Show("Mit dieser Aktion überschreiben Sie \n gefüllte Zellen?", "Überschreiben", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         FillAllData(applyIteration, possibleIteration, entry);
@@ -340,45 +340,67 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void DeleteDataSet(int applyIteration)
         {
-            if (dGV.Rows.Count >= y_Coord + applyIteration)
+            bool toMany = false;
+            int possibleIteration = 0;
+            for (int j = 0; j < applyIteration; j++)
             {
-                for (int i = 0; i < applyIteration; i++)
+                if (dGV.Rows.Count - 1 > y_Coord + j)
                 {
-                    if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
+                    if (MCalendar.GetInstance().CalendarList[y_Coord + j].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarDate))
                     {
-                        MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
-                        dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                        dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                        dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                        dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                        dGV[8 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                        dGV[9 + 6 * x_Coord, y_Coord + i].Value = "";
-                        dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+                        possibleIteration++;
+                        if (CalendarEntryIsNotNullOrEmpty(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarEntry[x_Coord]));
                     }
                     else
                     {
-                        //Wenn ein Feiertag ist wird die applyIteration um 1 erhöht
                         applyIteration++;
                     }
-
+                }
+                else
+                {
+                    toMany = true;
                 }
             }
-            else
+            if (toMany)
             {
                 MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
             }
+            else
+            {
+                for (int i = 0; i < applyIteration; i++)
+                {
+                    if (dGV.Rows.Count - 1 > y_Coord + possibleIteration)
+                    {
+                        if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
+                        {
+                            MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "";
+                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+                        }
+                    }
+                }
+            }
         }
+
+
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
