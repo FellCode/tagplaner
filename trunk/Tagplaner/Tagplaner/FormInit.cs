@@ -43,6 +43,19 @@ namespace Tagplaner
             suchenUC = new SuchenUserControl(tagplanBearbeitenUC, this);
         }
 
+        /// <summary>
+        /// Gibt eine Instanz von FormInit zurück, ist keine Instanz vorhanden wird eine erstellt
+        /// </summary>
+        /// <returns></returns>
+        public static FormInit GetInstance()
+        {
+            if (formInit == null)
+            {
+                formInit = new FormInit();
+            }
+            return formInit;
+        }
+
         private void Init_Load(object sender, EventArgs e)
         {
             // Show date and time
@@ -285,19 +298,6 @@ namespace Tagplaner
         private void HelpOnMouseClicked(object sender, EventArgs e)
         {
             Help.ShowHelp(this, "Hilfe für Tagplaner.chm", HelpNavigator.KeywordIndex, tabControl1.SelectedTab.Text);
-        }
-
-        /// <summary>
-        /// Singelton Implementierung
-        /// </summary>
-        /// <returns></returns>
-        public static FormInit GetInstance()
-        {
-            if(formInit == null)
-            {
-                formInit = new FormInit();
-            }
-            return formInit;
         }
     }
 }
