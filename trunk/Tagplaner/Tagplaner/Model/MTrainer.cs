@@ -68,12 +68,12 @@ namespace Tagplaner
         }
         /// <summary>
         /// Konstruktor mit Id, Nachname, Vorname, Kürzel und istIntern
+        /// </summary>
         /// <param name="id">Datenbank ID</param>
         /// <param name="name">Nachname des Trainers</param>
         /// <param name="surname">Vorname des Trainers</param>
         /// <param name="abbreviation">Kürzel des Trainers</param>
         /// <param name="isInternal">Flag ob intern oder extern</param>
-        /// </summary>
         public MTrainer(int id, string name, string surname, string abbreviation, bool isInternal)
         {
             this.id = id;
