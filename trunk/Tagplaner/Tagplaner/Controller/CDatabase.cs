@@ -1130,6 +1130,24 @@ namespace Tagplaner
         }
         #endregion
 
+        #region getAll
+        /// <summary>
+        /// Gibt eine Liste mit allen Trainern aus.
+        /// </summary>
+        /// <returns></returns>
+        public List<MTrainer> GetAllTrainer()
+        {
+            List<MTrainer> allTrainer = new List<MTrainer>();
+            
+            foreach (int key in AllTrainer.Keys)
+            {
+                allTrainer.Add(AllTrainer[key]);
+            }
+            allTrainer.OrderBy(x => x.Abbreviation);
+            return allTrainer;
+        }
+        #endregion
+
         #region new_combobox
         /// <summary>
         /// Füllt Combobox mit allen Trainern
