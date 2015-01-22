@@ -62,6 +62,9 @@ namespace Tagplaner
             InitializeComponent();
         }
 
+
+       
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
@@ -125,6 +128,7 @@ namespace Tagplaner
         {
             int columnCount = dGV.ColumnCount;
 
+            
 
             // Durchläuft jeden Kalendertag und schreibt jeden Entry in die DataGridView
             for (int rowCounter = 0; rowCounter < calendarDays.Count; rowCounter++)
@@ -159,10 +163,15 @@ namespace Tagplaner
                         dGV[columnCounter, rowCounter].ReadOnly = true;
 
                         dGV[columnCounter, rowCounter].Style.BackColor = colorWeekend;
+
+
+                       
                     }//END Einfärben des Wochenendes
                 }// END else
             }// END Schreiben der Calendar Entrys
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Füllt die gesamte Reihe mit seinen entsprechenden Elementen auf
         /// </summary>
@@ -203,7 +212,6 @@ namespace Tagplaner
             }
         }//END Durchlaufen aller Spalten
         // END-FillGrids
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -271,6 +279,12 @@ namespace Tagplaner
             }
         }
 
+        /// <summary>
+        /// Hier wird ausgewertet, welche Daten geschrieben werden müssen und dann wird die entsprechende Methode zum Füllen dieser Sorte aufgerufen
+        /// </summary>
+        /// <param name="applyIteration"></param>
+        /// <param name="possibleIteration"></param>
+        /// <param name="entry"></param>
         private void FillAllData(int applyIteration, int possibleIteration, MCalendarEntry entry)
         {
             for (int i = 0; i < applyIteration; i++)
@@ -304,7 +318,11 @@ namespace Tagplaner
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        /// <summary>
+        /// Prüft ob ein Entry leer oder nicht vorhanden ist.
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns></returns>
         private bool CalendarEntryIsNotNullOrEmpty(MCalendarEntry entry)
         {
             if (entry.Seminar != null || entry.Practice != null || entry.School != null)
@@ -349,7 +367,7 @@ namespace Tagplaner
                     if (MCalendar.GetInstance().CalendarList[y_Coord + j].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarDate))
                     {
                         possibleIteration++;
-                        if (CalendarEntryIsNotNullOrEmpty(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarEntry[x_Coord]));
+                        if (CalendarEntryIsNotNullOrEmpty(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarEntry[x_Coord])) ;
                     }
                     else
                     {
@@ -372,35 +390,38 @@ namespace Tagplaner
                     if (dGV.Rows.Count - 1 > y_Coord + possibleIteration)
                     {
                         if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
-                        {
-                            MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "";
-                            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
-                        }
+                            EmptyRow(i);
                     }
                 }
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Leert eine kompletten Entry bzw Zeile im Grid
+        /// </summary>
+        /// <param name="i"></param>
+        private void EmptyRow(int i)
+        {
+            MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
+            dGV[4 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[4 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
+            dGV[5 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[5 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
+            dGV[6 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[6 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
+            dGV[7 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[7 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
 
+            dGV[8 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[8 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+
+            dGV[9 + 6 * x_Coord, y_Coord + i].Value = "";
+            dGV[9 + 6 * x_Coord, y_Coord + i].Style.BackColor = colorNothing;
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -412,6 +433,8 @@ namespace Tagplaner
         {
             dGV[4 + 6 * x_Coord, y_Coord + day].Value = "";
             dGV[4 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
+
+
 
             dGV[5 + 6 * x_Coord, y_Coord + day].Value = "";
             dGV[5 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
@@ -744,11 +767,17 @@ namespace Tagplaner
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        /// <summary>
+        /// Übergibt die aktuelle DataGridView
+        /// </summary>
+        /// <returns></returns>
         public DataGridView GetDGV()
         {
             return this.dGV;
         }
 
     }
+
+
+
 }
