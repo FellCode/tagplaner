@@ -227,10 +227,9 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-
-            if (dGV.Rows.Count >= y_Coord + applyIteration)
+            for (int i = 0; i < applyIteration; i++)
             {
-                for (int i = 0; i < applyIteration; i++)
+                if (dGV.Rows.Count > y_Coord + applyIteration)
                 {
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
@@ -261,10 +260,12 @@ namespace Tagplaner
                     }
 
                 }
-            }
-            else
-            {
-                MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+
+                else
+                {
+                    MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+                    break;
+                }
             }
 
         }
@@ -286,7 +287,7 @@ namespace Tagplaner
             if (calendarDays.HolidayName != null)
                 dGV[3, rowCounter].Value = calendarDays.HolidayName;
         }
-        
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
