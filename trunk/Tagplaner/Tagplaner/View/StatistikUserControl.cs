@@ -67,14 +67,11 @@ namespace Tagplaner
         /// <returns>ListViewItem für Tage gesamt ohne Wochenenden und Feiertage</returns>
         private ListViewItem GetApprenticeshipDaysListViewItem()
         {
-            int allDays = CStatisticUtilitys.CountAllApprenticeshipDays();
-            int weekendDays = CStatisticUtilitys.CountWeekendDays();
-            int holidayDays = CStatisticUtilitys.CountHolidayDays();
-            int apprenticeshipDays = allDays - weekendDays - holidayDays;
+            int workingDays = CStatisticUtilitys.CountAllWorkingDays();
 
             ListViewItem lvApprenticeshipDays = new ListViewItem();
-            lvApprenticeshipDays.Text = "Tage ohne Wochenenden und Feiertage";
-            lvApprenticeshipDays.SubItems.Add(Convert.ToString(apprenticeshipDays));
+            lvApprenticeshipDays.Text = "Werktage";
+            lvApprenticeshipDays.SubItems.Add(Convert.ToString(workingDays));
 
             return lvApprenticeshipDays;
         }

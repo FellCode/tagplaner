@@ -24,6 +24,26 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// Zählt alle Werktage.
+        /// </summary>
+        /// <returns></returns>
+        public static int CountAllWorkingDays()
+        {
+            int workingCounter = 0;
+
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
+            {
+                if(!calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                && !calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")
+                && String.IsNullOrEmpty(calendarDay.HolidayName))
+                {
+                    workingCounter++;
+                }
+            }
+            return workingCounter;
+        }
+
+        /// <summary>
         /// Zählt alle Wochenendtage zwischen dem Start- und Enddatum der MCalendar Instanz
         /// und gibt diese zurück
         /// </summary>
