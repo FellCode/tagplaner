@@ -68,7 +68,6 @@ namespace Tagplaner
         }
         /// <summary>
         /// Konstruktor mit Id, Nachname, Vorname, Kürzel und istIntern
-        /// </summary>
         /// <param name="id">Datenbank ID</param>
         /// <param name="name">Nachname des Trainers</param>
         /// <param name="surname">Vorname des Trainers</param>
