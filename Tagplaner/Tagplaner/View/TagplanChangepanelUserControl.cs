@@ -169,7 +169,7 @@ namespace Tagplaner
             SetTrainer(calendarentry, Trainer);
             SetCoTrainer(calendarentry, CoTrainer);
             SetLocation(calendarentry, Ort);
-            SetRoom(calendarentry, Raum);
+            SetRoom(calendarentry, ltRaeume);
             SetComment(calendarentry, Kommentar);
 
         }
@@ -415,18 +415,24 @@ namespace Tagplaner
         /// </summary>
         /// <param name="calendarentry"></param>
         /// <param name="raumb"></param>
-        public void SetRoom(MCalendarEntry calendarentry, ComboBox raumb)
+        public void SetRoom(MCalendarEntry calendarentry, ListBox raumlist)
         {
+            raumlist.Items.Clear();
             if (calendarentry.Room == null)
             {
-                raumb.SelectedIndex = -1;
-                raumb.Text = "";
+                
             }
             else
             {
-                raumb.SelectedItem = calendarentry.Room;
+                string source = calendarentry.Room.Number;
+                string[] seperators = new String[] {" "};
+                string[] result;
+                result = source.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string oneroom in result)
+                {
+                    raumlist.Items.Add(new MRoom(oneroom));
+                }
             }
-            raumb.Refresh();
         }
 
         /// <summary>
@@ -580,13 +586,20 @@ namespace Tagplaner
         {
             try
             {
-                if (raumb.SelectedItem == null)
+                if (ltRaeume.Items == null)
                 {
 
                 }
                 else
                 {
-                    calendarentry.Room = (MRoom)raumb.SelectedItem;
+
+                    String raeume = "";
+                    foreach (MRoom oneroom in ltRaeume.Items)
+                    {
+                        raeume = raeume + " " + oneroom;
+                    }
+                    MRoom rooms = new MRoom(raeume);
+                    calendarentry.Room = rooms;
                 }
             }
             catch (NullReferenceException)
