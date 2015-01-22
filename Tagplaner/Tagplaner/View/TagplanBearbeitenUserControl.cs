@@ -147,7 +147,7 @@ namespace Tagplaner
                     else
                     {
                         //Schreibt den Feiertag quer in alle Spalten und färbt sie grün
-                        for (int columnCounter = 4; columnCounter <= columnCount - 1; columnCounter++)
+                        for (int columnCounter = 3; columnCounter <= columnCount - 1; columnCounter++)
                         {
                             dGV[columnCounter, rowCounter].Value = calendarDays[rowCounter].HolidayName.ToString();
                             dGV[columnCounter, rowCounter].ReadOnly = true;
