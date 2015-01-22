@@ -43,7 +43,6 @@
             this.ortl = new System.Windows.Forms.Label();
             this.rauml = new System.Windows.Forms.Label();
             this.kommentarl = new System.Windows.Forms.Label();
-            this.Weiterführung = new System.Windows.Forms.CheckBox();
             this.AnzahlTage = new System.Windows.Forms.NumericUpDown();
             this.tagel = new System.Windows.Forms.Label();
             this.Seminarpanel = new System.Windows.Forms.Panel();
@@ -54,6 +53,7 @@
             this.btDelete = new System.Windows.Forms.Button();
             this.btReset = new System.Windows.Forms.Button();
             this.deleteEntry = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,32 +211,22 @@
             this.kommentarl.TabIndex = 14;
             this.kommentarl.Text = "Kommentar:";
             // 
-            // Weiterführung
-            // 
-            this.Weiterführung.AutoSize = true;
-            this.Weiterführung.Location = new System.Drawing.Point(1032, 39);
-            this.Weiterführung.Name = "Weiterführung";
-            this.Weiterführung.Size = new System.Drawing.Size(102, 17);
-            this.Weiterführung.TabIndex = 21;
-            this.Weiterführung.Text = "Weiterführen für";
-            this.Weiterführung.UseVisualStyleBackColor = true;
-            this.Weiterführung.CheckedChanged += new System.EventHandler(this.Weiterführung_CheckedChanged);
-            // 
             // AnzahlTage
             // 
-            this.AnzahlTage.Location = new System.Drawing.Point(1130, 36);
+            this.AnzahlTage.Location = new System.Drawing.Point(1066, 36);
             this.AnzahlTage.Name = "AnzahlTage";
             this.AnzahlTage.Size = new System.Drawing.Size(41, 20);
             this.AnzahlTage.TabIndex = 22;
+            this.AnzahlTage.ValueChanged += new System.EventHandler(this.AnzahlTage_ValueChanged);
             // 
             // tagel
             // 
             this.tagel.AutoSize = true;
-            this.tagel.Location = new System.Drawing.Point(1177, 38);
+            this.tagel.Location = new System.Drawing.Point(1112, 38);
             this.tagel.Name = "tagel";
-            this.tagel.Size = new System.Drawing.Size(32, 13);
+            this.tagel.Size = new System.Drawing.Size(93, 13);
             this.tagel.TabIndex = 23;
-            this.tagel.Text = "Tage";
+            this.tagel.Text = "Tage weiterführen";
             // 
             // Seminarpanel
             // 
@@ -312,16 +302,25 @@
             this.deleteEntry.UseVisualStyleBackColor = true;
             this.deleteEntry.Click += new System.EventHandler(this.deleteEntry_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1039, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(22, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Für";
+            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteEntry);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.Seminarpanel);
             this.Controls.Add(this.tagel);
             this.Controls.Add(this.AnzahlTage);
-            this.Controls.Add(this.Weiterführung);
             this.Controls.Add(this.kommentarl);
             this.Controls.Add(this.rauml);
             this.Controls.Add(this.ortl);
@@ -367,7 +366,6 @@
         private System.Windows.Forms.Label ortl;
         private System.Windows.Forms.Label rauml;
         private System.Windows.Forms.Label kommentarl;
-        private System.Windows.Forms.CheckBox Weiterführung;
         private System.Windows.Forms.NumericUpDown AnzahlTage;
         private System.Windows.Forms.Label tagel;
         private System.Windows.Forms.Panel Seminarpanel;
@@ -378,5 +376,6 @@
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button deleteEntry;
+        private System.Windows.Forms.Label label1;
     }
 }
