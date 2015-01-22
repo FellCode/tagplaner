@@ -70,7 +70,6 @@ namespace Tagplaner
         /// <returns>Ist true wenn die Datei erfolgreich erstellt wurde</returns>
         public bool ExportPdf(string filename)
         {
-            this.test();
             return true;
             /*
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
