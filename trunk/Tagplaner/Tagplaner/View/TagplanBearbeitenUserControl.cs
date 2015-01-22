@@ -27,6 +27,7 @@ namespace Tagplaner
         TagplanChangepanelUserControl tagplanChangePanelUserControl = new TagplanChangepanelUserControl();
         int x_Coord = 0;
         int y_Coord = 0;
+        Color colorNothing = Color.White;
         Color colorHoliday = Color.GreenYellow;
         Color colorSchool = Color.Blue;
         Color colorPractice = Color.Gold;
@@ -277,6 +278,49 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        public void DeleteDataSet(int applyIteration)
+        {
+            if (dGV.Rows.Count >= y_Coord + applyIteration)
+            {
+                for (int i = 0; i < applyIteration; i++)
+                {
+                    if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
+                    {
+                        dGV[4 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[4 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+
+                        dGV[5 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[5 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+
+                        dGV[6 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[6 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+
+                        dGV[7 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[7 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+
+                        dGV[8 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[8 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+
+                        dGV[9 + 6 * x_Coord, y_Coord].Value = "";
+                        dGV[9 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
+                    }
+                    else
+                    {
+                        //Wenn ein Feiertag ist wird die applyIteration um 1 erhöht
+                        applyIteration++;
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+            }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         /// Füllt die DataGridView mit leeren Felder bzw. Berufsschule für den entsprechenden Tag
         /// </summary>
@@ -311,23 +355,24 @@ namespace Tagplaner
         /// <param name="rowCounter"></param>
         private void FillSchool(int columnCounter, int rowCounter)
         {
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            columnCounter = columnCounter * 6;
+            dGV[4 + columnCounter, rowCounter].Value = "";
+            dGV[4 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            dGV[5 + columnCounter, rowCounter].Value = "";
+            dGV[5 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            dGV[6 + columnCounter, rowCounter].Value = "";
+            dGV[6 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            dGV[7 + columnCounter, rowCounter].Value = "";
+            dGV[7 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[columnCounter, rowCounter].Value = "Berufschule";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            dGV[8 + columnCounter, rowCounter].Value = "Berufschule";
+            dGV[8 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[columnCounter, rowCounter].Value = "Berufschule";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSchool;
+            dGV[9 + columnCounter, rowCounter].Value = "Berufschule";
+            dGV[9 + columnCounter, rowCounter].Style.BackColor = colorSchool;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,23 +411,24 @@ namespace Tagplaner
         /// <param name="rowCounter"></param>
         private void FillPractice(int columnCounter, int rowCounter)
         {
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            columnCounter = columnCounter * 6;
+            dGV[4 + columnCounter, rowCounter].Value = "";
+            dGV[4 + columnCounter, rowCounter].Style.BackColor = colorPractice;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[5 + columnCounter, rowCounter].Value = "";
+            dGV[5 + columnCounter, rowCounter].Style.BackColor = colorPractice;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[6 + columnCounter, rowCounter].Value = "";
+            dGV[6 + columnCounter, rowCounter].Style.BackColor = colorPractice;
 
-            dGV[columnCounter, rowCounter].Value = "";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[7 + columnCounter, rowCounter].Value = "";
+            dGV[7 + columnCounter, rowCounter].Style.BackColor = colorPractice;
 
-            dGV[columnCounter, rowCounter].Value = "Praxis";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[8 + columnCounter, rowCounter].Value = "Praxis";
+            dGV[8 + columnCounter, rowCounter].Style.BackColor = colorPractice;
 
-            dGV[columnCounter, rowCounter].Value = "Praxis";
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[9 + columnCounter, rowCounter].Value = "Praxis";
+            dGV[9 + columnCounter, rowCounter].Style.BackColor = colorPractice;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -427,27 +473,26 @@ namespace Tagplaner
         /// <param name="rowCounter"></param>
         private void FillSeminar(MCalendarEntry entry, int columnCounter, int rowCounter)
         {
+            columnCounter = columnCounter * 6;
             if (entry.Place != null)
-                dGV[columnCounter, rowCounter].Value = entry.Place.Place;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+                dGV[4 + columnCounter, rowCounter].Value = entry.Place.Place;
             if (entry.Room != null)
-                dGV[columnCounter, rowCounter].Value = entry.Room.Number;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+                dGV[5 + columnCounter, rowCounter].Value = entry.Room.Number;
             if (entry.Trainer != null)
-                dGV[columnCounter, rowCounter].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
-
+                dGV[6 + columnCounter, rowCounter].Value = entry.Trainer.Name + " " + entry.Trainer.Surname;
             if (entry.Cotrainer != null)
-                dGV[columnCounter, rowCounter].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
-
+                dGV[7 + columnCounter, rowCounter].Value = entry.Cotrainer.Name + " " + entry.Cotrainer.Surname;
             if (entry.Seminar.Title != null)
             {
-                dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
-                dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
+                dGV[8 + columnCounter, rowCounter].Value = entry.Seminar.Title;
+                dGV[9 + columnCounter, rowCounter].Value = entry.Seminar.Title;
             }
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[4 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[5 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[6 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[7 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[8 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[9 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
