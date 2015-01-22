@@ -142,7 +142,7 @@ namespace Tagplaner
             {
                 ltRaeume.SelectedIndex = 0;
             }
-            catch (FormatException)
+            catch (ArgumentOutOfRangeException)
             {
 
             }
@@ -159,6 +159,7 @@ namespace Tagplaner
             Tagart.SelectedIndex = -1;
             Tagart.Text = " ";
             Seminarpanel.Visible = true;
+            AnzahlTage.Value = 0;
         }
 
         /// <summary>
@@ -211,6 +212,7 @@ namespace Tagplaner
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
             tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(AnzahlTage));
             ClearBoxes();
+            AnzahlTage.Value = 0;
         }
 
         /// <summary>
