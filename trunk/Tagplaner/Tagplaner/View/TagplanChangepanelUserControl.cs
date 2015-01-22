@@ -47,6 +47,12 @@ namespace Tagplaner
             }
             else
             {
+                //if (AnzahlTage.Value > 10)
+                //{
+                //    DialogResult dialogSaveResult = MessageBox.Show(
+                //    MMessage., MessageBoxButtons.YesNoCancel();
+                    
+                //}
                 PasteEntry();
             }
 
@@ -129,6 +135,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void btDelete_Click(object sender, EventArgs e)
         {
+
             Einfügen.Enabled = true;
             ltRaeume.Items.Remove(ltRaeume.SelectedItem);
             try
@@ -151,6 +158,7 @@ namespace Tagplaner
             ClearBoxes();
             Tagart.SelectedIndex = -1;
             Tagart.Text = " ";
+            Seminarpanel.Visible = true;
         }
 
         /// <summary>
@@ -164,7 +172,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
+        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,7 +192,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
+        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -202,6 +210,7 @@ namespace Tagplaner
         {
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
             tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(AnzahlTage));
+            ClearBoxes();
         }
 
         /// <summary>
@@ -273,7 +282,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Leert aller Felder im Changepanel
         /// </summary>
         public void ClearBoxes()
         {
@@ -497,7 +506,7 @@ namespace Tagplaner
             else
             {
                 string source = calendarentry.Room.Number;
-                string[] seperators = new String[] {" "};
+                string[] seperators = new String[] {", "};
                 string[] result;
                 result = source.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string oneroom in result)
@@ -570,7 +579,8 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-
+                FormInit finit = FormInit.GetInstance();
+                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_SEMINAR_SET);
             }
         }
 
@@ -594,7 +604,8 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-
+                FormInit finit = FormInit.GetInstance();
+                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_TRAINER_SET);
             }
         }
 
@@ -621,7 +632,8 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-
+                FormInit finit = FormInit.GetInstance();
+                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_COTRAINER_SET);
             }
         }
 
@@ -645,7 +657,8 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-
+                FormInit finit = FormInit.GetInstance();
+                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_LOCATION_SET);
             }
         }
 
@@ -665,10 +678,16 @@ namespace Tagplaner
                 else
                 {
 
+                    int i = 0;
                     String raeume = "";
                     foreach (MRoom oneroom in ltRaeume.Items)
                     {
-                        raeume = raeume + " " + oneroom;
+                        i++;
+                        if(i == 1)
+                        {
+                            raeume = ""+oneroom+"";
+                        }
+                        raeume = raeume + ", " + oneroom;
                     }
                     MRoom rooms = new MRoom(raeume);
                     calendarentry.Room = rooms;
@@ -676,7 +695,8 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-
+                FormInit finit = FormInit.GetInstance();
+                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_ROOM_SET);
             }
         }
 
