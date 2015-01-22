@@ -71,7 +71,7 @@ namespace Tagplaner
                 {
                     if (row.Cells[counter].Value != null)
                     {
-                        if (CompareStrings(row.Cells[counter].Value.ToString(), textBox_Suchen.Text))
+                        if (CompareStrings(textBox_Suchen.Text, row.Cells[counter].Value.ToString()))
                         {
                             resultList.Add(row.Cells[counter].Value.ToString());
                             columnList.Add(counter);
@@ -144,7 +144,7 @@ namespace Tagplaner
         /// <returns></returns>
         public bool CompareStrings(String searchString, String compareString)
         {
-            if (searchString.ToUpper().Trim().Equals(compareString.ToUpper().Trim()) || String.Compare(searchString.ToUpper().Trim(), 0, compareString.ToUpper().Trim(), 0, textBox_Suchen.Text.Length) == 0)
+            if (!String.IsNullOrEmpty(searchString.Trim()) && (searchString.ToUpper().Trim().Equals(compareString.ToUpper().Trim()) || String.Compare(searchString.ToUpper().Trim(), 0, compareString.ToUpper().Trim(), 0, textBox_Suchen.Text.Length) == 0))
             {
                 return true;
             }
