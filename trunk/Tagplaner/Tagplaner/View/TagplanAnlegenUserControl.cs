@@ -248,6 +248,8 @@ namespace Tagplaner
                 //Liste mit Jahrgangsbezeichnungen und Klassenarten leeren
                 identifierOfYears.Clear();
                 typeOfClasses.Clear();
+
+                MCalendar.GetInstance().Saved = false;
             }
         }
 
