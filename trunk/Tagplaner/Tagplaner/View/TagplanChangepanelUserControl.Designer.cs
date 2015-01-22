@@ -53,6 +53,7 @@
             this.btRaumadd = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
             this.btReset = new System.Windows.Forms.Button();
+            this.deleteEntry = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +78,7 @@
             this.Seminar.Name = "Seminar";
             this.Seminar.Size = new System.Drawing.Size(121, 21);
             this.Seminar.TabIndex = 1;
+            this.Seminar.SelectedIndexChanged += new System.EventHandler(this.Seminar_SelectedIndexChanged);
             // 
             // Trainer
             // 
@@ -88,6 +90,7 @@
             this.Trainer.Name = "Trainer";
             this.Trainer.Size = new System.Drawing.Size(121, 21);
             this.Trainer.TabIndex = 2;
+            this.Trainer.SelectedIndexChanged += new System.EventHandler(this.Trainer_SelectedIndexChanged);
             // 
             // CoTrainer
             // 
@@ -99,6 +102,7 @@
             this.CoTrainer.Name = "CoTrainer";
             this.CoTrainer.Size = new System.Drawing.Size(121, 21);
             this.CoTrainer.TabIndex = 3;
+            this.CoTrainer.SelectedIndexChanged += new System.EventHandler(this.CoTrainer_SelectedIndexChanged);
             // 
             // Ort
             // 
@@ -122,6 +126,7 @@
             this.Raum.Name = "Raum";
             this.Raum.Size = new System.Drawing.Size(121, 21);
             this.Raum.TabIndex = 5;
+            this.Raum.SelectedIndexChanged += new System.EventHandler(this.Raum_SelectedIndexChanged);
             // 
             // Kommentar
             // 
@@ -131,10 +136,11 @@
             this.Kommentar.Name = "Kommentar";
             this.Kommentar.Size = new System.Drawing.Size(227, 83);
             this.Kommentar.TabIndex = 6;
+            this.Kommentar.TextChanged += new System.EventHandler(this.Kommentar_TextChanged);
             // 
             // Einfügen
             // 
-            this.Einfügen.Location = new System.Drawing.Point(1042, 99);
+            this.Einfügen.Location = new System.Drawing.Point(1042, 95);
             this.Einfügen.Name = "Einfügen";
             this.Einfügen.Size = new System.Drawing.Size(75, 23);
             this.Einfügen.TabIndex = 7;
@@ -234,7 +240,7 @@
             // 
             // Seminarpanel
             // 
-            this.Seminarpanel.Location = new System.Drawing.Point(184, 3);
+            this.Seminarpanel.Location = new System.Drawing.Point(175, 3);
             this.Seminarpanel.Name = "Seminarpanel";
             this.Seminarpanel.Size = new System.Drawing.Size(606, 152);
             this.Seminarpanel.TabIndex = 24;
@@ -288,7 +294,7 @@
             // 
             // btReset
             // 
-            this.btReset.Location = new System.Drawing.Point(1129, 99);
+            this.btReset.Location = new System.Drawing.Point(1129, 95);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(93, 23);
             this.btReset.TabIndex = 30;
@@ -296,10 +302,21 @@
             this.btReset.UseVisualStyleBackColor = true;
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
+            // deleteEntry
+            // 
+            this.deleteEntry.Location = new System.Drawing.Point(1042, 126);
+            this.deleteEntry.Name = "deleteEntry";
+            this.deleteEntry.Size = new System.Drawing.Size(115, 23);
+            this.deleteEntry.TabIndex = 31;
+            this.deleteEntry.Text = "Eintrag Entfernen";
+            this.deleteEntry.UseVisualStyleBackColor = true;
+            this.deleteEntry.Click += new System.EventHandler(this.deleteEntry_Click);
+            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.deleteEntry);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.Seminarpanel);
             this.Controls.Add(this.tagel);
@@ -360,5 +377,6 @@
         private System.Windows.Forms.Button btRaumadd;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btReset;
+        private System.Windows.Forms.Button deleteEntry;
     }
 }

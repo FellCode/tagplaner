@@ -78,6 +78,7 @@ namespace Tagplaner
         {
             ClearBoxes();
             ChangeVisibility(Tagart, Seminarpanel);
+            Einfügen.Enabled = true;
         }
 
         /// <summary>
@@ -90,10 +91,13 @@ namespace Tagplaner
             if (Weiterführung.Checked == true)
             {
                 AnzahlTage.Enabled = true;
+                AnzahlTage.Value = 0;
             }
             else
             {
+                AnzahlTage.Value = 0;
                 AnzahlTage.Enabled = false;
+                
             }
         }
 
@@ -125,8 +129,17 @@ namespace Tagplaner
         {
             if (Raum.SelectedItem != null)
             {
-                ltRaeume.Items.Add(Raum.SelectedItem);
-            }
+                if (ltRaeume.Items.Contains(Raum.SelectedItem))
+                {
+
+                }
+                else
+                {
+                    Einfügen.Enabled = true;
+                    ltRaeume.Items.Add(Raum.SelectedItem);
+                    ltRaeume.SelectedIndex = 0;
+                }
+           }
         }
 
         /// <summary>
@@ -136,7 +149,16 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void btDelete_Click(object sender, EventArgs e)
         {
+            Einfügen.Enabled = true;
             ltRaeume.Items.Remove(ltRaeume.SelectedItem);
+            try
+            {
+                ltRaeume.SelectedIndex = 0;
+            }
+            catch (FormatException)
+            {
+
+            }
         }
 
         /// <summary>
@@ -152,11 +174,73 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Seminar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Trainer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CoTrainer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Raum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteEntry_Click(object sender, EventArgs e)
+        {
+            TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
+            tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(Weiterführung, AnzahlTage));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Kommentar_TextChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+        /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
         /// </summary>
         /// <param name="calendarentry"></param>
         public void ChangeCalendarEntry(MCalendarEntry calendarentry)
         {
+            Einfügen.Enabled = false;
             AnzahlTage.Enabled = false;
 
             cdb.FillSeminarComboBox(Seminar);
@@ -172,6 +256,7 @@ namespace Tagplaner
             SetRoom(calendarentry, ltRaeume);
             SetComment(calendarentry, Kommentar);
 
+            Einfügen.Enabled = false;
         }
 
         /// <summary>
@@ -213,9 +298,10 @@ namespace Tagplaner
             CoTrainer.Text = " ";
             Ort.SelectedIndex = -1;
             Ort.Text = " ";
+            Raum.Items.Clear();
             Raum.SelectedIndex = -1;
             Raum.Text = " ";
-            ltRaeume.SelectedItems.Clear();
+            ltRaeume.Items.Clear();
             Kommentar.Clear();
             Weiterführung.Checked = false;
             AnzahlTage.Enabled = false;
@@ -685,5 +771,6 @@ namespace Tagplaner
             }
 
         }
+
     }
 }
