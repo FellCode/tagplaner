@@ -286,6 +286,7 @@ namespace Tagplaner
                 {
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
+                        MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarEntry[x_Coord] = new MCalendarEntry();
                         dGV[4 + 6 * x_Coord, y_Coord].Value = "";
                         dGV[4 + 6 * x_Coord, y_Coord].Style.BackColor = colorNothing;
 
@@ -522,11 +523,12 @@ namespace Tagplaner
         /// <param name="rowCounter"></param>
         private void FillSeminarAndPractice(MCalendarEntry entry, int columnCounter, int rowCounter)
         {
-            dGV[columnCounter, rowCounter].Value = entry.Seminar.Title;
-            dGV[columnCounter, rowCounter].Value = "Praxis";
+            columnCounter = columnCounter * 6;
+            dGV[8 + columnCounter, rowCounter].Value = entry.Seminar.Title;
+            dGV[9 + columnCounter, rowCounter].Value = "Praxis";
 
-            dGV[columnCounter, rowCounter].Style.BackColor = colorSeminar;
-            dGV[columnCounter, rowCounter].Style.BackColor = colorPractice;
+            dGV[8 + columnCounter, rowCounter].Style.BackColor = colorSeminar;
+            dGV[9 + columnCounter, rowCounter].Style.BackColor = colorPractice;
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
