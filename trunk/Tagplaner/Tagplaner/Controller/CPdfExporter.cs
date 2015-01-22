@@ -18,7 +18,6 @@ namespace Tagplaner
         private Document doc;
         private List<MTrainer> trainerList;
         private List<string> identifierOfYearList;
-        private MCalendar calendar;
         private Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
         private int numberOfApprenticeships;
         private bool showComments;
@@ -49,14 +48,13 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine neue Instanz von CPdfExporter
         /// </summary>
-        /// <param name="calendar">Instanz vom MCalendar</param>
-        /// <param name="numberOfApprenticeships">Anzahl der Ausbildungsjahrgänge</param>
+        /// <param name="identifierOfYearList">Liste mit Jahrgängen die angezeigt werden sollen</param>
         /// <param name="showComments">Information, ob Kommentare angezeigt werden soll</param>
-        /// <param name="trainerList">Instanz von Liste mit MTrainer Instanzen</param>
-        public CPdfExporter(MCalendar calendar, int numberOfApprenticeships, bool showComments, List<MTrainer> trainerList)
+        /// <param name="trainerList">Liste mit MTrainer Instanzen</param>
+        public CPdfExporter(List<string> identifierOfYearList, bool showComments, List<MTrainer> trainerList)
         {
-            this.calendar = calendar;
-            this.numberOfApprenticeships = numberOfApprenticeships;
+            this.identifierOfYearList = identifierOfYearList;
+            this.numberOfApprenticeships = identifierOfYearList.Count;
             this.showComments = showComments;
             this.trainerList = trainerList;
             
@@ -70,8 +68,24 @@ namespace Tagplaner
         /// <returns>Ist true wenn die Datei erfolgreich erstellt wurde</returns>
         public bool ExportPdf(string filename)
         {
-            return true;
-            /*
+            #region Nur für Testzwecke
+            foreach (string s in identifierOfYearList)
+            {
+                DebugUserControl.GetInstance().AddDebugMessage("numbers of " + s.ToUpper() + ": " + CountSpecialityByIdentifierOfYear(s).ToString());
+                DebugUserControl.GetInstance().AddDebugMessage("Pos: " + GetSpecialityListPosition(s).ToString());
+                DebugUserControl.GetInstance().AddDebugMessage("SpecName: " + GetSpecialityNameByIdentifierOfYear(s));
+                DebugUserControl.GetInstance().AddDebugMessage("-------------------------------------------");
+            }
+
+            foreach (MSpeciality spec in MCalendar.GetInstance().Speciality)
+            {
+                int pos = GetSpecialityListPosition(spec.IdentifierOfYear, spec.SpecialityName);
+
+                DebugUserControl.GetInstance().AddDebugMessage(spec.IdentifierOfYear + ": " + spec.SpecialityName + ": " + pos.ToString());
+            }
+
+            #endregion
+
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
                 getFormatByNumberOfApprenticeships(),
@@ -103,7 +117,7 @@ namespace Tagplaner
             {
                 return false;
             }
-            */
+            
         }
 
         /// <summary>
@@ -127,8 +141,9 @@ namespace Tagplaner
         /// <param name="font">Schriftformatierung</param>
         /// <param name="backgroundColor">Hintegrundfarbe der Zelle</param>
         /// <param name="colSpan">Anzahl der Zellen die zusammengefasst werden sollen</param>
+        /// <param name="rowSpan">Anzahl der Reihen die zusammengefasst werden sollen</param>
         /// <returns></returns>
-        private PdfPCell CreateTabeCell(string text, Font font, BaseColor backgroundColor, int colSpan)
+        private PdfPCell CreateTabeCell(string text, Font font, BaseColor backgroundColor, int colSpan, int rowSpan)
         {
             PdfPCell pdfCell = new PdfPCell();
             pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -136,6 +151,7 @@ namespace Tagplaner
             pdfCell.Phrase = new Phrase(text, font);
             pdfCell.BackgroundColor = backgroundColor;
             pdfCell.Colspan = colSpan;
+            pdfCell.Rowspan = rowSpan;
 
             return pdfCell;
         }
@@ -145,18 +161,7 @@ namespace Tagplaner
         /// </summary>
         private void CreatePdfHeader()
         {
-            PdfPTable headerTable = new PdfPTable(calculateNumberOfCells());
-            headerTable.WidthPercentage = 100;
-
-            PdfPCell pdfHeaderCellLeft = new PdfPCell(new Phrase("Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\nLegende:\n", FONT_BOLD)) { Colspan = 14 };
-            PdfPCell pdfHeaderCellRight = new PdfPCell(new Phrase("Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\nLegende:\n", FONT_BOLD)) { Colspan = 14 };
-
-            headerTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = 4 });
-
-            headerTable.AddCell(pdfHeaderCellLeft);
-            headerTable.AddCell(pdfHeaderCellRight);
-
-            doc.Add(headerTable);
+            doc.Add(CreateTableTopic());
             doc.Add(CreateLegend());
             doc.Add(CreateTopRow());
         }
@@ -166,6 +171,8 @@ namespace Tagplaner
         /// </summary>
         private void CreatePdfBody()
         {
+            MCalendar calendar = MCalendar.GetInstance();
+
             for (int i = 0; i < calendar.CalendarList.Count; i++)
             {
                 MCalendarDay calendarDay = calendar.CalendarList.ElementAt(i);
@@ -206,55 +213,63 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// Erstellt eine Tabelle mit einer Überschrift für die Tabelle pro Ausbildungsjahr
+        /// </summary>
+        /// <returns>Tabelle mit Überschrift</returns>
+        private PdfPTable CreateTableTopic()
+        {
+            PdfPTable pdfTable = new PdfPTable(32);
+            pdfTable.WidthPercentage = 100;
+            pdfTable.AddCell(CreateTabeCell("", FONT_BOLD, COLOR_BLANK, 4, 1));
+
+            for (int i = 0; i < identifierOfYearList.Count; i++)
+            {
+                pdfTable.AddCell(CreateTabeCell(
+                    "Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\n",
+                    FONT_BOLD,
+                    COLOR_BLANK,
+                    28 / identifierOfYearList.Count,
+                    1));
+            }
+
+            return pdfTable;
+        }
+
+        /// <summary>
         ///  Erzeugt die Legende für die verschiedenen Arten von Tagplan 
         /// </summary>
         /// <returns>Tabelle für die Legende</returns>
         private PdfPTable CreateLegend()
         {
-            PdfPTable legendTable = new PdfPTable(32);
-            legendTable.WidthPercentage = 100;
-            legendTable.SpacingAfter = 20;
+            PdfPTable pdfTable = new PdfPTable(32);
+            pdfTable.WidthPercentage = 100;
+            pdfTable.SpacingAfter = 20;
 
-            PdfPCell pdfLegendSchoolCell = new PdfPCell();
-            PdfPCell pdfLegendPracticalCell = new PdfPCell();
-            PdfPCell pdfLegendAcademyCell = new PdfPCell();
-            PdfPCell pdfLegendHolidayCell = new PdfPCell();
+            pdfTable.AddCell(CreateTabeCell("Legende", FONT_SMALL_BOLD, COLOR_BLANK, 4, 4));
 
-            pdfLegendAcademyCell.BackgroundColor = BaseColor.YELLOW;
-            pdfLegendSchoolCell.BackgroundColor = BaseColor.BLUE;
-            pdfLegendPracticalCell.BackgroundColor = BaseColor.CYAN;
-            pdfLegendHolidayCell.BackgroundColor = BaseColor.GREEN;
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase in Berufsschule", FONT_NORMAL, COLOR_BLANK, 13, 1));
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase in Berufsschule", FONT_NORMAL, COLOR_BLANK, 13, 1));
 
-            legendTable.AddCell(new PdfPCell(new Phrase("Legende", FONT_SMALL_BOLD))
-            {
-                Colspan = 4,
-                Rowspan = 4,
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                VerticalAlignment = Element.ALIGN_MIDDLE
-            });
-            legendTable.AddCell(pdfLegendSchoolCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Phase in Berufsschule", FONT_NORMAL)) { Colspan = 13 });
-            legendTable.AddCell(pdfLegendSchoolCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Phase in Berufsschule", FONT_NORMAL)) { Colspan = 13 });
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase in Betrieb", FONT_NORMAL, COLOR_BLANK, 13, 1));
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase in Betrieb", FONT_NORMAL, COLOR_BLANK, 13, 1));
 
-            legendTable.AddCell(pdfLegendPracticalCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Praxisphase im Betrieb", FONT_NORMAL)) { Colspan = 13 });
-            legendTable.AddCell(pdfLegendPracticalCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Praxisphase im Betrieb", FONT_NORMAL)) { Colspan = 13 });
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SEMINAR, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase CSC Akademie", FONT_NORMAL, COLOR_BLANK, 13, 1));
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SEMINAR, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Phase CSC Akademie", FONT_NORMAL, COLOR_BLANK, 13, 1));
 
-            legendTable.AddCell(pdfLegendAcademyCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Phase CSC Akademie", FONT_NORMAL)) { Colspan = 13 });
-            legendTable.AddCell(pdfLegendAcademyCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Phase CSC Akademie", FONT_NORMAL)) { Colspan = 13 });
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Ferien/Feiertage", FONT_NORMAL, COLOR_BLANK, 13, 1));
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Ferien/Feiertage", FONT_NORMAL, COLOR_BLANK, 13, 1));
 
-            legendTable.AddCell(pdfLegendHolidayCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Ferien/Feiertage", FONT_NORMAL)) { Colspan = 13 });
-            legendTable.AddCell(pdfLegendHolidayCell);
-            legendTable.AddCell(new PdfPCell(new Phrase("Ferien/Feiertage", FONT_NORMAL)) { Colspan = 13 });
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, calculateNumberOfCells(), 1));
 
-            legendTable.AddCell(new PdfPCell(new Phrase("")) { Colspan = calculateNumberOfCells() });
-
-            return legendTable;
+            return pdfTable;
         }
 
         /// <summary>
@@ -263,34 +278,33 @@ namespace Tagplaner
         /// <returns>Tabelle mit überschriften für den Tagplan</returns>
         public PdfPTable CreateTopRow()
         {
-            PdfPTable topRowTable = new PdfPTable(calculateNumberOfCells());
-            topRowTable.WidthPercentage = 100;
+            PdfPTable pdfTable = new PdfPTable(calculateNumberOfCells());
+            pdfTable.WidthPercentage = 100;
 
-            topRowTable.AddCell(new PdfPCell(new Phrase("Tag", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-            topRowTable.AddCell(new PdfPCell(new Phrase("Datum", FONT_SMALL_BOLD)) { Colspan = 2, HorizontalAlignment = Element.ALIGN_CENTER });
-
-            topRowTable.AddCell(new PdfPCell(new Phrase("Ferien", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
+            pdfTable.AddCell(CreateTabeCell("Tag", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+            pdfTable.AddCell(CreateTabeCell("Datum", FONT_SMALL_BOLD, COLOR_BLANK, 2, 1));
+            pdfTable.AddCell(CreateTabeCell("Ferien", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
 
             for (int i = 0; i < numberOfApprenticeships; i++)
             {
-                topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nAnwendungsentwickler", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
+                pdfTable.AddCell(CreateTabeCell("Technik", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Ort", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Trainer", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Inhalt\nAnwendungsentwickler", FONT_SMALL_BOLD, COLOR_BLANK, 4, 1));
 
-                topRowTable.AddCell(new PdfPCell(new Phrase("Technik", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Ort", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Trainer", FONT_SMALL_BOLD)) { Colspan = 1, HorizontalAlignment = Element.ALIGN_CENTER });
-                topRowTable.AddCell(new PdfPCell(new Phrase("Inhalt\nSystemintegratoren", FONT_SMALL_BOLD)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER });
+                pdfTable.AddCell(CreateTabeCell("Technik", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Ort", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Trainer", FONT_SMALL_BOLD, COLOR_BLANK, 1, 1));
+                pdfTable.AddCell(CreateTabeCell("Inhalt\nSystemintegration", FONT_SMALL_BOLD, COLOR_BLANK, 4, 1));
             }
 
-            return topRowTable;
+            return pdfTable;
         }
 
         /// <summary>
         /// Erstellt eine Tabellenreihe mit den eigentlichen Tagplan Informationen
         /// </summary>
-        /// <param name="calendarDay">Nächster Kalendertag aus der Liste von MCalendar<</param>
+        /// <param name="calendarDay">Nächster Kalendertag aus der Liste von MCalendar</param>
         /// <param name="position">Aktuelle Position in CalendarList</param>
         private void CreateBodyTableRow(MCalendarDay calendarDay, MCalendarDay nextCalendarDay)
         {
@@ -303,23 +317,25 @@ namespace Tagplaner
                     dayDictionary[calendarDay.CalendarDate.DayOfWeek.ToString()],
                     FONT_NORMAL,
                     COLOR_BLANK,
+                    1,
                     1));                                                                        // Wochentag
             pdfTable.AddCell(
                 CreateTabeCell(
                     calendarDay.CalendarDate.Date.ToShortDateString(),
                     FONT_NORMAL,
                     COLOR_BLANK,
-                    2));                                                                        // Datum                  
+                    2,
+                    1));                                                                        // Datum                  
 
             // Prüfen ob aktueller Tag ein Ferientag ist
             #region Ferien
             if (!String.IsNullOrEmpty(calendarDay.VacationName))
             {
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1));            // Ferien
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_HOLIDAY, 1, 1));            // Ferien
             }
             else
             {
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));              // Leere Zelle
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));              // Leere Zelle
             }
             #endregion
 
@@ -330,7 +346,7 @@ namespace Tagplaner
                 for (int i = 0; i < numberOfApprenticeships; i++)
                 {
                     pdfTable.AddCell(CreateTabeCell(calendarDay.HolidayName,
-                        FONT_NORMAL, COLOR_HOLIDAY, calculateNumberOfCells() / numberOfApprenticeships));
+                        FONT_NORMAL, COLOR_HOLIDAY, calculateNumberOfCells() / numberOfApprenticeships, 1));
                 }
                 #endregion
             }
@@ -338,34 +354,64 @@ namespace Tagplaner
             else
             {
                 // Year two - FIAE
-                MCalendarEntry calendarEntry = calendarDay.CalendarEntry[0];
-
+                MCalendarEntry calendarEntry = null;
+                int calendarEntryPosition = 0;
+                
                 // Durchlauf pro Anzahl der Ausbildungsjahrgänge
                 for (int i = 0; i < numberOfApprenticeships; i++)
                 {
-                    // Spalte für Anzahl der Fachrichtungen (2) pro Anzahl der Ausbildungsjahrgänge erstellen
-                    for (int j = 0; j < 2 * numberOfApprenticeships; j++)
+                    foreach (string identifierOfYear in identifierOfYearList)
                     {
-                        // Prüfen, ob der aktuelle Tag ein Seminartag ist
-                        if (calendarEntry.Seminar != null)
+                        int numberOfSpecialitys = CountSpecialityByIdentifierOfYear(identifierOfYear);
+                        calendarEntryPosition = GetSpecialityListPosition(identifierOfYear);
+                        calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
+
+                        // Zeige Spalte nur für FIAE
+                        if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("AE"))
                         {
-                            CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateBlankRow(pdfTable);
                         }
-                        // Prüfen, ob der aktuelle Tag ein Schultag ist
-                        else if (calendarEntry.School != null)
+                        // Zeige Spalte nur für FISI
+                        else if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("SI"))
                         {
-                            CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateBlankRow(pdfTable);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
                         }
-                        // Prüfen, ob der aktuelle Tag ein Praxistag ist
-                        else if (calendarEntry.Practice != null)
+                        // Zeige Spalte für FIAE und FISI
+                        else
                         {
-                            CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
-                        }
+                            calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "AE");
+                            calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+
+                            calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "SI");
+                            calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                        }   
                     }
                 }
             }
 
             doc.Add(pdfTable);
+        }
+
+        private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        {
+            if (calendarEntry.Seminar != null)
+            {
+                CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+            }
+            // Prüfen, ob der aktuelle Tag ein Schultag ist
+            else if (calendarEntry.School != null)
+            {
+                CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+            }
+            // Prüfen, ob der aktuelle Tag ein Praxistag ist
+            else if (calendarEntry.Practice != null)
+            {
+                CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+            }
         }
 
         /// <summary>
@@ -377,13 +423,30 @@ namespace Tagplaner
         /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Seminartag</param>
         private void CreateSeminarRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
         {
-            pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.HasTechnology, FONT_NORMAL, COLOR_BLANK, 1));     // Technik
-            pdfTable.AddCell(CreateTabeCell(calendarEntry.Room.Number, FONT_NORMAL, COLOR_BLANK, 1));               // RaumNr.    
-            pdfTable.AddCell(CreateTabeCell(calendarEntry.Trainer.Abbreviation, FONT_NORMAL, COLOR_BLANK, 1));      // Trainer
+            pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.HasTechnology, FONT_NORMAL, COLOR_BLANK, 1, 1));     // Technik
+
+            // Prüfen, ob ein Trainer vorhanden ist
+            if (calendarEntry.Room != null) {
+                pdfTable.AddCell(CreateTabeCell(calendarEntry.Room.Number, FONT_NORMAL, COLOR_BLANK, 1, 1));           // RaumNr.
+            }
+            else {
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                  // Keine RaumNr. angegeben
+            }
+
+            // Prüfen, ob ein Trainer vorhanden ist
+            if (calendarEntry.Trainer != null)
+            {
+                pdfTable.AddCell(CreateTabeCell(calendarEntry.Trainer.Abbreviation, FONT_NORMAL, COLOR_BLANK, 1, 1));  // Trainer
+            }
+            else
+            {
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                  // Kein Trainer angegeben
+            }
+            
 
             if (nextDayIsSeminar(calendarDay, nextCalendarDay))
             {
-                pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4));       // Seminar
+                pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));       // Seminar
             }
             else
             {
@@ -393,11 +456,11 @@ namespace Tagplaner
                         CreateTabeCell(calendarEntry.Seminar.Title + "\n" + calendarEntry.Seminar.Comment,
                             FONT_NORMAL,
                             COLOR_SEMINAR,
-                            4));                                                                                    // Seminar + Kommentar
+                            4, 1));                                                                                    // Seminar + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4));   // Seminar
+                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));   // Seminar
                 }
             }
         }
@@ -411,23 +474,23 @@ namespace Tagplaner
         /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Schultag</param>
         private void CreateSchoolRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
         {
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle Technik
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle RaumNr.   
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle Trainer
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
 
             if (nextDayIsSchool(calendarDay, nextCalendarDay))
             {
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 4));                                 // Schule
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 4, 1));                                 // Schule
             }
             else
             {
                 if (showComments)
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.School.Comment, FONT_NORMAL, COLOR_SCHOOL, 4));   // Schule + Kommentar
+                    pdfTable.AddCell(CreateTabeCell(calendarEntry.School.Comment, FONT_NORMAL, COLOR_SCHOOL, 4, 1));   // Schule + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 4));                             // Schule
+                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 4, 1));                             // Schule
                 }
             }
         }
@@ -436,19 +499,16 @@ namespace Tagplaner
         /// Fügt einen Eintrag für einen Praxistag zur angegebenen PdfTabelle hinzu
         /// </summary>
         /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        /// <param name="calendarDay">Aktueller Kalendertag</param>
-        /// <param name="nextCalendarDay">Nächster Kalendertag</param>
-        /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Praxistag</param>
         private void CreatePraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
         {
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle Technik
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle RaumNr.   
-            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1));                                      // Leere Zelle Trainer
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
 
             if (nextDayIsPratice(calendarDay, nextCalendarDay))
             {
 
-                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4));                                // Praxis
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4, 1));                                // Praxis
             }
             else
             {
@@ -457,14 +517,29 @@ namespace Tagplaner
                     pdfTable.AddCell(
                         CreateTabeCell(calendarEntry.Practice.Comment,
                             FONT_NORMAL,
-                            COLOR_PRATICE, 4));                                                                     // Praxis + Kommentar
+                            COLOR_PRATICE, 4, 1));                                                                     // Praxis + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4));                            // Praxis
+                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4, 1));                            // Praxis
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Fügt einen Eintrag für einen leeren Tag zur angegebenen PpdfTabelle hinzu
+        /// </summary>
+        /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendertag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendertag</param>
+        /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Praxistag</param>
+        private void CreateBlankRow(PdfPTable pdfTable)
+        {
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 4, 1));                                      // Leere Zellen Seminar / Schule / Praxis
         }
 
         /// <summary>
@@ -485,8 +560,8 @@ namespace Tagplaner
             float[] widths = new float[] { 1f, 2f };
             pdfTable.SetWidths(widths);
 
-            pdfTable.AddCell(CreateTabeCell(leftValue, font, COLOR_BLANK, 1));
-            pdfTable.AddCell(CreateTabeCell(rightValue, font, COLOR_BLANK, 1));
+            pdfTable.AddCell(CreateTabeCell(leftValue, font, COLOR_BLANK, 1, 1));
+            pdfTable.AddCell(CreateTabeCell(rightValue, font, COLOR_BLANK, 1, 1));
 
             doc.Add(pdfTable);
         }
@@ -668,18 +743,88 @@ namespace Tagplaner
             return false;
         }
 
-        private void test()
+        /// <summary>
+        /// Gibt die Listenposition der Instanz von MSpeciality mit dem angegebenen identifierOfYear zurück
+        /// </summary>
+        /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
+        /// <returns>Gesuchte Speciality Position</returns>
+        private int GetSpecialityListPosition(string identifierOfYear)
         {
-            foreach (MSpeciality speciality in MCalendar.GetInstance().Speciality)
+            MCalendar calendar = MCalendar.GetInstance();
+
+            for (int i = 0; i < calendar.Speciality.Count; i++)
             {
-                foreach (string identifierOfYear in identifierOfYearList)
+                if (calendar.Speciality[i].IdentifierOfYear.Equals(identifierOfYear))
                 {
-                    if (speciality.IdentifierOfYear.Equals(identifierOfYear))
-                    {
-                        DebugUserControl.GetInstance().AddDebugMessage(speciality.IdentifierOfYear);
-                    }
-                }       
+                    return i;
+                }
             }
+
+            return 0;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
+        /// <param name="specialityName"></param>
+        /// <returns>Gesuchte Speciality Position</returns>
+        private int GetSpecialityListPosition(string identifierOfYear, string specialityName)
+        {
+            MCalendar calendar = MCalendar.GetInstance();
+
+            for (int i = 0; i < calendar.Speciality.Count; i++)
+            {
+                if (calendar.Speciality[i].IdentifierOfYear.Equals(identifierOfYear) &&
+                    calendar.Speciality[i].SpecialityName.Equals(specialityName))
+                {
+                    return i;
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Gibt die Anzahl der Elemente mit dem angegebenen identifierOfYear zurück
+        /// </summary>
+        /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
+        /// <returns>Anzahl der identifierOfYear mit der entsprechenden Bezeichnung</returns>
+        private int CountSpecialityByIdentifierOfYear(string identifierOfYear)
+        {
+            MCalendar calendar = MCalendar.GetInstance();
+            int specialityCounter = 0;
+
+            foreach (MSpeciality speciality in calendar.Speciality)
+            {
+                if (speciality.IdentifierOfYear.Equals(identifierOfYear))
+                {
+                    specialityCounter++;
+                }
+            }
+
+            return specialityCounter;
+        }
+
+        /// <summary>
+        /// Gibt den SpecialityName einer MSpeciality Instanz mit der angegebenen Bezeichnung von
+        /// identifierOfYear zurück
+        /// </summary>
+        /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
+        /// <returns>SpecialityName</returns>
+        private string GetSpecialityNameByIdentifierOfYear(string identifierOfYear)
+        {
+            MCalendar calendar = MCalendar.GetInstance();
+            foreach (MSpeciality speciality in calendar.Speciality)
+            {
+                if (speciality.IdentifierOfYear.Equals(identifierOfYear))
+                {
+                    return speciality.SpecialityName;
+                }
+            }
+
+            return "";
         }
     }
 }

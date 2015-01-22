@@ -26,9 +26,25 @@ namespace Tagplaner
 
         private void ExportPdfForm_Load(object sender, EventArgs e)
         {
-            comboBox1.SelectedIndex = 0;
-
             addSpecialitiesToCheckedListBox();
+            addItemsToCombobox();
+
+            if (checkedListBox1.Items.Count > 0)
+            {
+                button1.Enabled = true;
+                comboBox1.Enabled = true;
+                checkedListBox1.Enabled = true;
+                checkBox1.Enabled = true;
+                checkBox2.Enabled = true;
+            }
+            else
+            {
+                button1.Enabled = false;
+                comboBox1.Enabled = false;
+                checkedListBox1.Enabled = false;
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,6 +73,11 @@ namespace Tagplaner
             this.Close();
         }
 
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            this.Close();
+        }
+
         /// <summary>
         /// Öffnet den SpeicherDialog um das PDF-Dokument zu erzeugen
         /// </summary>
@@ -66,14 +87,10 @@ namespace Tagplaner
 
             if (saveFileDialog1.FileName != "")
             {
-                List<MTrainer> trainerList = new List<MTrainer>();
-                trainerList.Add(new MTrainer("Alexander", "Theis", "AT", true, true));
-
                 CPdfExporter pdfExporter = new CPdfExporter(
-                    MCalendar.GetInstance(),
-                    Convert.ToInt32(comboBox1.Text),
+                    CreateIdentifierOfYearList(),
                     checkBox2.Checked,
-                    trainerList);
+                    CDatabase.GetInstance().GetAllTrainer());
                 pdfExporter.ExportPdf(saveFileDialog1.FileName);
             }
 
@@ -111,12 +128,49 @@ namespace Tagplaner
                     checkedListBox1.Items.Add(currentSpecialityItem.IdentifierOfYear);
                 }
             }
+
+            if (checkedListBox1.Items.Count == 1)
+            {
+                checkedListBox1.SetItemChecked(0, true);
+            }
         }
 
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Fügt anhand der Anzahl der Jahrgänge die Items zur ComboBox "Anzahl der Jahrgänge" hinzu
+        /// </summary>
+        private void addItemsToCombobox()
         {
-            this.Close();
+            if (checkedListBox1.Items.Count == 1)
+            {
+                comboBox1.Items.Add("1");
+                comboBox1.SelectedIndex = 0;
+            }
+            else if (checkedListBox1.Items.Count > 1)
+            {
+                comboBox1.Items.Add("1");
+                comboBox1.Items.Add("2");
+                comboBox1.SelectedIndex = 0;
+            }
         }
 
+        /// <summary>
+        /// Gibt eine Liste zurück mit den IdentifierOfYear der MSpeciality Instanzen die
+        /// in der checkedListbox ausgewählt wurden
+        /// </summary>
+        /// <returns>Liste mit ausgewählten "IdentifierOfYear"</returns>
+        private List<string> CreateIdentifierOfYearList()
+        {
+            List<string> list = new List<string>();
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    if (checkedListBox1.GetItemChecked(i))
+                    {
+                        list.Add(checkedListBox1.Items[i].ToString());
+                    }
+                }
+
+            return list;
+        }
     }
 }
