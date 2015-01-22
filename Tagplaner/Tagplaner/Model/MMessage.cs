@@ -82,5 +82,25 @@ namespace Tagplaner
         /// Sie haben zuviele Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden
         /// </summary>
         public static string WARNING_SELECTED_TO_MANY_ENTRIES = "Sie haben zuviele Einträge ausgewählt. Bitte wählen Sie soviele Einträge aus, wie Jahrgänge angegeben wurden";
+
+        /// <summary>
+        /// Das Einfügen hat nicht funktioniert.
+        /// </summary>
+        public static string ERROR_NO_INSERT = "Fehler beim Einfügen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+
+        /// <summary>
+        /// Das Löschen hat nicht Funktioniert.
+        /// </summary>
+        public static string ERROR_NO_DELETE = "Fehler beim Löschen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+
+        /// <summary>
+        /// Das Ändern hat nicht funktioniert.
+        /// </summary>
+        public static string ERROR_NO_UPDATE = "Fehler beim Ändern der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
+
+        /// <summary>
+        /// Das Backup konnte nicht wiederhergestellt werden und due Aktuelleversion der Datenbank ist kaputt oder nicht vorhanden.
+        /// </summary>
+        public static string ERROR_BROKEN_DATABASE = "Datenbank kaputt oder nicht vorhanden";
     }
 }
