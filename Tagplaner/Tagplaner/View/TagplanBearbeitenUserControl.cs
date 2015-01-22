@@ -227,14 +227,55 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
+            bool toMany = false;
+            bool overriding = false;
             int possibleIteration = 0;
             for (int j = 0; j < applyIteration; j++)
             {
-                if (MCalendar.GetInstance().CalendarList[y_Coord + j].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarDate))
-                { possibleIteration++; }
+                if (dGV.Rows.Count - 1 > y_Coord + j)
+                {
+                    if (MCalendar.GetInstance().CalendarList[y_Coord + j].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarDate))
+                    {
+                        possibleIteration++;
+                        if (CalendarEntryIsNotNullOrEmpty(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarEntry[x_Coord]))
+                            overriding = true;
+                    }
+                    else
+                    {
+                        applyIteration++;
+                    }
+                }
+                else
+                {
+                    toMany = true;
+                }
             }
-            for (int i = 0; i < applyIteration; i++){
-                if (possibleIteration == applyIteration)
+            if (toMany)
+            {
+                MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+            }
+            else
+            {
+                if (overriding == true)
+                {
+                    DialogResult result = MessageBox.Show("Mit dieser Aktion Sie überschreiben \n gefüllte Zellen?", "Überschreiben", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        FillAllData(applyIteration, possibleIteration, entry);
+                    }
+                }
+                else
+                {
+                    FillAllData(applyIteration, possibleIteration, entry);
+                }
+            }
+        }
+
+        private void FillAllData(int applyIteration, int possibleIteration, MCalendarEntry entry)
+        {
+            for (int i = 0; i < applyIteration; i++)
+            {
+                if (dGV.Rows.Count - 1 > y_Coord + possibleIteration)
                 {
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
@@ -258,21 +299,18 @@ namespace Tagplaner
                             }
                         }
                     }
-                    else
-                    {
-                        //Wenn ein Feiertag ist wird die applyIteration um 1 erhöht
-                        applyIteration++;
-                    }
-
-                }
-
-                else
-                {
-                    MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
-                    break;
                 }
             }
+        }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private bool CalendarEntryIsNotNullOrEmpty(MCalendarEntry entry)
+        {
+            if (entry.Seminar != null || entry.Practice != null || entry.School != null)
+                return true;
+            else
+                return false;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -635,7 +673,6 @@ namespace Tagplaner
 
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Diese Methode erstellt initial alle benötigten Columns mit Headerbeschriftung und korrekten Propertys
@@ -684,10 +721,12 @@ namespace Tagplaner
             }// End-Header-Configuration
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public DataGridView GetDGV()
         {
             return this.dGV;
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     }
 }
