@@ -398,19 +398,24 @@ namespace Tagplaner
 
         private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
         {
-            if (calendarEntry.Seminar != null)
+            if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice == null)
             {
                 CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
             }
             // Prüfen, ob der aktuelle Tag ein Schultag ist
-            else if (calendarEntry.School != null)
+            if (calendarEntry.Seminar == null && calendarEntry.School != null && calendarEntry.Practice == null)
             {
                 CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
             }
             // Prüfen, ob der aktuelle Tag ein Praxistag ist
-            else if (calendarEntry.Practice != null)
+            if (calendarEntry.Seminar == null && calendarEntry.School == null && calendarEntry.Practice != null)
             {
                 CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+            }
+            // Prüfen, ob der aktuelle Tag ein Praxis und Seminartag ist
+            if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice != null)
+            {
+                CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
             }
         }
 
@@ -522,6 +527,41 @@ namespace Tagplaner
                 else
                 {
                     pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4, 1));                            // Praxis
+                }
+
+            }
+        }
+
+        private void CreateSeminarAndPraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        {
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
+            pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
+
+            if (nextDayIsPratice(calendarDay, nextCalendarDay))
+            {
+
+                pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));       // Seminar                                // Seminar
+                pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 2, 1));                                // Praxis
+            }
+            else
+            {
+                if (showComments)
+                {
+                    pdfTable.AddCell(
+                        CreateTabeCell(calendarEntry.Seminar.Title + "\n" + calendarEntry.Seminar.Comment,
+                            FONT_NORMAL,
+                            COLOR_SEMINAR, 2, 1));                                                                     // Seminar + Kommentar
+
+                    pdfTable.AddCell(
+                        CreateTabeCell(calendarEntry.Practice.Comment,
+                            FONT_NORMAL,
+                            COLOR_PRATICE, 2, 1));                                                                     // Praxis + Kommentar
+                }
+                else
+                {
+                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));   // Seminar
+                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 2, 1));                            // Praxis
                 }
 
             }
