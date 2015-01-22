@@ -163,11 +163,27 @@ namespace Tagplaner
         {
             int praticeAndSeminarDays = CStatisticUtilitys.CountPraticeAndSeminarDays(position);
 
-            ListViewItem lvPraticeDays = new ListViewItem();
-            lvPraticeDays.Text = "Seminare mit Praxis";
-            lvPraticeDays.SubItems.Add(Convert.ToString(praticeAndSeminarDays));
+            ListViewItem lvPraticeAndSeminarDays = new ListViewItem();
+            lvPraticeAndSeminarDays.Text = "Seminare mit Praxis";
+            lvPraticeAndSeminarDays.SubItems.Add(Convert.ToString(praticeAndSeminarDays));
 
-            return lvPraticeDays;
+            return lvPraticeAndSeminarDays;
+        }
+
+        /// <summary>
+        /// Erstellt ein ListViewItem mit den Statistik-Informationen "Leere Tage"
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private ListViewItem GetEmptyDaysListViewItem(int position)
+        {
+            int emptyDays = CStatisticUtilitys.CountEmptyDays(position);
+
+            ListViewItem lvEmptyDays = new ListViewItem();
+            lvEmptyDays.Text = "Leere Tage";
+            lvEmptyDays.SubItems.Add(Convert.ToString(emptyDays));
+
+            return lvEmptyDays;
         }
 
         /// <summary>
@@ -184,6 +200,7 @@ namespace Tagplaner
                     + " "
                     + calendar.Speciality.ElementAt(counterSpecialities).SpecialityName);
                 listView1.Items.Add(specialityName);
+                listView1.Items.Add(GetEmptyDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetSeminarDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetSchoolDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetPraticeDaysListViewItem(counterSpecialities));
