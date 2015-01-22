@@ -82,26 +82,6 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Prüft ob die CheckBoc Weiterführen gesetzt ist und verändert dementsprechend die Sichtbarkeit der Anzahl Tage
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Weiterführung_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Weiterführung.Checked == true)
-            {
-                AnzahlTage.Enabled = true;
-                AnzahlTage.Value = 0;
-            }
-            else
-            {
-                AnzahlTage.Value = 0;
-                AnzahlTage.Enabled = false;
-                
-            }
-        }
-
-        /// <summary>
         /// Prüft ob die CheckBox neben dem Cotrainer gesetzt ist und Enabled dementsprechend den Cotrainer
         /// </summary>
         /// <param name="sender"></param>
@@ -174,7 +154,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,7 +164,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -204,7 +184,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -221,11 +201,11 @@ namespace Tagplaner
         private void deleteEntry_Click(object sender, EventArgs e)
         {
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
-            tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(Weiterführung, AnzahlTage));
+            tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(AnzahlTage));
         }
 
         /// <summary>
-        /// 
+        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -235,13 +215,22 @@ namespace Tagplaner
         }
 
         /// <summary>
+        /// Aktiviert den Einfügenbuttton sobald sich der Wert verändert.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AnzahlTage_ValueChanged(object sender, EventArgs e)
+        {
+            Einfügen.Enabled = true;
+        }
+
+
+        /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
         /// </summary>
         /// <param name="calendarentry"></param>
         public void ChangeCalendarEntry(MCalendarEntry calendarentry)
         {
-            Einfügen.Enabled = false;
-            AnzahlTage.Enabled = false;
 
             cdb.FillSeminarComboBox(Seminar);
             cdb.FillTrainerComboBox(Trainer);
@@ -275,12 +264,11 @@ namespace Tagplaner
             GetLocation(ccalendarentry, Ort);
             GetRoom(ccalendarentry, Raum);
             GetComment(ccalendarentry, Kommentar, Tagart);
-            GetInterationNumber(Weiterführung, AnzahlTage);
+            GetInterationNumber(AnzahlTage);
 
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
-            tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(Weiterführung, AnzahlTage), ccalendarentry);
+            tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(AnzahlTage), ccalendarentry);
 
-            Weiterführung.Checked = false;
             AnzahlTage.Value = 0;
         }
 
@@ -303,8 +291,6 @@ namespace Tagplaner
             Raum.Text = " ";
             ltRaeume.Items.Clear();
             Kommentar.Clear();
-            Weiterführung.Checked = false;
-            AnzahlTage.Enabled = false;
         }
 
         /// <summary>
@@ -752,23 +738,17 @@ namespace Tagplaner
         /// <param name="weitercheck"></param>
         /// <param name="anzahltage"></param>
         /// <returns></returns>
-        public int GetInterationNumber(CheckBox weitercheck, NumericUpDown anzahltage)
+        public int GetInterationNumber(NumericUpDown anzahltage)
         {
-            if (weitercheck.Checked == true)
-            {
-                if (Convert.ToInt32(anzahltage.Value) >= 0)
+
+                if (Convert.ToInt32(anzahltage.Value) > 0)
                 {
-                    return Convert.ToInt32(anzahltage.Value);
+                    return Convert.ToInt32(anzahltage.Value) + 1;
                 }
                 else
                 {
                     return 1;
                 }
-            }
-            else
-            {
-                return 1;
-            }
 
         }
 
