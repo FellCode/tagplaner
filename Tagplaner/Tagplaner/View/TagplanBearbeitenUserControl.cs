@@ -278,6 +278,11 @@ namespace Tagplaner
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Leert den ausgewählten Datensatz in der DataGridView und wiederholt das für die Anzahl die übergeben wird.
+        /// Der aktuelle Datensatz in MCalendar wird durch einen neuen Entry ersetzt.
+        /// </summary>
+        /// <param name="applyIteration"></param>
         public void DeleteDataSet(int applyIteration)
         {
             if (dGV.Rows.Count >= y_Coord + applyIteration)
