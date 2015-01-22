@@ -72,7 +72,7 @@ namespace Tagplaner
                 while (!file.EndOfStream)
                 {
                     String[] values = file.ReadLine().Split(';');
-                    if (Convert.ToDateTime(values[0]) >= startDate && Convert.ToDateTime(values[0]) <= endDate)
+                    if (Convert.ToDateTime(values[0]).Date >= startDate.Date && Convert.ToDateTime(values[0]).Date <= endDate.Date)
                         AddHoliday(values);
                 }
             }
