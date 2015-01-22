@@ -18,7 +18,7 @@ namespace Tagplaner
     {
         private bool tabsAlreadyAdded = false;
 
-        private static FormInit formini;
+        private static FormInit formInit;
 
         private TagplanAnlegenUserControl tagplanAnlegenUC;
         private TagplanBearbeitenUserControl tagplanBearbeitenUC;
@@ -31,7 +31,7 @@ namespace Tagplaner
         /// <summary>
         /// Erzeugt eine neue Instanz von FormInit
         /// </summary>
-        public FormInit()
+        private FormInit()
         {
             InitializeComponent();
             tagplanBearbeitenUC = TagplanBearbeitenUserControl.GetInstance();
@@ -287,13 +287,17 @@ namespace Tagplaner
             Help.ShowHelp(this, "Hilfe für Tagplaner.chm", HelpNavigator.KeywordIndex, tabControl1.SelectedTab.Text);
         }
 
+        /// <summary>
+        /// Singelton Implementierung
+        /// </summary>
+        /// <returns></returns>
         public static FormInit GetInstance()
         {
-            if(formini == null)
+            if(formInit == null)
             {
-                formini = new FormInit();
+                formInit = new FormInit();
             }
-            return formini;
+            return formInit;
         }
     }
 }

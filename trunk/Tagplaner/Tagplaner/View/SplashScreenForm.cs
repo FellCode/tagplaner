@@ -38,7 +38,7 @@ namespace Tagplaner
         private void timer_tick(object sender, EventArgs e)
         {
             timer.Stop();
-            FormInit formInit = new FormInit();
+            FormInit formInit = FormInit.GetInstance();
             formInit.Show();
             this.Hide();
         }
@@ -46,7 +46,7 @@ namespace Tagplaner
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            FormInit formInit = new FormInit();
+            FormInit formInit = FormInit.GetInstance();
             formInit.Show();
             this.Hide();
         }
