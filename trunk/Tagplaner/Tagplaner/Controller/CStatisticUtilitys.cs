@@ -73,10 +73,11 @@ namespace Tagplaner
             
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende oder Feiertag ist.
                 if (calendarDay.CalendarEntry.Count > 0
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
-                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
+                    && String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     if(calendarDay.CalendarEntry.ElementAt(position).Seminar != null
                     && calendarDay.CalendarEntry.ElementAt(position).Practice == null)
@@ -100,10 +101,11 @@ namespace Tagplaner
 
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende oder Feiertag ist.
                 if (calendarDay.CalendarEntry.Count > 0
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
-                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
+                    && String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     if (calendarDay.CalendarEntry.ElementAt(position).School != null)
                     {
@@ -126,10 +128,11 @@ namespace Tagplaner
 
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende oder Feiertag ist.
                 if (calendarDay.CalendarEntry.Count > 0
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
-                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
+                    && String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     if (calendarDay.CalendarEntry.ElementAt(position).Practice != null
                      && calendarDay.CalendarEntry.ElementAt(position).Seminar == null)
@@ -142,7 +145,7 @@ namespace Tagplaner
             return praticeCounter;
         }
 
-        /// <summary>
+         /// <summary>
         /// Zählt alle Seminare mit Praxistagen zwischen dem Start- und Enddatum der MCalendar Instanz
         /// und gibt diese zurück
         /// </summary>
@@ -153,10 +156,11 @@ namespace Tagplaner
 
             foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
             {
-                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende oder Feiertag ist.
                 if (calendarDay.CalendarEntry.Count > 0
                     && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
-                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday")))
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
+                    && String.IsNullOrEmpty(calendarDay.HolidayName))
                 {
                     if (calendarDay.CalendarEntry.ElementAt(position).Practice != null
                      && calendarDay.CalendarEntry.ElementAt(position).Seminar != null)
@@ -167,6 +171,35 @@ namespace Tagplaner
             }
 
             return praticeAndSeminarCounter;
+        }
+
+        /// <summary>
+        /// Zählt alle Tage ohne Eintrag zwischen dem Start- und Enddatum der MCalendar Instanz
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static int CountEmptyDays(int position)
+        {
+            int EmptyDayCounter = 0;
+
+            foreach (MCalendarDay calendarDay in MCalendar.GetInstance().CalendarList)
+            {
+                //Prüfung, ob ein Kalendereintrag vorhanden ist, und ob es kein Wochenende ist.
+                if (calendarDay.CalendarEntry.Count > 0
+                    && !(calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Saturday")
+                    || calendarDay.CalendarDate.DayOfWeek.ToString().Equals("Sunday"))
+                    && String.IsNullOrEmpty(calendarDay.HolidayName))
+                {
+                    if (calendarDay.CalendarEntry.ElementAt(position).Practice == null
+                     && calendarDay.CalendarEntry.ElementAt(position).Seminar == null
+                     && calendarDay.CalendarEntry.ElementAt(position).School == null)
+                    {
+                        EmptyDayCounter++;
+                    }
+                }
+            }
+
+            return EmptyDayCounter;
         }
     }
 }
