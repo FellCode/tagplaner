@@ -122,18 +122,7 @@ namespace Tagplaner
         /// <param name="calendarDays"></param>
         public void FillGrids(List<MCalendarDay> calendarDays)
         {
-
-            //TEST
             int columnCount = dGV.ColumnCount;
-            //Testdaten
-            /*                MTrainer trainer = new MTrainer("Arnold", "Bechtold", "AB", false, false);
-                        MTrainer trainer_co = new MTrainer("Arnold", "Bechtold", "AB", false, true);
-                        MSeminar seminar = new MSeminar("SEMINARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR", "Subtitel", "SAP", "false", "commment");
-                        MPractice practice = new MPractice("Praxis");
-                        List<MRoom> room = new List<MRoom>();
-                        room.Add(new MRoom("209"));
-                        MPlace ort = new MPlace("Koeln", "Arnold", room);*/
-
 
 
             // Durchläuft jeden Kalendertag und schreibt jeden Entry in die DataGridView
@@ -141,14 +130,6 @@ namespace Tagplaner
             {
                 if (calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Saturday" && calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Sunday")
                 {
-                    //Testdaten
-                    /*                      trainer = new MTrainer("Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, false);
-                                            trainer_co = new MTrainer("CO-Arnold - " + rowCounter.ToString(), "Bechtold", "AB", false, true);
-                                            seminar = new MSeminar("SEMINARR - " + rowCounter.ToString(), "Subtitel", "SAP", "false", "commment");
-                                            practice = new MPractice("Praxis - " + rowCounter.ToString());
-                                            room.Add(new MRoom("209 - " + rowCounter.ToString()));
-                                            ort = new MPlace("Koeln - " + rowCounter.ToString(), "Arnold", room);*/
-
                     dGV.Rows.Add();
 
                     dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek;
@@ -159,56 +140,9 @@ namespace Tagplaner
                         dGV[3, rowCounter].Value = calendarDays[rowCounter].HolidayName;
 
                     if (calendarDays[rowCounter].HolidayName == null)
-                    {
+                        FillRow(rowCounter, columnCount);
+                    //Durchläuft alle Spalten der Tabelle und trägt alle Werte ein
 
-                        //Durchläuft alle Spalten der Tabelle und trägt alle Werte ein
-                        for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
-                        {
-                            //Testdaten
-                            /*
-                                                        if (rowCounter < 100)
-                                                        {
-                                                            if (columnCounter % 2 == 0)
-                                                                mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(practice));
-                                                            else
-                                                                mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(trainer, trainer_co, seminar, ort, room[0]));
-                                                        }
-                                                        else
-                                                        {
-                                                            mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry(new MSchool("HAUPTSCHULEE - " + rowCounter.ToString())));
-                                                        }*/
-                            //END Testdaten
-                            if (mCalendar.CalendarList[rowCounter].CalendarEntry.ElementAtOrDefault(columnCounter) != null)
-                            {
-                                //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
-                                {
-                                    FillSchool(columnCounter, rowCounter);
-                                }
-                                //Case: Ist ein Practice-Objekt vorhanden?
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
-                                {
-                                    FillPractice(columnCounter, rowCounter);
-                                }
-                                //Case: Ist ein Seminarobjekt vorhanden?
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
-                                {
-                                    FillSeminar(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
-
-                                }
-                                //Case: Sowohl Seminar als auch Praxis Objekt existieren
-                                if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
-                                {
-                                    FillSeminarAndPractice(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
-                                }
-                            }//END Eintrag vorhanden
-                            else
-                            {
-                                mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry());
-                            }
-
-                        }
-                    }//END Durchlaufen aller Spalten
                     else
                     {
                         //Schreibt den Feiertag quer in alle Spalten und färbt sie grün
@@ -234,7 +168,47 @@ namespace Tagplaner
                     }//END Einfärben des Wochenendes
                 }// END else
             }// END Schreiben der Calendar Entrys
-        }// END-FillGrids
+        }
+        /// <summary>
+        /// Füllt die gesamte Reihe mit seinen entsprechenden Elementen auf
+        /// </summary>
+        /// <param name="rowCounter"></param>
+        /// <param name="columnCount"></param>
+        private void FillRow(int rowCounter, int columnCount)
+        {
+            for (int columnCounter = 0; columnCounter < columnCount / 6; columnCounter++)
+            {
+                if (mCalendar.CalendarList[rowCounter].CalendarEntry.ElementAtOrDefault(columnCounter) != null)
+                {
+                    //Ab hier wird Unterschieden ob der CalendarEntry ein SchulObjekt, SeminarObjekt oder ein PraxisObjekt enthält
+                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].School != null)
+                    {
+                        FillSchool(columnCounter, rowCounter);
+                    }
+                    //Case: Ist ein Practice-Objekt vorhanden?
+                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
+                    {
+                        FillPractice(columnCounter, rowCounter);
+                    }
+                    //Case: Ist ein Seminarobjekt vorhanden?
+                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null)
+                    {
+                        FillSeminar(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
+
+                    }
+                    //Case: Sowohl Seminar als auch Praxis Objekt existieren
+                    if (mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Seminar != null && mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter].Practice != null)
+                    {
+                        FillSeminarAndPractice(mCalendar.CalendarList[rowCounter].CalendarEntry[columnCounter], columnCounter, rowCounter);
+                    }
+                }//END Eintrag vorhanden
+                else
+                {
+                    mCalendar.CalendarList[rowCounter].CalendarEntry.Add(new MCalendarEntry());
+                }
+            }
+        }//END Durchlaufen aller Spalten
+        // END-FillGrids
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
