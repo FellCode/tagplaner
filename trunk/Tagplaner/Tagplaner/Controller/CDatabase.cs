@@ -26,11 +26,6 @@ namespace Tagplaner
         private Dictionary<int, MRoom> AllRoom = new Dictionary<int, MRoom>();
         private Dictionary<int, MSeminar> AllSeminar = new Dictionary<int, MSeminar>();
 
-        private string insertError = "Fehler beim Einfügen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
-        private string deleteError = "Fehler beim Löschen der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
-        private string updateError = "Fehler beim Ändern der Daten. Prüfen Sie ob Sie die nötigen Rechte haben um die Datenbank zu bearbeiten.";
-        private string brokenDatabaseError = "Datenbank kaputt oder nicht vorhanden";
-
         /// <summary>
         /// Verbindungsmethode zur Datenbank
         /// </summary>
@@ -115,11 +110,9 @@ namespace Tagplaner
                 FillAllSeminar();
                 return true;
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                //insertError
-                DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.AddDebugMessage(e.ToString());
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_INSERT);
                 CloseDatabase();
                 return false;
             }
@@ -154,11 +147,9 @@ namespace Tagplaner
                 FillAllTrainer();
                 return true;
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                //insertError
-                DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.AddDebugMessage(e.ToString());
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_INSERT);
                 CloseDatabase();
                 return false;
             }
@@ -182,11 +173,9 @@ namespace Tagplaner
                 FillAllRoom();
                 return true;
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                //insertError
-                DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.AddDebugMessage(e.ToString());
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_INSERT);
                 CloseDatabase();
                 return false;
             }
@@ -211,11 +200,9 @@ namespace Tagplaner
                 FillAllPlace();
                 return true;
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                //insertError
-                DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.AddDebugMessage(e.ToString());
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_INSERT);
                 CloseDatabase();
                 return false;
             }
@@ -240,11 +227,9 @@ namespace Tagplaner
                 FillAllFederalState();
                 return true;
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                //insertError
-                DebugUserControl uc = DebugUserControl.GetInstance();
-                uc.AddDebugMessage(e.ToString());
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_INSERT);
                 CloseDatabase();
                 return false;
             }
@@ -275,7 +260,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //updateError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_UPDATE);
                 CloseDatabase();
                 return false;
             }
@@ -312,9 +297,9 @@ namespace Tagplaner
                 FillAllTrainer();
                 return true;
             }
-            catch(SQLiteException)
+            catch (SQLiteException)
             {
-                //updateError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_UPDATE);
                 CloseDatabase();
                 return false;
             }
@@ -330,7 +315,7 @@ namespace Tagplaner
             ConnectDatabase();
             try
             {
-                
+
                 ExecuteNonQuery("update raum set "
                               + "raumnummer = \"" + room.Number + "\""
                               + ",fk_seminarort_id = " + room.Place_id
@@ -340,9 +325,10 @@ namespace Tagplaner
                 AllRoom.Clear();
                 FillAllRoom();
                 return true;
-            }catch(SQLiteException)
+            }
+            catch (SQLiteException)
             {
-                //updateError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_UPDATE);
                 CloseDatabase();
                 return false;
             }
@@ -369,13 +355,12 @@ namespace Tagplaner
                 FillAllPlace();
                 return true;
             }
-            catch(SQLiteException)
+            catch (SQLiteException)
             {
-                //updateError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_UPDATE);
                 CloseDatabase();
                 return false;
-            }
-                
+            }   
         }
 
         /// <summary>
@@ -400,7 +385,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //updateError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_UPDATE);
                 CloseDatabase();
                 return false;
             }
@@ -424,9 +409,9 @@ namespace Tagplaner
                 FillAllSeminar();
                 return true;
             }
-            catch(SQLiteException)
+            catch (SQLiteException)
             {
-                //deleteError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_DELETE);
                 CloseDatabase();
                 return false;
             }
@@ -450,7 +435,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //deleteError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_DELETE);
                 CloseDatabase();
                 return false;
             }
@@ -474,7 +459,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //deleteError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_DELETE);
                 CloseDatabase();
                 return false;
             }
@@ -498,7 +483,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //deleteError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_DELETE);
                 CloseDatabase();
                 return false;
             }
@@ -522,7 +507,7 @@ namespace Tagplaner
             }
             catch (SQLiteException)
             {
-                //deleteError
+                FormInit.GetInstance().ShowMessageInStatusbar(MMessage.ERROR_NO_DELETE);
                 CloseDatabase();
                 return false;
             }
