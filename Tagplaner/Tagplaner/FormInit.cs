@@ -276,6 +276,7 @@ namespace Tagplaner
         {
             DateTime datetime = DateTime.Now;
             statusStrip1.Items[0].Text = "[" + datetime.ToString() + "] - " + message;
+            System.Media.SystemSounds.Beep.Play();        
         }
 
         private void HelpOnMouseClicked(object sender, EventArgs e)
