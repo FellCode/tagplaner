@@ -26,6 +26,7 @@ namespace Tagplaner
         private StatistikUserControl statistikUC;
         private RaumVerwaltenUserControl raumVerwaltenUC;
         private TrainerVerwaltenUserControl trainerVerwaltenUC;
+        private SuchenUserControl suchenUC;
 
         /// <summary>
         /// Erzeugt eine neue Instanz von FormInit
@@ -39,6 +40,7 @@ namespace Tagplaner
             statistikUC = new StatistikUserControl();
             raumVerwaltenUC = new RaumVerwaltenUserControl();
             trainerVerwaltenUC = new TrainerVerwaltenUserControl();
+            suchenUC = new SuchenUserControl(tagplanBearbeitenUC, this);
         }
 
         private void Init_Load(object sender, EventArgs e)
@@ -264,6 +266,7 @@ namespace Tagplaner
             {
                 AddTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", 1);
                 AddTabPage(statistikUC, "Statistik", 5);
+                AddTabPage(suchenUC, "Tagplan durchsuchen", 6);
             }
             tabsAlreadyAdded = true;
         }

@@ -102,5 +102,15 @@ namespace Tagplaner
         /// Das Backup konnte nicht wiederhergestellt werden und due Aktuelleversion der Datenbank ist kaputt oder nicht vorhanden.
         /// </summary>
         public static string ERROR_BROKEN_DATABASE = "Datenbank kaputt oder nicht vorhanden";
+
+        /// <summary>
+        /// Es wurden keine Übereinstimmungen mit dem Suchbegriff gefunden
+        /// </summary>
+        public static string INFO_NO_RESULT_FOUND = "Keine Übereinstimmung mit Suchbegriff gefunden!";
+
+        /// <summary>
+        /// Es wurden keine Ergebnisse beim Durchsuchen gefunden.
+        /// </summary>
+        public static string INFO_SEARCH_COMPLETE = "Gesamter Tagplan durchsucht!";
     }
 }
