@@ -171,6 +171,12 @@
     <Compile Include="View\RaumVerwaltenUserControl.Designer.cs">
       <DependentUpon>RaumVerwaltenUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SearchResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SearchResultForm.Designer.cs">
+      <DependentUpon>SearchResultForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SeminarVerwaltenUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +194,12 @@
     </Compile>
     <Compile Include="View\StatistikUserControl.Designer.cs">
       <DependentUpon>StatistikUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\SuchenUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\SuchenUserControl.Designer.cs">
+      <DependentUpon>SuchenUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\TagplanAnlegenUserControl.cs">
       <SubType>UserControl</SubType>
@@ -242,6 +254,9 @@
     <EmbeddedResource Include="View\RaumVerwaltenUserControl.resx">
       <DependentUpon>RaumVerwaltenUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\SearchResultForm.resx">
+      <DependentUpon>SearchResultForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\SeminarVerwaltenUserControl.resx">
       <DependentUpon>SeminarVerwaltenUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\StatistikUserControl.resx">
       <DependentUpon>StatistikUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SuchenUserControl.resx">
+      <DependentUpon>SuchenUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\TagplanAnlegenUserControl.resx">
       <DependentUpon>TagplanAnlegenUserControl.cs</DependentUpon>
