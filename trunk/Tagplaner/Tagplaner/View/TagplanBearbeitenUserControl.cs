@@ -131,14 +131,7 @@ namespace Tagplaner
             {
                 if (calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Saturday" && calendarDays[rowCounter].CalendarDate.DayOfWeek.ToString() != "Sunday")
                 {
-                    dGV.Rows.Add();
-
-                    dGV[0, rowCounter].Value = calendarDays[rowCounter].CalendarWeek;
-                    dGV[1, rowCounter].Value = calendarDays[rowCounter].GetCalendarDatePrintDate();
-                    if (calendarDays[rowCounter].VacationName != null)
-                        dGV[2, rowCounter].Value = calendarDays[rowCounter].VacationName;
-                    if (calendarDays[rowCounter].HolidayName != null)
-                        dGV[3, rowCounter].Value = calendarDays[rowCounter].HolidayName;
+                    FillMetaColumns(rowCounter, calendarDays[rowCounter]);
 
                     if (calendarDays[rowCounter].HolidayName == null)
                         FillRow(rowCounter, columnCount);
@@ -276,6 +269,24 @@ namespace Tagplaner
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Füllt die Meta Reihen mit KW, Datum, Ferien und Feiertagen
+        /// </summary>
+        /// <param name="rowCounter"></param>
+        /// <param name="calendarDays"></param>
+        private void FillMetaColumns(int rowCounter, MCalendarDay calendarDays)
+        {
+            dGV.Rows.Add();
+            dGV[0, rowCounter].Value = calendarDays.CalendarWeek;
+            dGV[1, rowCounter].Value = calendarDays.GetCalendarDatePrintDate();
+            if (calendarDays.VacationName != null)
+                dGV[2, rowCounter].Value = calendarDays.VacationName;
+            if (calendarDays.HolidayName != null)
+                dGV[3, rowCounter].Value = calendarDays.HolidayName;
+        }
+        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
