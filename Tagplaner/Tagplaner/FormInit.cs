@@ -18,6 +18,8 @@ namespace Tagplaner
     {
         private bool tabsAlreadyAdded = false;
 
+        private static FormInit formini;
+
         private TagplanAnlegenUserControl tagplanAnlegenUC;
         private TagplanBearbeitenUserControl tagplanBearbeitenUC;
         private SeminarVerwaltenUserControl seminarVerwaltenUC;
@@ -279,6 +281,15 @@ namespace Tagplaner
         private void HelpOnMouseClicked(object sender, EventArgs e)
         {
             Help.ShowHelp(this, "Hilfe für Tagplaner.chm", HelpNavigator.KeywordIndex, tabControl1.SelectedTab.Text);
+        }
+
+        public static FormInit GetInstance()
+        {
+            if(formini == null)
+            {
+                formini = new FormInit();
+            }
+            return formini;
         }
     }
 }
