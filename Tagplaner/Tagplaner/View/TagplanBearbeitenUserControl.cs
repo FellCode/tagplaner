@@ -227,9 +227,14 @@ namespace Tagplaner
         /// <param name="applyIteration"></param>
         public void ApplyChangesToGrid(int applyIteration, MCalendarEntry entry)
         {
-            for (int i = 0; i < applyIteration; i++)
+            int possibleIteration = 0;
+            for (int j = 0; j < applyIteration; j++)
             {
-                if (dGV.Rows.Count > y_Coord + applyIteration)
+                if (MCalendar.GetInstance().CalendarList[y_Coord + j].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + j].CalendarDate))
+                { possibleIteration++; }
+            }
+            for (int i = 0; i < applyIteration; i++){
+                if (possibleIteration == applyIteration)
                 {
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
