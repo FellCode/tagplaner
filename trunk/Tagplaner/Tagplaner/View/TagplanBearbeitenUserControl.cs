@@ -252,7 +252,7 @@ namespace Tagplaner
             }
             if (toMany)
             {
-                MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+                MessageBox.Show("Sie möchten mehr Datensätze bearbeiten als die Tabelle besitzt!");
             }
             else
             {
@@ -363,7 +363,7 @@ namespace Tagplaner
             }
             if (toMany)
             {
-                MessageBox.Show("Mehr Einträge als Tage im gewählten Zeitraum vorhanden!");
+                MessageBox.Show("Sie wollen mehr Datensätze löschen als die Tabelle besitzt!");
             }
             else
             {
