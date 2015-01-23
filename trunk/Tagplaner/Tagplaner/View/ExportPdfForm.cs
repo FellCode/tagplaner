@@ -50,7 +50,14 @@ namespace Tagplaner
         private void button1_Click(object sender, EventArgs e)
         {
             if (checkedListBox1.CheckedItems.Count == Convert.ToInt32(comboBox1.Text)) {
-                exportPdf();
+                try
+                {
+                    exportPdf();
+                }
+                catch (Exception exp)
+                {
+                    FormInit.GetInstance().ShowMessageInStatusbar(exp.Message);
+                }
             }
             else if (checkedListBox1.CheckedItems.Count < Convert.ToInt32(comboBox1.Text))
             {
