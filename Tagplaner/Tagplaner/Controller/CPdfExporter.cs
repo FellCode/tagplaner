@@ -116,8 +116,7 @@ namespace Tagplaner
             else
             {
                 return false;
-            }
-            
+            }       
         }
 
         /// <summary>
