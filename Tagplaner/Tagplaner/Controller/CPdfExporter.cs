@@ -368,25 +368,25 @@ namespace Tagplaner
                         // Zeige Spalte nur für FIAE
                         if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("AE"))
                         {
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
                             CreateBlankRow(pdfTable);
                         }
                         // Zeige Spalte nur für FISI
                         else if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("SI"))
                         {
                             CreateBlankRow(pdfTable);
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
                         }
                         // Zeige Spalte für FIAE und FISI
                         else
                         {
                             calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "AE");
                             calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
 
                             calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "SI");
                             calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
                         }   
                     }
                 }
@@ -395,26 +395,26 @@ namespace Tagplaner
             doc.Add(pdfTable);
         }
 
-        private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
         {
             if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice == null)
             {
-                CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Schultag ist
             if (calendarEntry.Seminar == null && calendarEntry.School != null && calendarEntry.Practice == null)
             {
-                CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxistag ist
             if (calendarEntry.Seminar == null && calendarEntry.School == null && calendarEntry.Practice != null)
             {
-                CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxis und Seminartag ist
             if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice != null)
             {
-                CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry);
+                CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
             }
         }
 
@@ -425,7 +425,7 @@ namespace Tagplaner
         /// <param name="calendarDay">Aktueller Kalendertag</param>
         /// <param name="nextCalendarDay">Nächster Kalendertag</param>
         /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Seminartag</param>
-        private void CreateSeminarRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        private void CreateSeminarRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.HasTechnology, FONT_NORMAL, COLOR_BLANK, 1, 1));     // Technik
 
@@ -446,9 +446,9 @@ namespace Tagplaner
             {
                 pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                  // Kein Trainer angegeben
             }
-            
 
-            if (nextDayIsSeminar(calendarDay, nextCalendarDay))
+
+            if (nextDayIsSeminar(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
                 pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));       // Seminar
             }
@@ -476,13 +476,13 @@ namespace Tagplaner
         /// <param name="calendarDay">Aktueller Kalendertag</param>
         /// <param name="nextCalendarDay">Nächster Kalendertag</param>
         /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Schultag</param>
-        private void CreateSchoolRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        private void CreateSchoolRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
 
-            if (nextDayIsSchool(calendarDay, nextCalendarDay))
+            if (nextDayIsSchool(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
                 pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_SCHOOL, 4, 1));                                 // Schule
             }
@@ -503,13 +503,13 @@ namespace Tagplaner
         /// Fügt einen Eintrag für einen Praxistag zur angegebenen PdfTabelle hinzu
         /// </summary>
         /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        private void CreatePraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        private void CreatePraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
 
-            if (nextDayIsPratice(calendarDay, nextCalendarDay))
+            if (nextDayIsPratice(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
 
                 pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4, 1));                                // Praxis
@@ -525,19 +525,19 @@ namespace Tagplaner
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 4, 1));                            // Praxis
+                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Practice.Comment, FONT_NORMAL, COLOR_PRATICE, 4, 1));                            // Praxis
                 }
 
             }
         }
 
-        private void CreateSeminarAndPraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry)
+        private void CreateSeminarAndPraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Trainer
 
-            if (nextDayIsPratice(calendarDay, nextCalendarDay))
+            if (nextDayIsPratice(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
 
                 pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));       // Seminar                                // Seminar
@@ -671,26 +671,25 @@ namespace Tagplaner
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
-        private bool nextDayIsSeminar(MCalendarDay currentDay, MCalendarDay nextDay) 
+        private bool nextDayIsSeminar(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
             if (currentDay != null &&
                 nextDay != null &&
                 dayHasCalendarEntry(currentDay) &&
                 dayHasCalendarEntry(nextDay) &&
-                currentDay.CalendarEntry[0].Seminar != null)
+                currentDay.CalendarEntry[calendarEntryPosition].Seminar != null)
             {
-                if (currentDay.CalendarEntry[0].Seminar != nextDay.CalendarEntry[0].Seminar)
+                if (currentDay.CalendarEntry[calendarEntryPosition].Seminar != nextDay.CalendarEntry[calendarEntryPosition].Seminar)
                 {
                     return false;
                 }
             }
-
-            if (nextDay == null) {
+            else if (nextDay != null && !dayHasCalendarEntry(nextDay))
+            {
                 return false;
             }
 
             return true;
-
         }
 
         /// <summary>
@@ -700,21 +699,20 @@ namespace Tagplaner
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
-        private bool nextDayIsSchool(MCalendarDay currentDay, MCalendarDay nextDay)
+        private bool nextDayIsSchool(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
             if (currentDay != null &&
                 nextDay != null &&
                 dayHasCalendarEntry(currentDay) &&
                 dayHasCalendarEntry(nextDay) &&
-                currentDay.CalendarEntry[0].School != null)
+                currentDay.CalendarEntry[calendarEntryPosition].School != null)
             {
-                if (currentDay.CalendarEntry[0].School != nextDay.CalendarEntry[0].School)
+                if (currentDay.CalendarEntry[calendarEntryPosition].School != nextDay.CalendarEntry[calendarEntryPosition].School)
                 {
                     return false;
                 }
             }
-
-            if (nextDay == null)
+            else if (nextDay != null && !dayHasCalendarEntry(nextDay))
             {
                 return false;
             }
@@ -729,21 +727,20 @@ namespace Tagplaner
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
-        private bool nextDayIsPratice(MCalendarDay currentDay, MCalendarDay nextDay)
+        private bool nextDayIsPratice(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
             if (currentDay != null && 
                 nextDay != null && 
                 dayHasCalendarEntry(currentDay) && 
-                dayHasCalendarEntry(nextDay) && 
-                currentDay.CalendarEntry[0].Practice != null)
+                dayHasCalendarEntry(nextDay) &&
+                currentDay.CalendarEntry[calendarEntryPosition].Practice != null)
             {
-                if (currentDay.CalendarEntry[0].Practice != nextDay.CalendarEntry[0].Practice)
+                if (currentDay.CalendarEntry[calendarEntryPosition].Practice != nextDay.CalendarEntry[calendarEntryPosition].Practice)
                 {
                     return false;
                 }
             }
-
-            if (nextDay == null)
+            else if (nextDay != null && !dayHasCalendarEntry(nextDay))
             {
                 return false;
             }
