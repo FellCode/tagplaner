@@ -279,7 +279,7 @@ namespace Tagplaner
             {
                 AddTabPage(tagplanBearbeitenUC, "Tagplan bearbeiten", 1);
                 AddTabPage(statistikUC, "Statistik", 5);
-                AddTabPage(suchenUC, "Tagplan durchsuchen", 6);
+                AddTabPage(suchenUC, "Tagplan durchsuchen", 2);
             }
             tabsAlreadyAdded = true;
         }
