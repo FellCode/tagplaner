@@ -223,12 +223,16 @@ namespace Tagplaner
 
             for (int i = 0; i < identifierOfYearList.Count; i++)
             {
-                pdfTable.AddCell(CreateTabeCell(
-                    "Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\n",
-                    FONT_BOLD,
-                    COLOR_BLANK,
-                    28 / identifierOfYearList.Count,
-                    1));
+                foreach (string identifierOfYear in identifierOfYearList)
+                {
+                    pdfTable.AddCell(CreateTabeCell(
+                       // "Ausbildung zum Fachinformatiker am Standort " + ort + " Jahrgang " + jahrgang + ". Jahr\n",
+                        identifierOfYear,
+                        FONT_BOLD,
+                        COLOR_BLANK,
+                        28 / identifierOfYearList.Count,
+                        1));  
+                }
             }
 
             return pdfTable;
