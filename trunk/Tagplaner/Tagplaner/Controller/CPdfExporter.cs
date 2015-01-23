@@ -469,12 +469,12 @@ namespace Tagplaner
             }
             else
             {
-                if (showComments)
+                if (showComments && !String.IsNullOrEmpty(calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment))
                 {
                     pdfTable.AddCell(
                         CreateTabeCell(
-                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + "\n" + 
-                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + "\n\n" + 
+                            "Bemerkung: " + calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
                             FONT_NORMAL,
                             COLOR_SEMINAR,
                             4, 1));                                                                                    // Seminar + Kommentar
@@ -510,10 +510,10 @@ namespace Tagplaner
             }
             else
             {
-                if (showComments)
+                if (showComments && !String.IsNullOrEmpty(calendarDay.CalendarEntry[calendarEntryPosition].School.Comment))
                 {
                     pdfTable.AddCell(CreateTabeCell(
-                        calendarDay.CalendarEntry[calendarEntryPosition].School.Comment, 
+                        "Bemerkung: " + calendarDay.CalendarEntry[calendarEntryPosition].School.Comment, 
                         FONT_NORMAL, 
                         COLOR_SCHOOL,
                         4, 
@@ -546,18 +546,18 @@ namespace Tagplaner
             }
             else
             {
-                if (showComments)
+                if (showComments && !String.IsNullOrEmpty(calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment))
                 {
                     pdfTable.AddCell(
                         CreateTabeCell(
-                            calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
+                            "Bemerkung " + calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
                             FONT_NORMAL,
                             COLOR_PRATICE, 4, 1));                                                                     // Praxis + Kommentar
                 }
                 else
                 {
                     pdfTable.AddCell(CreateTabeCell(
-                        calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
+                        "",
                         FONT_NORMAL, 
                         COLOR_PRATICE, 
                         4, 
@@ -588,19 +588,18 @@ namespace Tagplaner
             }
             else
             {
-                if (showComments)
+                #region Kommentar für Seminar
+                if (showComments && !String.IsNullOrEmpty(calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment))
                 {
+                    
                     pdfTable.AddCell(
                         CreateTabeCell(
-                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + 
-                            "\n" + calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + "\n\n" + 
+                            "Bemerkung: " + calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
                             FONT_NORMAL,
-                            COLOR_SEMINAR, 2, 1));                                                                     // Seminar + Kommentar
-
-                    pdfTable.AddCell(
-                        CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
-                            FONT_NORMAL,
-                            COLOR_PRATICE, 2, 1));                                                                     // Praxis + Kommentar
+                            COLOR_SEMINAR,
+                            2,
+                            1));                                                                                    // Seminar + Kommentar
                 }
                 else
                 {
@@ -610,9 +609,25 @@ namespace Tagplaner
                         COLOR_SEMINAR,
                         2, 
                         1));                                                                                           // Seminar
+                }
+                #endregion
+
+                #region Kommentar für Praxis
+                if (showComments && !String.IsNullOrEmpty(calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment))
+                {
+                    pdfTable.AddCell(
+                        CreateTabeCell(
+                            "Bemerkung: " + calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
+                            FONT_NORMAL,
+                            COLOR_PRATICE,
+                            2,
+                            1));                                                                                    // Praxis + Kommentar
+                }
+                else
+                {
                     pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 2, 1));                            // Praxis
                 }
-
+                #endregion
             }
         }
 
