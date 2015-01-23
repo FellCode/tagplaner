@@ -196,6 +196,7 @@ namespace Tagplaner
                 ListViewItem specialityName = new ListViewItem(calendar.Speciality.ElementAt(counterSpecialities).IdentifierOfYear
                     + " "
                     + calendar.Speciality.ElementAt(counterSpecialities).SpecialityName);
+                specialityName.BackColor = Color.SkyBlue;
                 listView1.Items.Add(specialityName);
                 listView1.Items.Add(GetEmptyDaysListViewItem(counterSpecialities));
                 listView1.Items.Add(GetSeminarDaysListViewItem(counterSpecialities));
