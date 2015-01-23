@@ -237,7 +237,7 @@
             this.button_Weiter.Name = "button_Weiter";
             this.button_Weiter.Size = new System.Drawing.Size(198, 23);
             this.button_Weiter.TabIndex = 14;
-            this.button_Weiter.Text = "Weiter";
+            this.button_Weiter.Text = "Tagplan anlegen";
             this.button_Weiter.UseVisualStyleBackColor = true;
             this.button_Weiter.Click += new System.EventHandler(this.button_Weiter_Click);
             // 
@@ -427,6 +427,7 @@
             this.groupBox_AnzahlJahrgaenge.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
