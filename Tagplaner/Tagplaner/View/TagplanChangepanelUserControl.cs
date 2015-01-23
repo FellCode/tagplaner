@@ -51,7 +51,7 @@ namespace Tagplaner
                 //{
                 //    DialogResult dialogSaveResult = MessageBox.Show(
                 //    MMessage., MessageBoxButtons.YesNoCancel();
-                    
+
                 //}
                 PasteEntry();
             }
@@ -104,7 +104,7 @@ namespace Tagplaner
             }
             else
             {
-                
+
                 CoTrainer.Enabled = true;
             }
         }
@@ -117,15 +117,15 @@ namespace Tagplaner
         private void btRaumadd_Click(object sender, EventArgs e)
         {
             sameroom = false;
-            
+
             if (Raum.SelectedItem == null)
             {
-               
-                   
-            }    
+
+
+            }
             else
             {
-                
+
                 foreach (MRoom item in ltRaeume.Items)
                 {
                     MRoom mroom = (MRoom)Raum.SelectedItem;
@@ -141,7 +141,7 @@ namespace Tagplaner
                     ltRaeume.Items.Add(Raum.SelectedItem);
                     ltRaeume.SelectedIndex = 0;
                 }
-           }
+            }
         }
 
         /// <summary>
@@ -284,9 +284,9 @@ namespace Tagplaner
         public void PasteEntry()
         {
             MCalendar.GetInstance().Saved = false;
-            
+
             MCalendarEntry ccalendarentry = new MCalendarEntry();
-            
+
 
             GetSeminar(ccalendarentry, Seminar);
             GetTrainer(ccalendarentry, Trainer);
@@ -359,7 +359,7 @@ namespace Tagplaner
             {
                 cdb.FillRoomComboBox(Raum, mort.Id);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
             }
             Raum.Text = "";
@@ -522,12 +522,12 @@ namespace Tagplaner
             raumlist.Items.Clear();
             if (calendarentry.Room == null)
             {
-                
+
             }
             else
             {
                 string source = calendarentry.Room.Number;
-                string[] seperators = new String[] {", "};
+                string[] seperators = new String[] { ", " };
                 string[] result;
                 result = source.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string oneroom in result)
@@ -557,7 +557,7 @@ namespace Tagplaner
                     {
                         if (calendarentry.Seminar == null)
                         {
-                           
+
                         }
                         else
                         {
@@ -591,7 +591,8 @@ namespace Tagplaner
             {
                 if (seminarb.SelectedItem == null)
                 {
-                    
+                    FormInit finit = FormInit.GetInstance();
+                    finit.ShowMessageInStatusbar(MMessage.WARNING_NO_SEMINAR_SET);
                 }
                 else
                 {
@@ -600,8 +601,7 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-                FormInit finit = FormInit.GetInstance();
-                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_SEMINAR_SET);
+
             }
         }
 
@@ -616,7 +616,8 @@ namespace Tagplaner
             {
                 if (trainerb.SelectedItem == null)
                 {
-
+                    FormInit finit = FormInit.GetInstance();
+                    finit.ShowMessageInStatusbar(MMessage.WARNING_NO_TRAINER_SET);
                 }
                 else
                 {
@@ -625,8 +626,7 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-                FormInit finit = FormInit.GetInstance();
-                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_TRAINER_SET);
+
             }
         }
 
@@ -643,7 +643,8 @@ namespace Tagplaner
                 {
                     if (cotrainerb.SelectedItem == null)
                     {
-
+                        FormInit finit = FormInit.GetInstance();
+                        finit.ShowMessageInStatusbar(MMessage.WARNING_NO_COTRAINER_SET);
                     }
                     else
                     {
@@ -653,8 +654,7 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-                FormInit finit = FormInit.GetInstance();
-                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_COTRAINER_SET);
+
             }
         }
 
@@ -669,7 +669,8 @@ namespace Tagplaner
             {
                 if (ortb.SelectedItem == null)
                 {
-
+                    FormInit finit = FormInit.GetInstance();
+                    finit.ShowMessageInStatusbar(MMessage.WARNING_NO_LOCATION_SET);
                 }
                 else
                 {
@@ -678,8 +679,7 @@ namespace Tagplaner
             }
             catch (NullReferenceException)
             {
-                FormInit finit = FormInit.GetInstance();
-                finit.ShowMessageInStatusbar(MMessage.WARNING_NO_LOCATION_SET);
+
             }
         }
 
@@ -737,7 +737,7 @@ namespace Tagplaner
                 switch (tagartb.SelectedIndex)
                 {
                     case 0:
-                        if(Seminar.SelectedItem == null)
+                        if (Seminar.SelectedItem == null)
                         {
                             MSeminar mseminar = new MSeminar(kommentarb.Text);
                             calendarentry.Seminar = mseminar;
@@ -785,14 +785,14 @@ namespace Tagplaner
         public int GetInterationNumber(NumericUpDown anzahltage)
         {
 
-                if (Convert.ToInt32(anzahltage.Value) > 0)
-                {
-                    return Convert.ToInt32(anzahltage.Value);
-                }
-                else
-                {
-                    return 1;
-                }
+            if (Convert.ToInt32(anzahltage.Value) > 0)
+            {
+                return Convert.ToInt32(anzahltage.Value);
+            }
+            else
+            {
+                return 1;
+            }
 
         }
 
