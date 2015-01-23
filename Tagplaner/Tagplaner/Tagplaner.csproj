@@ -197,9 +197,11 @@
     </Compile>
     <Compile Include="View\SuchenUserControl.cs">
       <SubType>UserControl</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="View\SuchenUserControl.Designer.cs">
       <DependentUpon>SuchenUserControl.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="View\TagplanAnlegenUserControl.cs">
       <SubType>UserControl</SubType>
@@ -268,6 +270,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\SuchenUserControl.resx">
       <DependentUpon>SuchenUserControl.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="View\TagplanAnlegenUserControl.resx">
       <DependentUpon>TagplanAnlegenUserControl.cs</DependentUpon>

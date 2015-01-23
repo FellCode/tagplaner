@@ -73,7 +73,7 @@
             this.Controls.Add(this.button_Weitersuchen);
             this.Name = "SearchResultForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SearchResultForm";
+            this.Text = "Suchergebnis gefunden";
             this.ResumeLayout(false);
             this.PerformLayout();
 

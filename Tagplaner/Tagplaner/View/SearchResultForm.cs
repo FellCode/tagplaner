@@ -20,11 +20,21 @@ namespace Tagplaner
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Registriert Mausklick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Weitersuchen_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
 
+        /// <summary>
+        /// Registriert Mausklick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_NichtWeitersuchen_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
