@@ -30,23 +30,6 @@ namespace Tagplaner
 
         private CICalCSVConverter csvComverter;
 
-        public String TextForBox1
-        {
-            get { return textFromTextBox1; }
-        }
-        public String TextForBox2
-        {
-            get { return textFromTextBox2; }
-        }
-        public String TextForBox3
-        {
-            get { return textFromTextBox3; }
-        }
-        public String TextForBox4
-        {
-            get { return textFromTextBox4; }
-        }
-
         /// <summary>
         /// Erzeugt ein Objekt vom Typ FerienFeiertageAuswaehlenForm
         /// </summary>
@@ -250,7 +233,11 @@ namespace Tagplaner
             this.DialogResult = DialogResult.OK;
         }
 
-        //Fenster schließen bei Button-Click
+        /// <summary>
+        /// Registriert Mausklicks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Abbrechen_Click(object sender, EventArgs e)
         {
             this.Dispose(true);
@@ -265,6 +252,26 @@ namespace Tagplaner
         {
             String[] substrings = url.Split('\\');
             return substrings[substrings.Length - 1];
+        }
+
+        /// <summary>
+        /// Getter für die Textboxwerte
+        /// </summary>
+        public String TextForBox1
+        {
+            get { return textFromTextBox1; }
+        }
+        public String TextForBox2
+        {
+            get { return textFromTextBox2; }
+        }
+        public String TextForBox3
+        {
+            get { return textFromTextBox3; }
+        }
+        public String TextForBox4
+        {
+            get { return textFromTextBox4; }
         }
     }
 }

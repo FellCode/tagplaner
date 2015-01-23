@@ -237,7 +237,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void button_Weiter_Click(object sender, EventArgs e)
         {
-            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckDateTimePickerValues() && CheckIdentificationAndClassesChoosen())
+            if (vacationCurrentYearUrl != null && vacationNextYearUrl != null && holidayCurrentYearUrl != null && holidayNextYearUrl != null && CheckIdentificationAndClassesChoosen() && CheckDateTimePickerValues())
             {
                 //Werte aus Datepicker werden an Kalenderobjekt übergeben
                 CreateCalendarWithDates();
@@ -367,7 +367,7 @@ namespace Tagplaner
         /// <param name="e"></param>
         private bool CheckDateTimePickerValues()
         {
-            if (this.dateTimePicker_Von.Value > this.dateTimePicker_Bis.Value)
+            if (this.dateTimePicker_Von.Value.Date > this.dateTimePicker_Bis.Value.Date)
             {
                 formInit.ShowMessageInStatusbar(MMessage.ERROR_STARTDATE_BIGGER_ENDDATE);
                 return false;

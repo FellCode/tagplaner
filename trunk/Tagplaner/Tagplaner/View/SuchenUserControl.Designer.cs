@@ -32,10 +32,10 @@ namespace Tagplaner
         {
             this.textBox_Suchen = new System.Windows.Forms.TextBox();
             this.button_Suchen = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_Suchergebnisse = new System.Windows.Forms.DataGridView();
             this.groupBox_Suchergebnisse = new System.Windows.Forms.GroupBox();
             this.groupBox_Suchbegriff = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Suchergebnisse)).BeginInit();
             this.groupBox_Suchergebnisse.SuspendLayout();
             this.groupBox_Suchbegriff.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +46,7 @@ namespace Tagplaner
             this.textBox_Suchen.Name = "textBox_Suchen";
             this.textBox_Suchen.Size = new System.Drawing.Size(163, 20);
             this.textBox_Suchen.TabIndex = 0;
+            this.textBox_Suchen.KeyPress += new KeyPressEventHandler(this.textBox_Suchbegriff_KeyDown);
             // 
             // button_Suchen
             // 
@@ -57,26 +58,26 @@ namespace Tagplaner
             this.button_Suchen.UseVisualStyleBackColor = true;
             this.button_Suchen.Click += new System.EventHandler(this.button_Suchen_Click);
             // 
-            // dataGridView1
+            // dataGridView_Suchergebnisse
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(20, 33);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(725, 121);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
+            this.dataGridView_Suchergebnisse.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Suchergebnisse.Location = new System.Drawing.Point(20, 33);
+            this.dataGridView_Suchergebnisse.Name = "dataGridView_Suchergebnisse";
+            this.dataGridView_Suchergebnisse.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_Suchergebnisse.Size = new System.Drawing.Size(725, 121);
+            this.dataGridView_Suchergebnisse.TabIndex = 2;
+            this.dataGridView_Suchergebnisse.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Suchergebnisse_CellClick);
             // 
             // groupBox_Suchergebnisse
             // 
-            this.groupBox_Suchergebnisse.Controls.Add(this.dataGridView1);
+            this.groupBox_Suchergebnisse.Controls.Add(this.dataGridView_Suchergebnisse);
             this.groupBox_Suchergebnisse.Location = new System.Drawing.Point(16, 116);
             this.groupBox_Suchergebnisse.Name = "groupBox_Suchergebnisse";
             this.groupBox_Suchergebnisse.Size = new System.Drawing.Size(766, 174);
             this.groupBox_Suchergebnisse.TabIndex = 5;
             this.groupBox_Suchergebnisse.TabStop = false;
-            this.groupBox_Suchergebnisse.Visible = false;
             this.groupBox_Suchergebnisse.Text = "Suchergebnisse";
+            this.groupBox_Suchergebnisse.Visible = false;
             // 
             // groupBox_Suchbegriff
             // 
@@ -97,7 +98,7 @@ namespace Tagplaner
             this.Controls.Add(this.groupBox_Suchergebnisse);
             this.Name = "SuchenUserControl";
             this.Size = new System.Drawing.Size(908, 333);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Suchergebnisse)).EndInit();
             this.groupBox_Suchergebnisse.ResumeLayout(false);
             this.groupBox_Suchbegriff.ResumeLayout(false);
             this.groupBox_Suchbegriff.PerformLayout();
@@ -109,7 +110,7 @@ namespace Tagplaner
 
         private System.Windows.Forms.TextBox textBox_Suchen;
         private System.Windows.Forms.Button button_Suchen;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_Suchergebnisse;
         private GroupBox groupBox_Suchergebnisse;
         private GroupBox groupBox_Suchbegriff;
     }

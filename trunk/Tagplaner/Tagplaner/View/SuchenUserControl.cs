@@ -44,19 +44,14 @@ namespace Tagplaner
             columnList = new List<int>();
             rowList = new List<int>();
 
-            dataGridView1.ColumnCount = 3;
-            dataGridView1.Columns[0].Name = "Ergebnis";
-            dataGridView1.Columns[1].Name = "Zeile";
-            dataGridView1.Columns[2].Name = "Spalte";
+            dataGridView_Suchergebnisse.ColumnCount = 3;
+            dataGridView_Suchergebnisse.Columns[0].Name = "Ergebnis";
+            dataGridView_Suchergebnisse.Columns[1].Name = "Zeile";
+            dataGridView_Suchergebnisse.Columns[2].Name = "Spalte";
 
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-        }
-
-        private void button_Suchen_Click(object sender, EventArgs e)
-        {
-            FindInput();
+            dataGridView_Suchergebnisse.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView_Suchergebnisse.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView_Suchergebnisse.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         /// <summary>
@@ -102,8 +97,8 @@ namespace Tagplaner
         public void FillResultGrid()
         {
             //DataGridView muss vor dem erneuten Befüllen geleert werden
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
+            dataGridView_Suchergebnisse.DataSource = null;
+            dataGridView_Suchergebnisse.Rows.Clear();
 
             if (resultList.Count != 0)
             {
@@ -111,11 +106,11 @@ namespace Tagplaner
 
                 foreach (String result in resultList)
                 {
-                    dataGridView1.Rows.Add();
-                    dataGridView1[0, resultCounter].Value = resultList[resultCounter];
+                    dataGridView_Suchergebnisse.Rows.Add();
+                    dataGridView_Suchergebnisse[0, resultCounter].Value = resultList[resultCounter];
                     //+1 da die Werte mit denen aus dem Aufruf der Indizies der GridView übereinstimmen müssen
-                    dataGridView1[1, resultCounter].Value = rowList[resultCounter] + 1;
-                    dataGridView1[2, resultCounter].Value = columnList[resultCounter] + 1;
+                    dataGridView_Suchergebnisse[1, resultCounter].Value = rowList[resultCounter] + 1;
+                    dataGridView_Suchergebnisse[2, resultCounter].Value = columnList[resultCounter] + 1;
 
                     resultCounter++;
                 }
@@ -141,7 +136,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="searchString">Erste Zeichenkette</param>
         /// <param name="compareString">Zweite Zeichenkette</param>
-        /// <returns></returns>
+        /// <returns>Wahrheitswert ob die beiden Zeichenketten übereinstimmen</returns>
         public bool CompareStrings(String searchString, String compareString)
         {
             if (!String.IsNullOrEmpty(searchString.Trim()) && (searchString.ToUpper().Trim().Equals(compareString.ToUpper().Trim()) || String.Compare(searchString.ToUpper().Trim(), 0, compareString.ToUpper().Trim(), 0, textBox_Suchen.Text.Length) == 0))
@@ -154,16 +149,44 @@ namespace Tagplaner
             }
         }
 
-        public void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// Registriert Mausklick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void dataGridView_Suchergebnisse_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             choosenRow = e.RowIndex;
 
-            if (dataGridView1[2, choosenRow].Value != null && dataGridView1[1, choosenRow].Value != null)
+            if (dataGridView_Suchergebnisse[2, choosenRow].Value != null && dataGridView_Suchergebnisse[1, choosenRow].Value != null)
             {
-                dGVFromBearbeiten.CurrentCell = dGVFromBearbeiten[Convert.ToInt32(dataGridView1[2, choosenRow].Value) - 1, Convert.ToInt32(dataGridView1[1, choosenRow].Value) - 1];
+                dGVFromBearbeiten.CurrentCell = dGVFromBearbeiten[Convert.ToInt32(dataGridView_Suchergebnisse[2, choosenRow].Value) - 1, Convert.ToInt32(dataGridView_Suchergebnisse[1, choosenRow].Value) - 1];
                 dGVFromBearbeiten.BeginEdit(true);
                 formInit.TabPageChange(1);
             }
+        }
+
+        /// <summary>
+        /// Registriert Tastendruck
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_Suchbegriff_KeyDown(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                FindInput();
+            }
+        }
+
+        /// <summary>
+        /// Registriert Mausklick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Suchen_Click(object sender, EventArgs e)
+        {
+            FindInput();
         }
     }
 }
