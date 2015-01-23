@@ -67,6 +67,7 @@ namespace Tagplaner
                     day = german.DateTimeFormat.GetDayName(calendarDay.CalendarDate.DayOfWeek).ToString().Substring(0, 2).ToUpper();
                     if (!(day.Equals("SA") || day.Equals("SO")))
                     {
+                        
                         generateDate(day, calendarDay);
 
                         //Generiert Urlaubs-/Feiertage
@@ -82,24 +83,30 @@ namespace Tagplaner
                         {
                             //Schleife für jede Spalte des Tages 
                             if (calendarDay.CalendarEntry != null)
-                            foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
-                            {
-
-                                if (calendarDay.CalendarEntry[i_entry - 1].School != null)
-                                {
-                                    generateSchool(calendarDay);
-                                }
-                                else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
+                                foreach (MCalendarEntry calendarEntry in calendarDay.CalendarEntry)
                                 {
 
-                                    generatePractice(calendarDay);
+                                    if (calendarDay.CalendarEntry[i_entry - 1].School != null)
+                                    {
+                                        generateSchool(calendarDay);
+                                    }
+                                    else if (calendarDay.CalendarEntry[i_entry - 1].Practice != null)
+                                    {
+                                        if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
+                                        {
+                                            generatePractice_Seminar(calendarDay);
+                                        }
+                                        else
+                                        {
+                                            generatePractice(calendarDay);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        generateSeminar(calendarDay);
+                                    }
+                                    i_entry++;
                                 }
-                                else if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
-                                {
-                                    generateSeminar(calendarDay);
-                                }
-                                i_entry++;
-                            }
                         }
                         i_day++;
                     }
@@ -223,7 +230,6 @@ namespace Tagplaner
             practice = new MPractice[8];
             secondentry = new Object[8];
         }
-
         /// <summary>
         /// Formatiert alle Spalten bezüglich Größe und zentriert Texte
         /// </summary>
@@ -395,8 +401,27 @@ namespace Tagplaner
         /// Generiert einen Schuleintrag
         /// </summary>
         /// <param name="calendarDay"></param>
+
         private void generateSchool(MCalendarDay calendarDay)
         {
+            if (calendarDay.CalendarEntry[i_entry - 1].School != null)
+            {
+                if (i_entry % 2 != 0)
+                {
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                else
+                {
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                merge();
+                setBackgroundColor(System.Drawing.Color.Blue);
+                if (calendarDay.CalendarEntry[i_entry - 1].School.Comment != null)
+                {
+                    setValue(calendarDay.CalendarEntry[i_entry - 1].School.Comment);
+                }
+                setFontColor(System.Drawing.Color.White);
+            }
         }
         /// <summary>
         /// Generiert einen Seminareintrag
@@ -404,6 +429,60 @@ namespace Tagplaner
         /// <param name="calendarDay"></param>
         private void generateSeminar(MCalendarDay calendarDay)
         {
+            if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
+            {
+                if (i_entry % 2 != 0)
+                {
+                    setRange(getCell((i_entry * 7) - 2 + "," + i_day), (getCell((i_entry * 7) + "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Room != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Room.Number != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Room.Number);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) - 1 + "," + i_day), (getCell((i_entry * 7) + "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Trainer != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation);
+                        }
+                    }
+                    else if (calendarDay.CalendarEntry[i_entry-1].Trainer.Name !=null)
+                    {
+                        setValue(calendarDay.CalendarEntry[i_entry - 1].Trainer.Name);
+                        if (calendarDay.CalendarEntry[i_entry-1].Trainer.Surname != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry-1].Trainer.Surname);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                else
+                {
+                    setRange(getCell((i_entry * 7) -2+ "," + i_day), (getCell((i_entry * 7)  + "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Room != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Room.Number != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Room.Number);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) -1+ "," + i_day), (getCell((i_entry * 7)  + "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Trainer != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                merge();
+                setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
+            }
         }
         /// <summary>
         /// Generiert einen Praxiseintrag
@@ -411,10 +490,82 @@ namespace Tagplaner
         /// <param name="calendarDay"></param>
         private void generatePractice(MCalendarDay calendarDay)
         {
+                if (i_entry % 2 != 0)
+                {
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                else
+                {
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) + 3 + "," + i_day)));
+                }
+                merge();
+                setBackgroundColor(System.Drawing.Color.Yellow);
         }
         /// <summary>
         /// Merge der Trennlinien, Aufräumen von Objekten, Speichern des Dokuments
         /// </summary>
+        private void generatePractice_Seminar(MCalendarDay calendarDay)
+        {
+            if (calendarDay.CalendarEntry[i_entry - 1].Seminar != null)
+            {
+                if (i_entry % 2 != 0)
+                {
+                    setRange(getCell((i_entry * 7) -2+ "," + i_day), (getCell((i_entry * 7) + "," + i_day)));   
+                    if (calendarDay.CalendarEntry[i_entry - 1].Room != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Room.Number != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Room.Number);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) -1+ "," + i_day), (getCell((i_entry * 7) + "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Trainer != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) +1+ "," + i_day)));
+                    merge();
+                    setBackgroundColor(System.Drawing.Color.Yellow);
+                    setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                    setRange(getCell((i_entry * 7) +3+ "," + i_day), (getCell((i_entry * 7)+2+ "," + i_day)));
+                    merge();
+                    setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                    setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
+                }
+                else
+                {
+                    setRange(getCell((i_entry * 7) -2+ "," + i_day), (getCell((i_entry * 7)+ "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Room != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Room.Number != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Room.Number);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7) -1+ "," + i_day)));
+                    if (calendarDay.CalendarEntry[i_entry - 1].Trainer != null)
+                    {
+                        if (calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation != null)
+                        {
+                            setValue(calendarDay.CalendarEntry[i_entry - 1].Trainer.Abbreviation);
+                        }
+                    }
+                    setRange(getCell((i_entry * 7) + "," + i_day), (getCell((i_entry * 7)  +1+ "," + i_day)));
+                    merge();
+                    setBackgroundColor(System.Drawing.Color.Yellow);
+                    setValue(calendarDay.CalendarEntry[i_entry - 1].Practice.Comment);
+                    setRange(getCell((i_entry * 7) +3+ "," + i_day), (getCell((i_entry * 7) +2+ "," + i_day)));
+                    merge();
+                    setBackgroundColor(System.Drawing.Color.PaleTurquoise);
+                    setValue(calendarDay.CalendarEntry[i_entry - 1].Seminar.Title);
+                }
+            }
+        }
+        
+        
         private void finishDocument(MCalendar calendar)
         {
             i_speciality = 1;
