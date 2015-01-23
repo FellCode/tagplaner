@@ -303,8 +303,8 @@ namespace Tagplaner
         /// <summary>
         /// Erstellt eine Tabellenreihe mit den eigentlichen Tagplan Informationen
         /// </summary>
-        /// <param name="calendarDay">Nächster Kalendertag aus der Liste von MCalendar</param>
-        /// <param name="position">Aktuelle Position in CalendarList</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
         private void CreateBodyTableRow(MCalendarDay calendarDay, MCalendarDay nextCalendarDay)
         {
             PdfPTable pdfTable = new PdfPTable(calculateNumberOfCells());
@@ -620,9 +620,6 @@ namespace Tagplaner
         /// Fügt einen Eintrag für einen leeren Tag zur angegebenen PpdfTabelle hinzu
         /// </summary>
         /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        /// <param name="calendarDay">Aktueller Kalendertag</param>
-        /// <param name="nextCalendarDay">Nächster Kalendertag</param>
-        /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Praxistag</param>
         private void CreateBlankRow(PdfPTable pdfTable)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
@@ -720,6 +717,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
+        /// <param name="calendarEntryPosition">Position in CalendarEntry</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsSeminar(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
@@ -748,6 +746,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsSchool(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
@@ -776,6 +775,7 @@ namespace Tagplaner
         /// </summary>
         /// <param name="currentDay">Aktueller Tag</param>
         /// <param name="nextDay">Nächster Tag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
         /// <returns>Gibt true zurück wenn kein Wechsel zwischen dem aktuellen und dem nächsten Tag erfolgt</returns>
         private bool nextDayIsPratice(MCalendarDay currentDay, MCalendarDay nextDay, int calendarEntryPosition)
         {
