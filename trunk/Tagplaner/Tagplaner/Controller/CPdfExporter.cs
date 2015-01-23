@@ -363,30 +363,29 @@ namespace Tagplaner
                     {
                         int numberOfSpecialitys = CountSpecialityByIdentifierOfYear(identifierOfYear);
                         calendarEntryPosition = GetSpecialityListPosition(identifierOfYear);
-                        calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
 
                         // Zeige Spalte nur für FIAE
                         if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("AE"))
                         {
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
                             CreateBlankRow(pdfTable);
                         }
                         // Zeige Spalte nur für FISI
                         else if (numberOfSpecialitys == 1 && GetSpecialityNameByIdentifierOfYear(identifierOfYear).Equals("SI"))
                         {
                             CreateBlankRow(pdfTable);
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
                         }
                         // Zeige Spalte für FIAE und FISI
                         else
                         {
                             calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "AE");
                             calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
 
                             calendarEntryPosition = GetSpecialityListPosition(identifierOfYear, "SI");
                             calendarEntry = calendarDay.CalendarEntry[calendarEntryPosition];
-                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                            CreateRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
                         }   
                     }
                 }
@@ -395,52 +394,68 @@ namespace Tagplaner
             doc.Add(pdfTable);
         }
 
-        private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
+        /// <summary>
+        /// Erstellt eine Zeile für einen Seminartag, Schulltag oder Praxistag anhand der Information aus dem MCalendarEntry Onjekt
+        /// </summary>
+        /// <param name="pdfTable">Instanz der PdfTable in der die Zeile erzeugt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
+        private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
-            if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice == null)
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar != null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].Practice == null)
             {
-                CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                CreateSeminarRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Schultag ist
-            if (calendarEntry.Seminar == null && calendarEntry.School != null && calendarEntry.Practice == null)
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].School != null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].Practice == null)
             {
-                CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxistag ist
-            if (calendarEntry.Seminar == null && calendarEntry.School == null && calendarEntry.Practice != null)
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].Practice != null)
             {
-                CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxis und Seminartag ist
-            if (calendarEntry.Seminar != null && calendarEntry.School == null && calendarEntry.Practice != null)
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar != null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].Practice != null)
             {
-                CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntry, calendarEntryPosition);
+                CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
         }
 
         /// <summary>
         /// Fügt einen Eintrag für ein Seminartag zur angegebenen PdfTabelle hinzu
         /// </summary>
-        /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        /// <param name="calendarDay">Aktueller Kalendertag</param>
-        /// <param name="nextCalendarDay">Nächster Kalendertag</param>
-        /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Seminartag</param>
-        private void CreateSeminarRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
+        /// <param name="pdfTable">Instanz der PdfTable in der die Zeile erzeugt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
+        private void CreateSeminarRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
-            pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.HasTechnology, FONT_NORMAL, COLOR_BLANK, 1, 1));     // Technik
+            pdfTable.AddCell(CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Seminar.HasTechnology, FONT_NORMAL, COLOR_BLANK, 1, 1));     // Technik
 
             // Prüfen, ob ein Trainer vorhanden ist
-            if (calendarEntry.Room != null) {
-                pdfTable.AddCell(CreateTabeCell(calendarEntry.Room.Number, FONT_NORMAL, COLOR_BLANK, 1, 1));           // RaumNr.
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Room != null)
+            {
+                pdfTable.AddCell(CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Room.Number, FONT_NORMAL, COLOR_BLANK, 1, 1));           // RaumNr.
             }
             else {
                 pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                  // Keine RaumNr. angegeben
             }
 
             // Prüfen, ob ein Trainer vorhanden ist
-            if (calendarEntry.Trainer != null)
+            if (calendarDay.CalendarEntry[calendarEntryPosition].Trainer != null)
             {
-                pdfTable.AddCell(CreateTabeCell(calendarEntry.Trainer.Abbreviation, FONT_NORMAL, COLOR_BLANK, 1, 1));  // Trainer
+                pdfTable.AddCell(CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Trainer.Abbreviation, FONT_NORMAL, COLOR_BLANK, 1, 1));  // Trainer
             }
             else
             {
@@ -450,21 +465,28 @@ namespace Tagplaner
 
             if (nextDayIsSeminar(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
-                pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));       // Seminar
+                pdfTable.AddCell(CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));       // Seminar
             }
             else
             {
                 if (showComments)
                 {
                     pdfTable.AddCell(
-                        CreateTabeCell(calendarEntry.Seminar.Title + "\n" + calendarEntry.Seminar.Comment,
+                        CreateTabeCell(
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + "\n" + 
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
                             FONT_NORMAL,
                             COLOR_SEMINAR,
                             4, 1));                                                                                    // Seminar + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 4, 1));   // Seminar
+                    pdfTable.AddCell(CreateTabeCell(
+                        calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title, 
+                        FONT_NORMAL, 
+                        COLOR_SEMINAR, 
+                        4, 
+                        1));                                                                                           // Seminar
                 }
             }
         }
@@ -472,11 +494,11 @@ namespace Tagplaner
         /// <summary>
         /// Fügt einen Eintrag für einen Schultag zur angegebenen PdfTabelle hinzu
         /// </summary>
-        /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        /// <param name="calendarDay">Aktueller Kalendertag</param>
-        /// <param name="nextCalendarDay">Nächster Kalendertag</param>
-        /// <param name="calendarEntry">Kalendereintrag mit Informationen über den Schultag</param>
-        private void CreateSchoolRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
+        /// <param name="pdfTable">Instanz der PdfTable in der die Zeile erzeugt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
+        private void CreateSchoolRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
@@ -490,7 +512,12 @@ namespace Tagplaner
             {
                 if (showComments)
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.School.Comment, FONT_NORMAL, COLOR_SCHOOL, 4, 1));   // Schule + Kommentar
+                    pdfTable.AddCell(CreateTabeCell(
+                        calendarDay.CalendarEntry[calendarEntryPosition].School.Comment, 
+                        FONT_NORMAL, 
+                        COLOR_SCHOOL,
+                        4, 
+                        1));                                                                                           // Schule + Kommentar
                 }
                 else
                 {
@@ -502,8 +529,11 @@ namespace Tagplaner
         /// <summary>
         /// Fügt einen Eintrag für einen Praxistag zur angegebenen PdfTabelle hinzu
         /// </summary>
-        /// <param name="pdfTable">PdfTabelle in der der Eintrag angezeigt werden soll</param>
-        private void CreatePraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
+        /// <param name="pdfTable">Instanz der PdfTable in der die Zeile erzeugt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
+        private void CreatePraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
@@ -519,19 +549,32 @@ namespace Tagplaner
                 if (showComments)
                 {
                     pdfTable.AddCell(
-                        CreateTabeCell(calendarEntry.Practice.Comment,
+                        CreateTabeCell(
+                            calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
                             FONT_NORMAL,
                             COLOR_PRATICE, 4, 1));                                                                     // Praxis + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Practice.Comment, FONT_NORMAL, COLOR_PRATICE, 4, 1));                            // Praxis
+                    pdfTable.AddCell(CreateTabeCell(
+                        calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
+                        FONT_NORMAL, 
+                        COLOR_PRATICE, 
+                        4, 
+                        1));                                                                                           // Praxis
                 }
 
             }
         }
 
-        private void CreateSeminarAndPraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, MCalendarEntry calendarEntry, int calendarEntryPosition)
+        /// <summary>
+        /// Fügt einen Eintrag für einen Seminar- und Praxistag zur angegebenen PdfTabelle hinzu
+        /// </summary>
+        /// <param name="pdfTable">Instanz der PdfTable in der die Zeile erzeugt werden soll</param>
+        /// <param name="calendarDay">Aktueller Kalendartag</param>
+        /// <param name="nextCalendarDay">Nächster Kalendartag</param>
+        /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
+        private void CreateSeminarAndPraticeRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle Technik
             pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_BLANK, 1, 1));                                      // Leere Zelle RaumNr.   
@@ -540,7 +583,7 @@ namespace Tagplaner
             if (nextDayIsPratice(calendarDay, nextCalendarDay, calendarEntryPosition))
             {
 
-                pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));       // Seminar                                // Seminar
+                pdfTable.AddCell(CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));       // Seminar                                // Seminar
                 pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 2, 1));                                // Praxis
             }
             else
@@ -548,18 +591,25 @@ namespace Tagplaner
                 if (showComments)
                 {
                     pdfTable.AddCell(
-                        CreateTabeCell(calendarEntry.Seminar.Title + "\n" + calendarEntry.Seminar.Comment,
+                        CreateTabeCell(
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title + 
+                            "\n" + calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
                             FONT_NORMAL,
                             COLOR_SEMINAR, 2, 1));                                                                     // Seminar + Kommentar
 
                     pdfTable.AddCell(
-                        CreateTabeCell(calendarEntry.Practice.Comment,
+                        CreateTabeCell(calendarDay.CalendarEntry[calendarEntryPosition].Practice.Comment,
                             FONT_NORMAL,
                             COLOR_PRATICE, 2, 1));                                                                     // Praxis + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell(calendarEntry.Seminar.Title, FONT_NORMAL, COLOR_SEMINAR, 2, 1));   // Seminar
+                    pdfTable.AddCell(CreateTabeCell(
+                        calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title,
+                        FONT_NORMAL, 
+                        COLOR_SEMINAR,
+                        2, 
+                        1));                                                                                           // Seminar
                     pdfTable.AddCell(CreateTabeCell("", FONT_NORMAL, COLOR_PRATICE, 2, 1));                            // Praxis
                 }
 
