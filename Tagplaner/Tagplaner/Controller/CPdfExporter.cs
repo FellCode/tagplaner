@@ -421,18 +421,22 @@ namespace Tagplaner
                 CreateSchoolRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxistag ist
-            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
+            else if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].Practice != null)
             {
                 CreatePraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
             // Prüfen, ob der aktuelle Tag ein Praxis und Seminartag ist
-            if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar != null &&
+            else if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar != null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].Practice != null)
             {
                 CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
+            }
+            else
+            {
+                CreateBlankRow(pdfTable);
             }
         }
 
@@ -481,16 +485,18 @@ namespace Tagplaner
                             "Bemerkung: " + calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Comment,
                             FONT_NORMAL,
                             COLOR_SEMINAR,
-                            4, 1));                                                                                    // Seminar + Kommentar
+                            4, 
+                            1));                                                                                    // Seminar + Kommentar
                 }
                 else
                 {
-                    pdfTable.AddCell(CreateTabeCell(
-                        calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title, 
-                        FONT_NORMAL, 
-                        COLOR_SEMINAR, 
-                        4, 
-                        1));                                                                                           // Seminar
+                    pdfTable.AddCell(
+                        CreateTabeCell(
+                            calendarDay.CalendarEntry[calendarEntryPosition].Seminar.Title, 
+                            FONT_NORMAL, 
+                            COLOR_SEMINAR, 
+                            4, 
+                            1));                                                                                           // Seminar
                 }
             }
         }
