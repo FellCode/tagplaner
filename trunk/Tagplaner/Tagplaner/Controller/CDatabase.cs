@@ -1250,7 +1250,8 @@ namespace Tagplaner
             }
             else
             {
-                //noDatabaseError
+                CreateDB();
+                FillDB();
             }        
         }
 
@@ -1277,10 +1278,18 @@ namespace Tagplaner
         /// </summary>
         public void CheckDBForBug()
         {
-            if (CheckDB())
-                SaveDB();
+            if (System.IO.File.Exists(url))
+            {
+                if (CheckDB())
+                    SaveDB();
+                else
+                    RestoreDB();
+            }
             else
+            {
                 RestoreDB();
+            }
+            
         }
     }
 }
