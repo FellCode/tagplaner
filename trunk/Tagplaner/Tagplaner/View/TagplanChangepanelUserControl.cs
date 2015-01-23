@@ -59,7 +59,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Prüft ob die Auswahl der Tagart geändert wurde
+        /// Prüft ob sich die Auswahl des Ortes geändert hat und füllt dementsprechend die möglichen Räume
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -100,15 +100,17 @@ namespace Tagplaner
                 CoTrainer.SelectedIndex = -1;
                 CoTrainer.Text = "";
                 CoTrainer.Enabled = false;
+                cdb.FillTrainerComboBox(Trainer);
             }
             else
             {
+                
                 CoTrainer.Enabled = true;
             }
         }
 
         /// <summary>
-        /// 
+        /// Füg den gewählten Raum der Liste von Räumen hinzu.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -143,7 +145,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Löscht den gewählten eintrag aus der Raumliste.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -163,7 +165,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Wenn der Zurücksetzten Button gedrückt wird werden die eingabefelder gelleert
+        /// Wenn der Zurücksetzten Button gedrückt wird werden die eingabefelder gelleert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -187,23 +189,28 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert.
+        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert und ändert die liste der CoTrainer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Trainer_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cdb.FillTrainerComboBox(CoTrainer);
+            CoTrainer.Items.Remove(Trainer.SelectedItem);
             Einfügen.Enabled = true;
         }
 
         /// <summary>
-        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert.
+        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert und ändert die liste der Trainer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CoTrainer_SelectedIndexChanged(object sender, EventArgs e)
         {
             Einfügen.Enabled = true;
+            cdb.FillTrainerComboBox(Trainer);
+            Trainer.Items.Remove(CoTrainer.SelectedItem);
+
         }
 
         /// <summary>
@@ -258,7 +265,6 @@ namespace Tagplaner
 
             cdb.FillSeminarComboBox(Seminar);
             cdb.FillTrainerComboBox(Trainer);
-            cdb.FillTrainerComboBox(CoTrainer);
             cdb.FillPlaceComboBox(Ort);
 
             SetDayTyp(calendarentry, Tagart);
