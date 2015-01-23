@@ -53,7 +53,6 @@
             this.btDelete = new System.Windows.Forms.Button();
             this.btReset = new System.Windows.Forms.Button();
             this.deleteEntry = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AnzahlTage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -213,20 +212,21 @@
             // 
             // AnzahlTage
             // 
-            this.AnzahlTage.Location = new System.Drawing.Point(1066, 36);
+            this.AnzahlTage.Location = new System.Drawing.Point(1047, 36);
             this.AnzahlTage.Name = "AnzahlTage";
             this.AnzahlTage.Size = new System.Drawing.Size(41, 20);
             this.AnzahlTage.TabIndex = 22;
             this.AnzahlTage.ValueChanged += new System.EventHandler(this.AnzahlTage_ValueChanged);
+            this.AnzahlTage.Minimum = 1;
             // 
             // tagel
             // 
             this.tagel.AutoSize = true;
-            this.tagel.Location = new System.Drawing.Point(1112, 38);
+            this.tagel.Location = new System.Drawing.Point(1099, 38);
             this.tagel.Name = "tagel";
-            this.tagel.Size = new System.Drawing.Size(93, 13);
+            this.tagel.Size = new System.Drawing.Size(67, 13);
             this.tagel.TabIndex = 23;
-            this.tagel.Text = "Tage weiterführen";
+            this.tagel.Text = "Anzahl Tage";
             // 
             // Seminarpanel
             // 
@@ -302,20 +302,10 @@
             this.deleteEntry.UseVisualStyleBackColor = true;
             this.deleteEntry.Click += new System.EventHandler(this.deleteEntry_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1039, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(22, 13);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "Für";
-            // 
             // TagplanChangepanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteEntry);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.Seminarpanel);
@@ -376,6 +366,5 @@
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button deleteEntry;
-        private System.Windows.Forms.Label label1;
     }
 }

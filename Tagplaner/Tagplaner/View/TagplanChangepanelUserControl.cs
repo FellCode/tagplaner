@@ -18,7 +18,7 @@ namespace Tagplaner
     /// </summary>
     public partial class TagplanChangepanelUserControl : UserControl
     {
-
+        private bool sameroom;
         private CDatabase cdb = CDatabase.GetInstance();
         //TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
 
@@ -73,6 +73,7 @@ namespace Tagplaner
             }
 
             FillRoom(Ort, Raum);
+            ltRaeume.Items.Clear();
         }
 
         /// <summary>
@@ -113,13 +114,26 @@ namespace Tagplaner
         /// <param name="e"></param>
         private void btRaumadd_Click(object sender, EventArgs e)
         {
-            if (Raum.SelectedItem != null)
+            sameroom = false;
+            
+            if (Raum.SelectedItem == null)
             {
-                if (ltRaeume.Items.Contains(Raum.SelectedItem))
+               
+                   
+            }    
+            else
+            {
+                
+                foreach (MRoom item in ltRaeume.Items)
                 {
+                    MRoom mroom = (MRoom)Raum.SelectedItem;
+                    if (item.Number == mroom.Number)
+                    {
+                        sameroom = true;
+                    }
 
                 }
-                else
+                if (sameroom == false)
                 {
                     Einfügen.Enabled = true;
                     ltRaeume.Items.Add(Raum.SelectedItem);
@@ -149,7 +163,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Wenn der Zurücksetzten Button gedrückt wird werden die eingabefelder gelleert
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -159,7 +173,7 @@ namespace Tagplaner
             Tagart.SelectedIndex = -1;
             Tagart.Text = " ";
             Seminarpanel.Visible = true;
-            AnzahlTage.Value = 0;
+            AnzahlTage.Value = 1;
         }
 
         /// <summary>
@@ -183,7 +197,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Aktiviert den Einfügenbuttton sobald sich der Index verändert.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -203,7 +217,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// 
+        /// Löscht den gewählten Entry in der Tabelle
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -212,7 +226,7 @@ namespace Tagplaner
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
             tagplanBearbeitenUserControl.DeleteDataSet(GetInterationNumber(AnzahlTage));
             ClearBoxes();
-            AnzahlTage.Value = 0;
+            AnzahlTage.Value = 1;
         }
 
         /// <summary>
@@ -234,7 +248,6 @@ namespace Tagplaner
         {
             Einfügen.Enabled = true;
         }
-
 
         /// <summary>
         /// Diese Methode nimmt das MCalenderEntry, Combo- und Textboxen Objekte und füllt damit die Comboboxen und das Textfeld
@@ -280,7 +293,7 @@ namespace Tagplaner
             TagplanBearbeitenUserControl tagplanBearbeitenUserControl = TagplanBearbeitenUserControl.GetInstance();
             tagplanBearbeitenUserControl.ApplyChangesToGrid(GetInterationNumber(AnzahlTage), ccalendarentry);
 
-            AnzahlTage.Value = 0;
+            AnzahlTage.Value = 1;
         }
 
         /// <summary>
@@ -685,11 +698,14 @@ namespace Tagplaner
                     foreach (MRoom oneroom in ltRaeume.Items)
                     {
                         i++;
-                        if(i == 1)
+                        if (i == 1)
                         {
-                            raeume = ""+oneroom+"";
+                            raeume = "" + oneroom + "";
                         }
-                        raeume = raeume + ", " + oneroom;
+                        else
+                        {
+                            raeume = raeume + ", " + oneroom;
+                        }
                     }
                     MRoom rooms = new MRoom(raeume);
                     calendarentry.Room = rooms;
@@ -765,7 +781,7 @@ namespace Tagplaner
 
                 if (Convert.ToInt32(anzahltage.Value) > 0)
                 {
-                    return Convert.ToInt32(anzahltage.Value) + 1;
+                    return Convert.ToInt32(anzahltage.Value);
                 }
                 else
                 {
