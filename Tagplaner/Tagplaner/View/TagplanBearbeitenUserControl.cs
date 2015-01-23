@@ -445,10 +445,10 @@ namespace Tagplaner
             dGV[7 + 6 * x_Coord, y_Coord + day].Value = "";
             dGV[7 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
 
-            dGV[8 + 6 * x_Coord, y_Coord + day].Value = "Berufschule";
+            dGV[8 + 6 * x_Coord, y_Coord + day].Value = "Berufsschule";
             dGV[8 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
 
-            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Berufschule";
+            dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Berufsschule";
             dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorSchool;
         }
 
@@ -474,10 +474,10 @@ namespace Tagplaner
             dGV[7 + columnCounter, rowCounter].Value = "";
             dGV[7 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[8 + columnCounter, rowCounter].Value = "Berufschule";
+            dGV[8 + columnCounter, rowCounter].Value = "Berufsschule";
             dGV[8 + columnCounter, rowCounter].Style.BackColor = colorSchool;
 
-            dGV[9 + columnCounter, rowCounter].Value = "Berufschule";
+            dGV[9 + columnCounter, rowCounter].Value = "Berufsschule";
             dGV[9 + columnCounter, rowCounter].Style.BackColor = colorSchool;
         }
 
