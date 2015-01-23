@@ -289,7 +289,7 @@ namespace Tagplaner
         {
             for (int i = 0; i < applyIteration; i++)
             {
-                if (dGV.Rows.Count - 1 > y_Coord + possibleIteration)
+                if (dGV.Rows.Count - 1 >= y_Coord + possibleIteration)
                 {
                     if (MCalendar.GetInstance().CalendarList[y_Coord + i].HolidayName == null && CheckWeekend(MCalendar.GetInstance().CalendarList[y_Coord + i].CalendarDate))
                     {
@@ -506,6 +506,7 @@ namespace Tagplaner
 
             dGV[9 + 6 * x_Coord, y_Coord + day].Value = "Praxis";
             dGV[9 + 6 * x_Coord, y_Coord + day].Style.BackColor = colorPractice;
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -742,7 +743,6 @@ namespace Tagplaner
 
             for (int columnCounter = 0; columnCounter <= countGrid - 1; columnCounter++)
             {
-
                 dGV.Columns[4 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Ort " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
                 dGV.Columns[5 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Raum " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
                 dGV.Columns[6 + 6 * columnCounter].Name = mCalendar.Speciality[columnCounter].SpecialityName + " " + mCalendar.Speciality[columnCounter].Apprenticeship + " Trainer " + mCalendar.Speciality[columnCounter].IdentifierOfYear;
