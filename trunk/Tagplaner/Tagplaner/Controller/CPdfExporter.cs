@@ -21,10 +21,7 @@ namespace Tagplaner
         private Dictionary<string, string> dayDictionary = new Dictionary<string, string>();
         private int numberOfApprenticeships;
         private bool showComments;
-
-        String ort = "Koeln/Bonn";
-        String jahrgang = "2014/1";
-
+ 
         // Font Size 7
         readonly Font FONT_SMALL_NORMAL = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7, iTextSharp.text.Font.NORMAL);
         readonly Font FONT_SMALL_ITALIC = new Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7, iTextSharp.text.Font.ITALIC);
@@ -68,24 +65,6 @@ namespace Tagplaner
         /// <returns>Ist true wenn die Datei erfolgreich erstellt wurde</returns>
         public bool ExportPdf(string filename)
         {
-            #region Nur für Testzwecke
-            foreach (string s in identifierOfYearList)
-            {
-                DebugUserControl.GetInstance().AddDebugMessage("numbers of " + s.ToUpper() + ": " + CountSpecialityByIdentifierOfYear(s).ToString());
-                DebugUserControl.GetInstance().AddDebugMessage("Pos: " + GetSpecialityListPosition(s).ToString());
-                DebugUserControl.GetInstance().AddDebugMessage("SpecName: " + GetSpecialityNameByIdentifierOfYear(s));
-                DebugUserControl.GetInstance().AddDebugMessage("-------------------------------------------");
-            }
-
-            foreach (MSpeciality spec in MCalendar.GetInstance().Speciality)
-            {
-                int pos = GetSpecialityListPosition(spec.IdentifierOfYear, spec.SpecialityName);
-
-                DebugUserControl.GetInstance().AddDebugMessage(spec.IdentifierOfYear + ": " + spec.SpecialityName + ": " + pos.ToString());
-            }
-
-            #endregion
-
             float margin = Utilities.MillimetersToPoints(Convert.ToSingle(20));
             doc = new Document(
                 getFormatByNumberOfApprenticeships(),
@@ -407,6 +386,7 @@ namespace Tagplaner
         /// <param name="calendarEntryPosition">Position im CalendarEntry</param>
         private void CreateRow(PdfPTable pdfTable, MCalendarDay calendarDay, MCalendarDay nextCalendarDay, int calendarEntryPosition)
         {
+            // Prüfen, ob der aktuelle Tag ein Seminartag ist
             if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar != null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].Practice == null)
@@ -434,9 +414,11 @@ namespace Tagplaner
             {
                 CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
-            else
+            else if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
+                calendarDay.CalendarEntry[calendarEntryPosition].Practice == null)
             {
-                CreateBlankRow(pdfTable);
+               CreateBlankRow(pdfTable);
             }
         }
 
@@ -855,7 +837,7 @@ namespace Tagplaner
         }
 
         /// <summary>
-        /// Gibt die Listenposition der Instanz von MSpeciality mit dem angegebenen identifierOfYear zurück
+        /// Gibt die Listenposition einer bestimmten Instanz von MSpeciality
         /// </summary>
         /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
         /// <returns>Gesuchte Speciality Position</returns>
@@ -874,12 +856,11 @@ namespace Tagplaner
             return 0;
         }
 
-
         /// <summary>
-        /// 
+        /// Gibt die Listenposition einer bestimmten Instanz von MSpeciality
         /// </summary>
-        /// <param name="identifierOfYear">identifierOfYear Bezeichnung</param>
-        /// <param name="specialityName"></param>
+        /// <param name="identifierOfYear">identifierOfYear der MSpeciality Instanz</param>
+        /// <param name="specialityName">specialityName der MSpeciality Instanz</param>
         /// <returns>Gesuchte Speciality Position</returns>
         private int GetSpecialityListPosition(string identifierOfYear, string specialityName)
         {
