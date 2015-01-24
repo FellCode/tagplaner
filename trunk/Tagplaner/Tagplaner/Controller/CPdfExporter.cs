@@ -414,6 +414,7 @@ namespace Tagplaner
             {
                 CreateSeminarAndPraticeRow(pdfTable, calendarDay, nextCalendarDay, calendarEntryPosition);
             }
+            // Prüfen, ob beim aktuellen Tag nichts angegeben wurde
             else if (calendarDay.CalendarEntry[calendarEntryPosition].Seminar == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].School == null &&
                 calendarDay.CalendarEntry[calendarEntryPosition].Practice == null)
